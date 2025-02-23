@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "HelloWorld",
-    "slug": "expo-template-default",
+    "name": "Camp Track App",
+    "slug": "camp-track-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pavolbiacko2002.camptrackapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.pavolbiacko2002.camptrackapp"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +38,18 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a0dd1db1-e9ac-424d-a619-31e5ba205c02"
+      }
+    },
+    "owner": "pavolbiacko2002",
+    "updates": {
+      "url": "https://u.expo.dev/a0dd1db1-e9ac-424d-a619-31e5ba205c02"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
