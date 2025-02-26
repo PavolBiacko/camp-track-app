@@ -1,5 +1,5 @@
-import { Href } from "expo-router"
-import { ImageProps, KeyboardTypeOptions } from "react-native"
+import { Href } from "expo-router";
+import { ImageProps, KeyboardTypeOptions } from "react-native";
 
 export type TabIconProps = {
   icon: ImageProps,
@@ -42,7 +42,7 @@ export type FormData = SignUpData | SignInData;
 type LinkData = {
   prelinkText: string,
   linkText: string,
-  linkHref: Href<string>,
+  linkHref: Href,
 }
 
 export type AuthFormProps = {

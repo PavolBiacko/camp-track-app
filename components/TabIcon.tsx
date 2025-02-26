@@ -1,6 +1,6 @@
 import { TabIconProps } from "@/types/types"
-import { View, Image, Text } from "react-native"
 import { FC } from "react"
+import { Image, Text, View } from "react-native"
 
 export const TabIcon: FC<TabIconProps> = ({ icon, color, name, focused }) => {
   return (

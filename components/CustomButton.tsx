@@ -1,6 +1,6 @@
-import { TouchableOpacity, Text } from 'react-native'
-import { FC } from 'react'
 import { CustomButtonProps } from '@/types/types'
+import { FC } from 'react'
+import { Text, TouchableOpacity } from 'react-native'
 
 const CustomButton: FC<CustomButtonProps> = ({ title, handlePress, containerStyles, textStyles, isLoading }) => {
   return (
