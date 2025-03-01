@@ -28,8 +28,8 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
   return (
     <ScrollView>
       <View className="w-full min-h-[90vh] justify-center px-4 my-6">
-        <Image source={images.logo} resizeMode="contain" className="w-[115px] h-[35px]" />
-        <Text className="text-2xl text-white mt-10 font-psemibold">{title}</Text>
+        <Image source={images.mroazaslogowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
+        <Text className="text-2xl text-white mt-5 font-psemibold">{title}</Text>
 
         {fields.map(({ title, placeholder, keyboardType, otherStyles }) => (
           <FormField
@@ -52,7 +52,9 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
 
         <View className="justify-center pt-5 flex-row gap-2">
           <Text className="text-lg text-gray-100 font-pregular">{linkData.prelinkText}</Text>
-          <Link href={linkData.linkHref} className="text-lg font-psemibold text-secondary">{linkData.linkText}</Link>
+          <Link href={linkData.linkHref} replace={linkData.shouldReplace} className="text-lg font-psemibold text-secondary">
+            {linkData.linkText}
+          </Link>
         </View>
       </View>
     </ScrollView>

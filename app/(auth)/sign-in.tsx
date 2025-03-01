@@ -32,7 +32,10 @@ const SignIn: FC = () => {
         initialValues={{ email: "", password: "" }}
         onSubmit={submit}
         linkData={{
-          prelinkText: "Don't have an account?", linkText: "Sign Up", linkHref: "/sign-up"
+          prelinkText: "Don't have an account?",
+          linkText: "Sign Up",
+          linkHref: "/sign-up",
+          shouldReplace: true
         }}
       />
     </SafeAreaView>

@@ -43,6 +43,7 @@ type LinkData = {
   prelinkText: string,
   linkText: string,
   linkHref: Href,
+  shouldReplace: boolean,
 }
 
 export type AuthFormProps = {
