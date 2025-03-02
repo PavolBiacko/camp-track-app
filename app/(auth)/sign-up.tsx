@@ -25,7 +25,7 @@ const SignUp: FC = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <AuthForm
-        title="Registrácia"
+        title="Zaregistruj sa"
         fields={[
           { title: "email", placeholder: "jozko.mrkvicka@gmail.com", keyboardType: "email-address" },
           { title: "heslo", placeholder: "heslo123" }
@@ -35,8 +35,7 @@ const SignUp: FC = () => {
         linkData={{
           prelinkText: "Už máš účet?",
           linkText: "Prihlás sa",
-          linkHref: "/sign-in",
-          shouldReplace: true
+          linkHref: ".."  // /sign-in (it could cause infinite loop)
         }}
       />
     </SafeAreaView>

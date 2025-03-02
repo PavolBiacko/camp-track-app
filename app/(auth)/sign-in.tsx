@@ -24,7 +24,7 @@ const SignIn: FC = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <AuthForm
-        title="Prihlásenie"
+        title="Prihlás sa"
         fields={[
           { title: "email", placeholder: "jozko.mrkvicka@gmail.com", keyboardType: "email-address" },
           { title: "heslo", placeholder: "heslo123" }
@@ -35,7 +35,7 @@ const SignIn: FC = () => {
           prelinkText: "Nemáš účet?",
           linkText: "Zaregistruj sa",
           linkHref: "/sign-up",
-          shouldReplace: true
+          shouldReplace: false
         }}
       />
     </SafeAreaView>
