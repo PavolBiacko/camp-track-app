@@ -1,6 +1,6 @@
 import { AuthFormProps, FormData } from '@/types/types'
 import { Link } from 'expo-router'
-import { FC, useMemo, useState } from 'react'
+import { FC, useState } from 'react'
 import { Alert, Image, ScrollView, Text, View } from 'react-native'
 
 import CustomButton from '@/components/CustomButton'
@@ -13,12 +13,6 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
 
   const [form, setForm] = useState<FormData>(initialValues);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  // Ensure Sign Up → Sign In behaves like a Back action
-  const shouldReplace = useMemo(() => {
-    if (linkData.linkHref === "/sign-in") return true; // Sign Up → Sign In (Back button behavior)
-    return false; // All other cases use push
-  }, [linkData.linkHref]);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -58,7 +52,7 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
 
         <View className="justify-center pt-5 flex-row gap-2">
           <Text className="text-lg text-gray-100 font-pregular">{linkData.prelinkText}</Text>
-          <Link href={linkData.linkHref} replace={shouldReplace} className="text-lg font-psemibold text-secondary">
+          <Link href={linkData.linkHref} className="text-lg font-psemibold text-secondary">
             {linkData.linkText}
           </Link>
         </View>

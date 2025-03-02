@@ -34,8 +34,7 @@ const SignIn: FC = () => {
         linkData={{
           prelinkText: "Nemáš účet?",
           linkText: "Zaregistruj sa",
-          linkHref: "/sign-up",
-          shouldReplace: false
+          linkHref: "/sign-up"
         }}
       />
     </SafeAreaView>
