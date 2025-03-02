@@ -18,7 +18,7 @@ const FormField: FC<FormFieldProps> = ({ title, value, placeholder, handleChange
           placeholder={placeholder}
           placeholderTextColor="#7b7b8b"
           onChangeText={handleChangeText}
-          secureTextEntry={title === "Password" && !showPassword}
+          secureTextEntry={title === "Heslo" && !showPassword}
           keyboardType={keyboardType}
         />
 

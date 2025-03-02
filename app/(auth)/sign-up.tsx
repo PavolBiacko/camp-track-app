@@ -25,17 +25,16 @@ const SignUp: FC = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <AuthForm
-        title="Sign up"
+        title="Registrácia"
         fields={[
-          { title: "username", placeholder: "username123" },
-          { title: "email", placeholder: "email@email.com", keyboardType: "email-address" },
-          { title: "password", placeholder: "password123" }
+          { title: "email", placeholder: "jozko.mrkvicka@gmail.com", keyboardType: "email-address" },
+          { title: "heslo", placeholder: "heslo123" }
         ]}
         initialValues={{ username: "", email: "", password: "" }}
         onSubmit={submit}
         linkData={{
-          prelinkText: "Have an account already?",
-          linkText: "Sign In",
+          prelinkText: "Už máš účet?",
+          linkText: "Prihlás sa",
           linkHref: "/sign-in",
           shouldReplace: true
         }}
