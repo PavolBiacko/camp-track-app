@@ -1,10 +1,22 @@
 import { CustomButtonProps } from '@/types/types'
 import { FC } from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Image, Text, TouchableOpacity } from 'react-native'
 
 import { twMerge } from 'tailwind-merge'
 
-const CustomButton: FC<CustomButtonProps> = ({ title, handlePress, isPrimary, containerStyles, textStyles, icon, isLoading }) => {
+const CustomButton: FC<CustomButtonProps> = ({
+  title,
+  icon,
+  iconPosition = "left",
+  isPrimary = false,
+  handlePress,
+  containerStyles,
+  textStyles,
+  iconStyles,
+  isLoading,
+}) => {
+  const hasBoth = !!title && !!icon;
+
   return (
     <TouchableOpacity
       onPress={handlePress}
@@ -14,19 +26,15 @@ const CustomButton: FC<CustomButtonProps> = ({ title, handlePress, isPrimary, co
           isPrimary ? "bg-secondary" : "bg-gray",
           isLoading ? "opacity-50" : "",
           containerStyles,
-          "rounded-3xl min-h-[62px] justify-center items-center"
+          "rounded-3xl min-h-[62px] justify-center items-center",
+          hasBoth ? "flex-row gap-3" : ""
         )
       }
       disabled={isLoading}
     >
-      {/* <Image
-        source={icon}
-        resizeMode="contain"
-        className="w-6 h-6"
-      /> */}
-      <Text className={`text-primary font-psemibold text-lg ${textStyles}`}>
-        {title}
-      </Text>
+      {icon && iconPosition === "left" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
+      {title && <Text className={twMerge("text-primary font-psemibold text-lg", textStyles)}>{title}</Text>}
+      {icon && iconPosition === "right" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
     </TouchableOpacity>
   )
 }

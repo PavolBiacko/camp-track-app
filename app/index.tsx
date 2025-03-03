@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
-import { images } from "../constants";
+import { icons, images } from "../constants";
 
 export default function App() {
   return (
@@ -12,7 +12,7 @@ export default function App() {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full justify-center items-center px-4">
           <Image
-            source={images.mroazaslogo}
+            source={images.logo}
             className="max-w-[380px] w-full h-[300px]"
             resizeMode="contain"
           />
@@ -24,22 +24,22 @@ export default function App() {
           </Text>
           <View className="w-full flex-row justify-evenly items-center mt-5">
             <CustomButton
-              title="G"
               handlePress={() => null}
-              isPrimary={false}
-              containerStyles="w-[4.5rem] bg-red"
+              containerStyles="w-[4.5rem]"
+              icon={icons.google2}
+              iconStyles="w-11 h-11"
             />
             <CustomButton
-              title="F"
               handlePress={() => null}
-              isPrimary={false}
-              containerStyles="w-[4.5rem] bg-blue"
+              containerStyles="w-[4.5rem]"
+              icon={icons.facebook2}
+              iconStyles="w-11 h-11"
             />
             <CustomButton
-              title="A"
               handlePress={() => null}
-              isPrimary={false}
-              containerStyles="w-[4.5rem] bg-white"
+              containerStyles="w-[4.5rem]"
+              icon={icons.apple2}
+              iconStyles="w-11 h-11"
             />
           </View>
           <Text className="text-xl font-pregular text-gray mt-5 text-center">
@@ -47,9 +47,11 @@ export default function App() {
           </Text>
           <CustomButton
             title="Pokračuj cez Email"
+            icon={icons.email}
             handlePress={() => router.push("/sign-in")}
             isPrimary={true}
-            containerStyles="w-full mt-5 "
+            iconStyles="w-8 h-8"
+            containerStyles="w-full mt-5"
           />
         </View>
       </ScrollView>

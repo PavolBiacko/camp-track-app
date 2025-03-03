@@ -1,7 +1,7 @@
-import mroazaslogowithtext from "../assets/images/mr-oazas-logo-with-text.png";
-import mroazaslogo from "../assets/images/mr-oazas-logo.png";
+import logowithtext from "../assets/images/logo-with-text.png";
+import logo from "../assets/images/logo.png";
 
 export default {
-  mroazaslogo,
-  mroazaslogowithtext
+  logo,
+  logowithtext
 };

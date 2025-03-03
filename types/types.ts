@@ -9,12 +9,14 @@ export type TabIconProps = {
 }
 
 export type CustomButtonProps = {
-  title: string,
+  title?: string,
+  icon?: ImageProps,
+  iconPosition?: "left" | "right",
+  isPrimary?: boolean,
   handlePress: () => void,
-  isPrimary: boolean,
   containerStyles?: string,
   textStyles?: string,
-  icon?: ImageProps,
+  iconStyles?: string,
   isLoading?: boolean,
 }
 
