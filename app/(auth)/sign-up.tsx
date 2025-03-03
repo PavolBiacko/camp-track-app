@@ -2,15 +2,14 @@ import { FC } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AuthForm from '@/components/AuthForm';
-import { FormData, SignUpData } from '@/types/types';
+import { SignUpData } from '@/types/types';
 import { Alert } from 'react-native';
 
 const SignUp: FC = () => {
 
-  const submit = async (data: FormData) => {
+  const submit = async (data: SignUpData) => {
 
-    const signUpData = data as SignUpData;
-    if (!signUpData.username || !signUpData.email || !signUpData.password) {
+    if (!data.email || !data.password || !data.passwordCheck) {
       Alert.alert("Error", "Please fill in all the fields.");
       return;
     }
@@ -24,14 +23,14 @@ const SignUp: FC = () => {
 
   return (
     <SafeAreaView className="bg-primary h-full">
-      <AuthForm
+      <AuthForm<SignUpData>
         title="Zaregistruj sa"
         fields={[
-          { title: "email", keyboardType: "email" },
-          { title: "heslo", keyboardType: "password" },
-          { title: "potvrdenie hesla", keyboardType: "password" }
+          { title: "Email", formDataTypeKey: "email" },
+          { title: "Heslo", formDataTypeKey: "password" },
+          { title: "Potvrdenie hesla", formDataTypeKey: "passwordCheck" }
         ]}
-        initialValues={{ username: "", email: "", password: "" }}
+        initialValues={{ email: "", password: "", passwordCheck: "" }}
         onSubmit={submit}
         linkData={{
           prelinkText: "Už máš účet?",

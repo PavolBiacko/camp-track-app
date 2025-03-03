@@ -27,8 +27,8 @@ const SignIn: FC = () => {
       <AuthForm
         title="Prihlás sa"
         fields={[
-          { title: "email", keyboardType: "email" },
-          { title: "heslo", keyboardType: "password" }
+          { title: "Email", formDataTypeKey: "email" },
+          { title: "Heslo", formDataTypeKey: "password" }
         ]}
         initialValues={{ email: "", password: "" }}
         onSubmit={submit}

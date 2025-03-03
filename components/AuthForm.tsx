@@ -1,6 +1,6 @@
-import { AuthFormProps, FormData } from '@/types/types'
+import { AuthFormProps } from '@/types/types'
 import { Link } from 'expo-router'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Alert, Image, ScrollView, Text, View } from 'react-native'
 
 import CustomButton from '@/components/CustomButton'
@@ -9,9 +9,9 @@ import FormField from '@/components/FormField'
 import { images } from "@/constants"
 import { useCapitalizeWord } from '@/hooks/useUtilHooks'
 
-const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, linkData }) => {
+const AuthForm = <T,>({ title, fields, initialValues, onSubmit, linkData }: AuthFormProps<T>) => {
 
-  const [form, setForm] = useState<FormData>(initialValues);
+  const [form, setForm] = useState<T>(initialValues);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleSubmit = async () => {
@@ -31,15 +31,15 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
         <Image source={images.mroazaslogowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
         <Text className="text-2xl text-white mt-5 font-pbold">{title}</Text>
 
-        {fields.map(({ title, placeholder, keyboardType, otherStyles }) => (
-          <FormField
+        {fields.map(({ title, formDataTypeKey, placeholder, otherStyles }) => (
+          <FormField<T>
             key={title}
             title={useCapitalizeWord(title)}
-            value={form[title as keyof FormData]}
+            formDataTypeKey={formDataTypeKey}
+            value={form[formDataTypeKey]}
             placeholder={placeholder}
-            handleChangeText={(e: string) => setForm({ ...form, [title]: e })}
+            handleChangeText={(e: string) => setForm({ ...form, [formDataTypeKey]: e })}
             otherStyles={otherStyles || "mt-7"}
-            keyboardType={keyboardType}
           />
         ))}
 

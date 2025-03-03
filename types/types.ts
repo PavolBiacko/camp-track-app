@@ -18,15 +18,15 @@ export type CustomButtonProps = {
   isLoading?: boolean,
 }
 
-type FieldBasics = {
+type FieldBasics<T> = {
   title: string;
+  formDataTypeKey: keyof T,
   otherStyles?: string;
   placeholder?: string,
-  keyboardType?: "email" | "password",
 };
 
-export type FormFieldProps = FieldBasics & {
-  value: string,
+export type FormFieldProps<T> = FieldBasics<T> & {
+  value: T[keyof T],
   handleChangeText: (e: string) => void,
 }
 
@@ -36,7 +36,7 @@ export type SignInData = {
 };
 
 export type SignUpData = SignInData & {
-  username: string,
+  passwordCheck: string,
 };
 
 export type FormData = SignUpData | SignInData;
@@ -47,10 +47,10 @@ type LinkData = {
   linkHref: Href,
 }
 
-export type AuthFormProps = {
+export type AuthFormProps<T> = {
   title: string,
-  fields: FieldBasics[],
-  initialValues: FormData,
-  onSubmit: (values: FormData) => Promise<void>,
+  fields: FieldBasics<T>[],
+  initialValues: T,
+  onSubmit: (values: T) => Promise<void>,
   linkData: LinkData,
 };
