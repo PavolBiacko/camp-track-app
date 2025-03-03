@@ -26,8 +26,8 @@ const SignIn: FC = () => {
       <AuthForm
         title="Prihlás sa"
         fields={[
-          { title: "email", placeholder: "jozko.mrkvicka@gmail.com", keyboardType: "email-address" },
-          { title: "heslo", placeholder: "heslo123" }
+          { title: "email", keyboardType: "email" },
+          { title: "heslo", keyboardType: "password" }
         ]}
         initialValues={{ email: "", password: "" }}
         onSubmit={submit}

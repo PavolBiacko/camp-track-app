@@ -27,8 +27,9 @@ const SignUp: FC = () => {
       <AuthForm
         title="Zaregistruj sa"
         fields={[
-          { title: "email", placeholder: "jozko.mrkvicka@gmail.com", keyboardType: "email-address" },
-          { title: "heslo", placeholder: "heslo123" }
+          { title: "email", keyboardType: "email" },
+          { title: "heslo", keyboardType: "password" },
+          { title: "potvrdenie hesla", keyboardType: "password" }
         ]}
         initialValues={{ username: "", email: "", password: "" }}
         onSubmit={submit}
