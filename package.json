@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "version": "52.0.69",
   "scripts": {
-    "start": "expo start -c --tunnel",
+    "start": "expo start -c --go --tunnel",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
