@@ -10,7 +10,7 @@ const FormField: FC<FormFieldProps> = ({ title, value, keyboardType, placeholder
 
   return (
     <View className={`${otherStyles}`}>
-      <Text className="text-base text-gray-100 font-pmedium mb-1">{title}</Text>
+      <Text className="text-base text-gray font-pmedium mb-1">{title}</Text>
       <View className={`flex-row border-2 items-center w-full h-16 px-4 rounded-2xl
                         ${isFocused ? "border-secondary" : "border-black-200"} bg-black-100`}>
         <TextInput

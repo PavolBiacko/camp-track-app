@@ -52,7 +52,7 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
         />
 
         <View className="justify-center pt-5 flex-row gap-2">
-          <Text className="text-lg text-gray-100 font-pregular">{linkData.prelinkText}</Text>
+          <Text className="text-lg text-gray font-pregular">{linkData.prelinkText}</Text>
           <Link href={linkData.linkHref} className="text-lg font-psemibold text-secondary">
             {linkData.linkText}
           </Link>

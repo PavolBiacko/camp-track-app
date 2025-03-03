@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AuthForm from '@/components/AuthForm';
 import { SignInData } from '@/types/types';
+import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
 const SignIn: FC = () => {
@@ -18,7 +19,7 @@ const SignIn: FC = () => {
 
     // set it to global state
 
-    // router.replace("/home");
+    router.replace("/home");
   };
 
   return (
