@@ -1,9 +1,9 @@
-import { Tabs, Redirect } from 'expo-router'
+import { Tabs } from 'expo-router';
 
-import { icons } from "../../constants"
+import { icons } from "../../constants";
 
-import { useCapitalizeWord } from '@/hooks/useUtilHooks'
-import { TabIcon } from '@/components/TabIcon'
+import { TabIcon } from '@/components/TabIcon';
+import { useCapitalizeWord } from '@/hooks/useUtilHooks';
 
 const tabData = [
   { name: 'home', icon: icons.home },
@@ -16,15 +16,17 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
+
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FFA001",
         tabBarInactiveTintColor: "#CDCDE0",
+        tabBarVariant: 'uikit',
         tabBarStyle: {
           backgroundColor: "#161622",
           borderTopWidth: 1,
           borderTopColor: "#232533",
-          height: 84
-        }
+          height: 60,
+        },
       }}
     >
       {tabData.map((tab) => (
@@ -33,6 +35,7 @@ const TabsLayout = () => {
           name={tab.name}
           options={{
             headerShown: false,
+            animation: "shift",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={tab.icon}

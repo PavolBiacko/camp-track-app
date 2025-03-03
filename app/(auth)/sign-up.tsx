@@ -26,9 +26,9 @@ const SignUp: FC = () => {
       <AuthForm<SignUpData>
         title="Zaregistruj sa"
         fields={[
-          { title: "Email", formDataTypeKey: "email" },
-          { title: "Heslo", formDataTypeKey: "password" },
-          { title: "Potvrdenie hesla", formDataTypeKey: "passwordCheck" }
+          { title: "email", formDataTypeKey: "email" },
+          { title: "heslo", formDataTypeKey: "password" },
+          { title: "potvrdenie hesla", formDataTypeKey: "passwordCheck" }
         ]}
         initialValues={{ email: "", password: "", passwordCheck: "" }}
         onSubmit={submit}
