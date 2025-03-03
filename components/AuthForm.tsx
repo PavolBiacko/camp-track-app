@@ -46,6 +46,7 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
         <CustomButton
           title={title}
           handlePress={handleSubmit}
+          isPrimary={true}
           containerStyles="mt-7"
           isLoading={isSubmitting}
         />

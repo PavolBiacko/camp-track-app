@@ -16,16 +16,40 @@ export default function App() {
             className="max-w-[380px] w-full h-[300px]"
             resizeMode="contain"
           />
-          <Text className="text-2xl text-white font-bold text-center">
-            Ahoj, táborový dobrodruh! Vitaj v mobilnej aplikácii Mr. Oazas.
+          <Text className="text-2xl text-white font-pbold text-center">
+            Ahoj! Vitaj v mobilnej aplikácii Mr. Oazas. pre vedúcich a rodičov.
           </Text>
-          <Text className="text-sm font-pregular text-gray-100 mt-3 text-center">
-            Či už si rodič alebo vedúci, určite si tu prídeš na svoje.
+          <Text className="text-xl font-pregular text-gray-100 mt-5 text-center">
+            Môžeš pokračovať cez tieto služby:
+          </Text>
+          <View className="w-full flex-row justify-evenly items-center mt-5">
+            <CustomButton
+              title="G"
+              handlePress={() => null}
+              isPrimary={false}
+              containerStyles="w-[4.5rem]"
+            />
+            <CustomButton
+              title="F"
+              handlePress={() => null}
+              isPrimary={false}
+              containerStyles="w-[4.5rem]"
+            />
+            <CustomButton
+              title="A"
+              handlePress={() => null}
+              isPrimary={false}
+              containerStyles="w-[4.5rem]"
+            />
+          </View>
+          <Text className="text-xl font-pregular text-gray-100 mt-5 text-center">
+            alebo
           </Text>
           <CustomButton
-            title="Pokračuj do prihlásenia"
+            title="Pokračuj cez Email"
             handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
+            isPrimary={true}
+            containerStyles="w-full mt-5 "
           />
         </View>
       </ScrollView>

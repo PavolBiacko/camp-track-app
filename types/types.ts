@@ -1,5 +1,5 @@
 import { Href } from "expo-router";
-import { ImageProps, KeyboardTypeOptions } from "react-native";
+import { ImageProps } from "react-native";
 
 export type TabIconProps = {
   icon: ImageProps,
@@ -11,7 +11,8 @@ export type TabIconProps = {
 export type CustomButtonProps = {
   title: string,
   handlePress: () => void,
-  containerStyles: string,
+  isPrimary: boolean,
+  containerStyles?: string,
   textStyles?: string,
   isLoading?: boolean,
 }
@@ -20,7 +21,7 @@ type FieldBasics = {
   title: string;
   otherStyles?: string;
   placeholder?: string,
-  keyboardType?: KeyboardTypeOptions,
+  keyboardType?: "email" | "password",
 };
 
 export type FormFieldProps = FieldBasics & {
