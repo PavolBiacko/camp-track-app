@@ -19,30 +19,30 @@ export default function App() {
           <Text className="text-2xl text-white font-pbold text-center">
             Ahoj! Vitaj v mobilnej aplikácii Mr. Oazas. pre vedúcich a rodičov.
           </Text>
-          <Text className="text-xl font-pregular text-gray-100 mt-5 text-center">
-            Môžeš pokračovať cez tieto služby:
+          <Text className="text-xl font-pregular text-gray mt-5 text-center">
+            Môžeš pokračovať cez tieto služby
           </Text>
           <View className="w-full flex-row justify-evenly items-center mt-5">
             <CustomButton
               title="G"
               handlePress={() => null}
               isPrimary={false}
-              containerStyles="w-[4.5rem]"
+              containerStyles="w-[4.5rem] bg-red"
             />
             <CustomButton
               title="F"
               handlePress={() => null}
               isPrimary={false}
-              containerStyles="w-[4.5rem]"
+              containerStyles="w-[4.5rem] bg-blue"
             />
             <CustomButton
               title="A"
               handlePress={() => null}
               isPrimary={false}
-              containerStyles="w-[4.5rem]"
+              containerStyles="w-[4.5rem] bg-white"
             />
           </View>
-          <Text className="text-xl font-pregular text-gray-100 mt-5 text-center">
+          <Text className="text-xl font-pregular text-gray mt-5 text-center">
             alebo
           </Text>
           <CustomButton

@@ -14,6 +14,7 @@ export type CustomButtonProps = {
   isPrimary: boolean,
   containerStyles?: string,
   textStyles?: string,
+  icon?: ImageProps,
   isLoading?: boolean,
 }
 
