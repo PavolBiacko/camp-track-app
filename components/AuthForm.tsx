@@ -29,7 +29,7 @@ const AuthForm: FC<AuthFormProps> = ({ title, fields, initialValues, onSubmit, l
     <ScrollView>
       <View className="w-full min-h-[90vh] justify-center px-4 my-6">
         <Image source={images.mroazaslogowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
-        <Text className="text-2xl text-white mt-5 font-psemibold">{title}</Text>
+        <Text className="text-2xl text-white mt-5 font-pbold">{title}</Text>
 
         {fields.map(({ title, placeholder, keyboardType, otherStyles }) => (
           <FormField
