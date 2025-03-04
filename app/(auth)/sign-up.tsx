@@ -1,6 +1,5 @@
 import { SignUpData } from '@/types/form';
 import { FC } from 'react';
-import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AuthForm from '@/components/AuthForm';
@@ -10,8 +9,11 @@ const SignUp: FC = () => {
   const submit = async (data: SignUpData) => {
 
     if (!data.email || !data.password || !data.passwordCheck) {
-      Alert.alert("Error", "Please fill in all the fields.");
-      return;
+      throw new Error("Nechal si niektoré polia prázdne.");
+    }
+
+    if (data.password !== data.passwordCheck) {
+      throw new Error("Heslá sa nezhodujú.");
     }
 
     // await createUser(signUpData.username, signUpData.email, signUpData.password);

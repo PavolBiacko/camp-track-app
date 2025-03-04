@@ -1,6 +1,6 @@
-export function useCapitalizeWord(text: string | undefined): string | undefined {
+export function useCapitalizeWord(text: string | undefined): string {
   if (!text) {
-    return text;
+    return "NO TEXT";  // TODO
   }
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
