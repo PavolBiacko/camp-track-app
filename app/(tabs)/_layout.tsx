@@ -14,7 +14,7 @@ const tabData: TabData[] = [
 
 const TabsLayout = () => {
   return (
-    <Tabs screenOptions={styles.tabScreenOptions}>
+    <Tabs backBehavior='none' screenOptions={styles.tabScreenOptions}>
       {tabData.map((tab) => (
         <Tabs.Screen
           key={tab.name}
