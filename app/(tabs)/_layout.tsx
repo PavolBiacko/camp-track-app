@@ -10,20 +10,19 @@ const tabData = [
   { name: 'bookmark', icon: icons.bookmark },
   { name: 'create', icon: icons.plus },
   { name: 'profile', icon: icons.profile },
+  { name: 'email', icon: icons.email },
 ];
 
 const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-
         tabBarShowLabel: false,
         tabBarActiveTintColor: "#FFA001",
         tabBarInactiveTintColor: "#CDCDE0",
-        tabBarVariant: 'uikit',
         tabBarStyle: {
           backgroundColor: "#161622",
-          borderTopWidth: 1,
+          borderTopWidth: 5,
           borderTopColor: "#232533",
           height: 60,
         },
@@ -34,7 +33,6 @@ const TabsLayout = () => {
           key={tab.name}
           name={tab.name}
           options={{
-            headerShown: false,
             animation: "shift",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
