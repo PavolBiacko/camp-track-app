@@ -1,8 +1,8 @@
+import AuthForm from '@/components/AuthForm';
 import { SignUpData } from '@/types/form';
+import { router } from 'expo-router';
 import { FC } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import AuthForm from '@/components/AuthForm';
 
 const SignUp: FC = () => {
 
@@ -16,11 +16,9 @@ const SignUp: FC = () => {
       throw new Error("Heslá sa nezhodujú.");
     }
 
-    // await createUser(signUpData.username, signUpData.email, signUpData.password);
+    // TODO - implement supabase auth
 
-    // set it to global state
-
-    // router.replace("/home");
+    router.replace("/home");
   };
 
   return (

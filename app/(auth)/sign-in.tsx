@@ -1,9 +1,8 @@
+import AuthForm from '@/components/AuthForm';
 import { SignInData } from '@/types/form';
 import { router } from 'expo-router';
 import { FC } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import AuthForm from '@/components/AuthForm';
 
 const SignIn: FC = () => {
 
@@ -13,9 +12,7 @@ const SignIn: FC = () => {
       throw new Error("Nechal si niektoré polia prázdne.");
     }
 
-    // await signIn(data.email, data.password);
-
-    // set it to global state
+    // TODO - implement supabase auth
 
     router.replace("/home");
   };
