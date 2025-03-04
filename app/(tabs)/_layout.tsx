@@ -1,11 +1,12 @@
 import { Tabs } from 'expo-router';
 
-import { icons } from "../../constants";
+import { icons, styles } from "../../constants";
 
 import { TabIcon } from '@/components/TabIcon';
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
+import { TabData } from '@/types/types';
 
-const tabData = [
+const tabData: TabData[] = [
   { name: 'home', icon: icons.home },
   { name: 'bookmark', icon: icons.bookmark },
   { name: 'create', icon: icons.plus },
@@ -15,24 +16,13 @@ const tabData = [
 
 const TabsLayout = () => {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: "#FFA001",
-        tabBarInactiveTintColor: "#CDCDE0",
-        tabBarStyle: {
-          backgroundColor: "#161622",
-          borderTopWidth: 5,
-          borderTopColor: "#232533",
-          height: 60,
-        },
-      }}
-    >
+    <Tabs screenOptions={styles.tabScreenOptions}>
       {tabData.map((tab) => (
         <Tabs.Screen
           key={tab.name}
           name={tab.name}
           options={{
+            headerShown: false,
             animation: "shift",
             tabBarIcon: ({ color, focused }) => (
               <TabIcon

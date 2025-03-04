@@ -1,10 +1,13 @@
 import { Href } from "expo-router";
 import { ImageProps } from "react-native";
 
-export type TabIconProps = {
-  icon: ImageProps,
-  color: string,
+export type TabData = {
   name: string,
+  icon: ImageProps,
+};
+
+export type TabIconProps = TabData & {
+  color: string,
   focused: boolean,
 }
 
