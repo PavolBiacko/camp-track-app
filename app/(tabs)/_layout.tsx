@@ -6,7 +6,7 @@ import { icons, styles } from "../../constants";
 
 const tabData: TabData[] = [
   { name: 'home', shownLabel: "Domov", icon: icons.home },
-  { name: 'calendar', shownLabel: "Kalendár", icon: icons.calendar },
+  { name: 'calendar', shownLabel: "Program", icon: icons.calendar },
   { name: 'finance', shownLabel: "Financie", icon: icons.accounts },
   { name: 'messages', shownLabel: "Správy", icon: icons.comment },
   { name: 'gallery', shownLabel: "Galéria", icon: icons.galery },
