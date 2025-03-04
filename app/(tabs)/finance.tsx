@@ -2,12 +2,12 @@ import React from 'react'
 import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Create = () => {
+const Finance = () => {
   return (
     <SafeAreaView>
-      <Text>Create</Text>
+      <Text>Finance</Text>
     </SafeAreaView>
   )
 }
 
-export default Create
+export default Finance

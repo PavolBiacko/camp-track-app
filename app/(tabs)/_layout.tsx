@@ -5,11 +5,11 @@ import { Tabs } from 'expo-router';
 import { icons, styles } from "../../constants";
 
 const tabData: TabData[] = [
-  { name: 'home', icon: icons.home },
-  { name: 'bookmark', icon: icons.bookmark },
-  { name: 'create', icon: icons.plus },
-  { name: 'profile', icon: icons.profile },
-  { name: 'email', icon: icons.email },
+  { name: 'home', shownLabel: "Domov", icon: icons.home },
+  { name: 'calendar', shownLabel: "Kalendár", icon: icons.calendar },
+  { name: 'finance', shownLabel: "Financie", icon: icons.accounts },
+  { name: 'messages', shownLabel: "Správy", icon: icons.comment },
+  { name: 'gallery', shownLabel: "Galéria", icon: icons.galery },
 ];
 
 const TabsLayout = () => {
@@ -26,7 +26,7 @@ const TabsLayout = () => {
               <TabIcon
                 icon={tab.icon}
                 color={color}
-                name={useCapitalizeWord(tab.name)}
+                shownLabel={useCapitalizeWord(tab.shownLabel)}
                 focused={focused}
               />
             ),

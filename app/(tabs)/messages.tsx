@@ -2,12 +2,12 @@ import React from 'react'
 import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Email = () => {
+const Messages = () => {
   return (
     <SafeAreaView>
-      <Text>Email</Text>
+      <Text>Messages</Text>
     </SafeAreaView>
   )
 }
 
-export default Email
+export default Messages

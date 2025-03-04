@@ -2,12 +2,12 @@ import React from 'react'
 import { Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const Bookmark = () => {
+const Gallery = () => {
   return (
     <SafeAreaView>
-      <Text>Bookmark</Text>
+      <Text>Gallery</Text>
     </SafeAreaView>
   )
 }
 
-export default Bookmark
+export default Gallery

@@ -1,11 +1,15 @@
 import { ImageProps } from "react-native";
 
-export type TabData = {
-  name: string,
+type TabDataBasic = {
   icon: ImageProps,
+  shownLabel?: string,
 };
 
-export type TabIconProps = TabData & {
+export type TabData = TabDataBasic & {
+  name: string,
+}
+
+export type TabIconProps = TabDataBasic & {
   color: string,
   focused: boolean,
 };
