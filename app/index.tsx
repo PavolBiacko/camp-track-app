@@ -6,6 +6,12 @@ import CustomButton from "@/components/CustomButton";
 import { router } from "expo-router";
 import { icons, images } from "../constants";
 
+const socialButtons = [
+  { icon: icons.google2, action: () => null },
+  { icon: icons.facebook2, action: () => null },
+  { icon: icons.apple2, action: () => null },
+];
+
 export default function App() {
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -23,24 +29,15 @@ export default function App() {
             Môžeš pokračovať cez tieto služby
           </Text>
           <View className="w-full flex-row justify-evenly items-center mt-5">
-            <CustomButton
-              handlePress={() => null}
-              containerStyles="w-[4.5rem]"
-              icon={icons.google2}
-              iconStyles="w-11 h-11"
-            />
-            <CustomButton
-              handlePress={() => null}
-              containerStyles="w-[4.5rem]"
-              icon={icons.facebook2}
-              iconStyles="w-11 h-11"
-            />
-            <CustomButton
-              handlePress={() => null}
-              containerStyles="w-[4.5rem]"
-              icon={icons.apple2}
-              iconStyles="w-11 h-11"
-            />
+            {socialButtons.map((btn, index) => (
+              <CustomButton
+                key={index}
+                handlePress={btn.action}
+                containerStyles="w-[4.5rem]"
+                icon={btn.icon}
+                iconStyles="w-11 h-11"
+              />
+            ))}
           </View>
           <Text className="text-xl font-pregular text-gray mt-5 text-center">
             alebo
