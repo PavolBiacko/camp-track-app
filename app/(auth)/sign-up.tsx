@@ -1,9 +1,9 @@
+import { SignUpData } from '@/types/form';
 import { FC } from 'react';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AuthForm from '@/components/AuthForm';
-import { SignUpData } from '@/types/types';
-import { Alert } from 'react-native';
 
 const SignUp: FC = () => {
 

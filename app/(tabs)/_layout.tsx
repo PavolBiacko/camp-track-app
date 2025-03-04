@@ -1,10 +1,8 @@
-import { Tabs } from 'expo-router';
-
-import { icons, styles } from "../../constants";
-
 import { TabIcon } from '@/components/TabIcon';
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
-import { TabData } from '@/types/types';
+import { TabData } from '@/types/tabs';
+import { Tabs } from 'expo-router';
+import { icons, styles } from "../../constants";
 
 const tabData: TabData[] = [
   { name: 'home', icon: icons.home },

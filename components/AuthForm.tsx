@@ -1,13 +1,11 @@
-import { AuthFormProps } from '@/types/types'
+import CustomButton from '@/components/CustomButton'
+import FormField from '@/components/FormField'
+import { images } from "@/constants"
+import { useCapitalizeWord } from '@/hooks/useUtilHooks'
+import { AuthFormProps } from '@/types/form'
 import { Link } from 'expo-router'
 import { useState } from 'react'
 import { Alert, Image, ScrollView, Text, View } from 'react-native'
-
-import CustomButton from '@/components/CustomButton'
-import FormField from '@/components/FormField'
-
-import { images } from "@/constants"
-import { useCapitalizeWord } from '@/hooks/useUtilHooks'
 
 const AuthForm = <T,>({ title, fields, initialValues, onSubmit, linkData }: AuthFormProps<T>) => {
 

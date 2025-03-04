@@ -1,10 +1,10 @@
+import { SignInData } from '@/types/form';
+import { router } from 'expo-router';
 import { FC } from 'react';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AuthForm from '@/components/AuthForm';
-import { SignInData } from '@/types/types';
-import { router } from 'expo-router';
-import { Alert } from 'react-native';
 
 const SignIn: FC = () => {
 

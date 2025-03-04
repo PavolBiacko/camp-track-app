@@ -1,7 +1,6 @@
-import { CustomButtonProps } from '@/types/types'
+import { CustomButtonProps } from '@/types/button'
 import { FC } from 'react'
 import { Image, Text, TouchableOpacity } from 'react-native'
-
 import { twMerge } from 'tailwind-merge'
 
 const CustomButton: FC<CustomButtonProps> = ({
