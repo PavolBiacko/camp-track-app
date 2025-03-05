@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 const tabScreenOptions = {
   tabBarShowLabel: false,
   tabBarActiveTintColor: "#FFA001",
@@ -6,7 +8,7 @@ const tabScreenOptions = {
     backgroundColor: "#161622",
     borderColor: "#555555",
     borderTopWidth: 2,
-    height: 60,
+    height: Platform.OS === "ios" ? 75 : 60,
   },
 };
 
