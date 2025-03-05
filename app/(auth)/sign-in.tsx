@@ -1,4 +1,5 @@
 import AuthForm from '@/components/AuthForm';
+import { supabase } from '@/services/supabaseClient';
 import { SignInData } from '@/types/form';
 import { router } from 'expo-router';
 import { FC } from 'react';
@@ -12,7 +13,14 @@ const SignIn: FC = () => {
       throw new Error("Nechal si niektoré polia prázdne.");
     }
 
-    // TODO - implement supabase auth
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
 
     router.replace("/home");
   };

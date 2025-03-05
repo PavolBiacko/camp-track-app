@@ -1,4 +1,5 @@
 import AuthForm from '@/components/AuthForm';
+import { supabase } from '@/services/supabaseClient';
 import { SignUpData } from '@/types/form';
 import { router } from 'expo-router';
 import { FC } from 'react';
@@ -16,7 +17,14 @@ const SignUp: FC = () => {
       throw new Error("Heslá sa nezhodujú.");
     }
 
-    // TODO - implement supabase auth
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
 
     router.replace("/home");
   };
