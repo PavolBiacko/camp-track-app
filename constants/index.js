@@ -1,5 +1,5 @@
 import icons from "./icons";
 import images from "./images";
-import styles from "./styles";
+import options from "./options";
 
-export { icons, images, styles };
+export { icons, images, options };

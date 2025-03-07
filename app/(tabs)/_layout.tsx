@@ -2,7 +2,7 @@ import { TabIcon } from '@/components/TabIcon';
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
 import { TabData } from '@/types/tabs';
 import { Tabs } from 'expo-router';
-import { icons, styles } from "../../constants";
+import { icons, options } from "../../constants";
 
 const tabData: TabData[] = [
   { name: 'home', shownLabel: "Domov", icon: icons.home },
@@ -14,7 +14,7 @@ const tabData: TabData[] = [
 
 const TabsLayout = () => {
   return (
-    <Tabs backBehavior='none' screenOptions={styles.tabScreenOptions}>
+    <Tabs backBehavior='none' screenOptions={options.tabScreenOptions}>
       {tabData.map((tab) => (
         <Tabs.Screen
           key={tab.name}

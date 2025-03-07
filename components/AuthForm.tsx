@@ -33,7 +33,7 @@ const AuthForm = <T,>({ title, fields, initialValues, onSubmit, linkData }: Auth
           {fields.map(({ title, formDataTypeKey, placeholder, otherStyles }) => (
             <FormField<T>
               key={title}
-              title={useCapitalizeWord(title)}
+              title={useCapitalizeWord(title)!}
               formDataTypeKey={formDataTypeKey}
               value={form[formDataTypeKey]}
               placeholder={placeholder}

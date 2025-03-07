@@ -1,8 +1,8 @@
 import { useFonts } from "expo-font";
 
-export function useCapitalizeWord(text: string | undefined): string {
+export function useCapitalizeWord(text: string | undefined): string | undefined {
   if (!text) {
-    return "NO TEXT";  // TODO
+    return text;
   }
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
