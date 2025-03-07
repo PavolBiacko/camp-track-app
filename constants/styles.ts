@@ -1,6 +1,7 @@
+import { TabScreenOptions } from "@/types/options";
 import { Platform } from "react-native";
 
-const tabScreenOptions = {
+const tabScreenOptions: TabScreenOptions = {
   tabBarShowLabel: false,
   tabBarActiveTintColor: "#FFA001",
   tabBarInactiveTintColor: "#CDCDE0",
