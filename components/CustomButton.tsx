@@ -1,6 +1,6 @@
 import { CustomButtonProps } from '@/types/button'
 import { FC } from 'react'
-import { Image, Text, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
 const CustomButton: FC<CustomButtonProps> = ({
@@ -31,9 +31,17 @@ const CustomButton: FC<CustomButtonProps> = ({
       }
       disabled={isLoading}
     >
-      {icon && iconPosition === "left" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
-      {title && <Text className={twMerge("text-primary font-psemibold text-lg", textStyles)}>{title}</Text>}
-      {icon && iconPosition === "right" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#FFFFFF" />
+      ) : (
+        <>
+          {icon && iconPosition === "left" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
+          {title && <Text className={twMerge("text-primary font-psemibold text-lg", textStyles)}>{title}</Text>}
+          {icon && iconPosition === "right" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
+        </>
+      )}
+
+
     </TouchableOpacity>
   )
 }
