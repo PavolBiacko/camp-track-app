@@ -1,16 +1,11 @@
 import { Href } from "expo-router";
 import { FieldBasics } from "./field";
 
-export type SignInData = {
+export type AuthFormData = {
   email: string,
   password: string,
+  passwordCheck?: string
 };
-
-export type SignUpData = SignInData & {
-  passwordCheck: string,
-};
-
-export type FormData = SignUpData | SignInData;
 
 type LinkData = {
   prelinkText: string,
@@ -18,10 +13,10 @@ type LinkData = {
   linkHref: Href,
 };
 
-export type AuthFormProps<T> = {
+export type AuthFormProps = {
   title: string,
-  fields: FieldBasics<T>[],
-  initialValues: T,
-  onSubmit: (values: T) => Promise<void>,
+  fields: FieldBasics<AuthFormData>[],
+  initialValues: AuthFormData,
+  onSubmit: (values: AuthFormData) => Promise<void>,
   linkData: LinkData,
 };

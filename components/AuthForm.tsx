@@ -7,9 +7,9 @@ import { Link } from 'expo-router'
 import { useState } from 'react'
 import { Alert, Image, KeyboardAvoidingView, ScrollView, Text, View } from 'react-native'
 
-const AuthForm = <T,>({ title, fields, initialValues, onSubmit, linkData }: AuthFormProps<T>) => {
+const AuthForm = ({ title, fields, initialValues, onSubmit, linkData }: AuthFormProps) => {
 
-  const [form, setForm] = useState<T>(initialValues);
+  const [form, setForm] = useState(initialValues);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleSubmit = async () => {
@@ -31,7 +31,7 @@ const AuthForm = <T,>({ title, fields, initialValues, onSubmit, linkData }: Auth
           <Text className="text-2xl text-white mt-5 font-pbold">{title}</Text>
 
           {fields.map(({ title, formDataTypeKey, placeholder, otherStyles }) => (
-            <FormField<T>
+            <FormField
               key={title}
               title={useCapitalizeWord(title)!}
               formDataTypeKey={formDataTypeKey}

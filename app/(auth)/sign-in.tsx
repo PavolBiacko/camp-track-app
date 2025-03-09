@@ -1,13 +1,13 @@
 import AuthForm from '@/components/AuthForm';
 import { supabase } from '@/services/supabaseClient';
-import { SignInData } from '@/types/form';
+import { AuthFormData } from '@/types/form';
 import { router } from 'expo-router';
 import { FC } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignIn: FC = () => {
 
-  const submit = async (data: SignInData) => {
+  const submit = async (data: AuthFormData) => {
 
     if (!data.email || !data.password) {
       throw new Error("Nechal si niektoré polia prázdne.");
