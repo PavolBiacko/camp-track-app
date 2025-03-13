@@ -1,21 +1,17 @@
 import AuthForm from '@/components/AuthForm';
 import { supabase } from '@/services/supabaseClient';
 import { AuthFormData } from '@/types/form';
+import { signUpSchema } from '@/validation/auth';
 import { router } from 'expo-router';
 import { FC } from 'react';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignUp: FC = () => {
 
   const submit = async (data: AuthFormData) => {
 
-    if (!data.email || !data.password || !data.passwordCheck) {
-      throw new Error("Nechal si niektoré polia prázdne.");
-    }
-
-    if (data.password !== data.passwordCheck) {
-      throw new Error("Heslá sa nezhodujú.");
-    }
+    // Data are valid, checked with Zod
 
     const { error } = await supabase.auth.signUp({
       email: data.email,
@@ -23,7 +19,8 @@ const SignUp: FC = () => {
     });
 
     if (error) {
-      throw new Error(error.message);
+      Alert.alert("Pozor!", error.message);
+      return;
     }
 
     router.replace("/home");
@@ -39,6 +36,7 @@ const SignUp: FC = () => {
           { title: "potvrdenie hesla", formDataTypeKey: "passwordCheck" }
         ]}
         initialValues={{ email: "", password: "", passwordCheck: "" }}
+        validationSchema={signUpSchema}
         onSubmit={submit}
         linkData={{
           prelinkText: "Už máš účet?",

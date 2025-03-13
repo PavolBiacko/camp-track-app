@@ -1,17 +1,17 @@
 import AuthForm from '@/components/AuthForm';
 import { supabase } from '@/services/supabaseClient';
 import { AuthFormData } from '@/types/form';
+import { signInSchema } from '@/validation/auth';
 import { router } from 'expo-router';
 import { FC } from 'react';
+import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignIn: FC = () => {
 
   const submit = async (data: AuthFormData) => {
 
-    if (!data.email || !data.password) {
-      throw new Error("Nechal si niektoré polia prázdne.");
-    }
+    // Data are valid, checked with Zod
 
     const { error } = await supabase.auth.signInWithPassword({
       email: data.email,
@@ -19,7 +19,8 @@ const SignIn: FC = () => {
     });
 
     if (error) {
-      throw new Error(error.message);
+      Alert.alert("Pozor!", error.message);
+      return;
     }
 
     router.replace("/home");
@@ -34,6 +35,7 @@ const SignIn: FC = () => {
           { title: "heslo", formDataTypeKey: "password" }
         ]}
         initialValues={{ email: "", password: "" }}
+        validationSchema={signInSchema}
         onSubmit={submit}
         linkData={{
           prelinkText: "Nemáš účet?",

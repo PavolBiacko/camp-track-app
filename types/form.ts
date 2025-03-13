@@ -1,4 +1,5 @@
 import { Href } from "expo-router";
+import { ZodSchema } from "zod";
 import { FieldBasics } from "./field";
 
 export type AuthFormData = {
@@ -17,6 +18,7 @@ export type AuthFormProps = {
   title: string,
   fields: FieldBasics<AuthFormData>[],
   initialValues: AuthFormData,
+  validationSchema: ZodSchema,
   onSubmit: (values: AuthFormData) => Promise<void>,
   linkData: LinkData,
 };

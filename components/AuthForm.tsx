@@ -2,57 +2,51 @@ import CustomButton from '@/components/CustomButton'
 import FormField from '@/components/FormField'
 import { images } from "@/constants"
 import { useCapitalizeWord } from '@/hooks/useUtilHooks'
-import { AuthFormProps } from '@/types/form'
+import { AuthFormData, AuthFormProps } from '@/types/form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'expo-router'
-import { useState } from 'react'
-import { Alert, Image, ScrollView, Text, View } from 'react-native'
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { Image, ScrollView, Text, View } from 'react-native'
 
-const AuthForm = ({ title, fields, initialValues, onSubmit, linkData }: AuthFormProps) => {
+const AuthForm: FC<AuthFormProps> = (props) => {
 
-  const [form, setForm] = useState(initialValues);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      await onSubmit(form);
-    } catch (error: any) {
-      Alert.alert("Error", error.message)
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<AuthFormData>({
+    defaultValues: props.initialValues,
+    resolver: zodResolver(props.validationSchema)
+  })
 
   return (
-    <ScrollView keyboardShouldPersistTaps="handled">
+    <ScrollView keyboardShouldPersistTaps="handled" >
       <View className="w-full min-h-[90vh] justify-center px-4 my-6">
         <Image source={images.logowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
-        <Text className="text-2xl text-white mt-5 font-pbold">{title}</Text>
+        <Text className="text-2xl text-white mt-5 font-pbold">{props.title}</Text>
 
-        {fields.map(({ title, formDataTypeKey, placeholder, otherStyles }) => (
+        {props.fields.map((field) => (
           <FormField
-            key={title}
-            title={useCapitalizeWord(title)!}
-            formDataTypeKey={formDataTypeKey}
-            value={form[formDataTypeKey]}
-            placeholder={placeholder}
-            handleChangeText={(e: string) => setForm({ ...form, [formDataTypeKey]: e })}
-            otherStyles={otherStyles || "mt-7"}
+            key={field.title}
+            title={useCapitalizeWord(field.title)!}
+            control={control}
+            register={register}
+            error={errors[field.formDataTypeKey]}
+            formDataTypeKey={field.formDataTypeKey}
+            placeholder={field.placeholder}
+            otherStyles={field.otherStyles || "mt-7"}
           />
         ))}
 
         <CustomButton
-          title={title}
-          handlePress={handleSubmit}
+          title={props.title}
+          handlePress={handleSubmit(props.onSubmit)}
           isPrimary={true}
           containerStyles="mt-7"
           isLoading={isSubmitting}
         />
 
         <View className="justify-center pt-5 flex-row gap-2">
-          <Text className="text-lg text-gray font-pregular">{linkData.prelinkText}</Text>
-          <Link href={linkData.linkHref} className="text-lg font-psemibold text-secondary">
-            {linkData.linkText}
+          <Text className="text-lg text-gray font-pregular">{props.linkData.prelinkText}</Text>
+          <Link href={props.linkData.linkHref} className="text-lg font-psemibold text-secondary">
+            {props.linkData.linkText}
           </Link>
         </View>
       </View>

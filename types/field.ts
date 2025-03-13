@@ -1,11 +1,14 @@
-export type FieldBasics<T> = {
-  title: string;
+import { Control, FieldError, FieldValues, UseFormRegister } from "react-hook-form";
+
+export type FieldBasics<T extends FieldValues> = {
+  title: string,
   formDataTypeKey: keyof T,
-  otherStyles?: string;
+  otherStyles?: string,
   placeholder?: string,
 };
 
-export type FormFieldProps<T> = FieldBasics<T> & {
-  value: T[keyof T],
-  handleChangeText: (e: string) => void,
-};
+export type FormFieldProps<T extends FieldValues> = FieldBasics<T> & {
+  control: Control<T, any>,
+  register: UseFormRegister<T>,
+  error?: FieldError,
+}

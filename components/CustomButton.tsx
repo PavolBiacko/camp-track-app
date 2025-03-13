@@ -3,41 +3,31 @@ import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
-const CustomButton: FC<CustomButtonProps> = ({
-  title,
-  icon,
-  iconPosition = "left",
-  isPrimary = false,
-  handlePress,
-  containerStyles,
-  textStyles,
-  iconStyles,
-  isLoading,
-}) => {
-  const hasBoth = !!title && !!icon;
+const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }) => {
+  const hasBoth = !!props.title && !!props.icon;
 
   return (
     <TouchableOpacity
-      onPress={handlePress}
+      onPress={props.handlePress}
       activeOpacity={0.7}
       className={
         twMerge(
-          isPrimary ? "bg-secondary" : "bg-gray",
-          isLoading ? "opacity-50" : "",
-          containerStyles,
+          props.isPrimary ? "bg-secondary" : "bg-gray",
+          props.isLoading ? "opacity-50" : "",
+          props.containerStyles,
           "rounded-3xl min-h-[62px] justify-center items-center",
           hasBoth ? "flex-row gap-3" : ""
         )
       }
-      disabled={isLoading}
+      disabled={props.isLoading}
     >
-      {isLoading ? (
+      {props.isLoading ? (
         <ActivityIndicator size="large" color="#FFFFFF" />
       ) : (
         <>
-          {icon && iconPosition === "left" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
-          {title && <Text className={twMerge("text-primary font-psemibold text-lg", textStyles)}>{title}</Text>}
-          {icon && iconPosition === "right" && <Image source={icon} resizeMode="contain" className={iconStyles} />}
+          {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
+          {props.title && <Text className={twMerge("text-primary font-psemibold text-lg", props.textStyles)}>{props.title}</Text>}
+          {props.icon && iconPosition === "right" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
         </>
       )}
 
