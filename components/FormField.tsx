@@ -1,10 +1,10 @@
 import { icons } from "@/constants"
 import { FormFieldProps } from '@/types/field'
 import { useState } from 'react'
-import { Controller } from "react-hook-form"
+import { Controller, FieldValues, Path } from "react-hook-form"
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-const FormField = <T,>(props: FormFieldProps<T>) => {
+const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
   const [showPassword, setShowPassword] = useState(false)
   const [isFocused, setIsFocused] = useState(false);
 
@@ -15,18 +15,17 @@ const FormField = <T,>(props: FormFieldProps<T>) => {
                       ${isFocused ? "border-secondary" : "border-black-200"} bg-black-100`}>
         <Controller
           control={props.control}
-          name={props.formDataTypeKey as string}
-          render={({ field: { onChange, onBlur, value } }) => (
+          name={props.formDataTypeKey as Path<T>}
+          render={({ field: { onChange, value } }) => (
             <TextInput
               className={`flex-1 text-white font-psemibold text-base w-16 h-full`}
               value={value}
               onChangeText={onChange}
               onFocus={() => setIsFocused(true)}
               onEndEditing={() => setIsFocused(false)}
-              onBlur={onBlur}
               placeholder={props.placeholder}
               placeholderTextColor="#7b7b8b"
-              {...props.register(props.formDataTypeKey)}
+              {...props.register(props.formDataTypeKey as Path<T>)}
               secureTextEntry={String(props.formDataTypeKey).includes("password") && !showPassword}
               keyboardType={String(props.formDataTypeKey).includes("email") ? "email-address" : "default"}
             />
