@@ -17,10 +17,10 @@ export default function RootLayout() {
   if (!fontsLoaded && !error) return null;
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false, animation: 'none' }} />
-      <Stack.Screen name="(auth)" options={{ headerShown: false, animation: 'ios_from_right' }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false, animation: 'ios_from_right' }} />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" options={{ animation: 'none' }} />
+      <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />
+      <Stack.Screen name="(tabs)" options={{ animation: 'ios_from_right' }} />
     </Stack>
   )
 }
