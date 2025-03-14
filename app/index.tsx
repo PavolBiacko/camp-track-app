@@ -6,7 +6,6 @@ export default function App() {
   const { session, isLoading } = useAuth();
 
   if (isLoading) {
-    // Show a spinner or splash while session is loading
     return (
       <View className="bg-primary flex-1 justify-center">
         <ActivityIndicator size="large" color="#FF0000" />
