@@ -1,4 +1,4 @@
-import { supabase } from '@/services/supabaseClient'; // Ensure you have Supabase initialized
+import supabase from '@/services/supabaseClient';
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 

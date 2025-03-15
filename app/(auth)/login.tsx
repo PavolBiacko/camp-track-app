@@ -1,5 +1,5 @@
 import AuthForm from '@/components/AuthForm';
-import { supabase } from '@/services/supabaseClient';
+import { login } from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/form';
 import { signInSchema } from '@/validation/auth';
 import { router } from 'expo-router';
@@ -10,20 +10,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Login: FC = () => {
 
   const submit = async (data: AuthFormData) => {
-
     // Data are valid, checked with Zod
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    });
-
-    if (error) {
+    try {
+      await login(data.email, data.password);
+      router.replace("/home");
+    } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;
     }
-
-    router.replace("/home");
   };
 
   return (

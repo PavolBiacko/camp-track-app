@@ -1,5 +1,5 @@
 import CustomButton from '@/components/CustomButton';
-import { supabase } from '@/services/supabaseClient';
+import { logout } from '@/repositories/authRepository';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
@@ -9,22 +9,24 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const logout = async () => {
-    setIsLoading(true);
-    const { error } = await supabase.auth.signOut();
-    if (error) {
+  const submit = async () => {
+    try {
+      setIsLoading(true);
+      await logout()
+      router.replace("/welcome");
+    } catch (error: any) {
       Alert.alert("Pozor!", error.message);
-      setIsLoading(false);
       return;
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
-    router.replace("/welcome");
   };
+
   return (
     <SafeAreaView>
       <CustomButton
         title="Odhlás sa"
-        handlePress={logout}
+        handlePress={submit}
         isPrimary={true}
         iconStyles="w-8 h-8"
         containerStyles="w-full mt-5"
