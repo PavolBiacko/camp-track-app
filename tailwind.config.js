@@ -14,7 +14,7 @@ module.exports = {
           200: "#232533",
         },
         gray: "#CDCDE0",
-        while: "#FFFFFF",
+        white: "#FFFFFF",
         blue: "#1877F2",
         red: "#DB4437",
       },

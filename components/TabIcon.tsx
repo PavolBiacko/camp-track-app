@@ -2,7 +2,7 @@ import { TabIconProps } from "@/types/tabs"
 import { FC } from "react"
 import { Image, Text, View } from "react-native"
 
-export const TabIcon: FC<TabIconProps> = (props) => {
+const TabIcon: FC<TabIconProps> = (props) => {
   return (
     <View className="items-center justify-center gap-2 mt-7">
       <Image
@@ -17,3 +17,5 @@ export const TabIcon: FC<TabIconProps> = (props) => {
     </View>
   )
 }
+
+export default TabIcon

@@ -1,15 +1,13 @@
+import Loading from "@/components/Loading";
 import useAuth from "@/hooks/useAuth";
 import { Redirect } from "expo-router";
-import { ActivityIndicator, View } from "react-native";
 
 export default function App() {
   const { session, isLoading } = useAuth();
 
   if (isLoading) {
     return (
-      <View className="bg-primary flex-1 justify-center">
-        <ActivityIndicator size="large" color="#FF0000" />
-      </View>
+      <Loading />
     );
   }
 

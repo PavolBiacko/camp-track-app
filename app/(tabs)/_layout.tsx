@@ -1,4 +1,4 @@
-import { TabIcon } from '@/components/TabIcon';
+import TabIcon from '@/components/TabIcon';
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
 import { TabData } from '@/types/tabs';
 import { Tabs } from 'expo-router';
