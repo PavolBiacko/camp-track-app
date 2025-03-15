@@ -1,3 +1,5 @@
+const colors = require('./constants/colors').default;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
@@ -6,17 +8,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#161622",
-        secondary: "#FF9001",
-        black: {
-          DEFAULT: "#000",
-          100: "#1E1E2D",
-          200: "#232533",
-        },
-        gray: "#CDCDE0",
-        white: "#FFFFFF",
-        blue: "#1877F2",
-        red: "#DB4437",
+        primary: colors.primary,
+        secondary: colors.secondary,
+        darkLow: colors.dark.low,
+        darkMid: colors.dark.mid,
+        darkHigh: colors.dark.high,
+        lightLow: colors.light.low,
+        lightMid: colors.light.mid,
+        lightHigh: colors.light.high,
+        success: colors.success,
+        error: colors.error,
       },
       fontFamily: {
         pthin: ["Poppins-Thin", "sans-serif"],

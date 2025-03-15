@@ -10,9 +10,9 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
 
   return (
     <View className={`${props.otherStyles}`}>
-      <Text className="text-base text-gray font-pmedium mb-1">{props.title}</Text>
+      <Text className="text-base text-lightMid font-pmedium mb-1">{props.title}</Text>
       <View className={`flex-row border-2 items-center w-full h-16 px-4 rounded-2xl
-                      ${isFocused ? "border-secondary" : "border-black-200"} bg-black-100`}>
+                      ${isFocused ? "border-primary" : "border-darkLow"} bg-darkMid`}>
         <Controller
           control={props.control}
           name={props.formDataTypeKey as Path<T>}
@@ -39,7 +39,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
         )}
       </View>
       {props.error && (
-        <Text className="text-red mt-1">
+        <Text className="text-error mt-1">
           {props.error?.message as string}
         </Text>)}
     </View>

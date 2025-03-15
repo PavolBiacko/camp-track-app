@@ -27,7 +27,7 @@ const Register: FC = () => {
   };
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-darkHigh h-full">
       <AuthForm
         title="Zaregistruj sa"
         fields={[

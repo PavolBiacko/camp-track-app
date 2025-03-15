@@ -12,7 +12,7 @@ const socialButtons = [
 
 export default function Welcome() {
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-darkHigh h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full justify-center items-center px-4">
           <Image
@@ -23,7 +23,7 @@ export default function Welcome() {
           <Text className="text-2xl text-white font-pbold text-center">
             Ahoj! Vitaj v mobilnej aplikácii Mr. Oazas. pre vedúcich a rodičov.
           </Text>
-          <Text className="text-xl font-pregular text-gray mt-5 text-center">
+          <Text className="text-xl font-pregular text-lightMid mt-5 text-center">
             Môžeš pokračovať cez tieto služby
           </Text>
           <View className="w-full flex-row justify-evenly items-center mt-5">
@@ -37,7 +37,7 @@ export default function Welcome() {
               />
             ))}
           </View>
-          <Text className="text-xl font-pregular text-gray mt-5 text-center">
+          <Text className="text-xl font-pregular text-lightMid mt-5 text-center">
             alebo
           </Text>
           <CustomButton

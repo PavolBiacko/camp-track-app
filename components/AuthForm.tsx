@@ -44,8 +44,8 @@ const AuthForm: FC<AuthFormProps> = (props) => {
         />
 
         <View className="justify-center pt-5 flex-row gap-2">
-          <Text className="text-lg text-gray font-pregular">{props.linkData.prelinkText}</Text>
-          <Link href={props.linkData.linkHref} className="text-lg font-psemibold text-secondary">
+          <Text className="text-lg text-lightMid font-pregular">{props.linkData.prelinkText}</Text>
+          <Link href={props.linkData.linkHref} className="text-lg font-psemibold text-primary">
             {props.linkData.linkText}
           </Link>
         </View>

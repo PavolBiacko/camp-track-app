@@ -17,7 +17,7 @@ const useAuth = () => {
 
     loadSession();
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
       // console.log("On Auth State Change Start");
       setSession(session);
       setIsLoading(false);
