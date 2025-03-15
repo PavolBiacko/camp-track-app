@@ -43,7 +43,7 @@ export default function Welcome() {
           <CustomButton
             title="Pokračuj cez Email"
             icon={icons.email}
-            handlePress={() => router.push("/sign-in")}
+            handlePress={() => router.push("/login")}
             isPrimary={true}
             iconStyles="w-8 h-8"
             containerStyles="w-full mt-5"

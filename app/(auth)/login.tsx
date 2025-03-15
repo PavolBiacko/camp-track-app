@@ -7,7 +7,7 @@ import { FC } from 'react';
 import { Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SignIn: FC = () => {
+const Login: FC = () => {
 
   const submit = async (data: AuthFormData) => {
 
@@ -40,11 +40,11 @@ const SignIn: FC = () => {
         linkData={{
           prelinkText: "Nemáš účet?",
           linkText: "Zaregistruj sa",
-          linkHref: "/sign-up"
+          linkHref: "/register"
         }}
       />
     </SafeAreaView>
   );
 };
 
-export default SignIn;
+export default Login;

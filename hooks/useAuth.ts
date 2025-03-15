@@ -8,20 +8,20 @@ const useAuth = () => {
 
   useEffect(() => {
     const loadSession = async () => {
-      console.log("Load Session Start");
+      // console.log("Load Session Start");
       const { data } = await supabase.auth.getSession();
       setSession(data.session);
       setIsLoading(false);
-      console.log("Load Session End");
+      // console.log("Load Session End");
     };
 
     loadSession();
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("On Auth State Change Start");
+      // console.log("On Auth State Change Start");
       setSession(session);
       setIsLoading(false);
-      console.log("On Auth State Change End");
+      // console.log("On Auth State Change End");
     });
 
     return () => {
