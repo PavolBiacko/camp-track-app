@@ -1,5 +1,5 @@
 import CustomButton from '@/components/CustomButton';
-import { logout } from '@/repositories/authRepository';
+import authRepository from '@/repositories/authRepository';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
@@ -12,7 +12,7 @@ const Home = () => {
   const submit = async () => {
     try {
       setIsLoading(true);
-      await logout()
+      await authRepository.logout()
       router.replace("/welcome");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

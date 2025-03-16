@@ -1,4 +1,4 @@
-import useAuth from '@/hooks/useAuth';
+import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
@@ -10,7 +10,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
 
   const [fontsLoaded, error] = useAppFonts();
-  const { session, isLoading } = useAuth();
+  const { session, isLoading } = useSession();
 
   useEffect(() => {
     if (error) throw error;

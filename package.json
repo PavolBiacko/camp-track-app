@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "version": "52.0.69",
   "scripts": {
-    "start": "expo start -c --go --tunnel",
+    "start": "expo start --go --tunnel",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -31,6 +31,7 @@
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@supabase/supabase-js": "^2.49.1",
+    "@tanstack/react-query": "^5.68.0",
     "expo": "~52.0.38",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.7",

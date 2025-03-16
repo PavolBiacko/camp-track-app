@@ -1,5 +1,5 @@
 import AuthForm from '@/components/AuthForm';
-import { register } from '@/repositories/authRepository';
+import authRepository from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/form';
 import { signUpSchema } from '@/validation/auth';
 import { router } from 'expo-router';
@@ -12,7 +12,7 @@ const Register: FC = () => {
   const submit = async (data: AuthFormData) => {
     // Data are valid, checked with Zod
     try {
-      await register(data.email, data.password);
+      await authRepository.register(data.email, data.password);
       router.replace("/home");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

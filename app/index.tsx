@@ -1,9 +1,9 @@
 import Loading from "@/components/Loading";
-import useAuth from "@/hooks/useAuth";
+import { useSession } from "@/hooks/useSession";
 import { Redirect } from "expo-router";
 
 export default function App() {
-  const { session, isLoading } = useAuth();
+  const { session, isLoading } = useSession();
 
   if (isLoading) {
     return (
