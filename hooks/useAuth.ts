@@ -7,17 +7,7 @@ const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const loadSession = async () => {
-      // console.log("Load Session Start");
-      const { data } = await supabase.auth.getSession();
-      setSession(data.session);
-      setIsLoading(false);
-      // console.log("Load Session End");
-    };
-
-    loadSession();
-
-    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       // console.log("On Auth State Change Start");
       setSession(session);
       setIsLoading(false);

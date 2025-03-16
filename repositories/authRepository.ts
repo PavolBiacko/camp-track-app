@@ -12,7 +12,7 @@ export const login = async (email: string, password: string): Promise<AuthRespon
 
     return data as AuthResponse;
   } catch (error: any) {
-    console.error('Login error:', (error as AuthError).message);
+    // console.error('Login error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -28,7 +28,7 @@ export const register = async (email: string, password: string): Promise<AuthRes
 
     return data as AuthResponse;
   } catch (error: any) {
-    console.error('Register error:', (error as AuthError).message);
+    // console.error('Register error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -38,8 +38,9 @@ export const logout = async (): Promise<void> => {
     const { error } = await client.auth.signOut();
 
     if (error) throw error;
+
   } catch (error: any) {
-    console.error('Logout error:', (error as AuthError).message);
+    // console.error('Logout error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
