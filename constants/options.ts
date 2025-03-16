@@ -5,10 +5,10 @@ import colors from "./colors";
 const tabScreenOptions: TabScreenOptions = {
   tabBarShowLabel: false,
   tabBarActiveTintColor: colors.primary,
-  tabBarInactiveTintColor: "#CDCDE0",
+  tabBarInactiveTintColor: colors.light.low,
   tabBarStyle: {
-    backgroundColor: "#161622",
-    borderColor: "#555555",
+    backgroundColor: colors.dark.high,
+    borderColor: colors.gray,
     borderTopWidth: 2,
     height: Platform.OS === "ios" ? 75 : 60,
   },

@@ -1,4 +1,4 @@
-import { icons } from "@/constants"
+import { colors, icons } from "@/constants"
 import { FormFieldProps } from '@/types/field'
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from "react-hook-form"
@@ -24,7 +24,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
               onFocus={() => setIsFocused(true)}
               onEndEditing={() => setIsFocused(false)}
               placeholder={props.placeholder}
-              placeholderTextColor="#7b7b8b"
+              placeholderTextColor={colors.gray}
               {...props.register(props.formDataTypeKey as Path<T>)}
               secureTextEntry={String(props.formDataTypeKey).includes("password") && !showPassword}
               keyboardType={String(props.formDataTypeKey).includes("email") ? "email-address" : "default"}

@@ -11,6 +11,7 @@ const colors = {
     mid: "rgb(230, 230, 230)",
     high: "rgb(255, 255, 255)",
   },
+  gray: "rgb(120, 120, 140)",
   success: "rgb(40, 167, 69)",
   error: "rgb(220, 50, 70)",
 }

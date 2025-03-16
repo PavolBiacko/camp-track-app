@@ -1,3 +1,4 @@
+import { colors } from '@/constants';
 import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
 import { SplashScreen, Stack } from "expo-router";
@@ -30,7 +31,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={{ animation: 'ios_from_right' }} />
         )}
       </Stack>
-      <StatusBar backgroundColor="#161622" style="light" />
+      <StatusBar backgroundColor={colors.dark.high} style="light" />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { colors } from '@/constants'
 import { CustomButtonProps } from '@/types/button'
 import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
@@ -22,7 +23,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       disabled={props.isLoading}
     >
       {props.isLoading ? (
-        <ActivityIndicator size="large" color="#FFFFFF" />
+        <ActivityIndicator size="large" color={colors.light.high} />
       ) : (
         <>
           {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}

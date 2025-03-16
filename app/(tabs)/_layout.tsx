@@ -17,7 +17,7 @@ const tabData: TabData[] = [
   { name: 'gallery', shownLabel: 'Galéria', icon: icons.gallery, roles: EVERYBODY },
 ];
 
-const CURRENT_USER_ROLE = UserRoles.USER;
+const CURRENT_USER_ROLE = UserRoles.PARENT;
 
 const TabsLayout = () => {
   return (
