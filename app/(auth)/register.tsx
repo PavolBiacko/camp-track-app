@@ -1,4 +1,4 @@
-import AuthForm from '@/components/AuthForm';
+import AuthForm from '@/components/ui/AuthForm';
 import authRepository from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/form';
 import { signUpSchema } from '@/validation/auth';
@@ -21,7 +21,7 @@ const Register: FC = () => {
   };
 
   return (
-    <SafeAreaView className="bg-darkHigh h-full">
+    <SafeAreaView className="bg-background-0 h-full">
       <AuthForm
         title="Zaregistruj sa"
         fields={[

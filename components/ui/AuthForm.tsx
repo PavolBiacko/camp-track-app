@@ -1,5 +1,5 @@
-import CustomButton from '@/components/CustomButton'
-import FormField from '@/components/FormField'
+import CustomButton from '@/components/ui/CustomButton'
+import FormField from '@/components/ui/FormField'
 import { images } from "@/constants"
 import { useCapitalizeWord } from '@/hooks/useUtilHooks'
 import { AuthFormData, AuthFormProps } from '@/types/form'
@@ -20,7 +20,7 @@ const AuthForm: FC<AuthFormProps> = (props) => {
     <ScrollView keyboardShouldPersistTaps="handled" >
       <View className="w-full min-h-[90vh] justify-center px-4 my-6">
         <Image source={images.logowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
-        <Text className="text-2xl text-white mt-5 font-pbold">{props.title}</Text>
+        <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
 
         {props.fields.map((field) => (
           <FormField
@@ -44,8 +44,8 @@ const AuthForm: FC<AuthFormProps> = (props) => {
         />
 
         <View className="justify-center pt-5 flex-row gap-2">
-          <Text className="text-lg text-lightMid font-pregular">{props.linkData.prelinkText}</Text>
-          <Link href={props.linkData.linkHref} className="text-lg font-psemibold text-primary">
+          <Text className="text-typography-700 text-lg font-pregular">{props.linkData.prelinkText}</Text>
+          <Link href={props.linkData.linkHref} className="text-tertiary-400 text-lg font-psemibold">
             {props.linkData.linkText}
           </Link>
         </View>

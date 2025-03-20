@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Finance = () => {
   return (
-    <SafeAreaView>
-      <Text>Finance</Text>
+    <SafeAreaView className='bg-background-0 w-full h-full'>
+      <Text className='text-typography-950'>Finance</Text>
     </SafeAreaView>
   )
 }

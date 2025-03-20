@@ -1,4 +1,4 @@
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/ui/CustomButton";
 import { icons, images } from "@/constants";
 import { router } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
@@ -12,7 +12,7 @@ const socialButtons = [
 
 export default function Welcome() {
   return (
-    <SafeAreaView className="bg-darkHigh h-full">
+    <SafeAreaView className="bg-background-0 h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full justify-center items-center px-4">
           <Image
@@ -20,10 +20,10 @@ export default function Welcome() {
             className="max-w-[380px] w-full h-[300px]"
             resizeMode="contain"
           />
-          <Text className="text-2xl text-white font-pbold text-center">
+          <Text className="text-typography-950 text-2xl font-pbold text-center">
             Ahoj! Vitaj v mobilnej aplikácii Mr. Oazas. pre vedúcich a rodičov.
           </Text>
-          <Text className="text-xl font-pregular text-lightMid mt-5 text-center">
+          <Text className="text-typography-950 text-xl font-pregular mt-5 text-center">
             Môžeš pokračovať cez tieto služby
           </Text>
           <View className="w-full flex-row justify-evenly items-center mt-5">
@@ -37,7 +37,7 @@ export default function Welcome() {
               />
             ))}
           </View>
-          <Text className="text-xl font-pregular text-lightMid mt-5 text-center">
+          <Text className="text-typography-950 text-xl font-pregular mt-5 text-center">
             alebo
           </Text>
           <CustomButton

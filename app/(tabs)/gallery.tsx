@@ -1,4 +1,4 @@
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/ui/CustomButton';
 import authRepository from '@/repositories/authRepository';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -23,7 +23,7 @@ const Gallery = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className='bg-background-0 w-full h-full'>
       <CustomButton
         title="Odhlás sa"
         handlePress={submit}

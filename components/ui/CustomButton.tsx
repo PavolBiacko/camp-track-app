@@ -13,7 +13,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       activeOpacity={0.7}
       className={
         twMerge(
-          props.isPrimary ? "bg-primary" : "bg-secondary",
+          props.isPrimary ? "bg-tertiary-400" : "bg-secondary-400",
           props.isLoading ? "opacity-50" : "",
           props.containerStyles,
           "rounded-3xl min-h-[62px] justify-center items-center",
@@ -27,7 +27,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       ) : (
         <>
           {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
-          {props.title && <Text className={twMerge("text-darkHigh font-psemibold text-lg", props.textStyles)}>{props.title}</Text>}
+          {props.title && <Text className={twMerge("text-typography-black text-lg font-psemibold", props.textStyles)}>{props.title}</Text>}
           {props.icon && iconPosition === "right" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
         </>
       )}

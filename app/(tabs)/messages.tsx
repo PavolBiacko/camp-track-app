@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Messages = () => {
   return (
-    <SafeAreaView>
-      <Text>Messages</Text>
+    <SafeAreaView className='bg-background-0 w-full h-full'>
+      <Text className='text-typography-950'>Messages</Text>
     </SafeAreaView>
   )
 }

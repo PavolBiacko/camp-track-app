@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Children = () => {
   return (
-    <SafeAreaView>
-      <Text>Children</Text>
+    <SafeAreaView className='bg-background-0 w-full h-full'>
+      <Text className='text-typography-950'>Children</Text>
     </SafeAreaView>
   )
 }

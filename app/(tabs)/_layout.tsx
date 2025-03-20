@@ -1,5 +1,5 @@
-import Loading from '@/components/Loading';
-import TabIcon from '@/components/TabIcon';
+import Loading from '@/components/ui/Loading';
+import TabIcon from '@/components/ui/TabIcon';
 import { icons, options } from "@/constants";
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
 import authRepository from '@/repositories/authRepository';
@@ -38,7 +38,7 @@ const TabsLayout = () => {
           name={tab.name}
           options={{
             headerShown: false,
-            animation: "shift",
+            animation: "none",
             href: tab.roles.includes(data?.role!) ? undefined : null,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon

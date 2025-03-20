@@ -4,8 +4,8 @@ import { ActivityIndicator, Text, View } from 'react-native'
 
 const Loading = () => {
   return (
-    <View className="bg-darkHigh flex-1 justify-center">
-      <Text className="text-white font-psemibold self-center">Načítavanie...</Text>
+    <View className="bg-background-0 flex-1 justify-center">
+      <Text className="text-typography-950 font-psemibold self-center">Načítavanie...</Text>
       <ActivityIndicator size="large" color={colors.primary} />
     </View>
   )
