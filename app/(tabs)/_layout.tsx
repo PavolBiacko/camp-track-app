@@ -1,8 +1,11 @@
+import Loading from '@/components/Loading';
 import TabIcon from '@/components/TabIcon';
 import { icons, options } from "@/constants";
 import { useCapitalizeWord } from '@/hooks/useUtilHooks';
+import authRepository from '@/repositories/authRepository';
 import { UserRoles } from '@/types/roles';
 import { TabData } from '@/types/tabs';
+import { useQuery } from '@tanstack/react-query';
 import { Tabs } from 'expo-router';
 
 const EVERYBODY = [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER, UserRoles.PARENT, UserRoles.USER];
@@ -17,9 +20,16 @@ const tabData: TabData[] = [
   { name: 'gallery', shownLabel: 'Galéria', icon: icons.gallery, roles: EVERYBODY },
 ];
 
-const CURRENT_USER_ROLE = UserRoles.PARENT;
-
 const TabsLayout = () => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['auth'],
+    queryFn: () => authRepository.whoami(),
+  });
+
+  if (!data || error || isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Tabs backBehavior='none' screenOptions={options.tabScreenOptions}>
       {tabData.map((tab) => (
@@ -29,7 +39,7 @@ const TabsLayout = () => {
           options={{
             headerShown: false,
             animation: "shift",
-            href: tab.roles.includes(CURRENT_USER_ROLE) ? undefined : null,
+            href: tab.roles.includes(data?.role!) ? undefined : null,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={tab.icon}

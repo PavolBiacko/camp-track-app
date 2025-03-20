@@ -1,29 +1,32 @@
 import { colors } from '@/constants';
 import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
-import { SplashScreen, Stack } from "expo-router";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import "../global.css";
 
+const queryClient = new QueryClient();
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
   const [fontsLoaded, error] = useAppFonts();
   const { session, isLoading } = useSession();
 
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-  }, [fontsLoaded, error])
+    // queryClient.invalidateQueries();
+  }, [fontsLoaded, error]);
 
   if (!fontsLoaded && !error) return null;
 
   if (isLoading) return null;
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Stack screenOptions={{ headerShown: false }}>
         {!session ? (
           <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />
@@ -32,6 +35,6 @@ export default function RootLayout() {
         )}
       </Stack>
       <StatusBar backgroundColor={colors.dark.high} style="light" />
-    </>
-  )
+    </QueryClientProvider>
+  );
 }
