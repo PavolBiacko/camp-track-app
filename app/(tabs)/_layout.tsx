@@ -1,5 +1,5 @@
-import Loading from '@/components/ui/Loading';
-import TabIcon from '@/components/ui/TabIcon';
+import Loading from '@/components/custom/Loading';
+import TabIcon from '@/components/custom/TabIcon';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
 import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';

@@ -1,5 +1,4 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-import "@/global.css";
 import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

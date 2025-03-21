@@ -1,10 +1,10 @@
+import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors"
 import { icons } from "@/constants"
 import { FormFieldProps } from '@/types/field'
 import { useColorScheme } from "nativewind"
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from "react-hook-form"
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { getRGBColor } from "./gluestack-ui-provider/colors"
 
 const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
   const [showPassword, setShowPassword] = useState(false)

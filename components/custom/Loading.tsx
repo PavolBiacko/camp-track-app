@@ -1,7 +1,7 @@
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { useColorScheme } from 'nativewind'
 import React from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
-import { getRGBColor } from './gluestack-ui-provider/colors'
 
 const Loading = () => {
   const { colorScheme } = useColorScheme();

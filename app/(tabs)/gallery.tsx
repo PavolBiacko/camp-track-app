@@ -1,4 +1,4 @@
-import CustomButton from '@/components/ui/CustomButton';
+import CustomButton from '@/components/custom/CustomButton';
 import authRepository from '@/repositories/authRepository';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -28,8 +28,7 @@ const Gallery = () => {
         title="Odhlás sa"
         handlePress={submit}
         isPrimary={true}
-        iconStyles="w-8 h-8"
-        containerStyles="w-full mt-5"
+        containerStyles="mt-5"
         isLoading={isLoading}
       />
     </SafeAreaView>

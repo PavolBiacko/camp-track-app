@@ -1,4 +1,4 @@
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/custom/CustomButton";
 import { icons, images } from "@/constants";
 import { router } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";

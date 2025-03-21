@@ -1,5 +1,5 @@
-import CustomButton from '@/components/ui/CustomButton'
-import FormField from '@/components/ui/FormField'
+import CustomButton from '@/components/custom/CustomButton'
+import FormField from '@/components/custom/FormField'
 import { images } from "@/constants"
 import { useCapitalizeWord } from '@/hooks/useUtilHooks'
 import { AuthFormData, AuthFormProps } from '@/types/form'

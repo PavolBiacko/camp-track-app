@@ -1,9 +1,9 @@
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { CustomButtonProps } from '@/types/button'
 import { useColorScheme } from 'nativewind'
 import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
 import { twMerge } from 'tailwind-merge'
-import { getRGBColor } from './gluestack-ui-provider/colors'
 
 const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }) => {
   const { colorScheme } = useColorScheme();

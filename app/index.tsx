@@ -1,4 +1,4 @@
-import Loading from '@/components/ui/Loading';
+import Loading from '@/components/custom/Loading';
 import { useSession } from '@/hooks/useSession';
 import { Redirect } from 'expo-router';
 import React from 'react';

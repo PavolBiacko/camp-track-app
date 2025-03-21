@@ -1,4 +1,4 @@
-import AuthForm from '@/components/ui/AuthForm';
+import AuthForm from '@/components/custom/AuthForm';
 import authRepository from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/form';
 import { signInSchema } from '@/validation/auth';
