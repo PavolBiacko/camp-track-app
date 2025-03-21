@@ -1,12 +1,15 @@
-import { colors, icons } from "@/constants"
+import { icons } from "@/constants"
 import { FormFieldProps } from '@/types/field'
+import { useColorScheme } from "nativewind"
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from "react-hook-form"
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { getRGBColor } from "./gluestack-ui-provider/colors"
 
 const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
   const [showPassword, setShowPassword] = useState(false)
   const [isFocused, setIsFocused] = useState(false);
+  const { colorScheme } = useColorScheme();
 
   return (
     <View className={`${props.otherStyles}`}>
@@ -18,13 +21,13 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
           name={props.formDataTypeKey as Path<T>}
           render={({ field: { onChange, value } }) => (
             <TextInput
-              className="flex-1 text-typography-950 text-base font-psemibold w-16 h-full"
+              className="flex-1 text-typography-950 font-psemibold w-16 h-full"
               value={value}
               onChangeText={onChange}
               onFocus={() => setIsFocused(true)}
               onEndEditing={() => setIsFocused(false)}
               placeholder={props.placeholder}
-              placeholderTextColor={colors.gray}
+              placeholderTextColor={getRGBColor("typography", "500", colorScheme)}
               {...props.register(props.formDataTypeKey as Path<T>)}
               secureTextEntry={String(props.formDataTypeKey).includes("password") && !showPassword}
               keyboardType={String(props.formDataTypeKey).includes("email") ? "email-address" : "default"}

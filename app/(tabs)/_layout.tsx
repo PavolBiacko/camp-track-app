@@ -1,12 +1,13 @@
 import Loading from '@/components/ui/Loading';
 import TabIcon from '@/components/ui/TabIcon';
-import { icons, options } from "@/constants";
-import { useCapitalizeWord } from '@/hooks/useUtilHooks';
+import { icons } from "@/constants";
+import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';
 import authRepository from '@/repositories/authRepository';
 import { UserRoles } from '@/types/roles';
 import { TabData } from '@/types/tabs';
 import { useQuery } from '@tanstack/react-query';
 import { Tabs } from 'expo-router';
+import { useColorScheme } from 'nativewind';
 
 const EVERYBODY = [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER, UserRoles.PARENT, UserRoles.USER];
 
@@ -21,6 +22,8 @@ const tabData: TabData[] = [
 ];
 
 const TabsLayout = () => {
+  const { colorScheme } = useColorScheme();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['auth'],
     queryFn: () => authRepository.whoami(),
@@ -31,7 +34,7 @@ const TabsLayout = () => {
   }
 
   return (
-    <Tabs backBehavior='none' screenOptions={options.tabScreenOptions}>
+    <Tabs backBehavior='none' screenOptions={useTabScreenOptions(colorScheme)}>
       {tabData.map((tab) => (
         <Tabs.Screen
           key={tab.name}

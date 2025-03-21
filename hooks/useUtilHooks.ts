@@ -1,4 +1,7 @@
+import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
+import { TabScreenOptions } from "@/types/options";
 import { useFonts } from "expo-font";
+import { Platform } from "react-native";
 
 export function useCapitalizeWord(text: string | undefined): string | undefined {
   if (!text) {
@@ -19,4 +22,19 @@ export function useAppFonts(): [boolean, Error | null] {
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
+}
+
+export function useTabScreenOptions(colorScheme?: "light" | "dark"): TabScreenOptions {
+  return {
+    tabBarShowLabel: false,
+    tabBarActiveTintColor: getRGBColor("tertiary", "400", colorScheme),
+    tabBarInactiveTintColor: getRGBColor("typography", "950", colorScheme),
+    tabBarActiveBackgroundColor: getRGBColor("background", "300", colorScheme),
+    tabBarInactiveBackgroundColor: getRGBColor("background", "100", colorScheme),
+    tabBarStyle: {
+      borderColor: getRGBColor("background", "300", colorScheme),
+      borderTopWidth: 2,
+      height: Platform.OS === "ios" ? 75 : 60,
+    },
+  };
 }

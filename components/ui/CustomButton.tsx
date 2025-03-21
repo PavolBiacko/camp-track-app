@@ -1,10 +1,12 @@
-import { colors } from '@/constants'
 import { CustomButtonProps } from '@/types/button'
+import { useColorScheme } from 'nativewind'
 import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
 import { twMerge } from 'tailwind-merge'
+import { getRGBColor } from './gluestack-ui-provider/colors'
 
 const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }) => {
+  const { colorScheme } = useColorScheme();
   const hasBoth = !!props.title && !!props.icon;
 
   return (
@@ -23,7 +25,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       disabled={props.isLoading}
     >
       {props.isLoading ? (
-        <ActivityIndicator size="large" color={colors.light.high} />
+        <ActivityIndicator size="large" color={getRGBColor('typography', '950', colorScheme)} />
       ) : (
         <>
           {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
