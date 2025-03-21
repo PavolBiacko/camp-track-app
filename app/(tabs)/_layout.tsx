@@ -1,11 +1,10 @@
 import Loading from '@/components/ui/Loading';
 import TabIcon from '@/components/ui/TabIcon';
 import { icons } from "@/constants";
+import { useAuth } from '@/hooks/useAuth';
 import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';
-import authRepository from '@/repositories/authRepository';
 import { UserRoles } from '@/types/roles';
 import { TabData } from '@/types/tabs';
-import { useQuery } from '@tanstack/react-query';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 
@@ -24,10 +23,7 @@ const tabData: TabData[] = [
 const TabsLayout = () => {
   const { colorScheme } = useColorScheme();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['auth'],
-    queryFn: () => authRepository.whoami(),
-  });
+  const { data, isLoading, error } = useAuth();
 
   if (!data || error || isLoading) {
     return <Loading />;
