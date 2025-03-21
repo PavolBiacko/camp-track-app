@@ -1,4 +1,4 @@
-import { ColorShade, SpecialCategory, ThemeColors } from "@/types/colors";
+import { ColorShade, SpecialCategory, ThemeColors } from "@/components/ui/gluestack-ui-provider/types";
 
 // Structured colors object
 const colors = {
