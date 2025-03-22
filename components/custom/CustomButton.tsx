@@ -15,7 +15,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       activeOpacity={0.7}
       className={
         twMerge(
-          props.isPrimary ? "bg-tertiary-400" : "bg-secondary-400",
+          props.isPrimary ? "bg-tertiary-400" : "bg-secondary-600",
           props.isLoading ? "opacity-50" : "",
           props.containerStyles,
           "rounded-3xl min-h-[62px] justify-center items-center",
