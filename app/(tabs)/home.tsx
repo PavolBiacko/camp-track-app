@@ -1,41 +1,36 @@
-import CustomButton from "@/components/custom/CustomButton";
-import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
-import { icons } from "@/constants";
-import { useColorScheme } from "nativewind";
-import { Image, View } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Loading from "@/components/custom/Loading";
+import BaseLayout from "@/components/layouts/BaseLayout";
+import CampLeaderLayout from "@/components/layouts/home/CampLeaderLayout";
+import GroupLeaderLayout from "@/components/layouts/home/GroupLeaderLayout";
+import ParentLayout from "@/components/layouts/home/ParentLayout";
+import UserLayout from "@/components/layouts/home/UserLayout";
+import { useAuth } from "@/hooks/useAuth";
+import { UserRoles } from "@/types/roles";
+import { useMemo } from "react";
 
 const Home = () => {
-  const { colorScheme } = useColorScheme();
+  const { user } = useAuth()
+
+  const activeLayout = useMemo(() => {
+    switch (user?.role) {
+      case UserRoles.CAMP_LEADER:
+        return <CampLeaderLayout />;
+      case UserRoles.GROUP_LEADER:
+        return <GroupLeaderLayout />;
+      case UserRoles.PARENT:
+        return <ParentLayout />;
+      case UserRoles.USER:
+        return <UserLayout />;
+      default:
+        return <Loading />;
+    }
+  }, [user])
   //const [showModal, setShowModal] = useState(false)
 
   return (
-    <SafeAreaView className='bg-background-0 w-full h-full'>
-      <View className="items-end mx-5 mt-5">
-        <Image
-          source={icons.settings}
-          resizeMode="contain"
-          className="w-8 h-8"
-          style={{
-            tintColor: getRGBColor("typography", "700", colorScheme)
-          }}
-        />
-      </View>
-      <View className="h-1/4 m-5">
-        <CustomButton handlePress={() => { }} containerStyles="h-full border-2 border-tertiary-500" />
-      </View>
-      <View className="h-1/4 m-5">
-        <CustomButton handlePress={() => { }} containerStyles="h-full border-2 border-tertiary-500" />
-      </View>
-      <View className="h-1/4 flex-row justify-between m-5">
-        <View className="w-[47%]">
-          <CustomButton handlePress={() => { }} containerStyles="h-full border-2 border-tertiary-500" />
-        </View>
-        <View className="w-[47%]">
-          <CustomButton handlePress={() => { }} containerStyles="h-full border-2 border-tertiary-500" />
-        </View>
-      </View >
-    </SafeAreaView>
+    <BaseLayout>
+      {activeLayout}
+    </BaseLayout>
   );
 }
 

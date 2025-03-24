@@ -27,7 +27,7 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GluestackUIProvider mode="system">
+      <GluestackUIProvider mode="light">
         <Stack screenOptions={{ headerShown: false }}>
           {!session ? (
             <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />

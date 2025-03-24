@@ -23,9 +23,9 @@ const tabData: TabData[] = [
 const TabsLayout = () => {
   const { colorScheme } = useColorScheme();
 
-  const { data, isLoading, error } = useAuth();
+  const { user, isLoading, isError } = useAuth();
 
-  if (!data || error || isLoading) {
+  if (!user || isLoading || isError) {
     return <Loading />;
   }
 
@@ -38,7 +38,7 @@ const TabsLayout = () => {
           options={{
             headerShown: false,
             animation: "none",
-            href: tab.roles.includes(data?.role!) ? undefined : null,
+            href: tab.roles.includes(user?.role!) ? undefined : null,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={tab.icon}
