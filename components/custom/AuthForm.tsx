@@ -39,13 +39,13 @@ const AuthForm: FC<AuthFormProps> = (props) => {
           title={props.title}
           handlePress={handleSubmit(props.onSubmit)}
           isPrimary={true}
-          containerStyles="mt-7"
+          containerStyles="mt-7 h-[4.5rem]"
           isLoading={isSubmitting}
         />
 
         <View className="justify-center pt-5 flex-row gap-2">
           <Text className="text-typography-700 text-lg font-pregular">{props.linkData.prelinkText}</Text>
-          <Link href={props.linkData.linkHref} className="text-tertiary-400 text-lg font-psemibold">
+          <Link href={props.linkData.linkHref} className="text-primary-500 text-lg font-psemibold">
             {props.linkData.linkText}
           </Link>
         </View>

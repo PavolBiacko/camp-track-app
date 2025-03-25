@@ -27,7 +27,7 @@ export function useAppFonts(): [boolean, Error | null] {
 export function useTabScreenOptions(colorScheme?: "light" | "dark"): TabScreenOptions {
   return {
     tabBarShowLabel: false,
-    tabBarActiveTintColor: getRGBColor("tertiary", "400", colorScheme),
+    tabBarActiveTintColor: getRGBColor("primary", "500", colorScheme),
     tabBarInactiveTintColor: getRGBColor("typography", "950", colorScheme),
     tabBarActiveBackgroundColor: getRGBColor("background", "300", colorScheme),
     tabBarInactiveBackgroundColor: getRGBColor("background", "100", colorScheme),

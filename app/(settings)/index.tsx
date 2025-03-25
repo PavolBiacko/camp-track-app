@@ -49,7 +49,7 @@ const Settings = () => {
     <View className='bg-background-0 w-full h-full'>
       <ScrollView>
         {/* Profile Settings */}
-        <SettingsBox title="Profil" isClickable={true} containerStyles='bg-secondary-600'>
+        <SettingsBox title="Profil" isClickable={true} containerStyles='bg-secondary-50'>
           <View className='flex-row justify-start items-center'>
             <Avatar size="xl" className="bg-indigo-600 rounded-full">
               <AvatarFallbackText className="text-white">
@@ -163,6 +163,7 @@ const Settings = () => {
             title="Odhlás sa"
             handlePress={submit}
             isPrimary={true}
+            containerStyles='h-16'
             isLoading={isLoading}
           />
         </SettingsBox>

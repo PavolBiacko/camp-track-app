@@ -9,7 +9,7 @@ const Loading = () => {
   return (
     <View className="flex-1 bg-background-0 justify-center">
       <Text className="text-typography-950 text-2xl font-psemibold self-center">Načítavanie...</Text>
-      <ActivityIndicator size="large" color={getRGBColor("tertiary", "400", colorScheme)} />
+      <ActivityIndicator size="large" color={getRGBColor("primary", "500", colorScheme)} />
     </View>
   )
 }

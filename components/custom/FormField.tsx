@@ -15,7 +15,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
     <View className={`${props.otherStyles}`}>
       <Text className="text-typography-950 text-base font-pmedium mb-1">{props.title}</Text>
       <View className={`flex-row border-2 items-center w-full h-16 px-4 rounded-2xl
-                      ${isFocused ? "border-tertiary-400" : "border-outline-300"} bg-background-200`}>
+                      ${isFocused ? "border-primary-500" : "border-outline-300"} bg-background-200`}>
         <Controller
           control={props.control}
           name={props.formDataTypeKey as Path<T>}

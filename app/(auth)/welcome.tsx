@@ -31,7 +31,7 @@ export default function Welcome() {
               <CustomButton
                 key={index}
                 handlePress={btn.action}
-                containerStyles="w-[4.5rem]"
+                containerStyles="w-[4.5rem] h-[4.5rem] rounded-xl"
                 icon={btn.icon}
                 iconStyles="w-11 h-11"
               />
@@ -46,7 +46,7 @@ export default function Welcome() {
             handlePress={() => router.push("/login")}
             isPrimary={true}
             iconStyles="w-8 h-8"
-            containerStyles="w-full mt-5"
+            containerStyles="w-full h-[4.5rem] mt-5"
           />
         </View>
       </ScrollView>
