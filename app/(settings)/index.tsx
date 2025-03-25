@@ -20,6 +20,7 @@ const Settings = () => {
     try {
       setIsLoading(true);
       await authRepository.logout()
+      router.dismissAll();
       router.replace("/welcome");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
