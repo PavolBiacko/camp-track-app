@@ -17,7 +17,7 @@ export default function Welcome() {
         <View className="w-full h-full justify-center items-center px-4">
           <Image
             source={images.logo}
-            className="max-w-[380px] w-full h-[300px]"
+            className="w-full h-[300px]"
             resizeMode="contain"
           />
           <Text className="text-typography-950 text-2xl font-pbold text-center">

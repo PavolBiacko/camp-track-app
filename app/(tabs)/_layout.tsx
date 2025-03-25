@@ -16,7 +16,7 @@ const tabData: TabData[] = [
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
   { name: 'groups', shownLabel: 'Oddiely', icon: icons.group, roles: [UserRoles.CAMP_LEADER] },
   { name: 'children', shownLabel: 'Moje deti', icon: icons.children, roles: [UserRoles.PARENT] },
-  { name: 'messages', shownLabel: 'Správy', icon: icons.comment, roles: EVERYBODY },
+  { name: 'messages', shownLabel: 'Správy', icon: icons.message, roles: EVERYBODY },
   { name: 'gallery', shownLabel: 'Galéria', icon: icons.gallery, roles: EVERYBODY },
 ];
 
@@ -37,7 +37,7 @@ const TabsLayout = () => {
           name={tab.name}
           options={{
             headerShown: false,
-            animation: "none",
+            animation: 'shift',
             href: tab.roles.includes(user?.role!) ? undefined : null,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon

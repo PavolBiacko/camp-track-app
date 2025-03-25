@@ -1,9 +1,12 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
 import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useColorScheme } from "nativewind";
 import { useEffect } from 'react';
 import "../global.css";
 
@@ -14,6 +17,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, error] = useAppFonts();
   const { session, isLoading } = useSession();
+  const { colorScheme, setColorScheme } = useColorScheme();
 
   useEffect(() => {
     if (error) throw error;
@@ -21,18 +25,34 @@ export default function RootLayout() {
     // queryClient.invalidateQueries();
   }, [fontsLoaded, error]);
 
+  // Potential error? No waiting state
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem('colorScheme');
+        setColorScheme(savedTheme as ModeType);
+      } catch (error) {
+        console.error('Failed to load theme from AsyncStorage:', error);
+      }
+    };
+    loadTheme();
+  }, []);
+
   if (!fontsLoaded && !error) return null;
 
   if (isLoading) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GluestackUIProvider mode="light">
+      <GluestackUIProvider mode={colorScheme}>
         <Stack screenOptions={{ headerShown: false }}>
           {!session ? (
             <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />
           ) : (
-            <Stack.Screen name="(tabs)" options={{ animation: 'ios_from_right' }} />
+            [
+              <Stack.Screen key="tabs" name="(tabs)" options={{ animation: 'ios_from_right' }} />,
+              <Stack.Screen key="settings" name="(settings)" options={{ animation: 'ios_from_right' }} />
+            ]
           )}
         </Stack>
         <StatusBar />

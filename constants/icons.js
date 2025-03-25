@@ -2,7 +2,7 @@
 import accounts from "@/assets/icons/accounts.png";
 import calendar from "@/assets/icons/calendar.png";
 import children from "@/assets/icons/children.png";
-import comment from "@/assets/icons/comment.png";
+import darkMode from "@/assets/icons/dark-mode.png";
 import email from "@/assets/icons/email.png";
 import eyeHide from "@/assets/icons/eye-hide.png";
 import eye from "@/assets/icons/eye.png";
@@ -10,8 +10,10 @@ import gallery from "@/assets/icons/gallery.png";
 import group from "@/assets/icons/group.png";
 import home from "@/assets/icons/home.png";
 import leftArrow from "@/assets/icons/left-arrow.png";
+import lightMode from "@/assets/icons/light-mode.png";
 import logout from "@/assets/icons/logout.png";
 import menu from "@/assets/icons/menu.png";
+import message from "@/assets/icons/message.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import search from "@/assets/icons/search.png";
 import settings from "@/assets/icons/settings.png";
@@ -28,7 +30,7 @@ export default {
   home,
   calendar,
   accounts,
-  comment,
+  message,
   gallery,
   leftArrow,
   menu,
@@ -46,5 +48,7 @@ export default {
   email,
   settings,
   children,
-  group
+  group,
+  lightMode,
+  darkMode,
 };

@@ -1,3 +1,10 @@
 export type BaseLayoutProps = {
-  containerStyles?: string;
+  containerStyles?: string,
+}
+
+export type SettingsBoxProps = {
+  title: string,
+  isClickable: boolean,
+  handlePress?: () => void,
+  containerStyles?: string,
 }
