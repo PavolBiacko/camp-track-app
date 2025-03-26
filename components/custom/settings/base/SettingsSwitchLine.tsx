@@ -6,8 +6,8 @@ import { Image, Switch, Text, View } from 'react-native';
 const SettingsSwitchLine = (props: SettingsSwitchLineProps) => {
   const { trackColorOff, trackColorOn, thumbColorOn, thumbColorOff } = useMemo(() => {
 
-    const trackColorOff = getRGBColor('secondary', '200', props.colorScheme);
-    const trackColorOn = getRGBColor('secondary', '200', props.colorScheme);
+    const trackColorOff = getRGBColor('secondary', '50', props.colorScheme);
+    const trackColorOn = getRGBColor('secondary', '300', props.colorScheme);
 
     const thumbColorOn = getRGBColor('tertiary', '200', props.colorScheme);
     const thumbColorOff = getRGBColor('primary', '200', props.colorScheme);
