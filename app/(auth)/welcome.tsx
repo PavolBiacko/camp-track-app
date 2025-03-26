@@ -30,10 +30,10 @@ export default function Welcome() {
             {socialButtons.map((btn, index) => (
               <CustomButton
                 key={index}
-                handlePress={btn.action}
-                containerStyles="w-[4.5rem] h-[4.5rem] rounded-xl"
                 icon={btn.icon}
+                handlePress={btn.action}
                 iconStyles="w-11 h-11"
+                containerStyles="w-[4.5rem] h-[4.5rem] rounded-full bg-background-500"
               />
             ))}
           </View>
@@ -43,10 +43,10 @@ export default function Welcome() {
           <CustomButton
             title="Pokračuj cez Email"
             icon={icons.email}
+            action="primary"
             handlePress={() => router.push("/login")}
-            isPrimary={true}
             iconStyles="w-8 h-8"
-            containerStyles="w-full h-[4.5rem] mt-5"
+            containerStyles="w-full h-[4.5rem] mt-5 rounded-3xl"
           />
         </View>
       </ScrollView>

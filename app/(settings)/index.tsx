@@ -163,8 +163,7 @@ const Settings = () => {
           <CustomButton
             title="Odhlás sa"
             handlePress={submit}
-            isPrimary={true}
-            containerStyles='h-16'
+            containerStyles='h-16 rounded-3xl'
             isLoading={isLoading}
           />
         </SettingsBox>

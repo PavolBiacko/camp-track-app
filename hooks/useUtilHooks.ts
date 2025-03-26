@@ -1,7 +1,9 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
+import { ButtonActionType, ButtonVariantType } from "@/types/button";
 import { TabScreenOptions } from "@/types/options";
 import { useFonts } from "expo-font";
 import { Platform } from "react-native";
+import { ClassNameValue } from "tailwind-merge";
 
 export function useCapitalizeWord(text: string | undefined): string | undefined {
   if (!text) {
@@ -37,4 +39,19 @@ export function useTabScreenOptions(colorScheme?: "light" | "dark"): TabScreenOp
       height: Platform.OS === "ios" ? 75 : 60,
     },
   };
+}
+
+export function useButtonStyles(action: ButtonActionType = "primary", variant: ButtonVariantType = "solid"): ClassNameValue {
+  if (action === "default") {
+    return "";
+  }
+
+  switch (variant) {
+    case "solid":
+      return `bg-${action}-500`;
+    case "outline":
+      return `border-2 border-${action}-500`;
+    case "ghost":
+      return "";
+  }
 }

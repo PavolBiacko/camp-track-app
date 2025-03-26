@@ -1,4 +1,5 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
+import { useButtonStyles } from '@/hooks/useUtilHooks'
 import { CustomButtonProps } from '@/types/button'
 import { useColorScheme } from 'nativewind'
 import { FC } from 'react'
@@ -7,18 +8,20 @@ import { twMerge } from 'tailwind-merge'
 
 const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }) => {
   const { colorScheme } = useColorScheme();
+
   const hasBoth = !!props.title && !!props.icon;
+  const buttonStyles = useButtonStyles(props.action, props.variant);
 
   return (
     <TouchableOpacity
       onPress={props.handlePress}
-      activeOpacity={0.7}
+      activeOpacity={0.3}
       className={
         twMerge(
-          props.isPrimary ? "bg-primary-500" : "bg-background-500",
+          buttonStyles,
           props.isLoading ? "opacity-50" : "",
           props.containerStyles,
-          "rounded-3xl justify-center items-center",
+          "justify-center items-center",
           hasBoth ? "flex-row gap-3" : ""
         )
       }
@@ -28,9 +31,9 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
         <ActivityIndicator size="large" color={getRGBColor('typography', '950', colorScheme)} />
       ) : (
         <>
-          {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
+          {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} style={{ tintColor: props.iconTintColor }} />}
           {props.title && <Text className={twMerge("text-typography-black text-lg font-psemibold", props.textStyles)}>{props.title}</Text>}
-          {props.icon && iconPosition === "right" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} />}
+          {props.icon && iconPosition === "right" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} style={{ tintColor: props.iconTintColor }} />}
         </>
       )}
 

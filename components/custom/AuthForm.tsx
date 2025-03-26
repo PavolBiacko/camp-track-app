@@ -38,8 +38,7 @@ const AuthForm: FC<AuthFormProps> = (props) => {
         <CustomButton
           title={props.title}
           handlePress={handleSubmit(props.onSubmit)}
-          isPrimary={true}
-          containerStyles="mt-7 h-[4.5rem]"
+          containerStyles="mt-7 h-[4.5rem] rounded-3xl"
           isLoading={isSubmitting}
         />
 
