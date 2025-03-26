@@ -1,6 +1,7 @@
 import CustomButton from '@/components/custom/CustomButton';
 import SettingsBox from '@/components/custom/SettingsBox';
 import { Avatar, AvatarFallbackText } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
 import { icons } from '@/constants';
 import authRepository from '@/repositories/authRepository';
@@ -52,14 +53,17 @@ const Settings = () => {
         {/* Profile Settings */}
         <SettingsBox title="Profil" isClickable={true} containerStyles='bg-secondary-50'>
           <View className='flex-row justify-start items-center'>
-            <Avatar size="xl" className="bg-indigo-600 rounded-full">
+            <Avatar size="xl" className="border-2 border-outline-700 bg-background-500 rounded-full">
               <AvatarFallbackText className="text-white">
                 Pavol Biačko
               </AvatarFallbackText>
             </Avatar>
-            <View className='flex-1 ml-3'>
+            <View className='ml-3'>
               <Text className='text-typography-950 text-2xl font-psemibold'>Pavol Biačko</Text>
               <Text className='text-typography-700 text-xs font-pregular'>palko.biacko@gmail.com</Text>
+              <Badge className='bg-error-300 border border-error-700 justify-center items-center self-start rounded-xl mt-2'>
+                <Text className='text-typography-950 text-xs font-pbold px-2'>HOSŤ</Text>
+              </Badge>
             </View>
           </View>
         </SettingsBox>
