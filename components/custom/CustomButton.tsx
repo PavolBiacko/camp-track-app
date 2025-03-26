@@ -15,7 +15,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
   return (
     <TouchableOpacity
       onPress={props.handlePress}
-      activeOpacity={0.3}
+      activeOpacity={0.5}
       className={
         twMerge(
           buttonStyles,
