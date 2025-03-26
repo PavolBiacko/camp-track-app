@@ -34,28 +34,21 @@ const register = async (email: string, password: string): Promise<string | null>
   }
 };
 
-const deleteAccount = async (): Promise<void> => {
+// Running on the server for security reasons
+const deleteAccount = async (userId: string): Promise<void> => {
   try {
-    // const { error } = await client.auth.admin.deleteUser("someid");
-    // if (error) throw error;
+    const { error } = await client.functions.invoke("delete-auth-user-by-id", {
+      method: "DELETE",
+      body: { id: userId },
+    });
 
-    if (typeof window === 'undefined') {
-      console.log('Running server-side');
-    } else {
-      console.log('Running client-side');
-    }
-
-    if (typeof process !== 'undefined' && process.versions && process.versions.node) {
-      console.log('Running server-side in Node.js');
-    } else {
-      console.log('Not in Node.js environment');
-    }
+    if (error) throw error;
 
   } catch (error: any) {
-    // console.error('Logout error:', (error as AuthError).message);
-    throw error as AuthError;
+    // console.error('Deleting user error:', (error as AuthError).message);
+    throw error;
   }
-};
+}
 
 const logout = async (): Promise<void> => {
   try {
