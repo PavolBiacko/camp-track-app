@@ -1,10 +1,13 @@
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
 import SettingsSwitchLine from '@/components/custom/settings/base/SettingsSwitchLine';
 import { icons } from '@/constants'; // Adjust path as needed
-import { ColorSchemeProps, SettingsSwitchLineProps } from '@/types/base';
-import { useMemo, useState } from 'react';
+import { SettingsSwitchLineProps } from '@/types/base';
+import { useColorScheme } from 'nativewind';
+import { FC, useMemo, useState } from 'react';
 
-const NotificationsSettings = (props: ColorSchemeProps) => {
+const NotificationsSettings: FC = () => {
+  const { colorScheme } = useColorScheme();
+
   const [programNotify, setProgramNotify] = useState(false);
   const [messagesNotify, setMessagesNotification] = useState(false);
   const [photosNotify, setPhotosNotify] = useState(false);
@@ -43,7 +46,7 @@ const NotificationsSettings = (props: ColorSchemeProps) => {
           secondaryIcon={item.secondaryIcon}
           value={item.value}
           onValueChange={item.onValueChange}
-          colorScheme={props.colorScheme}
+          colorScheme={colorScheme}
           containerStyles={index !== data.length - 1 ? "border-b border-outline-500 px-5 py-3" : "px-5 py-3"}
         />
       ))}

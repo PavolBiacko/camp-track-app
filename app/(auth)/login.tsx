@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Login: FC = () => {
 
-  const submit = async (data: AuthFormData) => {
+  const handleLogin = async (data: AuthFormData) => {
     // Data are valid, checked with Zod
     try {
       await authRepository.login(data.email, data.password);
@@ -30,7 +30,7 @@ const Login: FC = () => {
         ]}
         initialValues={{ email: "", password: "" }}
         validationSchema={signInSchema}
-        onSubmit={submit}
+        onSubmit={handleLogin}
         linkData={{
           prelinkText: "Nemáš účet?",
           linkText: "Zaregistruj sa",

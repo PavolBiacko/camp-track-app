@@ -49,9 +49,9 @@ export function useButtonStyles(action: ButtonActionType = "primary", variant: B
 
   switch (variant) {
     case "solid":
-      return `bg-${action}-500`;
+      return `bg-${action}-300`;
     case "outline":
-      return `border-2 border-${action}-500`;
+      return `border-2 border-${action}-300`;
     case "ghost":
       return "";
   }

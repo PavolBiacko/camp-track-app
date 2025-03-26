@@ -31,6 +31,7 @@ export default function Welcome() {
               <CustomButton
                 key={index}
                 icon={btn.icon}
+                action="default"
                 handlePress={btn.action}
                 iconStyles="w-11 h-11"
                 containerStyles="w-[4.5rem] h-[4.5rem] rounded-full bg-background-500"

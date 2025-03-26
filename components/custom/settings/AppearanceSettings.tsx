@@ -1,12 +1,14 @@
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
 import SettingsSwitchLine from '@/components/custom/settings/base/SettingsSwitchLine';
 import { icons } from '@/constants'; // Adjust path as needed
-import { ColorSchemeProps, SettingsSwitchLineProps } from '@/types/base';
+import { SettingsSwitchLineProps } from '@/types/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useMemo, useState } from 'react';
+import { useColorScheme } from 'nativewind';
+import { FC, useEffect, useMemo, useState } from 'react';
 
-const NotificationsSettings = (props: ColorSchemeProps) => {
-  const [isDarkMode, setIsDarkMode] = useState(props.colorScheme === "dark");
+const NotificationsSettings: FC = () => {
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
 
   const data: SettingsSwitchLineProps[] = useMemo(
     () => [
@@ -22,16 +24,16 @@ const NotificationsSettings = (props: ColorSchemeProps) => {
   );
 
   useEffect(() => {
-    props.setColorScheme && props.setColorScheme(isDarkMode ? "dark" : "light");
+    setColorScheme(isDarkMode ? "dark" : "light");
     const saveTheme = async () => {
       try {
-        await AsyncStorage.setItem("colorScheme", props.colorScheme?.toString() || "system");
+        await AsyncStorage.setItem("colorScheme", colorScheme?.toString() || "system");
       } catch (error) {
         console.error('Failed to save theme to AsyncStorage:', error);
       }
     };
     saveTheme();
-  }, [isDarkMode, props.colorScheme]);
+  }, [isDarkMode, colorScheme]);
 
   return (
     <SettingsBox title="Vzhľad" isClickable={false}>
@@ -43,7 +45,7 @@ const NotificationsSettings = (props: ColorSchemeProps) => {
           secondaryIcon={item.secondaryIcon}
           value={item.value}
           onValueChange={item.onValueChange}
-          colorScheme={props.colorScheme}
+          colorScheme={colorScheme}
           containerStyles={index !== data.length - 1 ? "border-b border-outline-500 px-5 py-3" : "px-5 py-3"}
         />
       ))}

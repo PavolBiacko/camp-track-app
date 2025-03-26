@@ -34,6 +34,29 @@ const register = async (email: string, password: string): Promise<string | null>
   }
 };
 
+const deleteAccount = async (): Promise<void> => {
+  try {
+    // const { error } = await client.auth.admin.deleteUser("someid");
+    // if (error) throw error;
+
+    if (typeof window === 'undefined') {
+      console.log('Running server-side');
+    } else {
+      console.log('Running client-side');
+    }
+
+    if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+      console.log('Running server-side in Node.js');
+    } else {
+      console.log('Not in Node.js environment');
+    }
+
+  } catch (error: any) {
+    // console.error('Logout error:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+};
+
 const logout = async (): Promise<void> => {
   try {
     const { error } = await client.auth.signOut();
@@ -67,5 +90,6 @@ export default {
   login,
   register,
   logout,
+  deleteAccount,
   whoami
 };

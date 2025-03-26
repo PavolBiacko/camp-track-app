@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Register: FC = () => {
 
-  const submit = async (data: AuthFormData) => {
+  const handleRegister = async (data: AuthFormData) => {
     // Data are valid, checked with Zod
     try {
       await authRepository.register(data.email, data.password);
@@ -31,7 +31,7 @@ const Register: FC = () => {
         ]}
         initialValues={{ email: "", password: "", passwordCheck: "" }}
         validationSchema={signUpSchema}
-        onSubmit={submit}
+        onSubmit={handleRegister}
         linkData={{
           prelinkText: "Už máš účet?",
           linkText: "Prihlás sa",
