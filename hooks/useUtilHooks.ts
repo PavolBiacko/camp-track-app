@@ -1,4 +1,5 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
+import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/button";
 import { TabScreenOptions } from "@/types/options";
 import { useFonts } from "expo-font";
@@ -26,7 +27,7 @@ export function useAppFonts(): [boolean, Error | null] {
   });
 }
 
-export function useTabScreenOptions(colorScheme?: "light" | "dark"): TabScreenOptions {
+export function useTabScreenOptions(colorScheme?: ColorScheme): TabScreenOptions {
   return {
     tabBarShowLabel: false,
     tabBarActiveTintColor: getRGBColor("primary", "500", colorScheme),
