@@ -8,20 +8,12 @@ const AuthLayout = () => {
   return (
     <Stack screenOptions={{
       headerShown: false,
+      animation: 'ios_from_right',
       contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
     }}>
-      <Stack.Screen
-        name="index"
-        options={{ animation: 'ios_from_right' }}
-      />
-      <Stack.Screen
-        name="login"
-        options={{ animation: 'ios_from_right' }}
-      />
-      <Stack.Screen
-        name="register"
-        options={{ animation: 'ios_from_right' }}
-      />
+      <Stack.Screen name="index" />
+      <Stack.Screen name="login" />
+      <Stack.Screen name="register" />
     </Stack>
   )
 }

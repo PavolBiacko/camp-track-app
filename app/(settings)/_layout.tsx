@@ -8,6 +8,7 @@ const _layout = () => {
 
   return (
     <Stack screenOptions={{
+      animation: 'ios_from_right',
       headerShown: false,
       headerStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) },
       headerTitleStyle: { color: getRGBColor("typography", "950", colorScheme) },
@@ -19,7 +20,6 @@ const _layout = () => {
         options={{
           headerShown: true,
           title: "Nastavenia",
-          animation: 'ios_from_right',
         }}
       />
       <Stack.Screen
@@ -27,15 +27,13 @@ const _layout = () => {
         options={{
           headerShown: true,
           title: "Ochrana súkromia",
-          animation: 'ios_from_right',
         }}
       />
       <Stack.Screen
         name="terms-of-service"
         options={{
           headerShown: true,
-          title: "Podmienky", animation:
-            'ios_from_right'
+          title: "Podmienky",
         }}
       />
     </Stack>

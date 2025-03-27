@@ -1,7 +1,6 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
-import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -18,7 +17,6 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded, error] = useAppFonts();
-  const { session, isLoading } = useSession();
   const { colorScheme, setColorScheme } = useColorScheme();
 
   useEffect(() => {
@@ -42,28 +40,18 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !error) return null;
 
-  if (isLoading) return null;
-
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode={colorScheme}>
         <View style={{ flex: 1, backgroundColor: getRGBColor("background", "0", colorScheme) }}>
           <Stack screenOptions={{
+            animation: 'ios_from_right',
             headerShown: false,
             contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
           }}>
-            <Stack.Screen
-              name="(tabs)"
-              options={{ animation: 'ios_from_right' }}
-            />
-            <Stack.Screen
-              name="(auth)"
-              options={{ animation: 'ios_from_right' }}
-            />
-            <Stack.Screen
-              name="(settings)"
-              options={{ animation: 'ios_from_right' }}
-            />
+            <Stack.Screen name="(auth)" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(settings)" />
           </Stack>
           <StatusBar />
         </View>
