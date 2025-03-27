@@ -6,6 +6,11 @@ export type BaseLayoutProps = {
   containerStyles?: string,
 }
 
+export type LoadingProps = {
+  showText: boolean,
+  containerStyles?: string,
+}
+
 export type SettingsBoxProps = {
   title: string,
   isClickable: boolean,

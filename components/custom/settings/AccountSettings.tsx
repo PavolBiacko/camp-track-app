@@ -12,10 +12,6 @@ const AccountSettings = () => {
   const [logoutLoading, setLogoutLoading] = useState(false);
   const [accountDeleteLoading, setAccountDeleteLoading] = useState(false);
 
-  if (!user || isLoading || isError) {
-    return <Loading />;
-  }
-
   const handleLogout = async () => {
     try {
       setLogoutLoading(true);
@@ -33,7 +29,7 @@ const AccountSettings = () => {
   const handleAccountDelete = async () => {
     try {
       setAccountDeleteLoading(true);
-      await authRepository.deleteAccount(user.id)
+      await authRepository.deleteAccount(user?.id!)
       router.dismissAll();
       router.replace("/(auth)");
     } catch (error: any) {
@@ -46,39 +42,41 @@ const AccountSettings = () => {
 
   return (
     <SettingsBox title="Účet" isClickable={false}>
-      <View className='border-b border-outline-500 p-5 gap-5'>
-        <CustomButton
-          title="Zmena emailu"
-          action="secondary"
-          handlePress={() => { }}
-          containerStyles='h-16 rounded-3xl'
-        />
-        <CustomButton
-          title="Zmena hesla"
-          action="tertiary"
-          handlePress={() => { }}
-          containerStyles='h-16 rounded-3xl'
-        />
-      </View>
-      <View className='p-5 gap-5'>
-        <CustomButton
-          title="Odhlás sa"
-          handlePress={handleLogout}
-          action="primary"
-          containerStyles='h-16 rounded-3xl'
-          isLoading={logoutLoading}
-        />
-        <CustomButton
-          title="Odstráň účet"
-          action='default'
-          handlePress={handleAccountDelete}
-          textStyles='text-indicator-error'
-          containerStyles='w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center'
-          isLoading={accountDeleteLoading}
-        />
-      </View>
-
-
+      {!user || isLoading || isError
+        ? <Loading showText={false} containerStyles="p-5" />
+        : <>
+          <View className='border-b border-outline-500 p-5 gap-5'>
+            <CustomButton
+              title="Zmena emailu"
+              action="secondary"
+              handlePress={() => { }}
+              containerStyles='h-16 rounded-3xl'
+            />
+            <CustomButton
+              title="Zmena hesla"
+              action="tertiary"
+              handlePress={() => { }}
+              containerStyles='h-16 rounded-3xl'
+            />
+          </View>
+          <View className='p-5 gap-5'>
+            <CustomButton
+              title="Odhlás sa"
+              handlePress={handleLogout}
+              action="primary"
+              containerStyles='h-16 rounded-3xl'
+              isLoading={logoutLoading}
+            />
+            <CustomButton
+              title="Odstráň účet"
+              action='default'
+              handlePress={handleAccountDelete}
+              textStyles='text-indicator-error'
+              containerStyles='w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center'
+              isLoading={accountDeleteLoading}
+            />
+          </View>
+        </>}
     </SettingsBox>
   )
 }

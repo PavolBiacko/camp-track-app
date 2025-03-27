@@ -1,14 +1,14 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
+import { LoadingProps } from '@/types/base'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
 import { ActivityIndicator, Text, View } from 'react-native'
 
-const Loading = () => {
+const Loading = (props: LoadingProps) => {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View className="flex-1 bg-background-0 justify-center">
-      <Text className="text-typography-950 text-2xl font-psemibold self-center">Načítavanie...</Text>
+    <View className={`flex-1 justify-center ${props.containerStyles}`}>
+      {props.showText && <Text className="text-typography-950 text-2xl font-psemibold self-center">Načítavanie...</Text>}
       <ActivityIndicator size="large" color={getRGBColor("primary", "500", colorScheme)} />
     </View>
   )

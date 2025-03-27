@@ -1,5 +1,4 @@
 import client from '@/services/supabaseClient';
-import { User } from '@/types/models/users';
 import { AuthError } from '@supabase/supabase-js';
 
 const login = async (email: string, password: string): Promise<string> => {
@@ -62,7 +61,7 @@ const logout = async (): Promise<void> => {
   }
 };
 
-const whoami = async (): Promise<User> => {
+const whoami = async (): Promise<any> => {
   try {
     const { data: data1, error: error1 } = await client.auth.getUser();
 
@@ -72,7 +71,7 @@ const whoami = async (): Promise<User> => {
 
     if (!data2 || error2) throw error2;
 
-    return data2 as User;
+    return data2 as any;
   } catch (error: any) {
     // console.error('Logout error:', (error as AuthError).message);
     throw error as AuthError;

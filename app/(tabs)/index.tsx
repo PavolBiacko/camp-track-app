@@ -22,7 +22,7 @@ const Home = () => {
       case UserRoles.USER:
         return <UserLayout />;
       default:
-        return <Loading />;
+        return <Loading showText={true} />;
     }
   }, [user])
   //const [showModal, setShowModal] = useState(false)

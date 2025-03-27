@@ -1,4 +1,5 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
 import { useSession } from '@/hooks/useSession';
 import { useAppFonts } from '@/hooks/useUtilHooks';
@@ -22,7 +23,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-    // queryClient.invalidateQueries();
+    queryClient.invalidateQueries();
   }, [fontsLoaded, error]);
 
   // Potential error? No waiting state
@@ -45,7 +46,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode={colorScheme}>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) } }}>
           {!session ? (
             <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />
           ) : (

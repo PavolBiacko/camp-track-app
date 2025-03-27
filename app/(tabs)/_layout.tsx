@@ -26,7 +26,7 @@ const TabsLayout = () => {
   const { user, isLoading, isError } = useAuth();
 
   if (!user || isLoading || isError) {
-    return <Loading />;
+    return <Loading showText={true} />;
   }
 
   return (

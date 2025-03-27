@@ -39,6 +39,9 @@ export function useTabScreenOptions(colorScheme?: ColorScheme): TabScreenOptions
       borderTopWidth: 2,
       height: Platform.OS === "ios" ? 75 : 60,
     },
+    sceneStyle: {
+      backgroundColor: getRGBColor("background", "0", colorScheme),
+    },
   };
 }
 
