@@ -13,8 +13,8 @@ export default function App() {
   }
 
   if (session) {
-    return <Redirect href="/home" />;
+    return <Redirect href="/(tabs)" />;
   } else {
-    return <Redirect href="/welcome" />;
+    return <Redirect href="/(auth)" />;
   }
 }

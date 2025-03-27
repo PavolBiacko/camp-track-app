@@ -21,7 +21,7 @@ const AccountSettings = () => {
       setLogoutLoading(true);
       await authRepository.logout()
       router.dismissAll();
-      router.replace("/welcome");
+      router.replace("/(auth)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;
@@ -35,7 +35,7 @@ const AccountSettings = () => {
       setAccountDeleteLoading(true);
       await authRepository.deleteAccount(user.id)
       router.dismissAll();
-      router.replace("/welcome");
+      router.replace("/(auth)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

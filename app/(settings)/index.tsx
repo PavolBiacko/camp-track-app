@@ -6,8 +6,6 @@ import ProfileSettings from '@/components/custom/settings/ProfileSettings';
 import { ScrollView, View } from 'react-native';
 
 const Settings = () => {
-
-
   return (
     <View className='bg-background-0 w-full h-full'>
       <ScrollView>

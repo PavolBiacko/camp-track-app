@@ -11,7 +11,7 @@ import { useColorScheme } from 'nativewind';
 const EVERYBODY = [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER, UserRoles.PARENT, UserRoles.USER];
 
 const tabData: TabData[] = [
-  { name: 'home', shownLabel: 'Domov', icon: icons.home, roles: EVERYBODY },
+  { name: 'index', shownLabel: 'Domov', icon: icons.home, roles: EVERYBODY },
   { name: 'calendar', shownLabel: 'Program', icon: icons.calendar, roles: EVERYBODY },
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
   { name: 'groups', shownLabel: 'Oddiely', icon: icons.group, roles: [UserRoles.CAMP_LEADER] },
