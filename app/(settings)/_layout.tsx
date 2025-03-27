@@ -12,10 +12,32 @@ const _layout = () => {
       headerStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) },
       headerTitleStyle: { color: getRGBColor("typography", "950", colorScheme) },
       headerTintColor: getRGBColor("typography", "950", colorScheme),
+      contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
     }}>
-      <Stack.Screen name="index" options={{ headerShown: true, title: "Nastavenia", animation: 'ios_from_right' }} />
-      <Stack.Screen name="privacy-policy" options={{ headerShown: true, title: "Ochrana súkromia", animation: 'ios_from_right' }} />
-      <Stack.Screen name="terms-of-service" options={{ headerShown: true, title: "Podmienky", animation: 'ios_from_right' }} />
+      <Stack.Screen
+        name="index"
+        options={{
+          headerShown: true,
+          title: "Nastavenia",
+          animation: 'ios_from_right',
+        }}
+      />
+      <Stack.Screen
+        name="privacy-policy"
+        options={{
+          headerShown: true,
+          title: "Ochrana súkromia",
+          animation: 'ios_from_right',
+        }}
+      />
+      <Stack.Screen
+        name="terms-of-service"
+        options={{
+          headerShown: true,
+          title: "Podmienky", animation:
+            'ios_from_right'
+        }}
+      />
     </Stack>
   )
 }

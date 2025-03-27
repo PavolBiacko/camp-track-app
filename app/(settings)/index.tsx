@@ -7,7 +7,7 @@ import { ScrollView, View } from 'react-native';
 
 const Settings = () => {
   return (
-    <View className='bg-background-0 w-full h-full'>
+    <View className='w-full h-full'>
       <ScrollView>
         <ProfileSettings />
         <AppearanceSettings />

@@ -1,5 +1,6 @@
 import Loading from '@/components/custom/Loading';
 import TabIcon from '@/components/custom/TabIcon';
+import BaseLayout from '@/components/layouts/BaseLayout';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
 import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';
@@ -30,27 +31,30 @@ const TabsLayout = () => {
   }
 
   return (
-    <Tabs backBehavior='none' screenOptions={useTabScreenOptions(colorScheme)}>
-      {tabData.map((tab) => (
-        <Tabs.Screen
-          key={tab.name}
-          name={tab.name}
-          options={{
-            headerShown: false,
-            animation: 'none',
-            href: tab.roles.includes(user?.role!) ? undefined : null,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={tab.icon}
-                color={color}
-                shownLabel={useCapitalizeWord(tab.shownLabel)}
-                focused={focused}
-              />
-            ),
-          }}
-        />
-      ))}
-    </Tabs>
+    <>
+      <BaseLayout />
+      <Tabs backBehavior='none' screenOptions={useTabScreenOptions(colorScheme)}>
+        {tabData.map((tab) => (
+          <Tabs.Screen
+            key={tab.name}
+            name={tab.name}
+            options={{
+              headerShown: false,
+              animation: 'shift',
+              href: tab.roles.includes(user?.role!) ? undefined : null,
+              tabBarIcon: ({ color, focused }) => (
+                <TabIcon
+                  icon={tab.icon}
+                  color={color}
+                  shownLabel={useCapitalizeWord(tab.shownLabel)}
+                  focused={focused}
+                />
+              ),
+            }}
+          />
+        ))}
+      </Tabs>
+    </>
   )
 }
 

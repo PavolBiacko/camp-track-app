@@ -8,7 +8,7 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <Loading />
+      <Loading showText={true} />
     );
   }
 

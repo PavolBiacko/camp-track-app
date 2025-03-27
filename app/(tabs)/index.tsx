@@ -1,5 +1,4 @@
 import Loading from "@/components/custom/Loading";
-import BaseLayout from "@/components/layouts/BaseLayout";
 import CampLeaderLayout from "@/components/layouts/home/CampLeaderLayout";
 import GroupLeaderLayout from "@/components/layouts/home/GroupLeaderLayout";
 import ParentLayout from "@/components/layouts/home/ParentLayout";
@@ -28,9 +27,9 @@ const Home = () => {
   //const [showModal, setShowModal] = useState(false)
 
   return (
-    <BaseLayout>
+    <>
       {activeLayout}
-    </BaseLayout>
+    </>
   );
 }
 

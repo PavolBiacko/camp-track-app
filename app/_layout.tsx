@@ -9,6 +9,7 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from "nativewind";
 import { useEffect } from 'react';
+import { View } from "react-native";
 import "../global.css";
 
 const queryClient = new QueryClient();
@@ -46,18 +47,28 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode={colorScheme}>
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) } }}>
-          {!session ? (
-            <Stack.Screen name="(auth)" options={{ animation: 'ios_from_right' }} />
-          ) : (
-            [
-              <Stack.Screen key="tabs" name="(tabs)" options={{ animation: 'ios_from_right' }} />,
-              <Stack.Screen key="settings" name="(settings)" options={{ animation: 'ios_from_right' }} />
-            ]
-          )}
-        </Stack>
-        <StatusBar />
+        <View style={{ flex: 1, backgroundColor: getRGBColor("background", "0", colorScheme) }}>
+          <Stack screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
+          }}>
+            <Stack.Screen
+              name="(tabs)"
+              options={{ animation: 'ios_from_right' }}
+            />
+            <Stack.Screen
+              name="(auth)"
+              options={{ animation: 'ios_from_right' }}
+            />
+            <Stack.Screen
+              name="(settings)"
+              options={{ animation: 'ios_from_right' }}
+            />
+          </Stack>
+          <StatusBar />
+        </View>
       </GluestackUIProvider>
     </QueryClientProvider>
+
   );
 }

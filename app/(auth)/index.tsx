@@ -12,7 +12,7 @@ const socialButtons = [
 
 export default function Welcome() {
   return (
-    <SafeAreaView className="bg-background-0 h-full">
+    <SafeAreaView className="h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View className="w-full h-full justify-center items-center px-4">
           <Image
