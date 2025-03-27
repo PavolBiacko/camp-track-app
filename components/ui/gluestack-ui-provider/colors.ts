@@ -316,7 +316,7 @@ export const getColor = <
 >(
   category: TCategory,
   shadeOrName: TShade,
-  theme: 'light' | 'dark' = 'light'
+  theme: 'light' | 'dark' = 'dark'
 ): string => {
   const colorSet = colors[theme][category];
   return (colorSet[shadeOrName as unknown as keyof typeof colorSet]) as string;
@@ -330,7 +330,7 @@ export const getRGBColor = <
 >(
   category: TCategory,
   shadeOrName: TShade,
-  theme: 'light' | 'dark' = 'light'
+  theme: 'light' | 'dark' = 'dark'
 ): string => {
   const colorSet = getColor(category, shadeOrName, theme);
   return `rgb(${colorSet})`;

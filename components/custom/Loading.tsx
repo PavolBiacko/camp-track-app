@@ -7,7 +7,7 @@ const Loading = (props: LoadingProps) => {
   const { colorScheme } = useColorScheme();
 
   return (
-    <View className={`flex-1 justify-center bg-background-0 ${props.containerStyles}`}>
+    <View className={`flex-1 justify-center ${props.containerStyles}`}>
       {props.showText && <Text className="text-typography-950 text-2xl font-psemibold self-center">Načítavanie...</Text>}
       <ActivityIndicator size="large" color={getRGBColor("primary", "500", colorScheme)} />
     </View>

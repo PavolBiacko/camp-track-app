@@ -11,8 +11,8 @@ const BaseLayout = (props: BaseLayoutProps) => {
   const { colorScheme } = useColorScheme();
 
   return (
-    <SafeAreaView className={`bg-background-0 border-b border-outline-300 w-full h-[13%] ${props.containerStyles}`}>
-      <View className="flex-1 items-end mx-5 mt-2">
+    <SafeAreaView className={`border-b border-outline-300 w-full h-[13%] ${props.containerStyles}`}>
+      <View className="items-end mx-5 mt-2">
         <CustomButton
           icon={icons.settings}
           action="secondary"
