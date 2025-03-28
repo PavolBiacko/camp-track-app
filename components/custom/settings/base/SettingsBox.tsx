@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 const SettingsBox = (props: PropsWithChildren<SettingsBoxProps>) => {
-  const contentWrapperStyles = `border border-secondary-500 rounded-xl ${props.containerStyles}`;
+  const contentWrapperStyles = `border border-secondary-300 rounded-xl ${props.containerStyles}`;
 
   return (
     <View className="mx-7 my-4">

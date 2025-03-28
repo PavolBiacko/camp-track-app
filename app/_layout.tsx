@@ -22,7 +22,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-    queryClient.invalidateQueries();
+    // queryClient.invalidateQueries();
   }, [fontsLoaded, error]);
 
   // Potential error? No waiting state
@@ -50,8 +50,7 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
           }}>
             <Stack.Screen name="(auth)" />
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="(settings)" />
+            <Stack.Screen name="(main)" />
           </Stack>
           <StatusBar />
         </View>

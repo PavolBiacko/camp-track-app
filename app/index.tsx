@@ -13,7 +13,7 @@ export default function App() {
   }
 
   if (session) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(main)/(tabs)" />;
   } else {
     return <Redirect href="/(auth)" />;
   }

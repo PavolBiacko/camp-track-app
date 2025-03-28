@@ -1,82 +1,82 @@
 import CustomButton from '@/components/custom/CustomButton';
 import Loading from '@/components/custom/Loading';
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
+import { useAccountActions } from '@/hooks/useAccountActions';
 import { useAuth } from '@/hooks/useAuth';
-import authRepository from '@/repositories/authRepository';
-import { router } from 'expo-router';
-import { useState } from 'react';
-import { Alert, View } from 'react-native';
+import { CustomButtonProps } from '@/types/button';
+import { View } from 'react-native';
 
 const AccountSettings = () => {
   const { user, isLoading, isError } = useAuth();
-  const [logoutLoading, setLogoutLoading] = useState(false);
-  const [accountDeleteLoading, setAccountDeleteLoading] = useState(false);
+  const { logoutLoading, accountDeleteLoading, handleLogout, handleAccountDelete } = useAccountActions();
 
-  const handleLogout = async () => {
-    try {
-      setLogoutLoading(true);
-      await authRepository.logout()
-      router.dismissAll();
-      router.replace("/(auth)");
-    } catch (error: any) {
-      Alert.alert("Pozor!", error.message);
-      return;
-    } finally {
-      setLogoutLoading(false);
-    }
-  };
+  const accountSettingsButtons: CustomButtonProps[] = [
+    {
+      title: 'Zmena emailu',
+      action: 'secondary',
+      handlePress: () => { },
+      containerStyles: 'h-16 rounded-3xl',
+    },
+    {
+      title: 'Zmena hesla',
+      action: 'tertiary',
+      handlePress: () => { },
+      containerStyles: 'h-16 rounded-3xl',
+    },
+  ];
 
-  const handleAccountDelete = async () => {
-    try {
-      setAccountDeleteLoading(true);
-      await authRepository.deleteAccount(user?.id!)
-      router.dismissAll();
-      router.replace("/(auth)");
-    } catch (error: any) {
-      Alert.alert("Pozor!", error.message);
-      return;
-    } finally {
-      setAccountDeleteLoading(false);
-    }
-  };
+  const accountActionButtons: CustomButtonProps[] = [
+    {
+      title: 'Odhlás sa',
+      action: 'primary',
+      handlePress: handleLogout,
+      containerStyles: 'h-16 rounded-3xl',
+      isLoading: logoutLoading,
+    },
+    {
+      title: 'Odstráň účet',
+      action: 'default',
+      handlePress: () => handleAccountDelete(user?.id!),  // button is disabled if user is not loaded
+      containerStyles: 'w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center',
+      textStyles: 'text-indicator-error',
+      isLoading: accountDeleteLoading,
+    },
+  ];
 
   return (
     <SettingsBox title="Účet" isClickable={false}>
-      {!user || isLoading || isError
-        ? <Loading showText={false} containerStyles="p-5" />
-        : <>
-          <View className='border-b border-outline-500 p-5 gap-5'>
-            <CustomButton
-              title="Zmena emailu"
-              action="secondary"
-              handlePress={() => { }}
-              containerStyles='h-16 rounded-3xl'
-            />
-            <CustomButton
-              title="Zmena hesla"
-              action="tertiary"
-              handlePress={() => { }}
-              containerStyles='h-16 rounded-3xl'
-            />
+      {!user || isLoading || isError ? (
+        <Loading showText={false} containerStyles='p-5' />
+      ) : (
+        <>
+          <View className="border-b border-outline-500 p-5 gap-5">
+            {accountSettingsButtons.map((button, index) => (
+              <CustomButton
+                key={index}
+                title={button.title}
+                action={button.action}
+                handlePress={button.handlePress}
+                containerStyles={button.containerStyles}
+                textStyles={button.textStyles}
+                isLoading={button.isLoading}
+              />
+            ))}
           </View>
-          <View className='p-5 gap-5'>
-            <CustomButton
-              title="Odhlás sa"
-              handlePress={handleLogout}
-              action="primary"
-              containerStyles='h-16 rounded-3xl'
-              isLoading={logoutLoading}
-            />
-            <CustomButton
-              title="Odstráň účet"
-              action='default'
-              handlePress={handleAccountDelete}
-              textStyles='text-indicator-error'
-              containerStyles='w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center'
-              isLoading={accountDeleteLoading}
-            />
+          <View className="p-5 gap-5">
+            {accountActionButtons.map((button, index) => (
+              <CustomButton
+                key={index}
+                title={button.title}
+                action={button.action}
+                handlePress={button.handlePress}
+                containerStyles={button.containerStyles}
+                textStyles={button.textStyles}
+                isLoading={button.isLoading}
+              />
+            ))}
           </View>
-        </>}
+        </>
+      )}
     </SettingsBox>
   )
 }
