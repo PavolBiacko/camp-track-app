@@ -12,7 +12,8 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "check": "npx expo-doctor --verbose",
-    "fix": "npx expo install --check"
+    "fix": "npx expo install --check",
+    "types:gen": "./scripts/generate-supabase-types.sh"
   },
   "jest": {
     "preset": "jest-expo"
@@ -83,6 +84,7 @@
     "jest-expo": "~52.0.6",
     "jscodeshift": "^0.15.2",
     "react-test-renderer": "18.3.1",
+    "supabase": "^2.20.5",
     "typescript": "^5.3.3"
   }
 }

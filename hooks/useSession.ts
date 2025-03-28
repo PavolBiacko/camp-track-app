@@ -1,4 +1,4 @@
-import supabase from '@/services/supabaseClient';
+import supabase from '@/supabase/client';
 import { Session } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 
