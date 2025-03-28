@@ -16,7 +16,7 @@ const SettingsSwitchLine = (props: SettingsSwitchLineProps) => {
   }, [props.colorScheme]);
 
   return (
-    <View className={`flex-row justify-between items-center ${props.containerStyles}`}>
+    <View className={`flex-row justify-between items-center px-5 py-[2vh] ${props.containerStyles}`}>
       <View className='flex-row justify-center items-center gap-3 pl-1.5'>
         <Image
           source={props.value ? props.icon : (props.secondaryIcon ?? props.icon)}

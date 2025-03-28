@@ -48,7 +48,7 @@ const NotificationsSettings: FC = () => {
           value={item.value}
           onValueChange={item.onValueChange}
           colorScheme={colorScheme}
-          containerStyles={index !== data.length - 1 ? "border-b border-outline-500 px-5 py-3" : "px-5 py-3"}
+          containerStyles={index !== data.length - 1 ? "border-b border-outline-500" : ""}
         />
       ))}
     </SettingsBox>
