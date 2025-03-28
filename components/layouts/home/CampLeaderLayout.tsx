@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native'
 
 const CampLeaderLayout = () => {
   return (
-    <>
+    <View className='h-full justify-center'>
       <View className="h-1/4 m-5">
         <TouchableOpacity onPress={() => { }} activeOpacity={0.7}
           className="rounded-3xl justify-center items-center bg-background-300 h-full border-2 border-primary-500">
@@ -26,7 +26,7 @@ const CampLeaderLayout = () => {
           </TouchableOpacity>
         </View>
       </View >
-    </>
+    </View>
   )
 }
 
