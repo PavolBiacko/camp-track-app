@@ -31,6 +31,7 @@ const SettingsSwitchLine = (props: SettingsSwitchLineProps) => {
         onValueChange={props.onValueChange}
         trackColor={{ true: trackColorOn, false: trackColorOff }}
         thumbColor={props.value ? thumbColorOn : thumbColorOff}
+        style={{ backgroundColor: "transparent" }}
       />
     </View>
   )
