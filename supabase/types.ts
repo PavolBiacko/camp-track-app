@@ -15,27 +15,27 @@ export type Database = {
           birth_date: string | null
           created_at: string
           email: string
-          first_name: string | null
+          first_name: string
           id: string
-          last_name: string | null
+          last_name: string
           role: Database["public"]["Enums"]["camp_roles"]
         }
         Insert: {
           birth_date?: string | null
           created_at?: string
           email: string
-          first_name?: string | null
+          first_name: string
           id?: string
-          last_name?: string | null
+          last_name: string
           role?: Database["public"]["Enums"]["camp_roles"]
         }
         Update: {
           birth_date?: string | null
           created_at?: string
           email?: string
-          first_name?: string | null
+          first_name?: string
           id?: string
-          last_name?: string | null
+          last_name?: string
           role?: Database["public"]["Enums"]["camp_roles"]
         }
         Relationships: []

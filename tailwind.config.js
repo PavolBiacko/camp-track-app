@@ -8,7 +8,7 @@ module.exports = {
   safelist: [
     {
       pattern:
-        /(bg|border|text|stroke|fill)-(primary|secondary|tertiary|error|success|warning|info|typography|outline|background|indicator)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark|primary)/,
+        /(bg|border|text|stroke|fill)-(primary|secondary|tertiary|quaternary|error|success|warning|info|typography|outline|background|indicator)-(0|50|100|200|300|400|500|600|700|800|900|950|white|gray|black|error|warning|muted|success|info|light|dark|primary)/,
     },
   ],
   theme: {
@@ -54,6 +54,20 @@ module.exports = {
           800: 'rgb(var(--color-tertiary-800)/<alpha-value>)',
           900: 'rgb(var(--color-tertiary-900)/<alpha-value>)',
           950: 'rgb(var(--color-tertiary-950)/<alpha-value>)',
+        },
+        quaternary: {
+          0: 'rgb(var(--color-quaternary-0)/<alpha-value>)',
+          50: 'rgb(var(--color-quaternary-50)/<alpha-value>)',
+          100: 'rgb(var(--color-quaternary-100)/<alpha-value>)',
+          200: 'rgb(var(--color-quaternary-200)/<alpha-value>)',
+          300: 'rgb(var(--color-quaternary-300)/<alpha-value>)',
+          400: 'rgb(var(--color-quaternary-400)/<alpha-value>)',
+          500: 'rgb(var(--color-quaternary-500)/<alpha-value>)',
+          600: 'rgb(var(--color-quaternary-600)/<alpha-value>)',
+          700: 'rgb(var(--color-quaternary-700)/<alpha-value>)',
+          800: 'rgb(var(--color-quaternary-800)/<alpha-value>)',
+          900: 'rgb(var(--color-quaternary-900)/<alpha-value>)',
+          950: 'rgb(var(--color-quaternary-950)/<alpha-value>)',
         },
         error: {
           0: 'rgb(var(--color-error-0)/<alpha-value>)',

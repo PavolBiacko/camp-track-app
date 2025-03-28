@@ -12,7 +12,12 @@ const Register: FC = () => {
   const handleRegister = async (data: AuthFormData) => {
     // Data are valid, checked with Zod
     try {
-      await authRepository.register(data.email, data.password);
+      await authRepository.register({
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName!,
+        lastName: data.lastName!,
+      });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
@@ -25,11 +30,13 @@ const Register: FC = () => {
       <AuthForm
         title="Zaregistruj sa"
         fields={[
+          { title: "meno", formDataTypeKey: "firstName" },
+          { title: "priezvisko", formDataTypeKey: "lastName" },
           { title: "email", formDataTypeKey: "email" },
           { title: "heslo", formDataTypeKey: "password" },
           { title: "potvrdenie hesla", formDataTypeKey: "passwordCheck" }
         ]}
-        initialValues={{ email: "", password: "", passwordCheck: "" }}
+        initialValues={{ firstName: "", lastName: "", email: "", password: "", passwordCheck: "" }}
         validationSchema={signUpSchema}
         onSubmit={handleRegister}
         linkData={{

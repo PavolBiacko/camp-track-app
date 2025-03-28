@@ -1,9 +1,9 @@
+import Loading from '@/components/custom/Loading'
+import ProfileBadge from '@/components/custom/settings/base/ProfileBadge'
 import SettingsBox from '@/components/custom/settings/base/SettingsBox'
 import { Avatar, AvatarFallbackText } from '@/components/ui/avatar'
-import { Badge, BadgeText } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useAuth'
 import { Text, View } from 'react-native'
-import Loading from '../Loading'
 
 const ProfileSettings = () => {
   const { user, isLoading, isError } = useAuth();
@@ -14,21 +14,14 @@ const ProfileSettings = () => {
         ? <Loading showText={false} />
         : <View className='flex-row justify-start items-center'>
           <Avatar size="xl" className="border-2 border-outline-700 bg-background-500 rounded-full">
-            <AvatarFallbackText className="text-white">
-              Pavol Biačko
+            <AvatarFallbackText className="text-typography-950 text-2xl font-pbold">
+              {`${user.firstName} ${user.lastName}`}
             </AvatarFallbackText>
           </Avatar>
-          <View className='ml-3'>
-            <Text className='text-typography-950 text-2xl font-psemibold'>Pavol Biačko</Text>
-            <Text className='text-typography-700 text-xs font-pregular'>palko.biacko@gmail.com</Text>
-            <View className='flex flex-row gap-2'>
-              <Badge className='bg-error-300 border border-error-700 rounded-xl mt-2'>
-                <BadgeText className='text-typography-950 text-xs font-pbold px-2'>ODD. VEDÚCI</BadgeText>
-              </Badge>
-              <Badge className='bg-error-300 border border-error-700 rounded-xl mt-2'>
-                <BadgeText className='text-typography-950 text-xs font-pbold px-2'>6. ODD</BadgeText>
-              </Badge>
-            </View>
+          <View className='ml-3 w-[70%] gap-1'>
+            <Text className='text-typography-950 text-xl font-psemibold'>{user.firstName} {user.lastName}</Text>
+            <Text className='text-typography-700 text-xs font-pregular'>{user.email}</Text>
+            <ProfileBadge user={user} />
           </View>
         </View>}
     </SettingsBox>

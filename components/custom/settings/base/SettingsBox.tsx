@@ -1,4 +1,4 @@
-import { SettingsBoxProps } from '@/types/base';
+import { SettingsBoxProps } from '@/types/settings';
 import { PropsWithChildren } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 

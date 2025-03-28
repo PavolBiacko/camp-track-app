@@ -2,6 +2,7 @@ import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/button";
 import { TabScreenOptions } from "@/types/options";
+import { UserRoles } from "@/types/roles";
 import { useFonts } from "expo-font";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
@@ -58,4 +59,31 @@ export function useButtonStyles(action: ButtonActionType = "primary", variant: B
     case "ghost":
       return "";
   }
+}
+
+export const useBadgeStylesAndText = (role: UserRoles) => {
+  // Define the styles and text based on the role
+  let text = "";
+  let styles = "";
+
+  switch (role) {
+    case UserRoles.CAMP_LEADER:
+      text = "Vedúci tábora";
+      styles = "bg-primary-300 border border-primary-700";
+      break;
+    case UserRoles.GROUP_LEADER:
+      text = "Odd. vedúci";
+      styles = "bg-secondary-300 border border-secondary-700";
+      break;
+    case UserRoles.PARENT:
+      text = "Rodič";
+      styles = "bg-tertiary-300 border border-tertiary-700";
+      break;
+    case UserRoles.USER:
+      text = "Hosť";
+      styles = "bg-quaternary-300 border border-quaternary-700";
+      break;
+  }
+
+  return { text, styles };
 }

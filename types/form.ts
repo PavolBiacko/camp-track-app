@@ -5,7 +5,9 @@ import { FieldBasics } from "./field";
 export type AuthFormData = {
   email: string,
   password: string,
-  passwordCheck?: string
+  passwordCheck?: string,
+  firstName?: string,
+  lastName?: string,
 };
 
 type LinkData = {

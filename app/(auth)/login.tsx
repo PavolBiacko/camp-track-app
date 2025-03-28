@@ -12,7 +12,7 @@ const Login: FC = () => {
   const handleLogin = async (data: AuthFormData) => {
     // Data are valid, checked with Zod
     try {
-      await authRepository.login(data.email, data.password);
+      await authRepository.login({ email: data.email, password: data.password });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

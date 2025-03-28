@@ -1,7 +1,7 @@
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
 import SettingsSwitchLine from '@/components/custom/settings/base/SettingsSwitchLine';
 import { icons } from '@/constants'; // Adjust path as needed
-import { SettingsSwitchLineProps } from '@/types/base';
+import { SettingsSwitchLineProps } from '@/types/settings';
 import { useColorScheme } from 'nativewind';
 import { FC, useMemo, useState } from 'react';
 

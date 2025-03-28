@@ -1,8 +1,10 @@
+import { mapDbUserToUser } from '@/mappers/users';
 import supabase from '@/supabase/client';
-import { Tables } from '@/supabase/types';
+import { LoginCredentials, RegisterCredentials } from '@/types/auth';
+import { User } from '@/types/models/users';
 import { AuthError } from '@supabase/supabase-js';
 
-const login = async (email: string, password: string): Promise<string> => {
+const login = async ({ email, password }: LoginCredentials): Promise<string> => {
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -11,18 +13,26 @@ const login = async (email: string, password: string): Promise<string> => {
 
     if (error) throw error;
 
-    return data.user?.id;
+    return data.user.id;
   } catch (error: any) {
     // console.error('Login error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
 
-const register = async (email: string, password: string): Promise<string | null> => {
+const register = async ({ email, password, firstName, lastName }: RegisterCredentials): Promise<string | null> => {
+  console.log(email, password, firstName, lastName);
+
   try {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+        },
+      }
     });
 
     if (error) throw error;
@@ -62,17 +72,17 @@ const logout = async (): Promise<void> => {
   }
 };
 
-const whoami = async (): Promise<Tables<"users">> => {
+const whoami = async (): Promise<User> => {
   try {
-    const { data: data1, error: error1 } = await supabase.auth.getUser();
+    const { data, error: error1 } = await supabase.auth.getUser();
 
-    if (!data1 || error1) throw error1;
+    if (!data || error1) throw error1;
 
-    const { data: data2, error: error2 } = await supabase.from("users").select("*").eq("id", data1.user.id).single();
+    const { data: user, error: error2 } = await supabase.from("users").select("*").eq("id", data.user.id).single();
 
-    if (!data2 || error2) throw error2;
+    if (!user || error2) throw error2;
 
-    return data2 as Tables<"users">;
+    return mapDbUserToUser(user);
   } catch (error: any) {
     // console.error('Logout error:', (error as AuthError).message);
     throw error as AuthError;

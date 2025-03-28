@@ -1,5 +1,5 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
-import { SettingsSwitchLineProps } from '@/types/base';
+import { SettingsSwitchLineProps } from '@/types/settings';
 import { useMemo } from 'react';
 import { Image, Switch, Text, View } from 'react-native';
 

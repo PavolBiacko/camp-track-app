@@ -21,6 +21,7 @@ export interface ThemeColors {
   primary: ColorCategory;
   secondary: ColorCategory;
   tertiary: ColorCategory;
+  quaternary: ColorCategory;
   error: ColorCategory;
   success: ColorCategory;
   warning: ColorCategory;
