@@ -14,6 +14,7 @@ const NotificationsSettings: FC = () => {
     () => [
       {
         text: 'Tmavý mód',
+        secondaryText: 'Svetlý mód',
         icon: icons.darkMode,
         secondaryIcon: icons.lightMode,
         value: isDarkMode,
@@ -41,6 +42,7 @@ const NotificationsSettings: FC = () => {
         <SettingsSwitchLine
           key={index}
           text={item.text}
+          secondaryText={item.secondaryText}
           icon={item.icon}
           secondaryIcon={item.secondaryIcon}
           value={item.value}

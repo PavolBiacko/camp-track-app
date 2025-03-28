@@ -20,6 +20,7 @@ export type SettingsBoxProps = {
 
 export type SettingsSwitchLineProps = {
   text: string;
+  secondaryText?: string;
   icon: ImageProps;
   secondaryIcon?: ImageProps;
   value: boolean;

@@ -24,28 +24,8 @@ const Home = () => {
         return <Loading showText={true} />;
     }
   }, [user])
-  //const [showModal, setShowModal] = useState(false)
 
-  return (
-    <>
-      {activeLayout}
-    </>
-  );
+  return activeLayout;
 }
 
 export default Home
-
-{/* <Box className="bg-secondary-500 justify-center items-center">
-        <Text className="text-typography-950 text-2xl font-pbold text-center">Hello</Text>
-      </Box>
-      <CustomButton title="Profile" isPrimary={true} handlePress={() => setShowModal(true)} containerStyles="mt-5 w-[200px]" /> */}
-{/* <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-        <ModalBackdrop />
-        <ModalContent>
-          <ModalHeader>
-            <ModalCloseButton></ModalCloseButton>
-          </ModalHeader>
-          <ModalBody />
-          <ModalFooter />
-        </ModalContent>
-      </Modal> */}

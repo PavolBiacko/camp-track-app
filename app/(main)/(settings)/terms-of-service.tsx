@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 const TermsOfService = () => {
   return (
     <View>
-      <Text>Terms of Service</Text>
+      <Text className='text-typography-950 font-pblack'>Terms of Service - TODO</Text>
     </View>
   )
 }
