@@ -13,7 +13,7 @@ const Login: FC = () => {
     // Data are valid, checked with Zod
     try {
       await authRepository.login(data.email, data.password);
-      router.replace("/(tabs)");
+      router.replace("/(main)/(tabs)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

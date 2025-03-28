@@ -13,7 +13,7 @@ const Register: FC = () => {
     // Data are valid, checked with Zod
     try {
       await authRepository.register(data.email, data.password);
-      router.replace("/(tabs)");
+      router.replace("/(main)/(tabs)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

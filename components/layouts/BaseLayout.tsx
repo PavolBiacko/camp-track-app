@@ -17,7 +17,7 @@ const BaseLayout = (props: BaseLayoutProps) => {
           icon={icons.settings}
           action="secondary"
           variant="outline"
-          handlePress={() => router.push("/(settings)")}
+          handlePress={() => router.push("/(main)/(settings)")}
           iconStyles="w-8 h-8"
           iconTintColor={getRGBColor("typography", "800", colorScheme)}
           containerStyles="w-12 h-12 rounded-full"
