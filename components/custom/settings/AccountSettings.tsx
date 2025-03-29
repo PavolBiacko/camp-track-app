@@ -3,7 +3,7 @@ import Loading from '@/components/custom/Loading';
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
 import { useAccountActions } from '@/hooks/useAccountActions';
 import { useAuth } from '@/hooks/useAuth';
-import { CustomButtonProps } from '@/types/button';
+import { CustomButtonProps } from '@/types/custom/button';
 import { View } from 'react-native';
 
 const AccountSettings = () => {
@@ -48,7 +48,7 @@ const AccountSettings = () => {
       {!user || isLoading || isError ? (
         <Loading showText={false} containerStyles='p-5' />
       ) : (
-        <>
+        <View>
           <View className="border-b border-outline-500 p-5 gap-5">
             {accountSettingsButtons.map((button, index) => (
               <CustomButton
@@ -75,7 +75,7 @@ const AccountSettings = () => {
               />
             ))}
           </View>
-        </>
+        </View>
       )}
     </SettingsBox>
   )

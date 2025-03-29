@@ -1,6 +1,6 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors"
 import { icons } from "@/constants"
-import { FormFieldProps } from '@/types/field'
+import { FormFieldProps } from '@/types/custom/field'
 import { useColorScheme } from "nativewind"
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from "react-hook-form"

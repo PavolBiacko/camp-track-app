@@ -1,8 +1,8 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ColorScheme } from "@/types/base";
-import { ButtonActionType, ButtonVariantType } from "@/types/button";
-import { TabScreenOptions } from "@/types/options";
-import { UserRoles } from "@/types/roles";
+import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
+import { UserRoles } from "@/types/enums/roles";
+import { TabScreenOptions } from "@/types/tabs";
 import { useFonts } from "expo-font";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";

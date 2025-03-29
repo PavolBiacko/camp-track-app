@@ -1,3 +1,5 @@
+import { UserRoles } from "./enums/roles";
+
 export type ColorScheme = "light" | "dark";
 
 export type ColorSchemeProps = {
@@ -9,7 +11,6 @@ export type BaseLayoutProps = {
   containerStyles?: string,
 }
 
-export type LoadingProps = {
-  showText: boolean,
-  containerStyles?: string,
+export type UserRolesProps = {
+  role: UserRoles
 }

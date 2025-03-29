@@ -4,7 +4,7 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
 import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';
-import { UserRoles } from '@/types/roles';
+import { UserRoles } from '@/types/enums/roles';
 import { TabData } from '@/types/tabs';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';

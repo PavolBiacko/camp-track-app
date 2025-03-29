@@ -1,5 +1,5 @@
 import { Enums } from "@/supabase/types";
-import { UserRoles } from "@/types/roles";
+import { UserRoles } from "@/types/enums/roles";
 
 export const mapDbUserRoleToUserRole = (dbRole: Enums<"camp_roles">): UserRoles => {
   switch (dbRole) {

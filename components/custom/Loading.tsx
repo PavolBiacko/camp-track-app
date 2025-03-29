@@ -1,5 +1,5 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
-import { LoadingProps } from '@/types/base'
+import { LoadingProps } from '@/types/custom/loading'
 import { useColorScheme } from 'nativewind'
 import { ActivityIndicator, Text, View } from 'react-native'
 

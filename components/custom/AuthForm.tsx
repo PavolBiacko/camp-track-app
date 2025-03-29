@@ -2,7 +2,7 @@ import CustomButton from '@/components/custom/CustomButton'
 import FormField from '@/components/custom/FormField'
 import { images } from "@/constants"
 import { useCapitalizeWord } from '@/hooks/useUtilHooks'
-import { AuthFormData, AuthFormProps } from '@/types/form'
+import { AuthFormData, AuthFormProps } from '@/types/custom/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'expo-router'
 import { FC } from 'react'

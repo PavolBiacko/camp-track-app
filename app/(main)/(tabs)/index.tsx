@@ -4,7 +4,7 @@ import GroupLeaderLayout from "@/components/layouts/home/GroupLeaderLayout";
 import ParentLayout from "@/components/layouts/home/ParentLayout";
 import UserLayout from "@/components/layouts/home/UserLayout";
 import { useAuth } from "@/hooks/useAuth";
-import { UserRoles } from "@/types/roles";
+import { UserRoles } from "@/types/enums/roles";
 import { useMemo } from "react";
 
 const Home = () => {

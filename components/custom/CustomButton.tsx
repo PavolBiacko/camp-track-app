@@ -1,6 +1,6 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { useButtonStyles } from '@/hooks/useUtilHooks'
-import { CustomButtonProps } from '@/types/button'
+import { CustomButtonProps } from '@/types/custom/button'
 import { useColorScheme } from 'nativewind'
 import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
