@@ -1,15 +1,15 @@
 import { ImageProps } from "react-native";
 
-export type ButtonActionType = "primary" | "secondary" | "tertiary" | "success" | "error" | "default";
+export type ButtonActionType = "primary" | "secondary" | "tertiary" | "quaternary" | "success" | "error" | "background" | "default";
 
-export type ButtonVariantType = "solid" | "outline" | "ghost";
+export type ButtonVariantType = "solid" | "outline" | "combined" | "ghost";
 
 export type CustomButtonProps = {
   title?: string,
   icon?: ImageProps,
   iconPosition?: "left" | "right",
-  variant?: ButtonVariantType,
   action?: ButtonActionType,
+  variant?: ButtonVariantType,
   handlePress: () => void,
   containerStyles?: string,
   textStyles?: string,

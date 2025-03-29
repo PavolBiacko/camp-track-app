@@ -24,7 +24,7 @@ const SettingsSwitchLine = (props: SettingsSwitchLineProps) => {
           tintColor={getRGBColor('typography', '950', props.colorScheme)}
           className="w-7 h-7"
         />
-        <Text className='text-typography-950 text-md font-pregular'>
+        <Text className='text-typography-950 text-md font-pregular mt-1'>
           {props.value ? props.text : (props.secondaryText ?? props.text)}
         </Text>
       </View>

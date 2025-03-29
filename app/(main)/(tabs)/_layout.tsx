@@ -8,12 +8,13 @@ import { UserRoles } from '@/types/roles';
 import { TabData } from '@/types/tabs';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';
+import { View } from 'react-native';
 
 const EVERYBODY = [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER, UserRoles.PARENT, UserRoles.USER];
 
 const tabData: TabData[] = [
   { name: 'index', shownLabel: 'Domov', icon: icons.home, roles: EVERYBODY },
-  { name: 'calendar', shownLabel: 'Program', icon: icons.calendar, roles: EVERYBODY },
+  { name: 'schedule', shownLabel: 'Program', icon: icons.calendar, roles: EVERYBODY },
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
   { name: 'groups', shownLabel: 'Oddiely', icon: icons.group, roles: [UserRoles.CAMP_LEADER] },
   { name: 'children', shownLabel: 'Moje deti', icon: icons.children, roles: [UserRoles.PARENT] },
@@ -31,7 +32,7 @@ const TabsLayout = () => {
   }
 
   return (
-    <>
+    <View className='h-full'>
       <BaseLayout />
       <Tabs backBehavior='none' screenOptions={useTabScreenOptions(colorScheme)}>
         {tabData.map((tab) => (
@@ -54,7 +55,7 @@ const TabsLayout = () => {
           />
         ))}
       </Tabs>
-    </>
+    </View>
   )
 }
 

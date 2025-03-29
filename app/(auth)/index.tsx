@@ -1,6 +1,8 @@
 import CustomButton from "@/components/custom/CustomButton";
+import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { icons, images } from "@/constants";
 import { router } from "expo-router";
+import { useColorScheme } from "nativewind";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -11,6 +13,8 @@ const socialButtons = [
 ];
 
 export default function Welcome() {
+  const { colorScheme } = useColorScheme();
+
   return (
     <SafeAreaView className="h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -31,7 +35,7 @@ export default function Welcome() {
               <CustomButton
                 key={index}
                 icon={btn.icon}
-                action="default"
+                action="background"
                 handlePress={btn.action}
                 iconStyles="w-11 h-11"
                 containerStyles="w-[4.5rem] h-[4.5rem] rounded-full bg-background-500"
@@ -47,6 +51,7 @@ export default function Welcome() {
             action="primary"
             handlePress={() => router.push("/login")}
             iconStyles="w-8 h-8"
+            iconTintColor={getRGBColor("typography", "800", colorScheme)}
             containerStyles="w-full h-[4.5rem] mt-5 rounded-3xl"
           />
         </View>

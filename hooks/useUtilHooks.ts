@@ -46,16 +46,17 @@ export function useTabScreenOptions(colorScheme?: ColorScheme): TabScreenOptions
   };
 }
 
-export function useButtonStyles(action: ButtonActionType = "primary", variant: ButtonVariantType = "solid"): ClassNameValue {
+export function useButtonStyles(action: ButtonActionType = "primary", variant: ButtonVariantType = "combined"): ClassNameValue {
   if (action === "default") {
     return "";
   }
-
   switch (variant) {
     case "solid":
       return `bg-${action}-300`;
     case "outline":
       return `border-2 border-${action}-300`;
+    case "combined":
+      return `bg-${action}-300 border-2 border-${action}-700`;
     case "ghost":
       return "";
   }

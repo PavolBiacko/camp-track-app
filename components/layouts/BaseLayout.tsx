@@ -15,8 +15,8 @@ const BaseLayout = (props: BaseLayoutProps) => {
       <View className="items-end mx-5 mt-2">
         <CustomButton
           icon={icons.settings}
-          action="secondary"
-          variant="outline"
+          action="background"
+          variant="combined"
           handlePress={() => router.push("/(main)/(settings)")}
           iconStyles="w-8 h-8"
           iconTintColor={getRGBColor("typography", "800", colorScheme)}
