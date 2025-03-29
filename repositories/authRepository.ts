@@ -21,8 +21,6 @@ const login = async ({ email, password }: LoginCredentials): Promise<string> => 
 };
 
 const register = async ({ email, password, firstName, lastName }: RegisterCredentials): Promise<string | null> => {
-  console.log(email, password, firstName, lastName);
-
   try {
     const { data, error } = await supabase.auth.signUp({
       email,

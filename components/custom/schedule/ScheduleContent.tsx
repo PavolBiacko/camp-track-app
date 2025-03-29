@@ -90,7 +90,7 @@ const dummySchedule = [
 
 const ScheduleContent = () => {
   return (
-    <ScrollView contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }} className='w-full h-full'>
+    <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 10 }} className='w-full h-full'>
       {dummySchedule.map((schedule) => (
         <View key={schedule.id} className="flex-row justify-between bg-secondary-300 border-2 border-secondary-700 rounded-2xl px-3 my-2 w-11/12">
           <Text className="text-lg font-pbold mt-1">{schedule.title}</Text>
