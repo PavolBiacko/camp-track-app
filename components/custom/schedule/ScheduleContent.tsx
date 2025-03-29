@@ -1,5 +1,7 @@
+import { useColorByTime } from '@/hooks/useUtilHooks'
 import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView } from 'react-native'
+import ScheduleLine from './base/ScheduleLine'
 
 const dummySchedule = [
   {
@@ -91,11 +93,13 @@ const dummySchedule = [
 const ScheduleContent = () => {
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 10 }} className='w-full h-full'>
-      {dummySchedule.map((schedule) => (
-        <View key={schedule.id} className="flex-row justify-between bg-secondary-300 border-2 border-secondary-700 rounded-2xl px-3 my-2 w-11/12">
-          <Text className="text-lg font-pbold mt-1">{schedule.title}</Text>
-          <Text className="text-typography-950 font-psemibold mt-1">{schedule.time}</Text>
-        </View>
+      {dummySchedule.map((schedule, index) => (
+        <ScheduleLine
+          key={index}
+          title={schedule.title}
+          time={schedule.time}
+          color={useColorByTime(false)} // TODO
+        />
       ))}
     </ScrollView>
   )

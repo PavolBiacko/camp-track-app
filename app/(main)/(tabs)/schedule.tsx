@@ -1,4 +1,3 @@
-import Loading from '@/components/custom/Loading'
 import ScheduleContent from '@/components/custom/schedule/ScheduleContent'
 import ScheduleHeader from '@/components/custom/schedule/ScheduleHeader'
 import { useAuth } from '@/hooks/useAuth'
@@ -6,11 +5,16 @@ import React from 'react'
 import { View } from 'react-native'
 
 const Schedule = () => {
-  const { user, isLoading, isError } = useAuth();
+  const { user } = useAuth();
+
+  // should not happen, since useAuth is used in the layout layer
+  if (!user) {
+    return null;
+  }
 
   return (
     <View className='w-full h-full'>
-      {(!user || isLoading || isError) ? <Loading showText={false} /> : <ScheduleHeader role={user.role} />}
+      <ScheduleHeader role={user.role} />
       <ScheduleContent />
     </View>
   )

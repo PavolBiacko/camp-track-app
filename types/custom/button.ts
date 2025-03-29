@@ -1,6 +1,7 @@
+import { ColorStyles } from "@/types/base";
 import { ImageProps } from "react-native";
 
-export type ButtonActionType = "primary" | "secondary" | "tertiary" | "quaternary" | "success" | "error" | "background" | "default";
+export type ButtonActionType = ColorStyles;
 
 export type ButtonVariantType = "solid" | "outline" | "combined" | "ghost";
 
