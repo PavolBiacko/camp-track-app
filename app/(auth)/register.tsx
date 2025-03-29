@@ -29,6 +29,7 @@ const Register: FC = () => {
     <SafeAreaView className="h-full">
       <AuthForm
         title="Zaregistruj sa"
+        showImage={true}
         fields={[
           { title: "meno", formDataTypeKey: "firstName" },
           { title: "priezvisko", formDataTypeKey: "lastName" },

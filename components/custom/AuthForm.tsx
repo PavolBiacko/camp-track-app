@@ -19,7 +19,7 @@ const AuthForm: FC<AuthFormProps> = (props) => {
   return (
     <ScrollView keyboardShouldPersistTaps="handled" >
       <View className="w-full min-h-[90vh] justify-center px-4 my-6">
-        <Image source={images.logowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />
+        {props.showImage && <Image source={images.logowithtext} resizeMode="contain" className="self-center w-[300px] h-[100px]" />}
         <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
 
         {props.fields.map((field) => (

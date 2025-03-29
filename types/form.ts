@@ -18,6 +18,7 @@ type LinkData = {
 
 export type AuthFormProps = {
   title: string,
+  showImage: boolean,
   fields: FieldBasics<AuthFormData>[],
   initialValues: AuthFormData,
   validationSchema: ZodSchema,

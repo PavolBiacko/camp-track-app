@@ -24,6 +24,7 @@ const Login: FC = () => {
     <SafeAreaView className="h-full">
       <AuthForm
         title="Prihlás sa"
+        showImage={true}
         fields={[
           { title: "email", formDataTypeKey: "email" },
           { title: "heslo", formDataTypeKey: "password" }
