@@ -1,6 +1,5 @@
 import Loading from '@/components/custom/Loading';
 import TabIcon from '@/components/custom/TabIcon';
-import BaseLayout from '@/components/layouts/BaseLayout';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
 import { UserRoles } from '@/types/enums/roles';
@@ -33,7 +32,6 @@ const TabsLayout = () => {
 
   return (
     <View className='h-full'>
-      <BaseLayout />
       <Tabs backBehavior='none' screenOptions={getTabScreenOptions(colorScheme)}>
         {tabData.map((tab) => (
           <Tabs.Screen

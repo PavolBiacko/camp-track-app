@@ -1,4 +1,5 @@
 import Loading from "@/components/custom/Loading";
+import BaseLayout from "@/components/layouts/BaseLayout";
 import CampLeaderLayout from "@/components/layouts/home/CampLeaderLayout";
 import GroupLeaderLayout from "@/components/layouts/home/GroupLeaderLayout";
 import ParentLayout from "@/components/layouts/home/ParentLayout";
@@ -25,7 +26,11 @@ const Home = () => {
     }
   }, [user])
 
-  return activeLayout;
+  return (
+    <BaseLayout>
+      {activeLayout}
+    </BaseLayout>
+  );
 }
 
 export default Home

@@ -16,3 +16,8 @@ export type BaseLayoutProps = {
 export type UserRolesProps = {
   role: UserRoles
 }
+
+export type CurrentTime = {
+  hours: number;
+  minutes: number;
+}

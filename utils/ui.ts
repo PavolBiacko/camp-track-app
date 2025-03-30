@@ -11,10 +11,10 @@ export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions
     tabBarShowLabel: false,
     tabBarActiveTintColor: getRGBColor("primary", "500", colorScheme),
     tabBarInactiveTintColor: getRGBColor("typography", "950", colorScheme),
-    tabBarActiveBackgroundColor: getRGBColor("background", "300", colorScheme),
+    tabBarActiveBackgroundColor: getRGBColor("background", "900", colorScheme),
     tabBarInactiveBackgroundColor: getRGBColor("background", "100", colorScheme),
     tabBarStyle: {
-      borderColor: getRGBColor("background", "300", colorScheme),
+      borderColor: getRGBColor("outline", "600", colorScheme),
       borderTopWidth: 2,
       height: Platform.OS === "ios" ? 75 : 60,
     },

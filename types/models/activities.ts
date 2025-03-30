@@ -9,6 +9,6 @@ export type Activity = {
 
 // strings because of left side zeros
 export type ScheduleTime = {
-  hours: string;
-  minutes: string;
+  hours: string,
+  minutes: string,
 }

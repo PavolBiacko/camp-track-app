@@ -1,12 +1,11 @@
 import { ScheduleLineProps } from '@/types/schedule'
-import { getColorByTime } from '@/utils'
+
 import { Text, View } from 'react-native'
-import { twMerge } from 'tailwind-merge'
+import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
-  const textStyles = `text-typography-800 text-lg mt-1 ${props.textStyles}`
-
-  const color = getColorByTime(props.time)
+  const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`
+  const color = props.isActive ? "secondary" : "background"
 
   return (
     <View className={

@@ -4,6 +4,7 @@ import { UserRolesProps } from "./base";
 export type ScheduleLineProps = {
   title: string,
   time: ScheduleTime,
+  isActive: boolean,
   textStyles?: string,
   containerStyles?: string,
 }

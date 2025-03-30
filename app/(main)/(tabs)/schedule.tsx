@@ -2,7 +2,7 @@ import ScheduleContent from '@/components/custom/schedule/ScheduleContent'
 import ScheduleHeader from '@/components/custom/schedule/ScheduleHeader'
 import { useAuth } from '@/hooks/useAuth'
 import React from 'react'
-import { View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Schedule = () => {
   const { user } = useAuth();
@@ -13,10 +13,10 @@ const Schedule = () => {
   }
 
   return (
-    <View className='w-full h-full'>
+    <SafeAreaView className='w-full h-full'>
       <ScheduleHeader role={user.role} />
       <ScheduleContent />
-    </View>
+    </SafeAreaView>
   )
 }
 

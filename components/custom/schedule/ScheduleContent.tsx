@@ -1,6 +1,8 @@
 import Loading from '@/components/custom/Loading'
 import ScheduleLine from '@/components/custom/schedule/base/ScheduleLine'
 import { useAllActivities } from '@/hooks/models/useSchedule'
+import { useCurrentTime } from '@/hooks/useCurrentTime'
+import { getActiveActivityIndex } from '@/utils'
 import { ScrollView } from 'react-native'
 
 const dummySchedule = [
@@ -14,10 +16,13 @@ const dummySchedule = [
 
 const ScheduleContent = () => {
   const { activities, isLoading, isError } = useAllActivities();
+  const currentTime = useCurrentTime();
 
   if (!activities || isLoading || isError) {
     return <Loading showText={false} />
   }
+
+  const activeIndex = getActiveActivityIndex(activities, currentTime);
 
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 10 }} className='w-full h-full'>
@@ -26,6 +31,7 @@ const ScheduleContent = () => {
           key={index}
           title={schedule.name}
           time={schedule.time}
+          isActive={index === activeIndex}
         />
       ))}
     </ScrollView>
