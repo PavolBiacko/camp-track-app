@@ -12,7 +12,7 @@ export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions
   return {
     tabBarShowLabel: false,
     tabBarActiveTintColor: getRGBColor("primary", "500", colorScheme),
-    tabBarInactiveTintColor: getRGBColor("typography", "950", colorScheme),
+    tabBarInactiveTintColor: getRGBColor("typography", "800", colorScheme),
     tabBarActiveBackgroundColor: getRGBColor("background", "900", colorScheme),
     tabBarInactiveBackgroundColor: getRGBColor("background", "100", colorScheme),
     tabBarStyle: {
