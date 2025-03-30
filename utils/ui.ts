@@ -1,5 +1,5 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
-import { ColorShade, ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
+import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
 import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { UserRoles } from "@/types/enums/roles";
@@ -69,16 +69,14 @@ export const getBadgeStylesAndText = (role: UserRoles) => {
   return { text, styles };
 }
 
-export const getActivityStyles = (status: ActivityStatus) => {
+export const getActivityStyles = (status: ActivityStatus): ClassNameValue => {
   let bgColor: ColorStyle = "background";
-  let textShade: ColorShade = "900";
 
   let additionalContainterStyles: ClassNameValue = "";
 
   switch (status) {
     case ActivityStatus.PAST:
-      textShade = "900";
-      additionalContainterStyles = "opacity-50";
+      additionalContainterStyles = "opacity-30";
       break;
     case ActivityStatus.ACTIVE:
       bgColor = "secondary";
@@ -88,8 +86,5 @@ export const getActivityStyles = (status: ActivityStatus) => {
       break;
   }
 
-  const statusContainterStyles = `bg-${bgColor}-300 border border-${bgColor}-700 ${additionalContainterStyles}`;
-  const statusTextStyles = `text-typography-${textShade} text-lg`;
-
-  return { statusContainterStyles, statusTextStyles };
+  return `bg-${bgColor}-300 border-2 border-${bgColor}-700 ${additionalContainterStyles}`;
 }

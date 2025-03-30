@@ -19,7 +19,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       className={
         twMerge(
           buttonStyles,
-          props.isLoading ? "opacity-50" : "",
+          props.isLoading ? "opacity-30" : "",
           props.containerStyles,
           "justify-center items-center",
           hasBoth ? "flex-row gap-3" : ""
