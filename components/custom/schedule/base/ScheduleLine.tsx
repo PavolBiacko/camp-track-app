@@ -6,7 +6,7 @@ import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
   const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`
-  const statusContainterStyles = getActivityStyles(props.status)
+  const statusContainterStyles = getActivityStyles(props.status, props.isCustom)
 
   return (
     <TouchableOpacity

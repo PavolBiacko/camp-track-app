@@ -12,3 +12,8 @@ export type ScheduleTime = {
   hours: string,
   minutes: string,
 }
+
+export type ScheduleContextType = {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+}

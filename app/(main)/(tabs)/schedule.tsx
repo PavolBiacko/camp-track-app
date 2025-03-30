@@ -1,3 +1,4 @@
+import { ScheduleProvider } from '@/components/custom/context/ScheduleContext'
 import ScheduleContent from '@/components/custom/schedule/ScheduleContent'
 import ScheduleHeader from '@/components/custom/schedule/ScheduleHeader'
 import { useAuth } from '@/hooks/useAuth'
@@ -13,10 +14,12 @@ const Schedule = () => {
   }
 
   return (
-    <SafeAreaView className='w-full h-full'>
-      <ScheduleHeader role={user.role} />
-      <ScheduleContent />
-    </SafeAreaView>
+    <ScheduleProvider>
+      <SafeAreaView className='w-full h-full'>
+        <ScheduleHeader role={user.role} />
+        <ScheduleContent />
+      </SafeAreaView>
+    </ScheduleProvider>
   )
 }
 

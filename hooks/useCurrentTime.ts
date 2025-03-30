@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export const useCurrentTime = (): CurrentTime => {
   const [currentTime, setCurrentTime] = useState<CurrentTime>(() => {
-    const now = new Date();
+    const now = new Date(); // Set a fixed date for testing
     return { hours: now.getHours(), minutes: now.getMinutes() };
   });
 

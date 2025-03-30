@@ -2,9 +2,10 @@ import { formatDate } from '@/utils/dates';
 import { useState } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CustomButton from '../../CustomButton';
+import { useScheduleContext } from '../../context/ScheduleContext';
 
 const ScheduleDatePicker = () => {
-  const [date, setDate] = useState(new Date()); // Počiatočný dátum: 21.7.2023
+  const { selectedDate, setSelectedDate } = useScheduleContext();
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
   const openDatePicker = () => {
@@ -12,7 +13,7 @@ const ScheduleDatePicker = () => {
   };
 
   const handleConfirm = (selectedDate: Date) => {
-    setDate(selectedDate);
+    setSelectedDate(selectedDate);
     setDatePickerVisible(false);
   };
 
@@ -23,7 +24,7 @@ const ScheduleDatePicker = () => {
   return (
     <>
       <CustomButton
-        title={formatDate(date)}
+        title={formatDate(selectedDate)}
         action="tertiary"
         variant="combined"
         handlePress={openDatePicker}
@@ -33,7 +34,7 @@ const ScheduleDatePicker = () => {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
-        date={date}
+        date={selectedDate}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
         locale="sk-SK"

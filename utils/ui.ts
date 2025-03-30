@@ -69,8 +69,9 @@ export const getBadgeStylesAndText = (role: UserRoles) => {
   return { text, styles };
 }
 
-export const getActivityStyles = (status: ActivityStatus): ClassNameValue => {
+export const getActivityStyles = (status: ActivityStatus, isCustom: boolean): ClassNameValue => {
   let bgColor: ColorStyle = "background";
+  let borderColor: ColorStyle = isCustom ? "quaternary" : "outline";
 
   let additionalContainterStyles: ClassNameValue = "";
 
@@ -80,11 +81,12 @@ export const getActivityStyles = (status: ActivityStatus): ClassNameValue => {
       break;
     case ActivityStatus.ACTIVE:
       bgColor = "secondary";
+      borderColor = "secondary";
       additionalContainterStyles = "h-24";
       break;
     case ActivityStatus.FUTURE:
       break;
   }
 
-  return `bg-${bgColor}-300 border-2 border-${bgColor}-700 ${additionalContainterStyles}`;
+  return `bg-${bgColor}-300 border-2 border-${borderColor}-500 ${additionalContainterStyles}`;
 }

@@ -6,6 +6,7 @@ export type ScheduleLineProps = {
   title: string,
   time: ScheduleTime,
   status: ActivityStatus,
+  isCustom: boolean,
   textStyles?: string,
   containerStyles?: string,
 }

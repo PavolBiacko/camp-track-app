@@ -4,19 +4,14 @@ import { useAllActivities } from '@/hooks/models/useSchedule'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
 import { getActiveActivityIndex, getActivityStatus } from '@/utils'
 import { ScrollView } from 'react-native'
-
-const dummySchedule = [
-  {
-    id: 1,
-    title: 'Meeting with John',
-    time: '10:00 AM',
-    date: '2023-10-01',
-  },
-]
+import { useScheduleContext } from '../context/ScheduleContext'
 
 const ScheduleContent = () => {
-  const { activities, isLoading, isError } = useAllActivities();
   const currentTime = useCurrentTime();
+  const { selectedDate, setSelectedDate } = useScheduleContext();
+  const { activities, isLoading, isError } = useAllActivities();
+
+  console.log(selectedDate)
 
   if (!activities || isLoading || isError) {
     return <Loading showText={false} />
@@ -26,12 +21,13 @@ const ScheduleContent = () => {
 
   return (
     <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 10 }} className='w-full h-full'>
-      {activities.map((schedule, index) => (
+      {activities.map((activity, index) => (
         <ScheduleLine
           key={index}
-          title={schedule.name}
-          time={schedule.time}
+          title={activity.name}
+          time={activity.time}
           status={getActivityStatus(index, activeIndex)}
+          isCustom={activity.leaderId !== null}
         />
       ))}
     </ScrollView>
