@@ -1,4 +1,4 @@
-import authRepository from '@/repositories/authRepository';
+import { authRepository } from '@/repositories/authRepository';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert } from 'react-native';

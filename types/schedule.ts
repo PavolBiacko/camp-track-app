@@ -1,9 +1,9 @@
-import { ColorStyles, UserRolesProps } from "./base";
+import { ScheduleTime } from "@/types/models/activities";
+import { UserRolesProps } from "./base";
 
 export type ScheduleLineProps = {
   title: string,
-  time: string,
-  color: ColorStyles,
+  time: ScheduleTime,
   textStyles?: string,
   containerStyles?: string,
 }

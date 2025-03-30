@@ -19,7 +19,7 @@ const BaseLayout = (props: BaseLayoutProps) => {
           variant="combined"
           handlePress={() => router.push("/(main)/(settings)")}
           iconStyles="w-8 h-8"
-          iconTintColor={getRGBColor("typography", "800", colorScheme)}
+          iconTintColor={getRGBColor("typography", "700", colorScheme)}
           containerStyles="w-12 h-12 rounded-full"
         />
       </View>

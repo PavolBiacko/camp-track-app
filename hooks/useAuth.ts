@@ -1,4 +1,4 @@
-import authRepository from "@/repositories/authRepository";
+import { authRepository } from "@/repositories/authRepository";
 import { useQuery } from "@tanstack/react-query";
 
 export const useAuth = () => {

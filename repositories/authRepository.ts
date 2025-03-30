@@ -1,5 +1,6 @@
-import { mapDbUserToUser } from '@/mappers/users';
 import supabase from '@/supabase/client';
+
+import { mapDbUserToUser } from '@/mappers/users';
 import { LoginCredentials, RegisterCredentials } from '@/types/auth';
 import { User } from '@/types/models/users';
 import { AuthError } from '@supabase/supabase-js';
@@ -76,7 +77,10 @@ const whoami = async (): Promise<User> => {
 
     if (!data || error1) throw error1;
 
-    const { data: user, error: error2 } = await supabase.from("users").select("*").eq("id", data.user.id).single();
+    const { data: user, error: error2 } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", data.user.id).single();
 
     if (!user || error2) throw error2;
 
@@ -87,7 +91,7 @@ const whoami = async (): Promise<User> => {
   }
 };
 
-export default {
+export const authRepository = {
   login,
   register,
   logout,

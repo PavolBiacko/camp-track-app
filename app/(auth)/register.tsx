@@ -1,5 +1,5 @@
 import AuthForm from '@/components/custom/AuthForm';
-import authRepository from '@/repositories/authRepository';
+import { authRepository } from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/custom/form';
 import { signUpSchema } from '@/validation/auth';
 import { router } from 'expo-router';

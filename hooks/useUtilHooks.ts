@@ -2,6 +2,7 @@ import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ColorScheme, ColorStyles } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { UserRoles } from "@/types/enums/roles";
+import { ScheduleTime } from "@/types/models/activities";
 import { TabScreenOptions } from "@/types/tabs";
 import { useFonts } from "expo-font";
 import { Platform } from "react-native";
@@ -89,6 +90,14 @@ export function useBadgeStylesAndText(role: UserRoles) {
   return { text, styles };
 }
 
-export function useColorByTime(test: boolean): ColorStyles {
-  return test ? "primary" : "secondary";
+export function useColorByTime(scheduleTime: ScheduleTime): ColorStyles {
+  const presentTime = new Date(); // Replace with actual current time
+  const currentHour = presentTime.getHours();
+  const currentMinute = presentTime.getMinutes();
+  const scheduleTimeHour = parseInt(scheduleTime.hours);
+  const scheduleTimeMinute = parseInt(scheduleTime.minutes);
+
+  const isPast = scheduleTimeHour < currentHour || (scheduleTimeHour === currentHour && scheduleTimeMinute < currentMinute);
+
+  return isPast ? "background" : "secondary";
 }

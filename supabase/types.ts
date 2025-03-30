@@ -10,6 +10,70 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      activities: {
+        Row: {
+          created_at: string
+          date: string | null
+          id: number
+          leader_id: string | null
+          name: string
+          time: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string | null
+          id?: number
+          leader_id?: string | null
+          name: string
+          time: string
+        }
+        Update: {
+          created_at?: string
+          date?: string | null
+          id?: number
+          leader_id?: string | null
+          name?: string
+          time?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activities_leader_id_fkey"
+            columns: ["leader_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      groups: {
+        Row: {
+          created_at: string
+          id: number
+          leader_id: string | null
+          number: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          leader_id?: string | null
+          number: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          leader_id?: string | null
+          number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_leader_id_fkey"
+            columns: ["leader_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           birth_date: string | null
