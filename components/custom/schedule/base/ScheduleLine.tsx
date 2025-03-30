@@ -1,13 +1,12 @@
-import { useColorByTime } from '@/hooks/useUtilHooks'
 import { ScheduleLineProps } from '@/types/schedule'
-import React from 'react'
+import { getColorByTime } from '@/utils'
 import { Text, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
   const textStyles = `text-typography-800 text-lg mt-1 ${props.textStyles}`
 
-  const color = useColorByTime(props.time)
+  const color = getColorByTime(props.time)
 
   return (
     <View className={

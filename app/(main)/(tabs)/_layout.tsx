@@ -3,9 +3,9 @@ import TabIcon from '@/components/custom/TabIcon';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
-import { useCapitalizeWord, useTabScreenOptions } from '@/hooks/useUtilHooks';
 import { UserRoles } from '@/types/enums/roles';
 import { TabData } from '@/types/tabs';
+import { capitalizeWord, getTabScreenOptions } from '@/utils';
 import { Tabs } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import { View } from 'react-native';
@@ -34,7 +34,7 @@ const TabsLayout = () => {
   return (
     <View className='h-full'>
       <BaseLayout />
-      <Tabs backBehavior='none' screenOptions={useTabScreenOptions(colorScheme)}>
+      <Tabs backBehavior='none' screenOptions={getTabScreenOptions(colorScheme)}>
         {tabData.map((tab) => (
           <Tabs.Screen
             key={tab.name}
@@ -47,7 +47,7 @@ const TabsLayout = () => {
                 <TabIcon
                   icon={tab.icon}
                   color={color}
-                  shownLabel={useCapitalizeWord(tab.shownLabel)}
+                  shownLabel={capitalizeWord(tab.shownLabel)}
                   focused={focused}
                 />
               ),

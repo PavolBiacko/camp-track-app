@@ -1,7 +1,7 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
-import { useAppFonts } from '@/hooks/useUtilHooks';
+import { useAppFonts } from '@/hooks/useAppFonts';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';

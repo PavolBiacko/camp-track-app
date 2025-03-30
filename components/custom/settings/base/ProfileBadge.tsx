@@ -1,12 +1,12 @@
 import { Badge, BadgeText } from '@/components/ui/badge'
-import { useBadgeStylesAndText } from '@/hooks/useUtilHooks'
 import { UserRoles } from '@/types/enums/roles'
 import { ProfileBadgeProps } from '@/types/settings'
+import { getBadgeStylesAndText } from '@/utils'
 import React from 'react'
 import { View } from 'react-native'
 
 const ProfileBadge = ({ role }: ProfileBadgeProps) => {
-  const { text, styles } = useBadgeStylesAndText(role);
+  const { text, styles } = getBadgeStylesAndText(role);
 
   return (
     <View className='flex flex-row gap-2'>

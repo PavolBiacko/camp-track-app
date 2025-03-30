@@ -1,8 +1,8 @@
 import CustomButton from '@/components/custom/CustomButton'
 import FormField from '@/components/custom/FormField'
 import { images } from "@/constants"
-import { useCapitalizeWord } from '@/hooks/useUtilHooks'
 import { AuthFormData, AuthFormProps } from '@/types/custom/form'
+import { capitalizeWord } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'expo-router'
 import { FC } from 'react'
@@ -25,7 +25,7 @@ const AuthForm: FC<AuthFormProps> = (props) => {
         {props.fields.map((field) => (
           <FormField
             key={field.title}
-            title={useCapitalizeWord(field.title)!}
+            title={capitalizeWord(field.title)!}
             control={control}
             register={register}
             error={errors[field.formDataTypeKey]}

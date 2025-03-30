@@ -1,35 +1,12 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
-import { ColorScheme, ColorStyles } from "@/types/base";
+import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { UserRoles } from "@/types/enums/roles";
-import { ScheduleTime } from "@/types/models/activities";
 import { TabScreenOptions } from "@/types/tabs";
-import { useFonts } from "expo-font";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
 
-export function useCapitalizeWord(text: string | undefined): string | undefined {
-  if (!text) {
-    return text;
-  }
-  return text.charAt(0).toUpperCase() + text.slice(1);
-};
-
-export function useAppFonts(): [boolean, Error | null] {
-  return useFonts({
-    "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
-    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
-    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
-    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
-    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
-    "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
-  });
-}
-
-export function useTabScreenOptions(colorScheme?: ColorScheme): TabScreenOptions {
+export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions => {
   return {
     tabBarShowLabel: false,
     tabBarActiveTintColor: getRGBColor("primary", "500", colorScheme),
@@ -47,7 +24,7 @@ export function useTabScreenOptions(colorScheme?: ColorScheme): TabScreenOptions
   };
 }
 
-export function useButtonStyles(action: ButtonActionType = "primary", variant: ButtonVariantType = "combined"): ClassNameValue {
+export const getButtonStyles = (action: ButtonActionType = "primary", variant: ButtonVariantType = "combined"): ClassNameValue => {
   if (action === "default") {
     return "";
   }
@@ -63,7 +40,7 @@ export function useButtonStyles(action: ButtonActionType = "primary", variant: B
   }
 }
 
-export function useBadgeStylesAndText(role: UserRoles) {
+export const getBadgeStylesAndText = (role: UserRoles) => {
   // Define the styles and text based on the role
   let text = "";
   let styles = "";
@@ -88,16 +65,4 @@ export function useBadgeStylesAndText(role: UserRoles) {
   }
 
   return { text, styles };
-}
-
-export function useColorByTime(scheduleTime: ScheduleTime): ColorStyles {
-  const presentTime = new Date(); // Replace with actual current time
-  const currentHour = presentTime.getHours();
-  const currentMinute = presentTime.getMinutes();
-  const scheduleTimeHour = parseInt(scheduleTime.hours);
-  const scheduleTimeMinute = parseInt(scheduleTime.minutes);
-
-  const isPast = scheduleTimeHour < currentHour || (scheduleTimeHour === currentHour && scheduleTimeMinute < currentMinute);
-
-  return isPast ? "background" : "secondary";
 }

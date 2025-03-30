@@ -1,6 +1,6 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
-import { useButtonStyles } from '@/hooks/useUtilHooks'
 import { CustomButtonProps } from '@/types/custom/button'
+import { getButtonStyles } from '@/utils'
 import { useColorScheme } from 'nativewind'
 import { FC } from 'react'
 import { ActivityIndicator, Image, Text, TouchableOpacity } from 'react-native'
@@ -10,7 +10,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
   const { colorScheme } = useColorScheme();
 
   const hasBoth = !!props.title && !!props.icon;
-  const buttonStyles = useButtonStyles(props.action, props.variant);
+  const buttonStyles = getButtonStyles(props.action, props.variant);
 
   return (
     <TouchableOpacity
