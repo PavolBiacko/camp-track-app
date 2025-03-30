@@ -1,4 +1,5 @@
 import { CurrentTime } from "@/types/base";
+import { ActivityStatus } from "@/types/enums/schedule";
 import { Activity } from "@/types/models/activities";
 
 export const getActiveActivityIndex = (activities: Activity[], currentTime: CurrentTime): number => {
@@ -26,3 +27,14 @@ export const getActiveActivityIndex = (activities: Activity[], currentTime: Curr
   return -1; // No activity is active
 };
 
+export const getActivityStatus = (index: number, activeIndex: number): ActivityStatus => {
+  if (activeIndex === -1) return ActivityStatus.FUTURE; // No activity is active
+
+  if (index < activeIndex) {
+    return ActivityStatus.PAST;
+  } else if (index === activeIndex) {
+    return ActivityStatus.ACTIVE;
+  } else {
+    return ActivityStatus.FUTURE;
+  }
+}

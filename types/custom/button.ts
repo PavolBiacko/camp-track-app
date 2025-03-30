@@ -1,7 +1,7 @@
-import { ColorStyles } from "@/types/base";
+import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
 import { ImageProps } from "react-native";
 
-export type ButtonActionType = ColorStyles;
+export type ButtonActionType = ColorStyle | "default";
 
 export type ButtonVariantType = "solid" | "outline" | "combined" | "ghost";
 

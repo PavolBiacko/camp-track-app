@@ -2,7 +2,7 @@ import Loading from '@/components/custom/Loading'
 import ScheduleLine from '@/components/custom/schedule/base/ScheduleLine'
 import { useAllActivities } from '@/hooks/models/useSchedule'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
-import { getActiveActivityIndex } from '@/utils'
+import { getActiveActivityIndex, getActivityStatus } from '@/utils'
 import { ScrollView } from 'react-native'
 
 const dummySchedule = [
@@ -31,7 +31,7 @@ const ScheduleContent = () => {
           key={index}
           title={schedule.name}
           time={schedule.time}
-          isActive={index === activeIndex}
+          status={getActivityStatus(index, activeIndex)}
         />
       ))}
     </ScrollView>

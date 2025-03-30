@@ -1,7 +1,9 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
+import { ColorShade, ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
 import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { UserRoles } from "@/types/enums/roles";
+import { ActivityStatus } from "@/types/enums/schedule";
 import { TabScreenOptions } from "@/types/tabs";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
@@ -41,28 +43,53 @@ export const getButtonStyles = (action: ButtonActionType = "primary", variant: B
 }
 
 export const getBadgeStylesAndText = (role: UserRoles) => {
-  // Define the styles and text based on the role
   let text = "";
-  let styles = "";
+  let color: ColorStyle = "background";
 
   switch (role) {
     case UserRoles.CAMP_LEADER:
       text = "Vedúci tábora";
-      styles = "bg-primary-300 border border-primary-700";
+      color = "primary";
       break;
     case UserRoles.GROUP_LEADER:
       text = "Odd. vedúci";
-      styles = "bg-secondary-300 border border-secondary-700";
+      color = "secondary";
       break;
     case UserRoles.PARENT:
       text = "Rodič";
-      styles = "bg-tertiary-300 border border-tertiary-700";
+      color = "tertiary";
       break;
     case UserRoles.USER:
       text = "Hosť";
-      styles = "bg-quaternary-300 border border-quaternary-700";
+      color = "quaternary";
       break;
   }
 
+  const styles = `bg-${color}-300 border border-${color}-700`
   return { text, styles };
+}
+
+export const getActivityStyles = (status: ActivityStatus) => {
+  let bgColor: ColorStyle = "background";
+  let textShade: ColorShade = "900";
+
+  let additionalContainterStyles: ClassNameValue = "";
+
+  switch (status) {
+    case ActivityStatus.PAST:
+      textShade = "900";
+      additionalContainterStyles = "opacity-50";
+      break;
+    case ActivityStatus.ACTIVE:
+      bgColor = "secondary";
+      additionalContainterStyles = "h-24";
+      break;
+    case ActivityStatus.FUTURE:
+      break;
+  }
+
+  const statusContainterStyles = `bg-${bgColor}-300 border border-${bgColor}-700 ${additionalContainterStyles}`;
+  const statusTextStyles = `text-typography-${textShade} text-lg`;
+
+  return { statusContainterStyles, statusTextStyles };
 }

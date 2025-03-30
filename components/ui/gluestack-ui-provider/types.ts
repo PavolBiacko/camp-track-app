@@ -1,5 +1,7 @@
 export type ModeType = 'light' | 'dark' | 'system';
 
+export type ColorStyle = "primary" | "secondary" | "tertiary" | "quaternary" | "success" | "error" | "background" | "outline" | "typography";
+
 export type ColorShade = '0' | '50' | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | '950';
 
 type ColorCategory = {

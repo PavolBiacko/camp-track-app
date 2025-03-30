@@ -1,23 +1,27 @@
 import { ScheduleLineProps } from '@/types/schedule'
+import { getActivityStyles } from '@/utils'
 
-import { Text, View } from 'react-native'
-import { ClassNameValue, twMerge } from 'tailwind-merge'
+import { Text, TouchableOpacity } from 'react-native'
+import { twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
-  const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`
-  const color = props.isActive ? "secondary" : "background"
+  const { statusContainterStyles, statusTextStyles } = getActivityStyles(props.status)
 
   return (
-    <View className={
+    <TouchableOpacity className={
       twMerge(
-        "flex-row justify-between items-center",  // layout
-        "rounded-xl px-6 my-2 w-11/12 h-20",  // dimensions
-        `bg-${color}-300 border-2 border-${color}-700`,  // colors
-        props.containerStyles,  // other
+        "flex-row justify-between items-center",
+        "rounded-xl px-6 my-2 w-11/12 h-14",
+        statusContainterStyles,
+        props.containerStyles,
       )}>
-      <Text className={twMerge(textStyles, "font-pbold")}>{props.title}</Text>
-      <Text className={twMerge(textStyles, "font-psemibold")}>{props.time.hours}:{props.time.minutes}</Text>
-    </View>
+      <Text className={twMerge(props.textStyles, statusTextStyles, "font-pbold")}>
+        {props.title}
+      </Text>
+      <Text className={twMerge(props.textStyles, statusTextStyles, "font-psemibold")}>
+        {props.time.hours}:{props.time.minutes}
+      </Text>
+    </TouchableOpacity>
   )
 }
 
