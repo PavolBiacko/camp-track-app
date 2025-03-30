@@ -4,3 +4,7 @@ export const formatDate = (date: Date): string => {
   const formatted = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}, ${day}`;
   return formatted;
 }
+
+export const formatDateToISO = (date: Date): string => {
+  return date.toISOString().split('T')[0];
+}

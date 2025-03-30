@@ -1,10 +1,13 @@
 import { formatDate } from '@/utils/dates';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import CustomButton from '../../CustomButton';
 import { useScheduleContext } from '../../context/ScheduleContext';
 
 const ScheduleDatePicker = () => {
+  const queryClient = useQueryClient();
+
   const { selectedDate, setSelectedDate } = useScheduleContext();
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
@@ -15,6 +18,7 @@ const ScheduleDatePicker = () => {
   const handleConfirm = (selectedDate: Date) => {
     setSelectedDate(selectedDate);
     setDatePickerVisible(false);
+    queryClient.invalidateQueries({ queryKey: ['activities'] });
   };
 
   const handleCancel = () => {

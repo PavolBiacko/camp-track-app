@@ -1,6 +1,6 @@
 import Loading from '@/components/custom/Loading'
 import ScheduleLine from '@/components/custom/schedule/base/ScheduleLine'
-import { useAllActivities } from '@/hooks/models/useSchedule'
+import { useActivitiesByDay } from '@/hooks/models/useSchedule'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
 import { getActiveActivityIndex, getActivityStatus } from '@/utils'
 import { ScrollView } from 'react-native'
@@ -8,10 +8,8 @@ import { useScheduleContext } from '../context/ScheduleContext'
 
 const ScheduleContent = () => {
   const currentTime = useCurrentTime();
-  const { selectedDate, setSelectedDate } = useScheduleContext();
-  const { activities, isLoading, isError } = useAllActivities();
-
-  console.log(selectedDate)
+  const { selectedDate } = useScheduleContext();
+  const { activities, isLoading, isError } = useActivitiesByDay(selectedDate);
 
   if (!activities || isLoading || isError) {
     return <Loading showText={false} />
