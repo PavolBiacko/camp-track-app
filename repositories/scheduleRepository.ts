@@ -2,7 +2,7 @@ import supabase from "@/supabase/client";
 
 import { mapDbActivityToActivity } from "@/mappers/activities";
 import { Activity } from "@/types/models/activities";
-import { formatDateToISO } from "@/utils/dates";
+import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
 const readActivitiesByDate = async (date: Date): Promise<Activity[]> => {
@@ -10,7 +10,7 @@ const readActivitiesByDate = async (date: Date): Promise<Activity[]> => {
     const { data, error } = await supabase
       .from("activities")
       .select("*")
-      .or(`date.eq.${formatDateToISO(date)},date.is.null`)
+      .or(`date.eq.${formatDateToISOLocal(date)},date.is.null`)
       .order("time");
 
     if (error) throw error;

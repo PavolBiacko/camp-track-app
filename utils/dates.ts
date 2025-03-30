@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const formatDate = (date: Date): string => {
   const days = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
   const day = days[date.getDay()];
@@ -5,6 +7,6 @@ export const formatDate = (date: Date): string => {
   return formatted;
 }
 
-export const formatDateToISO = (date: Date): string => {
-  return date.toISOString().split('T')[0];
+export const formatDateToISOLocal = (date: Date): string => {
+  return format(date, 'yyyy-MM-dd');
 }

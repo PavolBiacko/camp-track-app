@@ -2,7 +2,7 @@ import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'nativewind'
 
-const SettingsLayout = () => {
+const ScheduleLayout = () => {
   const { colorScheme } = useColorScheme()
 
   return (
@@ -18,25 +18,11 @@ const SettingsLayout = () => {
         name="index"
         options={{
           headerShown: true,
-          title: "Nastavenia",
-        }}
-      />
-      <Stack.Screen
-        name="privacy-policy"
-        options={{
-          headerShown: true,
-          title: "Ochrana súkromia",
-        }}
-      />
-      <Stack.Screen
-        name="terms-of-service"
-        options={{
-          headerShown: true,
-          title: "Podmienky",
+          title: "Pridaj aktivitu",
         }}
       />
     </Stack>
   )
 }
 
-export default SettingsLayout
+export default ScheduleLayout
