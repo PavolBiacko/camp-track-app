@@ -1,5 +1,6 @@
 import { ScheduleLineProps } from '@/types/schedule'
 import { getActivityStyles } from '@/utils'
+import { router } from 'expo-router'
 
 import { Text, TouchableOpacity } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
@@ -8,9 +9,15 @@ const ScheduleLine = (props: ScheduleLineProps) => {
   const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`
   const statusContainterStyles = getActivityStyles(props.status, props.isCustom)
 
+  const handleUpdateActivity = () => {
+    // TODO: implement update check
+    router.push({ pathname: '/(main)/(schedule)', params: { mode: 'edit', activity: props.title } })
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.5}
+      onPress={handleUpdateActivity}
       className={
         twMerge(
           "flex-row justify-between items-center",

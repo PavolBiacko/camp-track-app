@@ -11,4 +11,9 @@ export type ScheduleLineProps = {
   containerStyles?: string,
 }
 
+export type ScheduleParams = {
+  mode: 'add' | 'edit',
+  activity?: string,
+}
+
 export type ScheduleHeaderProps = UserRolesProps;

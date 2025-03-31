@@ -1,4 +1,6 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
+import { ScheduleParams } from '@/types/schedule'
+import { getHeaderTitle } from '@/utils'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'nativewind'
 
@@ -16,9 +18,12 @@ const ScheduleLayout = () => {
     }}>
       <Stack.Screen
         name="index"
-        options={{
-          headerShown: true,
-          title: "Pridaj aktivitu",
+        options={({ route }) => {
+          const params = route.params as ScheduleParams | undefined;
+          return {
+            headerShown: true,
+            headerTitle: getHeaderTitle(params),
+          };
         }}
       />
     </Stack>

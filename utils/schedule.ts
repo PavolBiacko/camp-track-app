@@ -1,6 +1,7 @@
 import { CurrentTime } from "@/types/base";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { Activity } from "@/types/models/activities";
+import { ScheduleParams } from "@/types/schedule";
 
 export const getActiveActivityIndex = (activities: Activity[], currentTime: CurrentTime): number => {
   const { hours: currentHour, minutes: currentMinute } = currentTime;
@@ -38,3 +39,11 @@ export const getActivityStatus = (index: number, activeIndex: number): ActivityS
     return ActivityStatus.FUTURE;
   }
 }
+
+export const getHeaderTitle = (params: ScheduleParams | undefined): string => {
+  if (!params || !params.mode) {
+    throw new Error('Mode parameter is required');  // should not happen
+  }
+  const { mode } = params;
+  return mode === 'edit' ? 'Úprava aktivity' : 'Pridanie aktivity';
+};
