@@ -1,4 +1,5 @@
 import AuthForm from '@/components/custom/AuthForm';
+import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
 import { AuthFormData } from '@/types/custom/form';
 import { signInSchema } from '@/validation/auth';
@@ -24,7 +25,7 @@ const Login: FC = () => {
     <SafeAreaView className="h-full">
       <AuthForm
         title="Prihlás sa"
-        showImage={true}
+        image={images.logowithtext}
         fields={[
           { title: "email", formDataTypeKey: "email" },
           { title: "heslo", formDataTypeKey: "password" }

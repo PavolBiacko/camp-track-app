@@ -1,4 +1,5 @@
 import { Href } from "expo-router";
+import { ImageProps } from "react-native";
 import { ZodSchema } from "zod";
 import { FieldBasics } from "./field";
 
@@ -18,7 +19,7 @@ type LinkData = {
 
 export type AuthFormProps = {
   title: string,
-  showImage: boolean,
+  image?: ImageProps,
   fields: FieldBasics<AuthFormData>[],
   initialValues: AuthFormData,
   validationSchema: ZodSchema,

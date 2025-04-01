@@ -3,21 +3,19 @@ import FormField from '@/components/custom/FormField'
 import { AuthFormData, AuthFormProps } from '@/types/custom/form'
 import { capitalizeWord } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from 'expo-router'
-import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { Image, ScrollView, Text, View } from 'react-native'
 
-const AuthForm: FC<AuthFormProps> = (props) => {
+const ScheduleForm = (props: AuthFormProps) => {
 
-  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<AuthFormData>({
+  const { control, handleSubmit, register, reset, formState: { isSubmitting, errors } } = useForm<AuthFormData>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled" >
-      <View className="w-full min-h-[90vh] justify-center px-4 my-6">
+      <View className="w-full justify-center px-4 my-6">
         {props.image && <Image source={props.image} resizeMode="contain" className="self-center w-[300px] h-[100px]" />}
         <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
 
@@ -40,16 +38,9 @@ const AuthForm: FC<AuthFormProps> = (props) => {
           containerStyles="mt-7 h-[4.5rem] rounded-3xl"
           isLoading={isSubmitting}
         />
-
-        <View className="justify-center pt-5 flex-row gap-2">
-          <Text className="text-typography-700 text-lg font-pregular">{props.linkData.prelinkText}</Text>
-          <Link href={props.linkData.linkHref} className="text-primary-500 text-lg font-psemibold">
-            {props.linkData.linkText}
-          </Link>
-        </View>
       </View>
     </ScrollView>
   )
 }
 
-export default AuthForm
+export default ScheduleForm
