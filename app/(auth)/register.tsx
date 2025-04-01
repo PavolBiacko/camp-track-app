@@ -1,8 +1,8 @@
-import AuthForm from '@/components/custom/AuthForm';
+import Form from '@/components/custom/Form';
 import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
-import { AuthFormData } from '@/types/custom/form';
-import { signUpSchema } from '@/validation/auth';
+import { RegisterFormData } from '@/types/auth';
+import { registerSchema } from '@/validation/auth';
 import { router } from 'expo-router';
 import { FC } from 'react';
 import { Alert } from 'react-native';
@@ -10,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Register: FC = () => {
 
-  const handleRegister = async (data: AuthFormData) => {
+  const handleRegister = async (data: RegisterFormData) => {
     // Data are valid, checked with Zod
     try {
       await authRepository.register({
@@ -28,7 +28,7 @@ const Register: FC = () => {
 
   return (
     <SafeAreaView className="h-full">
-      <AuthForm
+      <Form
         title="Zaregistruj sa"
         image={images.logowithtext}
         fields={[
@@ -39,7 +39,7 @@ const Register: FC = () => {
           { title: "potvrdenie hesla", formDataTypeKey: "passwordCheck" }
         ]}
         initialValues={{ firstName: "", lastName: "", email: "", password: "", passwordCheck: "" }}
-        validationSchema={signUpSchema}
+        validationSchema={registerSchema}
         onSubmit={handleRegister}
         linkData={{
           prelinkText: "Už máš účet?",

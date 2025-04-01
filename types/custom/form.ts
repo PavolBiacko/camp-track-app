@@ -1,15 +1,8 @@
 import { Href } from "expo-router";
+import { DefaultValues, FieldValues } from "react-hook-form";
 import { ImageProps } from "react-native";
 import { ZodSchema } from "zod";
 import { FieldBasics } from "./field";
-
-export type AuthFormData = {
-  email: string,
-  password: string,
-  passwordCheck?: string,
-  firstName?: string,
-  lastName?: string,
-};
 
 type LinkData = {
   prelinkText: string,
@@ -17,12 +10,12 @@ type LinkData = {
   linkHref: Href,
 };
 
-export type AuthFormProps = {
+export type FormProps<T extends FieldValues> = {
   title: string,
   image?: ImageProps,
-  fields: FieldBasics<AuthFormData>[],
-  initialValues: AuthFormData,
-  validationSchema: ZodSchema,
-  onSubmit: (values: AuthFormData) => Promise<void>,
-  linkData: LinkData,
+  fields: FieldBasics<T>[],
+  initialValues: DefaultValues<T>,
+  validationSchema: ZodSchema<T>,
+  onSubmit: (values: T) => Promise<void>,
+  linkData?: LinkData,
 };

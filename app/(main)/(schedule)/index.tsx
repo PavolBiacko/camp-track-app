@@ -1,17 +1,16 @@
-import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
-import { images } from '@/constants'
+import Form from '@/components/custom/Form'
 import { authRepository } from '@/repositories/authRepository'
-import { AuthFormData } from '@/types/custom/form'
+import { RegisterFormData } from '@/types/auth'
 import { ScheduleParams } from '@/types/schedule'
-import { signInSchema } from '@/validation/auth'
+import { registerSchema } from '@/validation/auth'
 import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { Alert, View } from 'react-native'
+import { Alert } from 'react-native'
 
 const Activity = () => {
   const params = useLocalSearchParams<ScheduleParams>()
 
-  const handleLogin = async (data: AuthFormData) => {
+  const handleLogin = async (data: RegisterFormData) => {
     // Data are valid, checked with Zod
     try {
       await authRepository.login({ email: data.email, password: data.password });
@@ -23,24 +22,16 @@ const Activity = () => {
   };
 
   return (
-    <View>
-      <ScheduleForm
-        title="Prihlás sa"
-        image={images.logowithtext}
-        fields={[
-          { title: "email", formDataTypeKey: "email" },
-          { title: "heslo", formDataTypeKey: "password" }
-        ]}
-        initialValues={{ email: "", password: "" }}
-        validationSchema={signInSchema}
-        onSubmit={handleLogin}
-        linkData={{
-          prelinkText: "Nemáš účet?",
-          linkText: "Zaregistruj sa",
-          linkHref: "/register"
-        }}
-      />
-    </View>
+    <Form
+      title={params.mode === "add" ? "Pridaj aktivitu" : "Uprav aktivitu"}
+      fields={[
+        { title: "email", formDataTypeKey: "email" },
+        { title: "heslo", formDataTypeKey: "password" }
+      ]}
+      initialValues={{ email: "", password: "" }}
+      validationSchema={registerSchema}
+      onSubmit={handleLogin}
+    />
   )
 }
 
