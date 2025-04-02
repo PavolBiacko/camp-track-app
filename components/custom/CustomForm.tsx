@@ -7,7 +7,7 @@ import { Link } from 'expo-router'
 import { FieldError, FieldValues, useForm } from 'react-hook-form'
 import { Image, ScrollView, Text, View } from 'react-native'
 
-const Form = <T extends FieldValues>(props: FormProps<T>) => {
+const CustomForm = <T extends FieldValues>(props: FormProps<T>) => {
 
   const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<T>({
     defaultValues: props.initialValues,
@@ -53,4 +53,4 @@ const Form = <T extends FieldValues>(props: FormProps<T>) => {
   )
 }
 
-export default Form
+export default CustomForm

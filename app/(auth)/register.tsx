@@ -1,4 +1,4 @@
-import Form from '@/components/custom/Form';
+import CustomForm from '@/components/custom/CustomForm';
 import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
 import { RegisterFormData } from '@/types/auth';
@@ -28,7 +28,7 @@ const Register: FC = () => {
 
   return (
     <SafeAreaView className="h-full">
-      <Form
+      <CustomForm
         title="Zaregistruj sa"
         image={images.logowithtext}
         fields={[

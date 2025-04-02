@@ -1,4 +1,4 @@
-import Form from '@/components/custom/Form'
+import CustomForm from '@/components/custom/CustomForm'
 import { authRepository } from '@/repositories/authRepository'
 import { RegisterFormData } from '@/types/auth'
 import { ScheduleParams } from '@/types/schedule'
@@ -22,7 +22,7 @@ const Activity = () => {
   };
 
   return (
-    <Form
+    <CustomForm
       title={params.mode === "add" ? "Pridaj aktivitu" : "Uprav aktivitu"}
       fields={[
         { title: "email", formDataTypeKey: "email" },

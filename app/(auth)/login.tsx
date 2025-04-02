@@ -1,4 +1,4 @@
-import Form from '@/components/custom/Form';
+import CustomForm from '@/components/custom/CustomForm';
 import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
 import { LoginFormData } from '@/types/auth';
@@ -23,7 +23,7 @@ const Login: FC = () => {
 
   return (
     <SafeAreaView className="h-full">
-      <Form
+      <CustomForm
         title="Prihlás sa"
         image={images.logowithtext}
         fields={[
