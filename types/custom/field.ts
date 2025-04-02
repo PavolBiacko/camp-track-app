@@ -3,8 +3,8 @@ import { Control, FieldError, FieldValues, UseFormRegister } from "react-hook-fo
 export type FieldBasics<T extends FieldValues> = {
   title: string,
   formDataTypeKey: keyof T,
-  otherStyles?: string,
   placeholder?: string,
+  otherStyles?: string,
 };
 
 export type FormFieldProps<T extends FieldValues> = FieldBasics<T> & {
