@@ -1,9 +1,9 @@
+import { useScheduleContext } from '@/components/custom/context/ScheduleContext';
+import CustomButton from '@/components/custom/CustomButton';
 import { formatDate } from '@/utils/dates';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import CustomButton from '../../CustomButton';
-import { useScheduleContext } from '../../context/ScheduleContext';
 
 const ScheduleDatePicker = () => {
   const queryClient = useQueryClient();

@@ -1,4 +1,4 @@
-import { ScheduleContextType } from '@/types/models/activities';
+import { ScheduleContextType } from '@/types/schedule';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const ScheduleContext = createContext<ScheduleContextType | undefined>(undefined);

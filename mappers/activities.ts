@@ -1,6 +1,6 @@
+import { mapDbTimeToScheduleTime } from "@/mappers/datetime";
 import { Tables } from "@/supabase/types";
 import { Activity } from "@/types/models/activities";
-import { mapDbTimeToScheduleTime } from "./time";
 
 export const mapDbActivityToActivity = (dbActivity: Tables<"activities">): Activity => {
   return {

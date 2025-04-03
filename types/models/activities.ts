@@ -1,3 +1,5 @@
+import { ScheduleTime } from "../schedule"
+
 export type Activity = {
   id: number,
   name: string,
@@ -7,13 +9,20 @@ export type Activity = {
   createdAt: Date,
 }
 
-// strings because of left side zeros
-export type ScheduleTime = {
-  hours: string,
-  minutes: string,
+// TODO
+export type AddActivity = {
+  name: string,
+  description?: string | null,
+  time: string,
+  date?: string | null,
+  leaderId?: string | null,
 }
 
-export type ScheduleContextType = {
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void;
+// TODO
+export type EditActivity = {
+  name?: string,
+  description?: string | null,
+  time?: string,
+  date?: Date | null,
+  leaderId?: string | null,
 }

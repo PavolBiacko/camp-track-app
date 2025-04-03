@@ -19,13 +19,13 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       className={
         twMerge(
           buttonStyles,
-          props.isLoading ? "opacity-30" : "",
+          props.isLoading || props.isDisabled ? "opacity-30" : "",
           props.containerStyles,
           "justify-center items-center",
           hasBoth ? "flex-row gap-3" : ""
         )
       }
-      disabled={props.isLoading}
+      disabled={props.isLoading || props.isDisabled}
     >
       {props.isLoading ? (
         <ActivityIndicator size="large" color={getRGBColor('typography', '950', colorScheme)} />

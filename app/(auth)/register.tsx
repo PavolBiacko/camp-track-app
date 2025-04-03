@@ -16,8 +16,8 @@ const Register: FC = () => {
       await authRepository.register({
         email: data.email,
         password: data.password,
-        firstName: data.firstName!,
-        lastName: data.lastName!,
+        firstName: data.firstName,
+        lastName: data.lastName,
       });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {

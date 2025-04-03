@@ -1,19 +1,18 @@
-import CustomForm from '@/components/custom/CustomForm'
-import { authRepository } from '@/repositories/authRepository'
-import { RegisterFormData } from '@/types/auth'
+import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
+import { scheduleRepository } from '@/repositories/scheduleRepository'
+import { AddActivity } from '@/types/models/activities'
 import { ScheduleParams } from '@/types/schedule'
-import { registerSchema } from '@/validation/auth'
+import { scheduleSchema } from '@/validation/schedule'
 import { router, useLocalSearchParams } from 'expo-router'
-import React from 'react'
 import { Alert } from 'react-native'
 
 const Activity = () => {
   const params = useLocalSearchParams<ScheduleParams>()
 
-  const handleLogin = async (data: RegisterFormData) => {
+  const handleAddActivity = async (data: AddActivity) => {
     // Data are valid, checked with Zod
     try {
-      await authRepository.login({ email: data.email, password: data.password });
+      await scheduleRepository.createActivity({ ...data });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
@@ -22,15 +21,17 @@ const Activity = () => {
   };
 
   return (
-    <CustomForm
+    <ScheduleForm
       title={params.mode === "add" ? "Pridaj aktivitu" : "Uprav aktivitu"}
       fields={[
-        { title: "email", formDataTypeKey: "email" },
-        { title: "heslo", formDataTypeKey: "password" }
+        { title: "Názov", formDataTypeKey: "name" },
+        { title: "Popis", formDataTypeKey: "description" },
+        { title: "Čas", formDataTypeKey: "time" },
+        { title: "Dátum", formDataTypeKey: "date" }
       ]}
-      initialValues={{ email: "", password: "" }}
-      validationSchema={registerSchema}
-      onSubmit={handleLogin}
+      initialValues={{ name: "", description: "", time: "00:00", date: "01.01.2025" }}
+      validationSchema={scheduleSchema}
+      onSubmit={handleAddActivity}
     />
   )
 }

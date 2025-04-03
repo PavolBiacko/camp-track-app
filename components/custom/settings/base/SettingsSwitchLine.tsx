@@ -1,19 +1,10 @@
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
+import { useSwitchColors } from '@/hooks/useSwitchColors';
 import { SettingsSwitchLineProps } from '@/types/settings';
-import { useMemo } from 'react';
 import { Image, Switch, Text, View } from 'react-native';
 
 const SettingsSwitchLine = (props: SettingsSwitchLineProps) => {
-  const { trackColorOff, trackColorOn, thumbColorOn, thumbColorOff } = useMemo(() => {
-
-    const trackColorOff = getRGBColor('secondary', '50', props.colorScheme);
-    const trackColorOn = getRGBColor('secondary', '300', props.colorScheme);
-
-    const thumbColorOn = getRGBColor('tertiary', '200', props.colorScheme);
-    const thumbColorOff = getRGBColor('primary', '200', props.colorScheme);
-
-    return { trackColorOff, trackColorOn, thumbColorOn, thumbColorOff };
-  }, [props.colorScheme]);
+  const { trackColorOff, trackColorOn, thumbColorOn, thumbColorOff } = useSwitchColors(props.colorScheme);
 
   return (
     <View className={`flex-row justify-between items-center px-5 h-20 ${props.containerStyles}`}>

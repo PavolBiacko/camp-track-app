@@ -1,4 +1,3 @@
-import { ScheduleTime } from "@/types/models/activities";
 import { UserRolesProps } from "./base";
 import { ActivityStatus } from "./enums/schedule";
 
@@ -9,6 +8,16 @@ export type ScheduleLineProps = {
   isCustom: boolean,
   textStyles?: string,
   containerStyles?: string,
+}
+
+export type ScheduleTime = {
+  hours: string,
+  minutes: string,
+}
+
+export type ScheduleContextType = {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
 }
 
 export type ScheduleParams = {
