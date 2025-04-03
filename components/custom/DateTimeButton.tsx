@@ -55,7 +55,6 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
               (selectedDate) => {
                 onChange(props.mode === "time" ? mapTimeToString(selectedDate) : mapDateToString(selectedDate));
                 setDatePickerVisible(false);
-                console.log(selectedDate);
               }
             }
             onCancel={handleCancel}
@@ -63,6 +62,10 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
             confirmTextIOS="Potvrdiť"
             cancelTextIOS="Zrušiť"
           />
+          {props.error && (
+            <Text className="text-error-500 mt-1">
+              {props.error?.message as string}
+            </Text>)}
         </View>
       )}
     />

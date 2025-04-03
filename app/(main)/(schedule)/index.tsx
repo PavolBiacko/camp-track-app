@@ -13,7 +13,7 @@ const Activity = () => {
     // Data are valid, checked with Zod
     try {
       await scheduleRepository.createActivity({ ...data });
-      router.replace("/(main)/(tabs)");
+      router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

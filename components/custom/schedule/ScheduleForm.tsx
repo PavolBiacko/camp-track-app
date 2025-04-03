@@ -54,6 +54,7 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
             formDataTypeKey={timeField.formDataTypeKey}
             control={control}
             mode="time"
+            error={errors[timeField.formDataTypeKey] as FieldError | undefined}
             action='secondary'
             otherStyles='w-2/5 items-start'
           />
@@ -62,6 +63,7 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
             formDataTypeKey={dateField.formDataTypeKey}
             control={control}
             mode="date"
+            error={errors[dateField.formDataTypeKey] as FieldError | undefined}
             action='tertiary'
             otherStyles='w-3/5 pl-5 items-end'
             isDisabled={isPeriodic}
