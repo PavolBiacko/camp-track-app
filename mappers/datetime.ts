@@ -1,3 +1,4 @@
+import { DateTimeButtonMode } from "@/types/custom/button";
 import { ScheduleTime } from "@/types/schedule";
 
 export const mapDbTimeToScheduleTime = (dbTime: string): ScheduleTime => {
@@ -7,22 +8,49 @@ export const mapDbTimeToScheduleTime = (dbTime: string): ScheduleTime => {
   };
 }
 
-export const mapDbTimeToDate = (dbTime: string): Date => {
-  return new Date(`1970-01-01T${dbTime}Z`);
-}
-
-export const mapDbDateToDate = (dbDate: string): Date => {
-  const date = new Date(dbDate);
-  return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-}
-
-export const mapTimeToString = (time: Date): string => {
-  return `${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}`
-}
-
-export const mapDateToString = (date: Date | null): string => {
+export const mapDateTimeToString = (date: Date | null, mode: DateTimeButtonMode): string => {
   if (!date) {
-    return "";
+    return ""; // Return empty string if date is null
   }
-  return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`
-}
+
+  switch (mode) {
+    case "time":
+      return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    case "date":
+      return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`;
+    case "datetime":
+      return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+    default:
+      throw new Error(`Unsupported mode: ${mode}`);
+  }
+};
+
+export const mapStringToDateTime = (value: string, mode: DateTimeButtonMode): Date => {
+  if (!value) {
+    return new Date(); // Default to current date/time if value is empty
+  }
+
+  switch (mode) {
+    case "time": {
+      const [hours, minutes] = value.split(":");
+      const date = new Date();
+      date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+      return date;
+    }
+
+    case "date": {
+      const [day, month, year] = value.split(".");
+      return new Date(`${year}-${month}-${day}`);
+    }
+
+    case "datetime": {
+      const [datePart, timePart] = value.split(" ");
+      const [day, month, year] = datePart.split(".");
+      const [hours, minutes] = timePart.split(":");
+      return new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`);
+    }
+
+    default:
+      throw new Error(`Unsupported mode: ${mode}`);
+  }
+};

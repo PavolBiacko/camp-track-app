@@ -6,6 +6,7 @@ export const mapDbActivityToActivity = (dbActivity: Tables<"activities">): Activ
   return {
     id: dbActivity.id,
     name: dbActivity.name,
+    description: dbActivity.description,
     time: mapDbTimeToScheduleTime(dbActivity.time),
     date: dbActivity.date ? new Date(dbActivity.date) : null,
     leaderId: dbActivity.leader_id,

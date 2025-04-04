@@ -1,5 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
-import { mapDateToString, mapDbTimeToScheduleTime, mapTimeToString } from '@/mappers/datetime'
+import { mapDateTimeToString, mapStringToDateTime } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from 'react-hook-form'
@@ -16,19 +16,6 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
 
   const handleCancel = () => {
     setDatePickerVisible(false);
-  };
-
-  // Parse string to Date for picker
-  const parseStringToDate = (value: string): Date => {
-    if (!value) return new Date();
-    if (props.mode === "time") {
-      const { hours, minutes } = mapDbTimeToScheduleTime(value);
-      const date = new Date();
-      date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
-      return date;
-    }
-    const [day, month, year] = value.split(".");
-    return new Date(`${year}-${month}-${day}`);
   };
 
   return (
@@ -50,10 +37,10 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
           <DateTimePickerModal
             isVisible={isDatePickerVisible}
             mode={props.mode}
-            date={parseStringToDate(value)}
+            date={mapStringToDateTime(value, props.mode)}
             onConfirm={
               (selectedDate) => {
-                onChange(props.mode === "time" ? mapTimeToString(selectedDate) : mapDateToString(selectedDate));
+                onChange(mapDateTimeToString(selectedDate, props.mode));
                 setDatePickerVisible(false);
               }
             }

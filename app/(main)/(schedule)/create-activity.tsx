@@ -1,5 +1,6 @@
 import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
 import { useCreateActivity } from '@/hooks/models/useSchedule'
+import { mapDateTimeToString } from '@/mappers/datetime'
 import { ActivityCreate } from '@/types/models/activities'
 import { scheduleSchema } from '@/validation/schedule'
 import { router } from 'expo-router'
@@ -28,7 +29,12 @@ const CreateActivity = () => {
         { title: "Čas", formDataTypeKey: "time" },
         { title: "Dátum", formDataTypeKey: "date" }
       ]}
-      initialValues={{ name: "", description: "", time: "00:00", date: "01.01.2025" }}
+      initialValues={{
+        name: "",
+        description: "",
+        time: mapDateTimeToString(new Date(), "time"),
+        date: mapDateTimeToString(new Date(), "date")
+      }}
       validationSchema={scheduleSchema}
       onSubmit={handleAddActivity}
     />

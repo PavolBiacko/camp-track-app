@@ -63,6 +63,8 @@ export const getBadgeStylesAndText = (role: UserRoles) => {
       text = "Hosť";
       color = "quaternary";
       break;
+    default:
+      throw new Error(`Unknown role: ${role}`);
   }
 
   const styles = `bg-${color}-300 border border-${color}-700`
@@ -86,6 +88,8 @@ export const getActivityStyles = (status: ActivityStatus, isCustom: boolean): Cl
       break;
     case ActivityStatus.FUTURE:
       break;
+    default:
+      throw new Error(`Unknown activity status: ${status}`);
   }
 
   return `bg-${bgColor}-300 border-2 border-${borderColor}-500 ${additionalContainterStyles}`;

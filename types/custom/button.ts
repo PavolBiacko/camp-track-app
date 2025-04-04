@@ -21,11 +21,13 @@ export type CustomButtonProps = {
   isDisabled?: boolean,
 };
 
+export type DateTimeButtonMode = "time" | "date" | "datetime";
+
 export type DateTimeButtonProps<T extends FieldValues> = {
   title: string,
   formDataTypeKey: keyof T,
   control: Control<T, any>,
-  mode: "date" | "time" | "datetime",
+  mode: DateTimeButtonMode,
   action?: ButtonActionType,
   variant?: ButtonVariantType,
   textStyles?: string,

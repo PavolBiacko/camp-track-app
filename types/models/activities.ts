@@ -10,7 +10,6 @@ export type Activity = {
   createdAt: Date,
 }
 
-// TODO
 export type ActivityCreate = {
   name: string,
   description?: string | null,
@@ -19,7 +18,6 @@ export type ActivityCreate = {
   leaderId?: string | null,
 }
 
-// TODO
 export type ActivityUpdate = {
   name?: string,
   description?: string | null,

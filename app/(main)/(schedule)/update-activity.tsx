@@ -1,7 +1,7 @@
 import Loading from '@/components/custom/Loading'
 import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
 import { useActivity, useUpdateActivity } from '@/hooks/models/useSchedule'
-import { mapDateToString } from '@/mappers/datetime'
+import { mapDateTimeToString } from '@/mappers/datetime'
 import { ActivityUpdate } from '@/types/models/activities'
 import { ScheduleParams } from '@/types/schedule'
 import { scheduleSchema } from '@/validation/schedule'
@@ -43,7 +43,7 @@ const UpdateActivity = () => {
         name: activity.name,
         description: activity.description || "",
         time: activity.time.hours + ":" + activity.time.minutes,
-        date: mapDateToString(activity.date)
+        date: mapDateTimeToString(activity.date, "date")
       }}
       validationSchema={scheduleSchema}
       onSubmit={handleUpdateActivity}
