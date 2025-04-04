@@ -1,5 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
-import { mapDateToString, mapTimeToString } from '@/mappers/datetime'
+import { mapDateToString, mapDbTimeToScheduleTime, mapTimeToString } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from 'react-hook-form'
@@ -22,7 +22,7 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
   const parseStringToDate = (value: string): Date => {
     if (!value) return new Date();
     if (props.mode === "time") {
-      const [hours, minutes] = value.split(":");
+      const { hours, minutes } = mapDbTimeToScheduleTime(value);
       const date = new Date();
       date.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
       return date;
@@ -62,10 +62,6 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
             confirmTextIOS="Potvrdiť"
             cancelTextIOS="Zrušiť"
           />
-          {props.error && (
-            <Text className="text-error-500 mt-1">
-              {props.error?.message as string}
-            </Text>)}
         </View>
       )}
     />

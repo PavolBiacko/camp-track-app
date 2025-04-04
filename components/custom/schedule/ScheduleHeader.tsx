@@ -13,7 +13,7 @@ const ScheduleHeader = ({ role }: ScheduleHeaderProps) => {
         title="Pridaj novú aktivitu"
         action="primary"
         variant="combined"
-        handlePress={() => router.push({ pathname: '/(main)/(schedule)', params: { mode: 'add' } })}
+        handlePress={() => router.push('/(main)/(schedule)/create-activity')}
         textStyles='text-lg font-pbold self-center'
         containerStyles="w-1/2 h-16 mt-5 rounded-3xl"
       />}

@@ -11,7 +11,7 @@ export const useCurrentTime = (): CurrentTime => {
     const interval = setInterval(() => {
       const now = new Date();
       setCurrentTime({ hours: now.getHours(), minutes: now.getMinutes() });
-    }, 60000); // Update every minute
+    }, 1000); // Update every second
     return () => clearInterval(interval);
   }, []);
 

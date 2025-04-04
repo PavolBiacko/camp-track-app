@@ -20,6 +20,9 @@ export const mapTimeToString = (time: Date): string => {
   return `${String(time.getHours()).padStart(2, '0')}:${String(time.getMinutes()).padStart(2, '0')}`
 }
 
-export const mapDateToString = (date: Date): string => {
+export const mapDateToString = (date: Date | null): string => {
+  if (!date) {
+    return "";
+  }
   return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}`
 }

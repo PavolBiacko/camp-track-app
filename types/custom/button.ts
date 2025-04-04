@@ -1,5 +1,5 @@
 import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
-import { Control, FieldError, FieldValues } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 import { ImageProps } from "react-native";
 
 export type ButtonActionType = ColorStyle | "default";
@@ -25,7 +25,6 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   title: string,
   formDataTypeKey: keyof T,
   control: Control<T, any>,
-  error?: FieldError,
   mode: "date" | "time" | "datetime",
   action?: ButtonActionType,
   variant?: ButtonVariantType,

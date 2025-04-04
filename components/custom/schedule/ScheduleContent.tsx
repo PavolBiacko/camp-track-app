@@ -22,8 +22,7 @@ const ScheduleContent = () => {
       {activities.map((activity, index) => (
         <ScheduleLine
           key={index}
-          title={activity.name}
-          time={activity.time}
+          activity={activity}
           status={getActivityStatus(index, activeIndex)}
           isCustom={activity.leaderId !== null}
         />

@@ -1,7 +1,7 @@
 import supabase from "@/supabase/client";
 
 import { mapDbActivityToActivity } from "@/mappers/activities";
-import { Activity, AddActivity } from "@/types/models/activities";
+import { Activity, ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
@@ -39,7 +39,7 @@ const readActivityById = async (id: number): Promise<Activity> => {
   }
 };
 
-const createActivity = async (activity: AddActivity): Promise<number> => {
+const createActivity = async (activity: ActivityCreate): Promise<number> => {
   try {
     const { data, error } = await supabase
       .from("activities")
@@ -56,8 +56,29 @@ const createActivity = async (activity: AddActivity): Promise<number> => {
   }
 };
 
+const updateActivityById = async (id: number, activity: ActivityUpdate): Promise<Activity> => {
+  try {
+    const { data, error } = await supabase
+      .from("activities")
+      .update(activity)
+      .eq("id", id)
+      .select()
+      .single();
+
+    console.log("data", id, activity, data);
+
+    if (error) throw error;
+
+    return mapDbActivityToActivity(data);
+  } catch (error: any) {
+    // console.error('Error updating activity:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+};
+
 export const scheduleRepository = {
   readActivitiesByDate,
   readActivityById,
   createActivity,
+  updateActivityById
 }

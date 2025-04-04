@@ -1,18 +1,17 @@
 import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
-import { scheduleRepository } from '@/repositories/scheduleRepository'
-import { AddActivity } from '@/types/models/activities'
-import { ScheduleParams } from '@/types/schedule'
+import { useCreateActivity } from '@/hooks/models/useSchedule'
+import { ActivityCreate } from '@/types/models/activities'
 import { scheduleSchema } from '@/validation/schedule'
-import { router, useLocalSearchParams } from 'expo-router'
+import { router } from 'expo-router'
 import { Alert } from 'react-native'
 
-const Activity = () => {
-  const params = useLocalSearchParams<ScheduleParams>()
+const CreateActivity = () => {
+  const { createActivity } = useCreateActivity();
 
-  const handleAddActivity = async (data: AddActivity) => {
+  const handleAddActivity = async (data: ActivityCreate) => {
     // Data are valid, checked with Zod
     try {
-      await scheduleRepository.createActivity({ ...data });
+      await createActivity({ ...data });
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
@@ -21,8 +20,8 @@ const Activity = () => {
   };
 
   return (
-    <ScheduleForm
-      title={params.mode === "add" ? "Pridaj aktivitu" : "Uprav aktivitu"}
+    <ScheduleForm<ActivityCreate>
+      title={"Pridaj aktivitu"}
       fields={[
         { title: "Názov", formDataTypeKey: "name" },
         { title: "Popis", formDataTypeKey: "description" },
@@ -36,4 +35,4 @@ const Activity = () => {
   )
 }
 
-export default Activity
+export default CreateActivity

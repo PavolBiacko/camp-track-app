@@ -3,23 +3,23 @@ import CustomSwitch from '@/components/custom/CustomSwitch'
 import DateTimeButton from '@/components/custom/DateTimeButton'
 import FormField from '@/components/custom/FormField'
 import { FormProps } from '@/types/custom/form'
-import { AddActivity } from '@/types/models/activities'
+import { ActivityCreate, ActivityUpdate } from '@/types/models/activities'
 import { capitalizeWord, getScheduleFormFields } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { FieldError, useForm } from 'react-hook-form'
+import { FieldError, FieldErrors, useForm } from 'react-hook-form'
 import { ScrollView, Text, View } from 'react-native'
 
-const ScheduleForm = (props: FormProps<AddActivity>) => {
+const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
 
-  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<AddActivity>({
+  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
 
   const [isPeriodic, setIsPeriodic] = useState(false);
 
-  const { nameField, descriptionField, timeField, dateField } = getScheduleFormFields(props.fields);
+  const { nameField, descriptionField, timeField, dateField } = getScheduleFormFields<T>(props.fields);
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -31,7 +31,7 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
           title={capitalizeWord(nameField.title)!}
           control={control}
           register={register}
-          error={errors[nameField.formDataTypeKey] as FieldError | undefined}
+          error={errors[nameField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
           formDataTypeKey={nameField.formDataTypeKey}
           placeholder={nameField.placeholder}
           otherStyles={nameField.otherStyles || "mt-7"}
@@ -42,7 +42,7 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
           title={capitalizeWord(descriptionField.title)!}
           control={control}
           register={register}
-          error={errors[descriptionField.formDataTypeKey] as FieldError | undefined}
+          error={errors[descriptionField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
           formDataTypeKey={descriptionField.formDataTypeKey}
           placeholder={descriptionField.placeholder}
           otherStyles={descriptionField.otherStyles || "mt-7"}
@@ -54,7 +54,6 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
             formDataTypeKey={timeField.formDataTypeKey}
             control={control}
             mode="time"
-            error={errors[timeField.formDataTypeKey] as FieldError | undefined}
             action='secondary'
             otherStyles='w-2/5 items-start'
           />
@@ -63,7 +62,6 @@ const ScheduleForm = (props: FormProps<AddActivity>) => {
             formDataTypeKey={dateField.formDataTypeKey}
             control={control}
             mode="date"
-            error={errors[dateField.formDataTypeKey] as FieldError | undefined}
             action='tertiary'
             otherStyles='w-3/5 pl-5 items-end'
             isDisabled={isPeriodic}

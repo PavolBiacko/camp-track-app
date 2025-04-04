@@ -3,6 +3,7 @@ import { ScheduleTime } from "../schedule"
 export type Activity = {
   id: number,
   name: string,
+  description: string | null,
   time: ScheduleTime,
   date: Date | null,
   leaderId: string | null,
@@ -10,7 +11,7 @@ export type Activity = {
 }
 
 // TODO
-export type AddActivity = {
+export type ActivityCreate = {
   name: string,
   description?: string | null,
   time: string,
@@ -19,10 +20,10 @@ export type AddActivity = {
 }
 
 // TODO
-export type EditActivity = {
+export type ActivityUpdate = {
   name?: string,
   description?: string | null,
   time?: string,
-  date?: Date | null,
+  date?: string | null,
   leaderId?: string | null,
 }

@@ -6,12 +6,13 @@ import { Text, TouchableOpacity } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
-  const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`
-  const statusContainterStyles = getActivityStyles(props.status, props.isCustom)
+  const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`;
+  const statusContainterStyles = getActivityStyles(props.status, props.isCustom);
+  const { id, name, time: { hours, minutes }, leaderId } = props.activity;
 
   const handleUpdateActivity = () => {
     // TODO: implement update check
-    router.push({ pathname: '/(main)/(schedule)', params: { mode: 'edit', activity: props.title } })
+    router.push({ pathname: '/(main)/(schedule)/update-activity', params: { activityId: id } })
   }
 
   return (
@@ -25,12 +26,8 @@ const ScheduleLine = (props: ScheduleLineProps) => {
           statusContainterStyles,
           props.containerStyles,
         )}>
-      <Text className={twMerge(textStyles, "font-pbold")}>
-        {props.title}
-      </Text>
-      <Text className={twMerge(textStyles, "font-psemibold")}>
-        {props.time.hours}:{props.time.minutes}
-      </Text>
+      <Text className={twMerge(textStyles, "font-pbold")}>{name}</Text>
+      <Text className={twMerge(textStyles, "font-psemibold")}>{hours}:{minutes}</Text>
     </TouchableOpacity>
   )
 }

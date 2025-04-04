@@ -14,6 +14,7 @@ export type Database = {
         Row: {
           created_at: string
           date: string | null
+          description: string | null
           id: number
           leader_id: string | null
           name: string
@@ -22,6 +23,7 @@ export type Database = {
         Insert: {
           created_at?: string
           date?: string | null
+          description?: string | null
           id?: number
           leader_id?: string | null
           name: string
@@ -30,6 +32,7 @@ export type Database = {
         Update: {
           created_at?: string
           date?: string | null
+          description?: string | null
           id?: number
           leader_id?: string | null
           name?: string

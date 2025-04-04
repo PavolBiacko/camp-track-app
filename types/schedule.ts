@@ -1,9 +1,9 @@
 import { UserRolesProps } from "./base";
 import { ActivityStatus } from "./enums/schedule";
+import { Activity } from "./models/activities";
 
 export type ScheduleLineProps = {
-  title: string,
-  time: ScheduleTime,
+  activity: Activity,
   status: ActivityStatus,
   isCustom: boolean,
   textStyles?: string,
@@ -21,8 +21,7 @@ export type ScheduleContextType = {
 }
 
 export type ScheduleParams = {
-  mode: 'add' | 'edit',
-  activity?: string,
+  activityId: string,  // number, but string is used in router
 }
 
 export type ScheduleHeaderProps = UserRolesProps;
