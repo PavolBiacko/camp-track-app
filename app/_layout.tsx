@@ -3,6 +3,7 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
 import { useAppFonts } from '@/hooks/useAppFonts';
+import { useSession } from "@/hooks/useSession";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SplashScreen, Stack } from 'expo-router';
@@ -19,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, error] = useAppFonts();
   const { colorScheme, setColorScheme } = useColorScheme();
+  const { session, isLoading } = useSession();
 
   useEffect(() => {
     if (error) throw error;
@@ -41,6 +43,8 @@ export default function RootLayout() {
 
   if (!fontsLoaded && !error) return null;
 
+  if (isLoading) return null;
+
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode={colorScheme}>
@@ -51,8 +55,11 @@ export default function RootLayout() {
               headerShown: false,
               contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
             }}>
-              <Stack.Screen name="(auth)" />
-              <Stack.Screen name="(main)" />
+              {session ? (
+                <Stack.Screen name="(main)" />
+              ) : (
+                <Stack.Screen name="(auth)" />
+              )}
             </Stack>
             <StatusBar />
           </View>
