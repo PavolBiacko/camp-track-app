@@ -18,14 +18,14 @@ const ScheduleLayout = () => {
         name="create-activity"
         options={{
           headerShown: true,
-          title: "Pridaj aktivitu",
+          title: "",
         }}
       />
       <Stack.Screen
         name="update-activity"
         options={{
           headerShown: true,
-          title: "Uprav aktivitu",
+          title: "",
         }}
       />
     </Stack>
