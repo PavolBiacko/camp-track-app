@@ -8,9 +8,9 @@ export const mapDbTimeToScheduleTime = (dbTime: string): ScheduleTime => {
   };
 }
 
-export const mapDateTimeToString = (date: Date | null, mode: DateTimeButtonMode): string => {
+export const mapDateTimeToString = (date: Date | null, mode: DateTimeButtonMode): string | null => {
   if (!date) {
-    return "--.--.----";
+    return null;
   }
 
   switch (mode) {
@@ -26,6 +26,10 @@ export const mapDateTimeToString = (date: Date | null, mode: DateTimeButtonMode)
 };
 
 export const mapStringToDateTime = (value: string, mode: DateTimeButtonMode): Date => {
+  if (!value) {
+    return new Date();
+  }
+
   switch (mode) {
     case "time": {
       const [hours, minutes] = value.split(":");

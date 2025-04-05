@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
+import { dateformats } from '@/constants'
 import { mapDateTimeToString, mapStringToDateTime } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
 import { formatISOLocalToHumanReadable } from '@/utils/dates'
@@ -9,7 +10,6 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 
 const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) => {
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
-  const disabledFormat = props.mode === "date" ? "--.--.----" : "--:--";
 
   const openDatePicker = () => {
     setDatePickerVisible(true);
@@ -27,7 +27,7 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
         <View className={`${props.otherStyles}`}>
           <Text className="text-typography-950 self-start text-base font-pmedium mb-1">{props.title}</Text>
           <CustomButton
-            title={!props.isDisabled ? (props.mode === "date" ? formatISOLocalToHumanReadable(value) : value) : disabledFormat}
+            title={!props.isDisabled ? (props.mode === "date" ? formatISOLocalToHumanReadable(value) : value) : dateformats.DISABLED_DATE}
             action={props.action}
             variant={props.variant}
             handlePress={openDatePicker}

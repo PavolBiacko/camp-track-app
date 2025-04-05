@@ -3,11 +3,11 @@ import { ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useActivitiesByDay = (date: Date) => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isFetching, isError } = useQuery({
     queryKey: ['activities', date],
     queryFn: async () => await scheduleRepository.readActivitiesByDate(date),
   });
-  return { activities: data, isLoading, isError };
+  return { activities: data, isFetching, isError };
 }
 
 export const useActivity = (id: number) => {

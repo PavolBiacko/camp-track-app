@@ -7,9 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Schedule = () => {
   const { user } = useAuth();
 
-  // should not happen, since useAuth is used in the layout layer
   if (!user) {
-    return null;
+    return null;  // should not happen, since useAuth is used in the layout layer
   }
 
   return (

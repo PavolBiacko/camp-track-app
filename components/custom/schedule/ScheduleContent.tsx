@@ -9,9 +9,9 @@ import { useScheduleContext } from '../context/ScheduleContext'
 const ScheduleContent = () => {
   const currentTime = useCurrentTime();
   const { selectedDate } = useScheduleContext();
-  const { activities, isLoading, isError } = useActivitiesByDay(selectedDate);
+  const { activities, isFetching, isError } = useActivitiesByDay(selectedDate);
 
-  if (!activities || isLoading || isError) {
+  if (!activities || isFetching || isError) {
     return <Loading showText={false} />
   }
 

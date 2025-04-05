@@ -5,21 +5,30 @@ import FormField from '@/components/custom/FormField'
 import { FormProps } from '@/types/custom/form'
 import { ActivityCreate, ActivityUpdate } from '@/types/models/activities'
 import { capitalizeWord, getScheduleFormFields } from '@/utils'
+import { formatDateToISOLocal } from '@/utils/dates'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import { FieldError, FieldErrors, useForm } from 'react-hook-form'
+import { FieldError, FieldErrors, Path, PathValue, useForm } from 'react-hook-form'
 import { ScrollView, Text, View } from 'react-native'
+import { useScheduleContext } from '../context/ScheduleContext'
 
 const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
 
-  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<T>({
+  const { control, handleSubmit, register, setValue, formState: { isSubmitting, errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
 
-  const [isPeriodic, setIsPeriodic] = useState(false);
-
+  const { selectedDate } = useScheduleContext();
+  const [isPeriodic, setIsPeriodic] = useState<boolean>(props.initialValues.date === null);
   const { nameField, descriptionField, timeField, dateField } = getScheduleFormFields<T>(props.fields);
+
+  // Handle switch toggle and update the date field accordingly
+  const handleSwitchChange = (newValue: boolean) => {
+    setIsPeriodic(newValue);
+    const dateValue = (newValue) ? null : formatDateToISOLocal(selectedDate);
+    setValue(dateField.formDataTypeKey as Path<T>, dateValue as PathValue<T, Path<T>>, { shouldValidate: true });
+  };
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
@@ -68,7 +77,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
           />
         </View>
 
-        <CustomSwitch onFalseText='Jendorázová' onTrueText='Periodická' value={isPeriodic} onValueChange={setIsPeriodic} />
+        <CustomSwitch onFalseText='Jendorázová' onTrueText='Periodická' value={isPeriodic} onValueChange={handleSwitchChange} />
 
         {/* submit the activity */}
         <CustomButton

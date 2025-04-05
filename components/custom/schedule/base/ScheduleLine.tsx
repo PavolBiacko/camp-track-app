@@ -1,3 +1,4 @@
+import { useAuth } from '@/hooks/useAuth'
 import { ScheduleLineProps } from '@/types/schedule'
 import { getActivityStyles } from '@/utils'
 import { router } from 'expo-router'
@@ -8,11 +9,18 @@ import { ClassNameValue, twMerge } from 'tailwind-merge'
 const ScheduleLine = (props: ScheduleLineProps) => {
   const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`;
   const statusContainterStyles = getActivityStyles(props.status, props.isCustom);
+
   const { id, name, time: { hours, minutes }, leaderId } = props.activity;
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;  // should not happen, since useAuth is used in the layout layer
+  }
 
   const handleUpdateActivity = () => {
-    // TODO: implement update check
-    router.push({ pathname: '/(main)/(schedule)/update-activity', params: { activityId: id } })
+    if (leaderId === user.id) {
+      router.push({ pathname: '/(main)/(schedule)/update-activity', params: { activityId: id } })
+    }
   }
 
   return (

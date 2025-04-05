@@ -51,6 +51,6 @@ export const getScheduleFormFields = <T extends ActivityCreate | ActivityUpdate>
     nameField: fields[0],
     descriptionField: fields[1],
     timeField: fields[2],
-    dateField: fields[3]
+    dateField: fields[3],
   }
 }
