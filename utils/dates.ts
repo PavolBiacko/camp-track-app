@@ -10,3 +10,8 @@ export const formatDate = (date: Date): string => {
 export const formatDateToISOLocal = (date: Date): string => {
   return format(date, 'yyyy-MM-dd');
 }
+
+export const formatISOLocalToHumanReadable = (date: string): string => {
+  const [year, month, day] = date.split('-');
+  return `${day}.${month}.${year}`;
+}

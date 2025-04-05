@@ -1,3 +1,4 @@
+import { ScheduleProvider } from "@/components/custom/context/ScheduleContext";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
@@ -43,17 +44,19 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider mode={colorScheme}>
-        <View style={{ flex: 1, backgroundColor: getRGBColor("background", "0", colorScheme) }}>
-          <Stack screenOptions={{
-            animation: 'ios_from_right',
-            headerShown: false,
-            contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
-          }}>
-            <Stack.Screen name="(auth)" />
-            <Stack.Screen name="(main)" />
-          </Stack>
-          <StatusBar />
-        </View>
+        <ScheduleProvider>
+          <View style={{ flex: 1, backgroundColor: getRGBColor("background", "0", colorScheme) }}>
+            <Stack screenOptions={{
+              animation: 'ios_from_right',
+              headerShown: false,
+              contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
+            }}>
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(main)" />
+            </Stack>
+            <StatusBar />
+          </View>
+        </ScheduleProvider>
       </GluestackUIProvider>
     </QueryClientProvider>
 

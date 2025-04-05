@@ -83,7 +83,6 @@ export const getActivityStyles = (status: ActivityStatus, isCustom: boolean): Cl
       break;
     case ActivityStatus.ACTIVE:
       bgColor = "secondary";
-      borderColor = "secondary";
       additionalContainterStyles = "h-24";
       break;
     case ActivityStatus.FUTURE:

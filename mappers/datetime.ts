@@ -10,26 +10,22 @@ export const mapDbTimeToScheduleTime = (dbTime: string): ScheduleTime => {
 
 export const mapDateTimeToString = (date: Date | null, mode: DateTimeButtonMode): string => {
   if (!date) {
-    return ""; // Return empty string if date is null
+    return "--.--.----";
   }
 
   switch (mode) {
     case "time":
       return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
     case "date":
-      return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`;
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     case "datetime":
-      return `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
     default:
       throw new Error(`Unsupported mode: ${mode}`);
   }
 };
 
 export const mapStringToDateTime = (value: string, mode: DateTimeButtonMode): Date => {
-  if (!value) {
-    return new Date(); // Default to current date/time if value is empty
-  }
-
   switch (mode) {
     case "time": {
       const [hours, minutes] = value.split(":");
@@ -39,7 +35,7 @@ export const mapStringToDateTime = (value: string, mode: DateTimeButtonMode): Da
     }
 
     case "date": {
-      const [day, month, year] = value.split(".");
+      const [year, month, day] = value.split("-");
       return new Date(`${year}-${month}-${day}`);
     }
 
