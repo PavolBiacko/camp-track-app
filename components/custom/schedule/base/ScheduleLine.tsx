@@ -1,4 +1,5 @@
 import { useAuth } from '@/hooks/useAuth'
+import { UserRoles } from '@/types/enums/roles'
 import { ScheduleLineProps } from '@/types/schedule'
 import { getActivityStyles } from '@/utils'
 import { router } from 'expo-router'
@@ -18,7 +19,7 @@ const ScheduleLine = (props: ScheduleLineProps) => {
   }
 
   const handleUpdateActivity = () => {
-    if (leaderId === user.id) {
+    if (user.role === UserRoles.CAMP_LEADER || leaderId === user.id) {
       router.push({ pathname: '/(main)/(schedule)/update-activity', params: { activityId: id } })
     }
   }
