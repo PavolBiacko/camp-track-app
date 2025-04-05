@@ -1,6 +1,7 @@
 import CustomButton from '@/components/custom/CustomButton'
 import { mapDateTimeToString, mapStringToDateTime } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
+import { formatISOLocalToHumanReadable } from '@/utils/dates'
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from 'react-hook-form'
 import { Text, View } from 'react-native'
@@ -26,7 +27,7 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
         <View className={`${props.otherStyles}`}>
           <Text className="text-typography-950 self-start text-base font-pmedium mb-1">{props.title}</Text>
           <CustomButton
-            title={!props.isDisabled ? value : disabledFormat}
+            title={!props.isDisabled ? (props.mode === "date" ? formatISOLocalToHumanReadable(value) : value) : disabledFormat}
             action={props.action}
             variant={props.variant}
             handlePress={openDatePicker}
