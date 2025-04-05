@@ -3,7 +3,8 @@ import { z } from "zod";
 export const scheduleSchema = z.object({
   name: z
     .string()
-    .nonempty("Názov nesmie byť prázdny."),
+    .nonempty("Názov nesmie byť prázdny.")
+    .max(25, "Názov nesmie byť dlhší ako 25 znakov."),
   description: z
     .string()
     .max(100, "Popis nesmie byť dlhší ako 100 znakov."),

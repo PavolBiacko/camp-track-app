@@ -1,7 +1,7 @@
 import CustomButton from '@/components/custom/CustomButton'
 import FormField from '@/components/custom/FormField'
 import { FormProps } from '@/types/custom/form'
-import { capitalizeWord } from '@/utils'
+import { capitalizeWord } from '@/utils/strings'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'expo-router'
 import { FieldError, FieldValues, useForm } from 'react-hook-form'

@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/useAuth'
 import { UserRoles } from '@/types/enums/roles'
 import { ScheduleLineProps } from '@/types/schedule'
-import { getActivityStyles } from '@/utils'
+import { getActivityStyles } from '@/utils/ui'
 import { router } from 'expo-router'
 
 import { Text, TouchableOpacity } from 'react-native'

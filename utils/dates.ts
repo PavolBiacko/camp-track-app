@@ -19,3 +19,22 @@ export const formatISOLocalToHumanReadable = (date: string | null): string => {
   const [year, month, day] = date.split('-');
   return `${day}.${month}.${year}`;
 }
+
+export const compareDates = (date1: Date, date2: Date): number => {
+  if (
+    date1.getFullYear() < date2.getFullYear() ||
+    (date1.getFullYear() === date2.getFullYear() && date1.getMonth() < date2.getMonth()) ||
+    (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() < date2.getDate())
+  ) {
+    return -1;
+  } else if (
+    date1.getFullYear() > date2.getFullYear() ||
+    (date1.getFullYear() === date2.getFullYear() && date1.getMonth() > date2.getMonth()) ||
+    (date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() > date2.getDate())
+  ) {
+    return 1;
+  } else {
+    // Dates are equal
+    return 0;
+  }
+}

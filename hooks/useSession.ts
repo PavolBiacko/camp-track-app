@@ -8,10 +8,8 @@ export const useSession = () => {
 
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      // console.log("On Auth State Change Start");
       setSession(session);
       setIsLoading(false);
-      // console.log("On Auth State Change End");
     });
 
     return () => {

@@ -1,7 +1,7 @@
 import { Badge, BadgeText } from '@/components/ui/badge'
 import { UserRoles } from '@/types/enums/roles'
 import { ProfileBadgeProps } from '@/types/settings'
-import { getBadgeStylesAndText } from '@/utils'
+import { getBadgeStylesAndText } from '@/utils/ui'
 import React from 'react'
 import { View } from 'react-native'
 

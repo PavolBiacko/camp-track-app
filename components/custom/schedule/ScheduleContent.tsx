@@ -1,10 +1,10 @@
+import { useScheduleContext } from '@/components/custom/context/ScheduleContext'
 import Loading from '@/components/custom/Loading'
 import ScheduleLine from '@/components/custom/schedule/base/ScheduleLine'
 import { useActivitiesByDay } from '@/hooks/models/useSchedule'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
-import { getActiveActivityIndex, getActivityStatus } from '@/utils'
+import { getActiveActivityIndex, getActivityStatus } from '@/utils/schedule'
 import { ScrollView } from 'react-native'
-import { useScheduleContext } from '../context/ScheduleContext'
 
 const ScheduleContent = () => {
   const currentTime = useCurrentTime();
@@ -23,7 +23,7 @@ const ScheduleContent = () => {
         <ScheduleLine
           key={index}
           activity={activity}
-          status={getActivityStatus(index, activeIndex)}
+          status={getActivityStatus(index, activeIndex, selectedDate)}
           isCustom={activity.leaderId !== null}
         />
       ))}

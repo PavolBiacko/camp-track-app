@@ -2,39 +2,37 @@ import { CurrentTime } from "@/types/base";
 import { FieldBasics } from "@/types/custom/field";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { Activity, ActivityCreate, ActivityUpdate } from "@/types/models/activities";
+import { compareDates } from "@/utils/dates";
 
 export const getActiveActivityIndex = (activities: Activity[], currentTime: CurrentTime): number => {
   const { hours: currentHour, minutes: currentMinute } = currentTime;
 
-  try {
-    for (let index = 0; index < activities.length; index++) {
-      const activity = activities[index];
-      const { hours: startHour, minutes: startMinute } = activity.time;
+  for (let index = 0; index < activities.length; index++) {
+    const activity = activities[index];
+    const { hours: startHour, minutes: startMinute } = activity.time;
 
-      const nextActivity = activities[index + 1];
-      const { hours: endHour, minutes: endMinute } = nextActivity ? nextActivity.time : { hours: "24", minutes: "0" };  // End of the day as a fallback
+    const nextActivity = activities[index + 1];
+    const { hours: endHour, minutes: endMinute } = nextActivity ? nextActivity.time : { hours: "24", minutes: "0" };  // End of the day as a fallback
 
-      // Time comparision
-      const isAfterStart =
-        (currentHour > parseInt(startHour)) ||
-        (currentHour === parseInt(startHour) && currentMinute >= parseInt(startMinute));
-      const isBeforeEnd =
-        (currentHour < parseInt(endHour)) ||
-        (currentHour === parseInt(endHour) && currentMinute < parseInt(endMinute));
+    // Time comparision
+    const isAfterStart =
+      (currentHour > parseInt(startHour)) ||
+      (currentHour === parseInt(startHour) && currentMinute >= parseInt(startMinute));
+    const isBeforeEnd =
+      (currentHour < parseInt(endHour)) ||
+      (currentHour === parseInt(endHour) && currentMinute < parseInt(endMinute));
 
-      if (isAfterStart && isBeforeEnd) {
-        return index;
-      }
+    if (isAfterStart && isBeforeEnd) {
+      return index;
     }
-    return -1; // No activity is active
-  } catch {
-    console.error('Error getting active activity index:', activities);
-    return -1; // No activity is active
   }
-
+  return -1; // No activity is active
 };
 
-export const getActivityStatus = (index: number, activeIndex: number): ActivityStatus => {
+export const getActivityStatus = (index: number, activeIndex: number, selectedDate: Date): ActivityStatus => {
+  if (compareDates(selectedDate, new Date()) < 0) return ActivityStatus.PAST; // Past date
+  if (compareDates(selectedDate, new Date()) > 0) return ActivityStatus.FUTURE; // Future date
+
   if (activeIndex === -1) return ActivityStatus.FUTURE; // No activity is active
 
   if (index < activeIndex) {
