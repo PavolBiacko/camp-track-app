@@ -11,4 +11,5 @@ export type FormFieldProps<T extends FieldValues> = FieldBasics<T> & {
   control: Control<T, any>,
   register: UseFormRegister<T>,
   error?: FieldError,
+  isMultine?: boolean,
 }

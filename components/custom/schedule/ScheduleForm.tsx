@@ -52,6 +52,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
           title={capitalizeWord(descriptionField.title)!}
           control={control}
           register={register}
+          isMultine={true}
           error={errors[descriptionField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
           formDataTypeKey={descriptionField.formDataTypeKey}
           placeholder={descriptionField.placeholder}

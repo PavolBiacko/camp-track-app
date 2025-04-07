@@ -8,7 +8,7 @@ import { Text, TouchableOpacity } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
-  const textStyles: ClassNameValue = `text-typography-900 text-lg ${props.textStyles}`;
+  const textStyles: ClassNameValue = `text-typography-900 text-lg pt-1 ${props.textStyles}`;
   const statusContainterStyles = getActivityStyles(props.status, props.isCustom);
 
   const { id, name, time: { hours, minutes }, leaderId } = props.activity;
