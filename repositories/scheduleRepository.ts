@@ -75,9 +75,25 @@ const updateActivityById = async (id: number, activity: ActivityUpdate): Promise
   }
 };
 
+const deleteActivityById = async (id: number): Promise<void> => {
+  try {
+    const { error } = await supabase
+      .from("activities")
+      .delete()
+      .eq("id", id)
+
+    if (error) throw error;
+
+  } catch (error: any) {
+    // console.error('Error updating activity:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+};
+
 export const scheduleRepository = {
   readActivitiesByDate,
   readActivityById,
   createActivity,
-  updateActivityById
+  updateActivityById,
+  deleteActivityById,
 }

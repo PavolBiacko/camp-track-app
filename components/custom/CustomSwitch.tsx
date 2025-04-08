@@ -9,7 +9,7 @@ const CustomSwitch = (props: CustomSwitchProps) => {
   const { thumbColorOff, thumbColorOn, trackColorOff, trackColorOn } = useSwitchColors(colorScheme);
 
   return (
-    <View className="w-full items-center mt-7">
+    <View className="w-full items-center mt-6">
       <View className="relative w-full items-center">
         {/* Center the Switch */}
         <Switch

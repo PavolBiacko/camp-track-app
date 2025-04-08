@@ -17,5 +17,6 @@ export type FormProps<T extends FieldValues> = {
   initialValues: DefaultValues<T>,
   validationSchema: ZodSchema<T>,
   onSubmit: (values: T) => Promise<void>,
+  buttonText?: string,
   linkData?: LinkData,
 };

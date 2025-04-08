@@ -7,7 +7,7 @@ import { UserRoles } from '@/types/enums/roles'
 import { ActivityCreate } from '@/types/models/activities'
 import { scheduleSchema } from '@/validation/schedule'
 import { router } from 'expo-router'
-import { Alert } from 'react-native'
+import { Alert, ScrollView } from 'react-native'
 
 const CreateActivity = () => {
   const { createActivity } = useCreateActivity();
@@ -34,23 +34,25 @@ const CreateActivity = () => {
   };
 
   return (
-    <ScheduleForm<ActivityCreate>
-      title={"Pridaj aktivitu"}
-      fields={[
-        { title: "Názov", formDataTypeKey: "name" },
-        { title: "Popis", formDataTypeKey: "description" },
-        { title: "Čas", formDataTypeKey: "time" },
-        { title: "Dátum", formDataTypeKey: "date" }
-      ]}
-      initialValues={{
-        name: "",
-        description: "",
-        time: mapDateTimeToString(new Date(), "time")!,
-        date: mapDateTimeToString(selectedDate, "date")
-      }}
-      validationSchema={scheduleSchema}
-      onSubmit={handleAddActivity}
-    />
+    <ScrollView keyboardShouldPersistTaps="handled" className="px-4">
+      <ScheduleForm<ActivityCreate>
+        title={"Pridaj aktivitu"}
+        fields={[
+          { title: "Názov", formDataTypeKey: "name" },
+          { title: "Popis", formDataTypeKey: "description" },
+          { title: "Čas", formDataTypeKey: "time" },
+          { title: "Dátum", formDataTypeKey: "date" }
+        ]}
+        initialValues={{
+          name: "",
+          description: "",
+          time: mapDateTimeToString(new Date(), "time")!,
+          date: mapDateTimeToString(selectedDate, "date")
+        }}
+        validationSchema={scheduleSchema}
+        onSubmit={handleAddActivity}
+      />
+    </ScrollView>
   )
 }
 

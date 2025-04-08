@@ -45,3 +45,17 @@ export const useUpdateActivity = (id: number) => {
   });
   return { updateActivity: mutateAsync, isError };
 }
+
+export const useDeleteActivity = (id: number) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError } = useMutation({
+    mutationFn: async () => {
+      return await scheduleRepository.deleteActivityById(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
+    }
+  });
+  return { deleteActivity: mutateAsync, isPending, isError };
+}

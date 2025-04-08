@@ -9,7 +9,7 @@ const ScheduleHeader = ({ role }: ScheduleHeaderProps) => {
   return (
     <View className="border-b border-outline-300 justify-center items-center py-5">
       <ScheduleDatePicker />
-      {(role === UserRoles.GROUP_LEADER || role === UserRoles.CAMP_LEADER || role === UserRoles.PARENT) && <CustomButton
+      {(role === UserRoles.GROUP_LEADER || role === UserRoles.CAMP_LEADER) && <CustomButton
         title="Pridaj novú aktivitu"
         action="primary"
         variant="combined"

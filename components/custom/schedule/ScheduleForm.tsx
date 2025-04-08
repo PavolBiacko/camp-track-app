@@ -10,7 +10,7 @@ import { capitalizeWord } from '@/utils/strings'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FieldError, FieldErrors, Path, PathValue, useForm } from 'react-hook-form'
-import { ScrollView, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { useScheduleContext } from '../context/ScheduleContext'
 
 const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
@@ -32,64 +32,67 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
   };
 
   return (
-    <ScrollView keyboardShouldPersistTaps="handled">
-      <View className="w-full justify-center px-4 my-6">
-        <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
+    <View className="w-full justify-center">
+      <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
 
-        {/* name of the activity */}
-        <FormField
-          title={capitalizeWord(nameField.title)!}
+      {/* name of the activity */}
+      <FormField
+        title={capitalizeWord(nameField.title)!}
+        control={control}
+        register={register}
+        error={errors[nameField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
+        formDataTypeKey={nameField.formDataTypeKey}
+        placeholder={nameField.placeholder}
+        otherStyles={nameField.otherStyles || "mt-5"}
+      />
+
+      {/* description of the activity */}
+      <FormField
+        title={capitalizeWord(descriptionField.title)!}
+        control={control}
+        register={register}
+        isMultine={true}
+        error={errors[descriptionField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
+        formDataTypeKey={descriptionField.formDataTypeKey}
+        placeholder={descriptionField.placeholder}
+        otherStyles={descriptionField.otherStyles || "mt-5"}
+      />
+
+      <View className="w-full flex-row mt-5">
+        <DateTimeButton
+          title={timeField.title}
+          formDataTypeKey={timeField.formDataTypeKey}
           control={control}
-          register={register}
-          error={errors[nameField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
-          formDataTypeKey={nameField.formDataTypeKey}
-          placeholder={nameField.placeholder}
-          otherStyles={nameField.otherStyles || "mt-7"}
+          mode="time"
+          action='secondary'
+          otherStyles='w-2/5 items-start'
         />
-
-        {/* description of the activity */}
-        <FormField
-          title={capitalizeWord(descriptionField.title)!}
+        <DateTimeButton
+          title={dateField.title}
+          formDataTypeKey={dateField.formDataTypeKey}
           control={control}
-          register={register}
-          isMultine={true}
-          error={errors[descriptionField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
-          formDataTypeKey={descriptionField.formDataTypeKey}
-          placeholder={descriptionField.placeholder}
-          otherStyles={descriptionField.otherStyles || "mt-7"}
-        />
-
-        <View className="w-full flex-row mt-7">
-          <DateTimeButton
-            title={timeField.title}
-            formDataTypeKey={timeField.formDataTypeKey}
-            control={control}
-            mode="time"
-            action='secondary'
-            otherStyles='w-2/5 items-start'
-          />
-          <DateTimeButton
-            title={dateField.title}
-            formDataTypeKey={dateField.formDataTypeKey}
-            control={control}
-            mode="date"
-            action='tertiary'
-            otherStyles='w-3/5 pl-5 items-end'
-            isDisabled={isPeriodic}
-          />
-        </View>
-
-        <CustomSwitch onFalseText='Jendorázová' onTrueText='Periodická' value={isPeriodic} onValueChange={handleSwitchChange} />
-
-        {/* submit the activity */}
-        <CustomButton
-          title={props.title}
-          handlePress={handleSubmit(props.onSubmit)}
-          containerStyles="mt-7 h-[4.5rem] rounded-3xl"
-          isLoading={isSubmitting}
+          mode="date"
+          action='tertiary'
+          otherStyles='w-3/5 pl-5 items-end'
+          isDisabled={isPeriodic}
         />
       </View>
-    </ScrollView>
+
+      <CustomSwitch
+        onFalseText='Jendorázová'
+        onTrueText='Periodická'
+        value={isPeriodic}
+        onValueChange={handleSwitchChange}
+      />
+
+      {/* submit the activity */}
+      <CustomButton
+        title={props.buttonText || props.title}
+        handlePress={handleSubmit(props.onSubmit)}
+        containerStyles="mt-5 h-[4.5rem] rounded-3xl"
+        isLoading={isSubmitting}
+      />
+    </View>
   )
 }
 
