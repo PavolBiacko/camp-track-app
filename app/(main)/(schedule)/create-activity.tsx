@@ -14,7 +14,6 @@ const CreateActivity = () => {
   const { selectedDate } = useScheduleContext();
   const { user } = useAuth();
 
-
   if (!user) {
     return null;  // should not happen, since useAuth is used in the layout layer
   }

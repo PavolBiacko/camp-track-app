@@ -79,7 +79,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
       </View>
 
       <CustomSwitch
-        onFalseText='Jendorázová'
+        onFalseText='Jednorázová'
         onTrueText='Periodická'
         value={isPeriodic}
         onValueChange={handleSwitchChange}
