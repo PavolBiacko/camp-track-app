@@ -1,9 +1,14 @@
-import { Text, View } from 'react-native'
+import FinanceOverviewContent from '@/components/custom/finance/overview/FinanceOverviewContent'
+import FinanceOverviewFooter from '@/components/custom/finance/overview/FinanceOverviewFooter'
+import FinanceOverviewHeader from '@/components/custom/finance/overview/FinanceOverviewHeader'
+import { View } from 'react-native'
 
 const Overview = () => {
   return (
-    <View>
-      <Text className='text-typography-950'>Overview</Text>
+    <View className='flex-1'>
+      <FinanceOverviewHeader />
+      <FinanceOverviewContent />
+      <FinanceOverviewFooter />
     </View>
   )
 }

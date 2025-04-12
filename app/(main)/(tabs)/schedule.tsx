@@ -1,7 +1,6 @@
 import ScheduleContent from '@/components/custom/schedule/ScheduleContent'
 import ScheduleHeader from '@/components/custom/schedule/ScheduleHeader'
 import { useAuth } from '@/hooks/useAuth'
-import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Schedule = () => {
