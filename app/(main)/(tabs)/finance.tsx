@@ -1,9 +1,56 @@
+import CustomButton from '@/components/custom/CustomButton'
 import React from 'react'
-import { Text } from 'react-native'
+import { View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const Finance = () => {
+  const containerStyles = "rounded-3xl w-[47%]"
+  const textStyles = "text-center text-2xl font-pbold"
+
   return (
-    <Text className='text-typography-950'>Finance</Text>
+    <SafeAreaView className='justify-center h-full'>
+      <View className="h-1/4 flex-row justify-between m-5">
+        <CustomButton
+          title='Celkový prehľad'
+          action='background'
+          handlePress={() => { }}
+          containerStyles={containerStyles}
+          textStyles={textStyles}
+        />
+        <CustomButton
+          title='Výpis pohybov'
+          action='background'
+          handlePress={() => { }}
+          containerStyles={containerStyles}
+          textStyles={textStyles}
+        />
+      </View>
+      <View className="h-1/4 flex-row justify-between m-5">
+        <CustomButton
+          title='Nastavenia účtov'
+          action='background'
+          handlePress={() => { }}
+          containerStyles={containerStyles}
+          textStyles={textStyles}
+        />
+        <CustomButton
+          title='Výpočet výdavkov'
+          action='background'
+          handlePress={() => { }}
+          containerStyles={containerStyles}
+          textStyles={textStyles}
+        />
+      </View>
+      <View className="h-1/4 m-5">
+        <CustomButton
+          title='Návšteva bufetu'
+          action='tertiary'
+          handlePress={() => { }}
+          containerStyles="rounded-3xl h-full"
+          textStyles={textStyles}
+        />
+      </View>
+    </SafeAreaView>
   )
 }
 
