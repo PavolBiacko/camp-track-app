@@ -4,7 +4,7 @@ import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
-import { TabScreenOptions } from "@/types/tabs";
+import { StackScreenOptions, TabScreenOptions } from "@/types/options";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
 
@@ -23,6 +23,17 @@ export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions
     sceneStyle: {
       backgroundColor: getRGBColor("background", "0", colorScheme),
     },
+  };
+}
+
+export const getStackScreenOptions = (colorScheme?: ColorScheme): StackScreenOptions => {
+  return {
+    animation: 'ios_from_right',
+    headerShown: false,
+    headerStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) },
+    headerTitleStyle: { color: getRGBColor("typography", "950", colorScheme) },
+    headerTintColor: getRGBColor("typography", "950", colorScheme),
+    contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
   };
 }
 
