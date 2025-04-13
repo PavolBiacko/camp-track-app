@@ -1,21 +1,21 @@
-import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
+import AppProviders from '@/components/custom/AppProviders'
+import { getStackScreenOptions } from '@/utils/ui'
 import { Stack } from 'expo-router'
 import { useColorScheme } from 'nativewind'
-import React from 'react'
 
-const _layout = () => {
+const AppLayout = () => {
   const { colorScheme } = useColorScheme()
 
   return (
-    <Stack screenOptions={{
-      headerShown: false,
-      animation: 'ios_from_right',
-      contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
-    }}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="(settings)" />
-    </Stack>
+    <AppProviders>
+      <Stack screenOptions={getStackScreenOptions(colorScheme)}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(settings)" />
+        <Stack.Screen name="(schedule)" />
+        <Stack.Screen name="(finance)" />
+      </Stack>
+    </AppProviders>
   )
 }
 
-export default _layout
+export default AppLayout

@@ -6,7 +6,7 @@ const FinanceLayout = () => {
   const { colorScheme } = useColorScheme()
 
   return (
-    <Stack screenOptions={getStackScreenOptions(colorScheme)}>
+    <Stack screenOptions={{ ...getStackScreenOptions(colorScheme), headerTitleAlign: 'center' }}>
       <Stack.Screen
         name="overview"
         options={{

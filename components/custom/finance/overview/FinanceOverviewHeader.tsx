@@ -1,11 +1,14 @@
-import CustomButton from '@/components/custom/CustomButton'
-import { View } from 'react-native'
+import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
+import CustomButton from '@/components/custom/CustomButton';
+import { View } from 'react-native';
 
 const FinanceOverviewHeader = () => {
+  const { totalAmount } = useFinanceOverviewContext();
+
   return (
-    <View className="border-b border-outline-300 justify-center items-center pb-5 gap-3">
+    <View className="border-y border-outline-300 justify-center items-center py-3 gap-3">
       <CustomButton
-        title="650.50€"
+        title={`${totalAmount.toFixed(2)} €`}
         action="secondary"
         handlePress={() => { }}
         textStyles="text-5xl pt-4"
