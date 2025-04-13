@@ -45,7 +45,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
 
         {String(props.formDataTypeKey).includes("password") && (
           <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-            <Image source={!showPassword ? icons.eye : icons.eyeHide} className="w-6 h-6" resizeMode="contain" />
+            <Image source={!showPassword ? icons.eye : icons.eyeHide} className="w-6 h-6 mr-4" resizeMode="contain" />
           </TouchableOpacity>
         )}
       </View>
