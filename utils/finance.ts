@@ -63,3 +63,28 @@ export const getMoneyImage = (denomination: Denominations): ImageProps => {
       throw new Error("Invalid denomination");
   }
 }
+
+export const getCoins = (): Denominations[] => {
+  return [
+    Denominations.CENTS_1,
+    Denominations.CENTS_2,
+    Denominations.CENTS_5,
+    Denominations.CENTS_10,
+    Denominations.CENTS_20,
+    Denominations.CENTS_50,
+    Denominations.EURO_1,
+    Denominations.EURO_2,
+  ];
+};
+
+export const getBills = (): Denominations[] => {
+  return [
+    Denominations.EURO_5,
+    Denominations.EURO_10,
+    Denominations.EURO_20,
+    Denominations.EURO_50,
+    Denominations.EURO_100,
+    Denominations.EURO_200,
+    Denominations.EURO_500,
+  ];
+};
