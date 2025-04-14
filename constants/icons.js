@@ -2,6 +2,7 @@
 import accounts from "@/assets/icons/accounts.png";
 import calendar from "@/assets/icons/calendar.png";
 import children from "@/assets/icons/children.png";
+import connections from "@/assets/icons/connections.png";
 import darkMode from "@/assets/icons/dark-mode.png";
 import email from "@/assets/icons/email.png";
 import eyeHide from "@/assets/icons/eye-hide.png";
@@ -16,6 +17,7 @@ import menu from "@/assets/icons/menu.png";
 import message from "@/assets/icons/message.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import search from "@/assets/icons/search.png";
+import session from "@/assets/icons/session.png";
 import settings from "@/assets/icons/settings.png";
 
 // socials
@@ -51,4 +53,6 @@ export default {
   group,
   lightMode,
   darkMode,
+  connections,
+  session,
 };

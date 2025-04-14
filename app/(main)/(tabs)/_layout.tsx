@@ -16,7 +16,7 @@ const tabData: TabData[] = [
   { name: 'index', shownLabel: 'Domov', icon: icons.home, roles: EVERYBODY },
   { name: 'schedule', shownLabel: 'Program', icon: icons.calendar, roles: EVERYBODY },
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
-  { name: 'groups', shownLabel: 'Oddiely', icon: icons.group, roles: [UserRoles.CAMP_LEADER] },
+  { name: 'camp', shownLabel: 'Tábor', icon: icons.connections, roles: [UserRoles.CAMP_LEADER] },
   { name: 'children', shownLabel: 'Moje deti', icon: icons.children, roles: [UserRoles.PARENT] },
   { name: 'messages', shownLabel: 'Správy', icon: icons.message, roles: EVERYBODY },
   { name: 'gallery', shownLabel: 'Galéria', icon: icons.gallery, roles: EVERYBODY },
