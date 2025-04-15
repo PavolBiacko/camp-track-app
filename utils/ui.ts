@@ -21,7 +21,7 @@ export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions
       height: Platform.OS === "ios" ? 75 : 60,
     },
     sceneStyle: {
-      backgroundColor: getRGBColor("background", "0", colorScheme),
+      backgroundColor: getRGBColor("background", "50", colorScheme),
     },
   };
 }
@@ -34,7 +34,7 @@ export const getStackScreenOptions = (colorScheme?: ColorScheme): StackScreenOpt
     headerTitleAlign: 'center',
     headerTitleStyle: { color: getRGBColor("typography", "950", colorScheme) },
     headerTintColor: getRGBColor("typography", "950", colorScheme),
-    contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
+    contentStyle: { backgroundColor: getRGBColor("background", "50", colorScheme) }
   };
 }
 

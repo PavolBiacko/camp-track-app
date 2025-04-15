@@ -1,10 +1,23 @@
-import { Text, View } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 
 const Accounts = () => {
   return (
-    <View>
-      <Text className='text-typography-950'>Accounts</Text>
-    </View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+      <Text className='text-typography-950 py-5 text-2xl font-psemibold'>Accounts</Text>
+    </ScrollView>
   )
 }
 

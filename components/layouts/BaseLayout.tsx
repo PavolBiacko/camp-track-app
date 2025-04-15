@@ -13,7 +13,7 @@ const BaseLayout = (props: PropsWithChildren<BaseLayoutProps>) => {
 
   return (
     <SafeAreaView className={`w-full h-full ${props.containerStyles}`}>
-      <View className="border-b border-outline-300 items-end px-5 py-3">
+      <View className="bg-background-0 border-b border-outline-300 items-end px-5 py-3">
         <CustomButton
           icon={icons.settings}
           action="background"
