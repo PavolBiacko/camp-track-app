@@ -1,4 +1,5 @@
-import { Denominations } from "./enums/finance";
+import { Denominations } from "@/types/enums/finance";
+import { Child } from "@/types/models/children";
 
 export type MoneyType = 'coin' | 'bill';
 
@@ -13,7 +14,7 @@ export type FinanceOverviewContextType = {
 }
 
 export type FinanceAccountLineProps = {
-  child: any,  // TODO: replace with actual type
+  child: Child,
   textStyles?: string,
   containerStyles?: string,
 }
