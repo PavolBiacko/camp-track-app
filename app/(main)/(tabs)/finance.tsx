@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
+import { useAuth } from '@/hooks/useAuth'
 import { router } from 'expo-router'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -6,6 +7,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 const Finance = () => {
   const containerStyles = "rounded-3xl w-[47%]"
   const textStyles = "text-center text-2xl font-pbold"
+
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;  // should not happen, since useAuth is used in the layout layer
+  }
 
   return (
     <SafeAreaView className='justify-center h-full'>
@@ -29,7 +36,7 @@ const Finance = () => {
         <CustomButton
           title='Nastavenia účtov detí'
           action='background'
-          handlePress={() => router.push('/(main)/(finance)/accounts')}
+          handlePress={() => router.push({ pathname: '/(main)/(finance)/accounts', params: { leaderId: user.id } })}
           containerStyles={containerStyles}
           textStyles={textStyles}
         />

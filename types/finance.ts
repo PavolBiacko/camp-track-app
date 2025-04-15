@@ -17,3 +17,7 @@ export type FinanceAccountLineProps = {
   textStyles?: string,
   containerStyles?: string,
 }
+
+export type FinanceAccountsParams = {
+  leaderId: string,
+}

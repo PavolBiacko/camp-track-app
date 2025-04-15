@@ -1,4 +1,4 @@
-import { ScheduleTime } from "../schedule"
+import { ScheduleTime } from "@/types/schedule"
 
 export type Activity = {
   id: number,

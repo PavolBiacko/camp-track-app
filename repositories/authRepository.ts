@@ -80,13 +80,14 @@ const whoami = async (): Promise<User> => {
     const { data: user, error: error2 } = await supabase
       .from("users")
       .select("*")
-      .eq("id", data.user.id).single();
+      .eq("id", data.user.id)
+      .single();
 
     if (!user || error2) throw error2;
 
     return mapDbUserToUser(user);
   } catch (error: any) {
-    // console.error('Logout error:', (error as AuthError).message);
+    // console.error('Whoami error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
