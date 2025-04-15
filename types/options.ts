@@ -23,6 +23,7 @@ export type StackScreenOptions = {
   headerTitleStyle?: {
     color: string;
   };
+  headerTitleAlign: "left" | "center";
   headerTintColor?: string;
   contentStyle?: {
     backgroundColor: string;

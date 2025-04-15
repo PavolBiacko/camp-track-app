@@ -31,6 +31,7 @@ export const getStackScreenOptions = (colorScheme?: ColorScheme): StackScreenOpt
     animation: 'ios_from_right',
     headerShown: false,
     headerStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) },
+    headerTitleAlign: 'center',
     headerTitleStyle: { color: getRGBColor("typography", "950", colorScheme) },
     headerTintColor: getRGBColor("typography", "950", colorScheme),
     contentStyle: { backgroundColor: getRGBColor("background", "0", colorScheme) }
