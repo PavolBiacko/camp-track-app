@@ -48,24 +48,124 @@ export type Database = {
           },
         ]
       }
+      camp_sessions: {
+        Row: {
+          begin_date: string
+          created_at: string
+          end_date: string
+          id: number
+        }
+        Insert: {
+          begin_date: string
+          created_at?: string
+          end_date: string
+          id?: number
+        }
+        Update: {
+          begin_date?: string
+          created_at?: string
+          end_date?: string
+          id?: number
+        }
+        Relationships: []
+      }
+      cash_register: {
+        Row: {
+          created_at: string
+          denomination: Database["public"]["Enums"]["euro_denominations"]
+          id: number
+          leader_id: string
+          quantity: number
+        }
+        Insert: {
+          created_at?: string
+          denomination: Database["public"]["Enums"]["euro_denominations"]
+          id?: number
+          leader_id: string
+          quantity?: number
+        }
+        Update: {
+          created_at?: string
+          denomination?: Database["public"]["Enums"]["euro_denominations"]
+          id?: number
+          leader_id?: string
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cash_register_leader_id_fkey"
+            columns: ["leader_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      children: {
+        Row: {
+          account_balance: number
+          birth_date: string | null
+          created_at: string
+          first_name: string
+          gender: Database["public"]["Enums"]["gender"]
+          group_id: number | null
+          id: string
+          last_name: string
+        }
+        Insert: {
+          account_balance?: number
+          birth_date?: string | null
+          created_at?: string
+          first_name: string
+          gender?: Database["public"]["Enums"]["gender"]
+          group_id?: number | null
+          id?: string
+          last_name: string
+        }
+        Update: {
+          account_balance?: number
+          birth_date?: string | null
+          created_at?: string
+          first_name?: string
+          gender?: Database["public"]["Enums"]["gender"]
+          group_id?: number | null
+          id?: string
+          last_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "children_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       groups: {
         Row: {
           created_at: string
           id: number
           leader_id: string | null
+          name: string | null
           number: number
+          session_id: number
         }
         Insert: {
           created_at?: string
           id?: number
           leader_id?: string | null
+          name?: string | null
           number: number
+          session_id: number
         }
         Update: {
           created_at?: string
           id?: number
           leader_id?: string | null
+          name?: string | null
           number?: number
+          session_id?: number
         }
         Relationships: [
           {
@@ -73,6 +173,13 @@ export type Database = {
             columns: ["leader_id"]
             isOneToOne: true
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "groups_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "camp_sessions"
             referencedColumns: ["id"]
           },
         ]
@@ -116,6 +223,23 @@ export type Database = {
     }
     Enums: {
       camp_roles: "CAMP_LEADER" | "GROUP_LEADER" | "PARENT" | "USER"
+      euro_denominations:
+        | "500_eur"
+        | "200_eur"
+        | "100_eur"
+        | "50_eur"
+        | "20_eur"
+        | "10_eur"
+        | "5_eur"
+        | "2_eur"
+        | "1_eur"
+        | "50_cent"
+        | "20_cent"
+        | "10_cent"
+        | "5_cent"
+        | "2_cent"
+        | "1_cent"
+      gender: "MALE" | "FEMALE" | "NOT_SPECIFIED"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -123,27 +247,29 @@ export type Database = {
   }
 }
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type DefaultSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -151,20 +277,22 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -172,20 +300,22 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -193,21 +323,23 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
     | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema["CompositeTypes"]
+    | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof Database
@@ -216,6 +348,32 @@ export type CompositeTypes<
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      camp_roles: ["CAMP_LEADER", "GROUP_LEADER", "PARENT", "USER"],
+      euro_denominations: [
+        "500_eur",
+        "200_eur",
+        "100_eur",
+        "50_eur",
+        "20_eur",
+        "10_eur",
+        "5_eur",
+        "2_eur",
+        "1_eur",
+        "50_cent",
+        "20_cent",
+        "10_cent",
+        "5_cent",
+        "2_cent",
+        "1_cent",
+      ],
+      gender: ["MALE", "FEMALE", "NOT_SPECIFIED"],
+    },
+  },
+} as const
