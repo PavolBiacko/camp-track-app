@@ -31,20 +31,29 @@ export type FinanceOverviewProviderProps = {
 }
 
 export type FinanceAccountContextType = {
-  childBalance: number;
+  childAccountBalance: number;
   actionAmount: number;
   counts: Record<Denominations, number>;
   updateCount: (denomination: Denominations, count: number) => void;
-  confirmUpdate: () => void;
+  resetDenominations: () => void;
 }
 
 export type FinanceAccountProviderProps = {
+  type: AccountActionType;
   initialBalance: number;
+}
+
+export type FinanceAccountHeaderProps = {
   type: AccountActionType;
 }
 
-export type FinanceAccountProps = {
+export type FinanceAccountContentProps = {
   type: AccountActionType;
+}
+
+export type FinanceAccountFooterProps = {
+  type: AccountActionType;
+  childId: string;
 }
 
 export type FinanceAccountLineProps = {

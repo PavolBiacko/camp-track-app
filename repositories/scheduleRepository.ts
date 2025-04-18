@@ -44,7 +44,7 @@ const createActivity = async (activity: ActivityCreate): Promise<number> => {
     const newMappedActivity = mapActivityCreateToDbActivity(activity);
     const { data, error } = await supabase
       .from("activities")
-      .insert([newMappedActivity])
+      .insert(newMappedActivity)
       .select()
       .single();
 

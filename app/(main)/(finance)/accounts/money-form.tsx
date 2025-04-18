@@ -33,7 +33,7 @@ const MoneyForm = () => {
       <FinanceAccountProvider initialBalance={child.accountBalance} type={type}>
         <FinanceAccountHeader type={type} />
         <FinanceAccountContent type={type} />
-        <FinanceAccountFooter type={type} />
+        <FinanceAccountFooter type={type} childId={child.id} />
       </FinanceAccountProvider>
     </View>
 

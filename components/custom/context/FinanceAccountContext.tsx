@@ -5,7 +5,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
 
 export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountProviderProps>) => {
-  const [childBalance, setChildBalance] = useState<number>(props.initialBalance);
+  const [childAccountBalance, _setChildAccountBalance] = useState<number>(props.initialBalance);
   const [counts, setCounts] = useState<Record<Denominations, number>>({
     [Denominations.CENTS_1]: 0,
     [Denominations.CENTS_2]: 0,
@@ -36,12 +36,6 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
     }));
   };
 
-  const confirmUpdate = () => {
-    const actionTypeAmount = (props.type === 'increment' ? 1 : -1) * actionAmount;
-    setChildBalance((prev) => prev + actionTypeAmount);
-    resetDenominations(); // Reset denominations after confirmation
-  };
-
   const resetDenominations = () => {
     setCounts({
       [Denominations.CENTS_1]: 0,
@@ -65,11 +59,11 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
   return (
     <FinanceAccountContext.Provider
       value={{
-        childBalance,
+        childAccountBalance,
         actionAmount,
         counts,
         updateCount,
-        confirmUpdate,
+        resetDenominations,
       }}
     >
       {props.children}

@@ -1,5 +1,5 @@
 import { financeRepository } from "@/repositories/financeRepository";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useChildrenByLeader = (leaderId: string) => {
   const { data, isLoading, isError } = useQuery({
@@ -23,4 +23,18 @@ export const useCashRegisterByLeader = (leaderId: string) => {
     queryFn: async () => await financeRepository.readCashRegisterByLeader(leaderId),
   });
   return { cashRegister: data, isLoading, isError };
+}
+
+export const useUpdateAccountBalance = (id: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (accountBalance: number) => {
+      return await financeRepository.updateAccountBalanceById(id, accountBalance);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] });
+    }
+  });
+  return { updateAccountBalance: mutateAsync, isError };
 }

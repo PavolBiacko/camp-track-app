@@ -50,7 +50,7 @@ const readChildById = async (id: string): Promise<Child | null> => {
     // console.error('Error reading child:', (error as AuthError).message);
     throw error as AuthError;
   }
-}
+};
 
 const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[] | null> => {
   try {
@@ -82,9 +82,28 @@ const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[
   }
 };
 
+const updateAccountBalanceById = async (id: string, acountBalance: number): Promise<Child> => {
+  try {
+    const { data, error } = await supabase
+      .from('children')
+      .update({ account_balance: acountBalance })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return mapDbChildToChild(data);
+  } catch (error: any) {
+    // console.error('Error updating account balance:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+};
+
 
 export const financeRepository = {
   readChildrenByLeader,
   readChildById,
   readCashRegisterByLeader,
+  updateAccountBalanceById
 }
