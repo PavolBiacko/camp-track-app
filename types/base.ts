@@ -19,3 +19,7 @@ export type CurrentTime = {
   hours: number;
   minutes: number;
 }
+
+export type AppProviderProps = {
+  leaderId: string;
+}

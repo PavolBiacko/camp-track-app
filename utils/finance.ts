@@ -1,6 +1,7 @@
 import { images } from "@/constants";
 import { Denominations } from "@/types/enums/finance";
 import { MoneyType } from "@/types/finance";
+import { CashRegister } from "@/types/models/cashRegister";
 import { ImageProps } from "react-native";
 
 export const getMoneyType = (denomination: Denominations): MoneyType => {
@@ -95,3 +96,29 @@ export const getDenominations = (): Denominations[] => {
     ...getBills()
   ];
 }
+
+export const initializeQuantities = (cashRegister: CashRegister[]): Record<Denominations, number> => {
+  const defaultQuantities: Record<Denominations, number> = {
+    [Denominations.CENTS_1]: 0,
+    [Denominations.CENTS_2]: 0,
+    [Denominations.CENTS_5]: 0,
+    [Denominations.CENTS_10]: 0,
+    [Denominations.CENTS_20]: 0,
+    [Denominations.CENTS_50]: 0,
+    [Denominations.EURO_1]: 0,
+    [Denominations.EURO_2]: 0,
+    [Denominations.EURO_5]: 0,
+    [Denominations.EURO_10]: 0,
+    [Denominations.EURO_20]: 0,
+    [Denominations.EURO_50]: 0,
+    [Denominations.EURO_100]: 0,
+    [Denominations.EURO_200]: 0,
+    [Denominations.EURO_500]: 0,
+  };
+
+  cashRegister.forEach((entry) => {
+    defaultQuantities[entry.denomination] = entry.quantity;
+  });
+
+  return defaultQuantities;
+};

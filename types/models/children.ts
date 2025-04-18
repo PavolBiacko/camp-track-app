@@ -8,5 +8,5 @@ export type Child = {
   gender: Gender;
   groupId: number | null;
   accountBalance: number;
-  createdAt: string;
+  createdAt: Date;
 }

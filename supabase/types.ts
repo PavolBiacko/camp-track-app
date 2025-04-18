@@ -73,30 +73,30 @@ export type Database = {
         Row: {
           created_at: string
           denomination: Database["public"]["Enums"]["euro_denominations"]
+          group_id: number
           id: number
-          leader_id: string
           quantity: number
         }
         Insert: {
           created_at?: string
           denomination: Database["public"]["Enums"]["euro_denominations"]
+          group_id: number
           id?: number
-          leader_id: string
           quantity?: number
         }
         Update: {
           created_at?: string
           denomination?: Database["public"]["Enums"]["euro_denominations"]
+          group_id?: number
           id?: number
-          leader_id?: string
           quantity?: number
         }
         Relationships: [
           {
-            foreignKeyName: "cash_register_leader_id_fkey"
-            columns: ["leader_id"]
+            foreignKeyName: "cash_register_group_id_fkey"
+            columns: ["group_id"]
             isOneToOne: false
-            referencedRelation: "users"
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
         ]
@@ -224,21 +224,21 @@ export type Database = {
     Enums: {
       camp_roles: "CAMP_LEADER" | "GROUP_LEADER" | "PARENT" | "USER"
       euro_denominations:
-        | "500_eur"
-        | "200_eur"
-        | "100_eur"
-        | "50_eur"
-        | "20_eur"
-        | "10_eur"
-        | "5_eur"
-        | "2_eur"
-        | "1_eur"
-        | "50_cent"
-        | "20_cent"
-        | "10_cent"
-        | "5_cent"
-        | "2_cent"
-        | "1_cent"
+        | "500_EUR"
+        | "200_EUR"
+        | "100_EUR"
+        | "50_EUR"
+        | "20_EUR"
+        | "10_EUR"
+        | "5_EUR"
+        | "2_EUR"
+        | "1_EUR"
+        | "50_CENT"
+        | "20_CENT"
+        | "10_CENT"
+        | "5_CENT"
+        | "2_CENT"
+        | "1_CENT"
       gender: "MALE" | "FEMALE" | "NOT_SPECIFIED"
     }
     CompositeTypes: {
@@ -357,21 +357,21 @@ export const Constants = {
     Enums: {
       camp_roles: ["CAMP_LEADER", "GROUP_LEADER", "PARENT", "USER"],
       euro_denominations: [
-        "500_eur",
-        "200_eur",
-        "100_eur",
-        "50_eur",
-        "20_eur",
-        "10_eur",
-        "5_eur",
-        "2_eur",
-        "1_eur",
-        "50_cent",
-        "20_cent",
-        "10_cent",
-        "5_cent",
-        "2_cent",
-        "1_cent",
+        "500_EUR",
+        "200_EUR",
+        "100_EUR",
+        "50_EUR",
+        "20_EUR",
+        "10_EUR",
+        "5_EUR",
+        "2_EUR",
+        "1_EUR",
+        "50_CENT",
+        "20_CENT",
+        "10_CENT",
+        "5_CENT",
+        "2_CENT",
+        "1_CENT",
       ],
       gender: ["MALE", "FEMALE", "NOT_SPECIFIED"],
     },

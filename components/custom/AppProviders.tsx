@@ -1,13 +1,24 @@
 import { FinanceOverviewProvider } from '@/components/custom/context/FinanceOverviewContext';
 import { ScheduleProvider } from '@/components/custom/context/ScheduleContext';
+import Loading from '@/components/custom/Loading';
+import { useCashRegisterByLeader } from '@/hooks/models/useFinance';
+import { AppProviderProps } from '@/types/base';
 import { PropsWithChildren } from "react";
 
-const AppProviders = ({ children }: PropsWithChildren) => (
-  <ScheduleProvider>
-    <FinanceOverviewProvider>
-      {children}
-    </FinanceOverviewProvider>
-  </ScheduleProvider>
-);
+const AppProviders = (props: PropsWithChildren<AppProviderProps>) => {
+  const { cashRegister, isLoading, isError } = useCashRegisterByLeader(props.leaderId);
+
+  if (!cashRegister || isLoading || isError) {
+    return <Loading showText={true} />;
+  }
+
+  return (
+    <ScheduleProvider>
+      <FinanceOverviewProvider cashRegisterData={cashRegister}>
+        {props.children}
+      </FinanceOverviewProvider>
+    </ScheduleProvider>
+  )
+};
 
 export default AppProviders;

@@ -11,6 +11,6 @@ export const mapDbChildToChild = (dbChild: Tables<"children">): Child => {
     gender: mapDbGenderToGender(dbChild.gender), // Map to Gender enum (assumes DB values match enum)
     groupId: dbChild.group_id,
     accountBalance: dbChild.account_balance,
-    createdAt: dbChild.created_at,
+    createdAt: new Date(dbChild.created_at)
   };
 };

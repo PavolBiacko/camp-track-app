@@ -1,4 +1,5 @@
 import { Denominations } from "@/types/enums/finance";
+import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
 
 export type MoneyType = 'coin' | 'bill';
@@ -23,6 +24,10 @@ export type FinanceAccountContentLineProps = DenominationsType & {
 export type FinanceOverviewContextType = {
   totalAmount: number;
   quantities: Record<Denominations, number>;
+}
+
+export type FinanceOverviewProviderProps = {
+  cashRegisterData: CashRegister[];
 }
 
 export type FinanceAccountContextType = {

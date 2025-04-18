@@ -1,27 +1,15 @@
 import { Denominations } from '@/types/enums/finance';
-import { FinanceOverviewContextType } from '@/types/finance';
+import { FinanceOverviewContextType, FinanceOverviewProviderProps } from '@/types/finance';
+import { initializeQuantities } from '@/utils/finance';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const FinanceOverviewContext = createContext<FinanceOverviewContextType | undefined>(undefined);
 
-export const FinanceOverviewProvider = (props: PropsWithChildren) => {
-  const [quantities, _setQuantities] = useState<Record<Denominations, number>>({
-    [Denominations.CENTS_1]: 0,
-    [Denominations.CENTS_2]: 0,
-    [Denominations.CENTS_5]: 0,
-    [Denominations.CENTS_10]: 0,
-    [Denominations.CENTS_20]: 0,
-    [Denominations.CENTS_50]: 0,
-    [Denominations.EURO_1]: 0,
-    [Denominations.EURO_2]: 0,
-    [Denominations.EURO_5]: 0,
-    [Denominations.EURO_10]: 0,
-    [Denominations.EURO_20]: 0,
-    [Denominations.EURO_50]: 0,
-    [Denominations.EURO_100]: 0,
-    [Denominations.EURO_200]: 0,
-    [Denominations.EURO_500]: 0,
-  });
+export const FinanceOverviewProvider = (props: PropsWithChildren<FinanceOverviewProviderProps>) => {
+
+  const [quantities, _setQuantities] = useState<Record<Denominations, number>>(
+    initializeQuantities(props.cashRegisterData)
+  );
 
   // Calculate total amount
   const totalAmount = Object.entries(quantities).reduce((sum, [denomination, quantity]) => {

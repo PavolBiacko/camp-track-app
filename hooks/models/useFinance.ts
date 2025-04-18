@@ -16,3 +16,11 @@ export const useChildById = (id: string) => {
   });
   return { child: data, isLoading, isError };
 }
+
+export const useCashRegisterByLeader = (leaderId: string) => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['cashRegister', leaderId],
+    queryFn: async () => await financeRepository.readCashRegisterByLeader(leaderId),
+  });
+  return { cashRegister: data, isLoading, isError };
+}
