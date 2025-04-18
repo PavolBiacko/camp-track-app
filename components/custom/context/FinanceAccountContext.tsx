@@ -5,7 +5,8 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
 
 export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountProviderProps>) => {
-  const [childBalance, setChildBalance] = useState<number>(props.initialBalance || 0);
+  console.log(props.initialBalance);
+  const [childBalance, setChildBalance] = useState<number>(props.initialBalance);
   const [counts, setCounts] = useState<Record<Denominations, number>>({
     [Denominations.CENTS_1]: 0,
     [Denominations.CENTS_2]: 0,

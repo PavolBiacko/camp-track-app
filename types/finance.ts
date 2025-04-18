@@ -14,7 +14,6 @@ export type FinanceOverviewLineProps = DenominationsType;
 export type FinanceScreenConfigs = {
   name: string;
   title: string;
-  params?: any;
 }
 
 export type FinanceAccountContentLineProps = DenominationsType & {
@@ -36,7 +35,7 @@ export type FinanceAccountContextType = {
 }
 
 export type FinanceAccountProviderProps = {
-  initialBalance?: number;
+  initialBalance: number;
   type: AccountActionType;
 }
 

@@ -39,7 +39,7 @@ const FinanceAccountLine = (props: FinanceAccountLineProps) => {
             textStyles,
           )
         }>
-          {accountBalance} €
+          {accountBalance.toFixed(2)} €
         </Text>
       </TouchableOpacity>
       <FinanceAccountActionModal
