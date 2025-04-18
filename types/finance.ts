@@ -42,3 +42,9 @@ export type ChildAccountParams = {
   childId: string,
   type: AccountActionType,
 }
+
+export type FinanceAccountActionModalProps = {
+  childId: string,
+  modalVisible: boolean,
+  setModalVisible: (isModalVisible: boolean) => void,
+}

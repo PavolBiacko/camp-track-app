@@ -33,6 +33,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
         handlePress={handleSubtract}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
+        isDisabled={count === 0}
       />
       <Image
         source={getMoneyImage(props.denomination)}

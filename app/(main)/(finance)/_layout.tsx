@@ -6,7 +6,7 @@ const screenConfigs = [
   { name: 'overview', title: 'Celkový prehľad' },
   { name: 'transactions', title: 'Výpis pohybov' },
   { name: 'accounts/index', title: 'Nastavenia účtov detí' },
-  { name: 'accounts/action-form', title: 'Pridávanie peňazí' },
+  { name: 'accounts/money-form', title: 'Pridávanie peňazí' },
   { name: 'calculation', title: 'Výpočet výdavkov' },
   { name: 'buffet', title: 'Návšteva bufetu' },
 ];
