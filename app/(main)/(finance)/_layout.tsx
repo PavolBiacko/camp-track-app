@@ -1,47 +1,31 @@
-import { getStackScreenOptions } from '@/utils/ui'
-import { Stack } from 'expo-router'
-import { useColorScheme } from 'nativewind'
+import { getStackScreenOptions } from '@/utils/ui';
+import { Stack } from 'expo-router';
+import { useColorScheme } from 'nativewind';
+
+const screenConfigs = [
+  { name: 'overview', title: 'Celkový prehľad' },
+  { name: 'transactions', title: 'Výpis pohybov' },
+  { name: 'accounts/index', title: 'Nastavenia účtov detí' },
+  { name: 'accounts/[childId]', title: 'Účet dieťaťa' },
+  { name: 'calculation', title: 'Výpočet výdavkov' },
+  { name: 'buffet', title: 'Návšteva bufetu' },
+];
 
 const FinanceLayout = () => {
   const { colorScheme } = useColorScheme()
 
   return (
     <Stack screenOptions={getStackScreenOptions(colorScheme)}>
-      <Stack.Screen
-        name="overview"
-        options={{
-          headerShown: true,
-          title: "Celkový prehľad",
-        }}
-      />
-      <Stack.Screen
-        name="transactions"
-        options={{
-          headerShown: true,
-          title: "Výpis pohybov",
-        }}
-      />
-      <Stack.Screen
-        name="accounts"
-        options={{
-          headerShown: true,
-          title: "Nastavenia účtov detí",
-        }}
-      />
-      <Stack.Screen
-        name="calculation"
-        options={{
-          headerShown: true,
-          title: "Výpočet výdavkov",
-        }}
-      />
-      <Stack.Screen
-        name="buffet"
-        options={{
-          headerShown: true,
-          title: "Návšteva bufetu",
-        }}
-      />
+      {screenConfigs.map(({ name, title }) => (
+        <Stack.Screen
+          key={name}
+          name={name}
+          options={{
+            headerShown: true,
+            title,
+          }}
+        />
+      ))}
     </Stack>
   )
 }

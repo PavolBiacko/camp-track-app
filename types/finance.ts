@@ -22,3 +22,7 @@ export type FinanceAccountLineProps = {
 export type FinanceAccountsParams = {
   leaderId: string,
 }
+
+export type ChildAccountParams = {
+  childId: string,
+}

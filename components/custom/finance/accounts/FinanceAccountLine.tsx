@@ -1,4 +1,5 @@
 import { FinanceAccountLineProps } from '@/types/finance';
+import { router } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
 
@@ -12,7 +13,7 @@ const FinanceAccountLine = (props: FinanceAccountLineProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => { }}
+      onPress={() => router.push(`/(main)/(finance)/accounts/${id}`)}
       className={
         twMerge(
           "flex-row justify-between items-center",

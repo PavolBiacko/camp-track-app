@@ -3,7 +3,7 @@ import TabIcon from '@/components/custom/TabIcon';
 import { icons } from "@/constants";
 import { useAuth } from '@/hooks/useAuth';
 import { UserRoles } from '@/types/enums/roles';
-import { TabData } from '@/types/tabs';
+import { TabConfigs } from '@/types/tabs';
 import { capitalizeWord } from '@/utils/strings';
 import { getTabScreenOptions } from '@/utils/ui';
 import { Tabs } from 'expo-router';
@@ -12,7 +12,7 @@ import { View } from 'react-native';
 
 const EVERYBODY = [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER, UserRoles.PARENT, UserRoles.USER];
 
-const tabData: TabData[] = [
+const tabConfigs: TabConfigs[] = [
   { name: 'index', shownLabel: 'Domov', icon: icons.home, roles: EVERYBODY },
   { name: 'schedule', shownLabel: 'Program', icon: icons.calendar, roles: EVERYBODY },
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
@@ -34,7 +34,7 @@ const TabsLayout = () => {
   return (
     <View className='h-full'>
       <Tabs backBehavior='none' screenOptions={getTabScreenOptions(colorScheme)}>
-        {tabData.map((tab) => (
+        {tabConfigs.map((tab) => (
           <Tabs.Screen
             key={tab.name}
             name={tab.name}
