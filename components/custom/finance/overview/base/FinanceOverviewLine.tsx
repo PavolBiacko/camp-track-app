@@ -20,7 +20,9 @@ const FinanceOverviewLine = ({ denomination }: FinanceOverviewLineProps) => {
         className={`${getMoneyType(denomination) === "bill" ? "w-20 h-11" : "w-12 h-12"}`}
       />
       <Icon as={ArrowRightIcon} size='xl' />
-      <Text className='text-typography-950 text-xl font-pbold'>{quantity} ×</Text>
+      <View className='flex-1 items-end mr-4'>
+        <Text className='text-typography-950 text-xl font-pbold'>{quantity} ×</Text>
+      </View>
     </View>
   )
 }

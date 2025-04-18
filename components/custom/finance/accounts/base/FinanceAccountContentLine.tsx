@@ -7,22 +7,22 @@ import { Image, Text, View } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
-  const { quantities } = useFinanceOverviewContext();
   const [count, setCount] = useState(0);
+  const { quantities } = useFinanceOverviewContext();
 
   const quantity = quantities[props.denomination];
 
   const coinImageStyles: ClassNameValue = (props.type === "increment" ? "w-16 h-16 mx-6" : "w-16 h-16 mx-4");
   const billImageStyles: ClassNameValue = (props.type === "increment" ? "w-28 h-16" : "w-24 h-16");
 
-  const handleSubtract = () => {
+  const handleIncrement = () => {
+    setCount((count) => count + 1);
+  }
+
+  const handleDecrement = () => {
     if (count > 0) {
       setCount((count) => count - 1);
     }
-  }
-
-  const handleAdd = () => {
-    setCount((count) => count + 1);
   }
 
   return (
@@ -30,7 +30,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
       <CustomButton
         title={"-"}
         action="error"
-        handlePress={handleSubtract}
+        handlePress={handleDecrement}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
         isDisabled={count === 0}
@@ -43,7 +43,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
       <CustomButton
         title={"+"}
         action="success"
-        handlePress={handleAdd}
+        handlePress={handleIncrement}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
       />

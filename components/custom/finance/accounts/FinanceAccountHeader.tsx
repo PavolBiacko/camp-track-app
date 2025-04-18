@@ -1,8 +1,8 @@
 import CustomButton from '@/components/custom/CustomButton';
-import { FinanceAccountHeaderProps } from '@/types/finance';
+import { FinanceAccountProps } from '@/types/finance';
 import { Text, View } from 'react-native';
 
-const FinanceAccountHeader = ({ type }: FinanceAccountHeaderProps) => {
+const FinanceAccountHeader = ({ type }: FinanceAccountProps) => {
   const totalAmount = 0; // Replace with actual logic to get the total amount
 
   return (

@@ -11,6 +11,12 @@ type DenominationsType = {
 
 export type FinanceOverviewLineProps = DenominationsType;
 
+export type FinanceScreenConfigs = {
+  name: string;
+  title: string;
+  params?: any;
+}
+
 export type FinanceAccountContentLineProps = DenominationsType & {
   type: AccountActionType;
 }
@@ -21,10 +27,7 @@ export type FinanceOverviewContextType = {
   updateQuantity: (denomination: Denominations, quantity: number) => void;
 }
 
-export type FinanceAccountContentProps = {
-  type: AccountActionType;
-}
-export type FinanceAccountHeaderProps = {
+export type FinanceAccountProps = {
   type: AccountActionType;
 }
 

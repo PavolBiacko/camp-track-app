@@ -1,12 +1,13 @@
+import { FinanceScreenConfigs } from '@/types/finance';
 import { getStackScreenOptions } from '@/utils/ui';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 
-const screenConfigs = [
+const financeScreenConfigs: FinanceScreenConfigs[] = [
   { name: 'overview', title: 'Celkový prehľad' },
   { name: 'transactions', title: 'Výpis pohybov' },
   { name: 'accounts/index', title: 'Nastavenia účtov detí' },
-  { name: 'accounts/money-form', title: 'Pridávanie peňazí' },
+  { name: 'accounts/money-form', title: '...' },  // set dynamically
   { name: 'calculation', title: 'Výpočet výdavkov' },
   { name: 'buffet', title: 'Návšteva bufetu' },
 ];
@@ -16,7 +17,7 @@ const FinanceLayout = () => {
 
   return (
     <Stack screenOptions={getStackScreenOptions(colorScheme)}>
-      {screenConfigs.map(({ name, title }) => (
+      {financeScreenConfigs.map(({ name, title }) => (
         <Stack.Screen
           key={name}
           name={name}

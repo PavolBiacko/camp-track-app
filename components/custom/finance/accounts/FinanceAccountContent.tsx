@@ -1,9 +1,9 @@
 import FinanceAccountContentLine from '@/components/custom/finance/accounts/base/FinanceAccountContentLine';
-import { FinanceAccountContentProps } from '@/types/finance';
+import { FinanceAccountProps } from '@/types/finance';
 import { getDenominations } from '@/utils/finance';
 import { ScrollView } from 'react-native';
 
-const FinanceAccountContent = (props: FinanceAccountContentProps) => {
+const FinanceAccountContent = ({ type }: FinanceAccountProps) => {
   const denominations = getDenominations();
 
   return (
@@ -12,7 +12,7 @@ const FinanceAccountContent = (props: FinanceAccountContentProps) => {
         <FinanceAccountContentLine
           key={index}
           denomination={denomination}
-          type={props.type}
+          type={type}
         />
       ))}
     </ScrollView>

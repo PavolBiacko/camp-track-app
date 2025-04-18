@@ -4,7 +4,7 @@ import { Stack } from 'expo-router'
 import { useColorScheme } from 'nativewind'
 
 const AppLayout = () => {
-  const { colorScheme } = useColorScheme()
+  const { colorScheme } = useColorScheme();
 
   return (
     <AppProviders>

@@ -27,11 +27,30 @@ const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> =
 
     return childrenData.map((child) => mapDbChildToChild(child));
   } catch (error: any) {
-    // console.error('Error reading activities:', (error as AuthError).message);
+    // console.error('Error reading children:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
 
+const readChildById = async (id: string): Promise<Child | null> => {
+  try {
+    const { data, error } = await supabase
+      .from('children')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+
+    return mapDbChildToChild(data);
+  } catch (error: any) {
+    // console.error('Error reading child:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+}
+
+
 export const financeRepository = {
   readChildrenByLeader,
+  readChildById,
 }
