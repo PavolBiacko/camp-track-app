@@ -1,4 +1,4 @@
-import FinanceAccountLine from '@/components/custom/finance/accounts/FinanceAccountLine';
+import FinanceAccountLine from '@/components/custom/finance/accounts/base/FinanceAccountLine';
 import Loading from '@/components/custom/Loading';
 import { useChildrenByLeader } from '@/hooks/models/useFinance';
 import { FinanceAccountsParams } from '@/types/finance';

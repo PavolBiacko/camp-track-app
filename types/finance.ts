@@ -3,14 +3,29 @@ import { Child } from "@/types/models/children";
 
 export type MoneyType = 'coin' | 'bill';
 
-export type FinanceOverviewLineProps = {
-  denomination: Denominations,
+export type AccountActionType = "increment" | "decrement";
+
+type DenominationsType = {
+  denomination: Denominations;
+}
+
+export type FinanceOverviewLineProps = DenominationsType;
+
+export type FinanceAccountContentLineProps = DenominationsType & {
+  type: AccountActionType;
 }
 
 export type FinanceOverviewContextType = {
   totalAmount: number;
   quantities: Record<Denominations, number>;
   updateQuantity: (denomination: Denominations, quantity: number) => void;
+}
+
+export type FinanceAccountContentProps = {
+  type: AccountActionType;
+}
+export type FinanceAccountHeaderProps = {
+  type: AccountActionType;
 }
 
 export type FinanceAccountLineProps = {
@@ -25,4 +40,5 @@ export type FinanceAccountsParams = {
 
 export type ChildAccountParams = {
   childId: string,
+  type: AccountActionType,
 }

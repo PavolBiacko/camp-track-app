@@ -13,7 +13,7 @@ const FinanceAccountLine = (props: FinanceAccountLineProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => router.push(`/(main)/(finance)/accounts/${id}`)}
+      onPress={() => router.push({ pathname: "/(main)/(finance)/accounts/action-form", params: { childId: id, type: "decrement" } })}  // TODO - increment / decrement
       className={
         twMerge(
           "flex-row justify-between items-center",

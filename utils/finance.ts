@@ -88,3 +88,10 @@ export const getBills = (): Denominations[] => {
     Denominations.EURO_500,
   ];
 };
+
+export const getDenominations = (): Denominations[] => {
+  return [
+    ...getCoins(),
+    ...getBills()
+  ];
+}

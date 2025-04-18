@@ -2,10 +2,10 @@
   "expo": {
     "name": "Camp Track App",
     "slug": "camp-track-app",
+    "scheme": "camp-track-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/setup-icons/icon.png",
-    "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
