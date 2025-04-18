@@ -5,7 +5,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 const FinanceOverviewContext = createContext<FinanceOverviewContextType | undefined>(undefined);
 
 export const FinanceOverviewProvider = (props: PropsWithChildren) => {
-  const [quantities, setQuantities] = useState<Record<Denominations, number>>({
+  const [quantities, _setQuantities] = useState<Record<Denominations, number>>({
     [Denominations.CENTS_1]: 0,
     [Denominations.CENTS_2]: 0,
     [Denominations.CENTS_5]: 0,
@@ -28,16 +28,8 @@ export const FinanceOverviewProvider = (props: PropsWithChildren) => {
     return sum + Number(denomination) * quantity;
   }, 0);
 
-  // Update quantity of a specific denomination
-  const updateQuantity = (denomination: Denominations, quantity: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [denomination]: Math.max(0, quantity),
-    }));
-  };
-
   return (
-    <FinanceOverviewContext.Provider value={{ totalAmount, quantities, updateQuantity }}>
+    <FinanceOverviewContext.Provider value={{ totalAmount, quantities }}>
       {props.children}
     </FinanceOverviewContext.Provider>
   );

@@ -5,12 +5,8 @@ import { getMoneyImage, getMoneyType } from '@/utils/finance'
 import { Image, Text, View } from 'react-native'
 
 const FinanceOverviewLine = ({ denomination }: FinanceOverviewLineProps) => {
-  const { quantities, updateQuantity } = useFinanceOverviewContext();
+  const { quantities } = useFinanceOverviewContext();
   const quantity = quantities[denomination];
-
-  const handleIncrement = () => {
-    updateQuantity(denomination, quantity + 1);
-  };
 
   return (
     <View className='flex-row gap-3 items-center'>

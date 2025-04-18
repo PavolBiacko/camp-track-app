@@ -23,7 +23,6 @@ export type FinanceAccountContentLineProps = DenominationsType & {
 export type FinanceOverviewContextType = {
   totalAmount: number;
   quantities: Record<Denominations, number>;
-  updateQuantity: (denomination: Denominations, quantity: number) => void;
 }
 
 export type FinanceAccountContextType = {
