@@ -1,27 +1,28 @@
+import { useFinanceAccountContext } from '@/components/custom/context/FinanceAccountContext'
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext'
 import CustomButton from '@/components/custom/CustomButton'
 import { FinanceAccountContentLineProps } from '@/types/finance'
 import { getMoneyImage, getMoneyType } from '@/utils/finance'
-import { useState } from 'react'
 import { Image, Text, View } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
-  const [count, setCount] = useState(0);
   const { quantities } = useFinanceOverviewContext();
+  const { counts, updateCount } = useFinanceAccountContext();
 
   const quantity = quantities[props.denomination];
+  const count = counts[props.denomination];
 
   const coinImageStyles: ClassNameValue = (props.type === "increment" ? "w-16 h-16 mx-6" : "w-16 h-16 mx-4");
   const billImageStyles: ClassNameValue = (props.type === "increment" ? "w-28 h-16" : "w-24 h-16");
 
   const handleIncrement = () => {
-    setCount((count) => count + 1);
+    updateCount(props.denomination, count + 1);
   }
 
   const handleDecrement = () => {
     if (count > 0) {
-      setCount((count) => count - 1);
+      updateCount(props.denomination, count - 1);
     }
   }
 
@@ -47,7 +48,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
       />
-      <View className='flex-1 items-end'>
+      <View className='flex-1 items-center'>
         <Text className={
           twMerge(
             'text-typography-950 font-pbold',

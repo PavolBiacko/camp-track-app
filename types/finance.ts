@@ -27,6 +27,19 @@ export type FinanceOverviewContextType = {
   updateQuantity: (denomination: Denominations, quantity: number) => void;
 }
 
+export type FinanceAccountContextType = {
+  childBalance: number;
+  actionAmount: number;
+  counts: Record<Denominations, number>;
+  updateCount: (denomination: Denominations, count: number) => void;
+  confirmUpdate: () => void;
+}
+
+export type FinanceAccountProviderProps = {
+  initialBalance?: number;
+  type: AccountActionType;
+}
+
 export type FinanceAccountProps = {
   type: AccountActionType;
 }

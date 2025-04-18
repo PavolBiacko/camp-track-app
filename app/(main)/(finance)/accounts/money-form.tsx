@@ -1,3 +1,4 @@
+import { FinanceAccountProvider } from '@/components/custom/context/FinanceAccountContext';
 import FinanceAccountContent from '@/components/custom/finance/accounts/FinanceAccountContent';
 import FinanceAccountFooter from '@/components/custom/finance/accounts/FinanceAccountFooter';
 import FinanceAccountHeader from '@/components/custom/finance/accounts/FinanceAccountHeader';
@@ -8,7 +9,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
-const AddMoneyToAccount = () => {
+const MoneyForm = () => {
   const navigation = useNavigation();
   const { childId, type } = useLocalSearchParams<ChildAccountParams>();
   const { child, isLoading, isError } = useChildById(childId);
@@ -29,12 +30,14 @@ const AddMoneyToAccount = () => {
 
   return (
     <View className='flex-1'>
-      <FinanceAccountHeader type={type} />
-      <FinanceAccountContent type={type} />
-      <FinanceAccountFooter type={type} />
+      <FinanceAccountProvider initialBalance={child.accountBalance} type={type}>
+        <FinanceAccountHeader type={type} />
+        <FinanceAccountContent type={type} />
+        <FinanceAccountFooter type={type} />
+      </FinanceAccountProvider>
     </View>
 
   )
 }
 
-export default AddMoneyToAccount
+export default MoneyForm
