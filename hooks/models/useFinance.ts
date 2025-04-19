@@ -1,4 +1,5 @@
 import { financeRepository } from "@/repositories/financeRepository";
+import { CashRegisterRecord } from "@/types/finance";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useChildrenByLeader = (leaderId: string) => {
@@ -37,4 +38,18 @@ export const useUpdateAccountBalance = (id: string) => {
     }
   });
   return { updateAccountBalance: mutateAsync, isError };
+}
+
+export const useUpdateCashRegisterByChild = (childId: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (counts: CashRegisterRecord) => {
+      return await financeRepository.updateCashRegisterByChild(childId, counts);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cashRegister'] });
+    }
+  });
+  return { updateCashRegister: mutateAsync, isError };
 }

@@ -1,28 +1,16 @@
+import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister';
 import { Denominations } from '@/types/enums/finance';
-import { FinanceAccountContextType, FinanceAccountProviderProps } from '@/types/finance';
+import { CashRegisterRecord, FinanceAccountContextType, FinanceAccountProviderProps } from '@/types/finance';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
 
 export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountProviderProps>) => {
+
   const [childAccountBalance, _setChildAccountBalance] = useState<number>(props.initialBalance);
-  const [counts, setCounts] = useState<Record<Denominations, number>>({
-    [Denominations.CENTS_1]: 0,
-    [Denominations.CENTS_2]: 0,
-    [Denominations.CENTS_5]: 0,
-    [Denominations.CENTS_10]: 0,
-    [Denominations.CENTS_20]: 0,
-    [Denominations.CENTS_50]: 0,
-    [Denominations.EURO_1]: 0,
-    [Denominations.EURO_2]: 0,
-    [Denominations.EURO_5]: 0,
-    [Denominations.EURO_10]: 0,
-    [Denominations.EURO_20]: 0,
-    [Denominations.EURO_50]: 0,
-    [Denominations.EURO_100]: 0,
-    [Denominations.EURO_200]: 0,
-    [Denominations.EURO_500]: 0,
-  });
+  const [counts, setCounts] = useState<CashRegisterRecord>(
+    mapCashRegisterDataToCashRegisterRecord(undefined)  // empty
+  );
 
   // Compute the total amount being increased/decreased based on denominations
   const actionAmount = Object.entries(counts).reduce((sum, [denomination, count]) => {
@@ -37,23 +25,7 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
   };
 
   const resetDenominations = () => {
-    setCounts({
-      [Denominations.CENTS_1]: 0,
-      [Denominations.CENTS_2]: 0,
-      [Denominations.CENTS_5]: 0,
-      [Denominations.CENTS_10]: 0,
-      [Denominations.CENTS_20]: 0,
-      [Denominations.CENTS_50]: 0,
-      [Denominations.EURO_1]: 0,
-      [Denominations.EURO_2]: 0,
-      [Denominations.EURO_5]: 0,
-      [Denominations.EURO_10]: 0,
-      [Denominations.EURO_20]: 0,
-      [Denominations.EURO_50]: 0,
-      [Denominations.EURO_100]: 0,
-      [Denominations.EURO_200]: 0,
-      [Denominations.EURO_500]: 0,
-    });
+    setCounts(mapCashRegisterDataToCashRegisterRecord(undefined));
   };
 
   return (

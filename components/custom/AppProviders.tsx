@@ -8,6 +8,8 @@ import { PropsWithChildren } from "react";
 const AppProviders = (props: PropsWithChildren<AppProviderProps>) => {
   const { cashRegister, isLoading, isError } = useCashRegisterByLeader(props.leaderId);
 
+  // TODO - zistiť prečo sa neaktualizuje cashRegister
+
   if (!cashRegister || isLoading || isError) {
     return <Loading showText={true} />;
   }

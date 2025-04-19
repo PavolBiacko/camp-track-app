@@ -1,7 +1,6 @@
 import { images } from "@/constants";
 import { Denominations } from "@/types/enums/finance";
-import { MoneyType } from "@/types/finance";
-import { CashRegister } from "@/types/models/cashRegister";
+import { AccountActionType, CashRegisterRecord, MoneyType } from "@/types/finance";
 import { ImageProps } from "react-native";
 
 export const getMoneyType = (denomination: Denominations): MoneyType => {
@@ -97,28 +96,14 @@ export const getDenominations = (): Denominations[] => {
   ];
 }
 
-export const initializeQuantities = (cashRegister: CashRegister[]): Record<Denominations, number> => {
-  const defaultQuantities: Record<Denominations, number> = {
-    [Denominations.CENTS_1]: 0,
-    [Denominations.CENTS_2]: 0,
-    [Denominations.CENTS_5]: 0,
-    [Denominations.CENTS_10]: 0,
-    [Denominations.CENTS_20]: 0,
-    [Denominations.CENTS_50]: 0,
-    [Denominations.EURO_1]: 0,
-    [Denominations.EURO_2]: 0,
-    [Denominations.EURO_5]: 0,
-    [Denominations.EURO_10]: 0,
-    [Denominations.EURO_20]: 0,
-    [Denominations.EURO_50]: 0,
-    [Denominations.EURO_100]: 0,
-    [Denominations.EURO_200]: 0,
-    [Denominations.EURO_500]: 0,
-  };
+export const processCountsWithQuantities = (type: AccountActionType, quantities: CashRegisterRecord, counts: CashRegisterRecord): CashRegisterRecord => {
+  const result: CashRegisterRecord = { ...quantities };
 
-  cashRegister.forEach((entry) => {
-    defaultQuantities[entry.denomination] = entry.quantity;
+  const operation = type === 'increment' ? 1 : -1;
+
+  (Object.entries(counts) as [keyof typeof Denominations, number][]).forEach(([denomination, count]) => {
+    result[denomination as unknown as Denominations] += count * operation;
   });
 
-  return defaultQuantities;
-};
+  return result;
+}

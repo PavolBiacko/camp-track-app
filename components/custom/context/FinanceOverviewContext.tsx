@@ -1,15 +1,14 @@
-import { Denominations } from '@/types/enums/finance';
+import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister';
 import { FinanceOverviewContextType, FinanceOverviewProviderProps } from '@/types/finance';
-import { initializeQuantities } from '@/utils/finance';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 
 const FinanceOverviewContext = createContext<FinanceOverviewContextType | undefined>(undefined);
 
 export const FinanceOverviewProvider = (props: PropsWithChildren<FinanceOverviewProviderProps>) => {
 
-  const [quantities, _setQuantities] = useState<Record<Denominations, number>>(
-    initializeQuantities(props.cashRegisterData)
-  );
+  const quantities = useMemo(() => {
+    return mapCashRegisterDataToCashRegisterRecord(props.cashRegisterData);
+  }, [props.cashRegisterData]);
 
   // Calculate total amount
   const totalAmount = Object.entries(quantities).reduce((sum, [denomination, quantity]) => {

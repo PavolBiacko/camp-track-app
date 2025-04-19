@@ -37,3 +37,40 @@ export const mapDbDenominationsToDenominations = (dbDenominations: Enums<"euro_d
       throw new Error(`Unknown denomination: ${dbDenominations}`);
   }
 };
+
+export const mapDenominationsToDbDenominations = (denomination: Denominations): Enums<"euro_denominations"> => {
+  switch (denomination) {
+    case Denominations.CENTS_1:
+      return "1_CENT";
+    case Denominations.CENTS_2:
+      return "2_CENT";
+    case Denominations.CENTS_5:
+      return "5_CENT";
+    case Denominations.CENTS_10:
+      return "10_CENT";
+    case Denominations.CENTS_20:
+      return "20_CENT";
+    case Denominations.CENTS_50:
+      return "50_CENT";
+    case Denominations.EURO_1:
+      return "1_EUR";
+    case Denominations.EURO_2:
+      return "2_EUR";
+    case Denominations.EURO_5:
+      return "5_EUR";
+    case Denominations.EURO_10:
+      return "10_EUR";
+    case Denominations.EURO_20:
+      return "20_EUR";
+    case Denominations.EURO_50:
+      return "50_EUR";
+    case Denominations.EURO_100:
+      return "100_EUR";
+    case Denominations.EURO_200:
+      return "200_EUR";
+    case Denominations.EURO_500:
+      return "500_EUR";
+    default:
+      throw new Error(`Unknown denomination: ${denomination}`);
+  }
+}

@@ -1,6 +1,6 @@
 import supabase from "@/supabase/client";
 
-import { mapActivityCreateToDbActivity, mapDbActivityToActivity } from "@/mappers/activities";
+import { mapActivityCreateToDbActivity, mapActivityUpdateToDbActivity, mapDbActivityToActivity } from "@/mappers/activities";
 import { Activity, ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
@@ -59,10 +59,10 @@ const createActivity = async (activity: ActivityCreate): Promise<number> => {
 
 const updateActivityById = async (id: number, activity: ActivityUpdate): Promise<Activity> => {
   try {
-    // TODO - mapActivityUpdateToDbActivity
+    const newMappedActivity = mapActivityUpdateToDbActivity(activity);
     const { data, error } = await supabase
       .from("activities")
-      .update(activity)
+      .update(newMappedActivity)
       .eq("id", id)
       .select()
       .single();

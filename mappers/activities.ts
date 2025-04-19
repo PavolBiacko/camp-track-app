@@ -1,6 +1,6 @@
 import { mapDbTimeToScheduleTime } from "@/mappers/datetime";
-import { Tables, TablesInsert } from "@/supabase/types";
-import { Activity, ActivityCreate } from "@/types/models/activities";
+import { Tables, TablesInsert, TablesUpdate } from "@/supabase/types";
+import { Activity, ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 
 export const mapDbActivityToActivity = (dbActivity: Tables<"activities">): Activity => {
   return {
@@ -21,5 +21,15 @@ export const mapActivityCreateToDbActivity = (activityCreate: ActivityCreate): T
     time: activityCreate.time,
     date: activityCreate.date,
     leader_id: activityCreate.leaderId
+  };
+}
+
+export const mapActivityUpdateToDbActivity = (activityUpdate: ActivityUpdate): TablesUpdate<"activities"> => {
+  return {
+    name: activityUpdate.name,
+    description: activityUpdate.description,
+    time: activityUpdate.time,
+    date: activityUpdate.date,
+    leader_id: activityUpdate.leaderId
   };
 }

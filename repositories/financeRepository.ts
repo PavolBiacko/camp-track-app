@@ -1,6 +1,8 @@
-import { mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
+import { mapCashRegisterRecordToDbCashRegister, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
 import { mapDbChildToChild } from "@/mappers/children";
 import supabase from "@/supabase/client";
+import { Tables } from "@/supabase/types";
+import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
 import { AuthError } from "@supabase/supabase-js";
@@ -67,12 +69,12 @@ const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[
     const groupId = group.id;
 
     // Step 2: Fetch all corresponding data from cash register
-    const { data: cashRegisterData, error: childrenError } = await supabase
+    const { data: cashRegisterData, error: cashRegisterError } = await supabase
       .from('cash_register')
       .select('*')
       .eq('group_id', groupId);
 
-    if (childrenError) throw childrenError;
+    if (cashRegisterError) throw cashRegisterError;
 
     return cashRegisterData.map((cashRegister) => mapDbCashRegisterToCashRegister(cashRegister));
   }
@@ -100,10 +102,59 @@ const updateAccountBalanceById = async (id: string, acountBalance: number): Prom
   }
 };
 
+const updateCashRegisterByChild = async (childId: string, counts: CashRegisterRecord): Promise<CashRegister[] | null> => {
+  try {
+    // Step 1: Fetch the single child by id
+    const { data: child, error: childError } = await supabase
+      .from('children')
+      .select("*")
+      .eq('id', childId)
+      .single();
+
+    if (childError) throw childError;
+    if (!child) return null; // No child found for this id
+
+    const groupId = child.group_id!;  // Assuming group_id is not null
+    const cashRegisterRecords = mapCashRegisterRecordToDbCashRegister(counts);
+
+    // Step 2: Fetch existing cash register rows for the group
+    const { data: existingRows, error: fetchError } = await supabase
+      .from('cash_register')
+      .select('*')
+      .eq('group_id', groupId);
+
+    if (fetchError) throw fetchError;
+    if (!existingRows) throw new Error('No cash register rows found for this group');
+
+    // Step 3: Update each row based on denomination
+    const updatedRows: Tables<"cash_register">[] = [];
+    for (const record of cashRegisterRecords) {
+      const { denomination, quantity } = record;
+
+      const { data, error } = await supabase
+        .from('cash_register')
+        .update({ quantity })
+        .eq('group_id', groupId)
+        .eq('denomination', denomination!) // Match the denomination
+        .select()
+        .single();
+
+      if (error) throw error;
+      if (data) updatedRows.push(data);
+    }
+
+    return updatedRows.map((updatedRows) => mapDbCashRegisterToCashRegister(updatedRows));;
+  } catch (error: any) {
+    // console.error('Error updating account balance:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+}
+
 
 export const financeRepository = {
   readChildrenByLeader,
   readChildById,
   readCashRegisterByLeader,
-  updateAccountBalanceById
+  updateAccountBalanceById,
+  updateCashRegisterByChild,
 }

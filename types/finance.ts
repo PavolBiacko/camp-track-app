@@ -10,6 +10,8 @@ type DenominationsType = {
   denomination: Denominations;
 }
 
+export type CashRegisterRecord = Record<Denominations, number>;
+
 export type FinanceOverviewLineProps = DenominationsType;
 
 export type FinanceScreenConfigs = {
@@ -23,7 +25,7 @@ export type FinanceAccountContentLineProps = DenominationsType & {
 
 export type FinanceOverviewContextType = {
   totalAmount: number;
-  quantities: Record<Denominations, number>;
+  quantities: CashRegisterRecord;
 }
 
 export type FinanceOverviewProviderProps = {
@@ -33,7 +35,7 @@ export type FinanceOverviewProviderProps = {
 export type FinanceAccountContextType = {
   childAccountBalance: number;
   actionAmount: number;
-  counts: Record<Denominations, number>;
+  counts: CashRegisterRecord;
   updateCount: (denomination: Denominations, count: number) => void;
   resetDenominations: () => void;
 }
