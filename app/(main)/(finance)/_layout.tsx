@@ -1,3 +1,7 @@
+import { FinanceOverviewProvider } from '@/components/custom/context/FinanceOverviewContext';
+import Loading from '@/components/custom/Loading';
+import { useCashRegisterByLeader } from '@/hooks/models/useFinance';
+import { useAuth } from '@/hooks/useAuth';
 import { FinanceScreenConfigs } from '@/types/finance';
 import { getStackScreenOptions } from '@/utils/ui';
 import { Stack } from 'expo-router';
@@ -13,21 +17,29 @@ const financeScreenConfigs: FinanceScreenConfigs[] = [
 ];
 
 const FinanceLayout = () => {
-  const { colorScheme } = useColorScheme()
+  const { colorScheme } = useColorScheme();
+  const { user } = useAuth();
+  const { cashRegister, isLoading, isError } = useCashRegisterByLeader(user?.id!);  // id loaded in tabs layout
+
+  if (!cashRegister || isLoading || isError) {
+    return <Loading showText={true} />;
+  }
 
   return (
-    <Stack screenOptions={getStackScreenOptions(colorScheme)}>
-      {financeScreenConfigs.map(({ name, title }) => (
-        <Stack.Screen
-          key={name}
-          name={name}
-          options={{
-            headerShown: true,
-            title,
-          }}
-        />
-      ))}
-    </Stack>
+    <FinanceOverviewProvider cashRegisterData={cashRegister}>
+      <Stack screenOptions={getStackScreenOptions(colorScheme)}>
+        {financeScreenConfigs.map(({ name, title }) => (
+          <Stack.Screen
+            key={name}
+            name={name}
+            options={{
+              headerShown: true,
+              title,
+            }}
+          />
+        ))}
+      </Stack>
+    </FinanceOverviewProvider>
   )
 }
 

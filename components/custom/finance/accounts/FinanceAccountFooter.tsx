@@ -1,4 +1,5 @@
 import { useFinanceAccountContext } from '@/components/custom/context/FinanceAccountContext';
+import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomButton from '@/components/custom/CustomButton';
 import { useUpdateAccountBalance, useUpdateCashRegisterByChild } from '@/hooks/models/useFinance';
 import { FinanceAccountFooterProps } from '@/types/finance';
@@ -6,7 +7,6 @@ import { processCountsWithQuantities } from '@/utils/finance';
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { Alert, View } from 'react-native';
-import { useFinanceOverviewContext } from '../../context/FinanceOverviewContext';
 
 const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
   const { quantities } = useFinanceOverviewContext();

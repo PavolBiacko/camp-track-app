@@ -10,7 +10,7 @@ const Accounts = () => {
   const { children, isLoading, isError } = useChildrenByLeader(leaderId);
 
   if (!children || isLoading || isError) {
-    return <Loading showText={true} />;
+    return <Loading showText={false} />;
   }
 
   return (
