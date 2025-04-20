@@ -2,13 +2,13 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext'
 import CustomButton from '@/components/custom/CustomButton'
 import { FinanceAccountContentLineProps } from '@/types/finance'
-import { getMoneyImage, getMoneyType } from '@/utils/finance'
+import { getMoneyImage, getMoneyType, isIncrementAvailable } from '@/utils/finance'
 import { Image, Text, View } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
   const { quantities } = useFinanceOverviewContext();
-  const { counts, updateCount } = useFinanceAccountContext();
+  const { counts, updateCount, childAccountBalance, actionAmount } = useFinanceAccountContext();
 
   const quantity = quantities[props.denomination];
   const count = counts[props.denomination];
@@ -17,7 +17,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
   const billImageStyles: ClassNameValue = (props.type === "increment" ? "w-28 h-16" : "w-24 h-16");
 
   const handleIncrement = () => {
-    if (props.type === "increment" || (props.type === "decrement" || count < quantity)) {
+    if (isIncrementAvailable(props.type, props.denomination, quantity, count, childAccountBalance, actionAmount)) {
       updateCount(props.denomination, count + 1);
     }
   }
@@ -49,7 +49,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
         handlePress={handleIncrement}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
-        isDisabled={props.type === "decrement" && count === quantity}
+        isDisabled={!isIncrementAvailable(props.type, props.denomination, quantity, count, childAccountBalance, actionAmount)}
       />
       <View className='flex-1 items-center'>
         <Text className={

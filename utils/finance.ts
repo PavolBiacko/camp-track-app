@@ -25,7 +25,7 @@ export const getMoneyType = (denomination: Denominations): MoneyType => {
     default:
       throw new Error("Invalid denomination");
   }
-}
+};
 
 export const getMoneyImage = (denomination: Denominations): ImageProps => {
   switch (denomination) {
@@ -62,7 +62,7 @@ export const getMoneyImage = (denomination: Denominations): ImageProps => {
     default:
       throw new Error("Invalid denomination");
   }
-}
+};
 
 export const getCoins = (): Denominations[] => {
   return [
@@ -94,7 +94,7 @@ export const getDenominations = (): Denominations[] => {
     ...getCoins(),
     ...getBills()
   ];
-}
+};
 
 export const processCountsWithQuantities = (type: AccountActionType, quantities: CashRegisterRecord, counts: CashRegisterRecord): CashRegisterRecord => {
   const result: CashRegisterRecord = { ...quantities };
@@ -106,4 +106,20 @@ export const processCountsWithQuantities = (type: AccountActionType, quantities:
   });
 
   return result;
-}
+};
+
+export const isIncrementAvailable = (
+  type: AccountActionType,
+  denomination: Denominations,
+  quantity: number,
+  count: number,
+  childAccountBalance: number,
+  actionAmount: number
+): boolean => {
+  if (type === "decrement") {
+    if (count === quantity || childAccountBalance - actionAmount < denomination) {
+      return false;
+    }
+  }
+  return true;
+};
