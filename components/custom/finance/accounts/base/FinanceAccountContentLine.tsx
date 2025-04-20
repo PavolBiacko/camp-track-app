@@ -17,7 +17,9 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
   const billImageStyles: ClassNameValue = (props.type === "increment" ? "w-28 h-16" : "w-24 h-16");
 
   const handleIncrement = () => {
-    updateCount(props.denomination, count + 1);
+    if (props.type === "increment" || (props.type === "decrement" || count < quantity)) {
+      updateCount(props.denomination, count + 1);
+    }
   }
 
   const handleDecrement = () => {
@@ -47,6 +49,7 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
         handlePress={handleIncrement}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
+        isDisabled={props.type === "decrement" && count === quantity}
       />
       <View className='flex-1 items-center'>
         <Text className={

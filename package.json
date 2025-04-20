@@ -4,7 +4,7 @@
   "main": "expo-router/entry",
   "version": "52.0.69",
   "scripts": {
-    "start": "expo start --tunnel",
+    "start": "expo start --go --tunnel",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "DARK_MODE=media expo run:android",
     "ios": "DARK_MODE=media expo run:ios",
