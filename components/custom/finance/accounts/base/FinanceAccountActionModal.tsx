@@ -13,6 +13,7 @@ const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: F
   return (
     <CustomModal
       title="Výber akcie"
+      type="custom"
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       containerStyles='w-3/4'>

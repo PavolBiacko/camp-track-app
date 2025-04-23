@@ -1,18 +1,19 @@
 import CustomButton from '@/components/custom/CustomButton';
 import { CustomModalProps } from '@/types/custom/modal';
 import { PropsWithChildren } from 'react';
-import { Modal, Text, TouchableOpacity } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
-const CustomModal = ({ title, modalVisible, setModalVisible, containerStyles, children }: PropsWithChildren<CustomModalProps>) => {
+const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
+
   const handleCloseModal = () => {
-    setModalVisible(false);
+    props.setModalVisible(false);
   };
 
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={modalVisible}
+      visible={props.modalVisible}
       onRequestClose={handleCloseModal}>
       <TouchableOpacity
         activeOpacity={1}
@@ -21,19 +22,40 @@ const CustomModal = ({ title, modalVisible, setModalVisible, containerStyles, ch
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => { }}
-          className={`bg-background-100 border-2 border-primary-500 rounded-xl p-6 ${containerStyles}`}>
-          {title && <Text className="text-3xl font-pbold text-typography-800 text-center mb-4">
-            {title}
+          className={`bg-background-100 border-2 border-primary-500 rounded-xl p-6 ${props.containerStyles}`}>
+          {props.title && <Text className="text-3xl font-pbold text-typography-800 text-center mb-4">
+            {props.title}
           </Text>}
-          {children}
-          <CustomButton
-            title="Zrušiť"
-            action="background"
-            variant="combined"
-            handlePress={handleCloseModal}
-            containerStyles="rounded-xl py-3"
-            textStyles="text-2xl"
-          />
+          {props.children}
+          {props.type === "confirmation" ? (
+            <View className="flex-row justify-between gap-4 mt-4">
+              <CustomButton
+                title="Zrušiť"
+                action="background"
+                variant="combined"
+                handlePress={handleCloseModal}
+                containerStyles="rounded-xl py-3 flex-1"
+                textStyles="text-2xl"
+              />
+              <CustomButton
+                title="Potvrdiť"
+                action="success"
+                variant="combined"
+                handlePress={props.handleConfirm!}
+                containerStyles="rounded-xl py-3 flex-1"
+                textStyles="text-2xl"
+              />
+            </View>
+          ) : (
+            <CustomButton
+              title="Zrušiť"
+              action="background"
+              variant="combined"
+              handlePress={handleCloseModal}
+              containerStyles="rounded-xl py-3 w-full"
+              textStyles="text-2xl"
+            />
+          )}
         </TouchableOpacity>
       </TouchableOpacity>
     </Modal>

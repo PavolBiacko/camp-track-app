@@ -12,7 +12,7 @@ const FinanceAccountSummaryModal = ({ childId, modalVisible, setModalVisible }: 
 
   return (
     <CustomModal
-      title="Výber akcie"
+      type="confirmation"
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       containerStyles='w-11/12'>
