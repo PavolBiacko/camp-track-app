@@ -184,6 +184,41 @@ export type Database = {
           },
         ]
       }
+      transactions: {
+        Row: {
+          amount: number
+          child_id: string
+          created_at: string
+          date: string
+          id: number
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Insert: {
+          amount: number
+          child_id: string
+          created_at?: string
+          date: string
+          id?: number
+          type: Database["public"]["Enums"]["transaction_type"]
+        }
+        Update: {
+          amount?: number
+          child_id?: string
+          created_at?: string
+          date?: string
+          id?: number
+          type?: Database["public"]["Enums"]["transaction_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           birth_date: string | null
@@ -240,6 +275,7 @@ export type Database = {
         | "2_CENT"
         | "1_CENT"
       gender: "MALE" | "FEMALE" | "NOT_SPECIFIED"
+      transaction_type: "DEPOSIT" | "WITHDRAWAL" | "PURCHASE"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -374,6 +410,7 @@ export const Constants = {
         "1_CENT",
       ],
       gender: ["MALE", "FEMALE", "NOT_SPECIFIED"],
+      transaction_type: ["DEPOSIT", "WITHDRAWAL", "PURCHASE"],
     },
   },
 } as const

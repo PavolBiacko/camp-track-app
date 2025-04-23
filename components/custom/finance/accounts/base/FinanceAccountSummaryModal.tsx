@@ -3,7 +3,7 @@ import CustomModal from '@/components/custom/CustomModal';
 import { FinanceAccountActionModalProps } from '@/types/finance';
 import { router } from 'expo-router';
 
-const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: FinanceAccountActionModalProps) => {
+const FinanceAccountSummaryModal = ({ childId, modalVisible, setModalVisible }: FinanceAccountActionModalProps) => {
 
   const handleOptionSelect = (type: 'increment' | 'decrement') => {
     setModalVisible(false);
@@ -15,7 +15,7 @@ const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: F
       title="Výber akcie"
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
-      containerStyles='w-3/4'>
+      containerStyles='w-11/12'>
       <CustomButton
         title="Pridanie peňazí"
         action="success"
@@ -36,4 +36,4 @@ const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: F
   )
 }
 
-export default FinanceAccountActionModal
+export default FinanceAccountSummaryModal
