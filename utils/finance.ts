@@ -1,6 +1,7 @@
 import { images } from "@/constants";
-import { Denominations } from "@/types/enums/finance";
+import { Denominations, TransactionType } from "@/types/enums/finance";
 import { AccountActionType, CashRegisterRecord, MoneyType } from "@/types/finance";
+import { TransactionCreate } from "@/types/models/transactions";
 import { ImageProps } from "react-native";
 
 export const getMoneyType = (denomination: Denominations): MoneyType => {
@@ -123,3 +124,12 @@ export const isIncrementAvailable = (
   }
   return true;
 };
+
+export const getTransactionObject = (childId: string, actionType: AccountActionType, actionAmount: number): TransactionCreate => {
+  return {
+    childId,
+    amount: (actionType === "increment") ? actionAmount : -actionAmount,
+    type: (actionType === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL,
+    date: new Date(),
+  }
+}

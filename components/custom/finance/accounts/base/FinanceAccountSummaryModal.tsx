@@ -2,9 +2,9 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
-import { useUpdateAccountBalance, useUpdateCashRegisterByChild } from '@/hooks/models/useFinance';
+import { useCreateTransaction, useUpdateAccountBalance, useUpdateCashRegisterByChild } from '@/hooks/models/useFinance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
-import { processCountsWithQuantities } from '@/utils/finance';
+import { getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
@@ -14,13 +14,18 @@ const FinanceAccountSummaryModal = ({ type, childId, modalVisible, setModalVisib
 
   const { updateAccountBalance } = useUpdateAccountBalance(childId);
   const { updateCashRegister } = useUpdateCashRegisterByChild(childId);
+  const { createTransaction } = useCreateTransaction();
 
   const handleConfirm = async () => {
     try {
       const newBalance = (type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount;
-      await updateAccountBalance(newBalance);
       const updatedCounts = processCountsWithQuantities(type, quantities, counts);
+      const transactionData = getTransactionObject(childId, type, actionAmount);
+
+      // Should be as atomic transaction in database
+      await updateAccountBalance(newBalance);
       await updateCashRegister(updatedCounts);
+      await createTransaction(transactionData)
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

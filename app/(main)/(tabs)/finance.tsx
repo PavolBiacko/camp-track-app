@@ -33,7 +33,7 @@ const Finance = () => {
       </View>
       <View className="h-[12.5%] mx-5 my-2">
         <CustomButton
-          title='Výpis transakcií'
+          title='Výpis pohybov'
           action='background'
           handlePress={() => router.push('/(main)/(finance)/transactions')}
           containerStyles="rounded-3xl h-full"

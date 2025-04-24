@@ -15,3 +15,9 @@ export enum Denominations {
   EURO_200 = 200.00,
   EURO_500 = 500.00,
 }
+
+export enum TransactionType {
+  DEPOSIT = "DEPOSIT",
+  WITHDRAWAL = "WITHDRAWAL",
+  PURCHASE = "PURCHASE",
+}

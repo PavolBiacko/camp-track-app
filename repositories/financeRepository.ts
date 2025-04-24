@@ -1,10 +1,12 @@
 import { mapCashRegisterRecordToDbCashRegister, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
 import { mapDbChildToChild } from "@/mappers/children";
+import { mapTransactionCreateToDbTransaction } from "@/mappers/transactions";
 import supabase from "@/supabase/client";
 import { Tables } from "@/supabase/types";
 import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
+import { TransactionCreate } from "@/types/models/transactions";
 import { AuthError } from "@supabase/supabase-js";
 
 const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> => {
@@ -150,10 +152,29 @@ const updateCashRegisterByChild = async (childId: string, counts: CashRegisterRe
   }
 }
 
+const createTransaction = async (transaction: TransactionCreate): Promise<number> => {
+  try {
+    const newMappedTransaction = mapTransactionCreateToDbTransaction(transaction);
+    const { data, error } = await supabase
+      .from('transactions')
+      .insert(newMappedTransaction)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return data.id;
+  } catch (error: any) {
+    // console.error('Error creating transaction:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+}
+
 export const financeRepository = {
   readChildrenByLeader,
   readChildById,
   readCashRegisterByLeader,
   updateAccountBalanceById,
   updateCashRegisterByChild,
+  createTransaction
 }
