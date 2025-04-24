@@ -1,9 +1,19 @@
 import CustomButton from '@/components/custom/CustomButton';
 import { CustomModalProps } from '@/types/custom/modal';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
 const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmitModal = async () => {
+    if (props.handleConfirm) {
+      setIsLoading(true);
+      await props.handleConfirm();
+      setIsLoading(false);
+      props.setModalVisible(false);
+    }
+  };
 
   const handleCloseModal = () => {
     props.setModalVisible(false);
@@ -37,14 +47,16 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
                 handlePress={handleCloseModal}
                 containerStyles="rounded-xl py-3 flex-1"
                 textStyles="text-2xl"
+                isDisabled={isLoading}
               />
               <CustomButton
                 title="Potvrdiť"
                 action="success"
                 variant="combined"
-                handlePress={props.handleConfirm!}
+                handlePress={handleSubmitModal}
                 containerStyles="rounded-xl py-3 flex-1"
                 textStyles="text-2xl"
+                isLoading={isLoading}
               />
             </View>
           ) : (

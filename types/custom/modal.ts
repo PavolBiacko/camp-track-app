@@ -1,7 +1,7 @@
 export type CustomModalProps = ModalBasicProps & {
   title?: string,
   type: "confirmation" | "custom",
-  handleConfirm?: () => void,
+  handleConfirm?: () => Promise<void>,
   containerStyles?: string,
 }
 
