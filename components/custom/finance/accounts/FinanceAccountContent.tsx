@@ -3,7 +3,7 @@ import { FinanceAccountContentProps } from '@/types/finance';
 import { getDenominations } from '@/utils/finance';
 import { ScrollView } from 'react-native';
 
-const FinanceAccountContent = ({ type }: FinanceAccountContentProps) => {
+const FinanceTransactionContent = ({ type }: FinanceAccountContentProps) => {
   const denominations = getDenominations();
 
   return (
@@ -19,4 +19,4 @@ const FinanceAccountContent = ({ type }: FinanceAccountContentProps) => {
   )
 }
 
-export default FinanceAccountContent
+export default FinanceTransactionContent

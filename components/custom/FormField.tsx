@@ -14,7 +14,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
 
   return (
     <View className={`${props.otherStyles}`}>
-      <Text className="text-typography-950 text-base font-pmedium mb-1">{props.title}</Text>
+      <Text className="text-typography-950 text-base font-psemibold mb-1">{props.title}</Text>
       <View className={
         twMerge(
           `flex-row bg-background-200 border-2 items-center rounded-2xl`,

@@ -30,6 +30,8 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   mode: DateTimeButtonMode,
   action?: ButtonActionType,
   variant?: ButtonVariantType,
+  handleSubmit?: () => void,
+  titleStyles?: string,
   textStyles?: string,
   otherStyles?: string,
   isDisabled?: boolean,

@@ -24,14 +24,14 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
       control={props.control}
       name={props.formDataTypeKey as Path<T>}
       render={({ field: { onChange, value } }) => (
-        <View className={`${props.otherStyles}`}>
-          <Text className="text-typography-950 self-start text-base font-pmedium mb-1">{props.title}</Text>
+        <View className={props.otherStyles}>
+          <Text className={`text-typography-950 font-psemibold mb-1 ${props.titleStyles}`}>{props.title}</Text>
           <CustomButton
             title={!props.isDisabled ? (props.mode === "date" ? formatISOLocalToHumanReadable(value) : value) : dateformats.DISABLED_DATE}
             action={props.action}
             variant={props.variant}
             handlePress={openDatePicker}
-            textStyles='text-3xl font-pbold self-center mt-2'
+            textStyles={`self-center ${props.textStyles}`}
             containerStyles="w-full h-20 rounded-3xl"
             isDisabled={props.isDisabled}
           />
@@ -43,6 +43,7 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
               (selectedDate) => {
                 onChange(mapDateTimeToString(selectedDate, props.mode));
                 setDatePickerVisible(false);
+                props.handleSubmit && props.handleSubmit();
               }
             }
             onCancel={handleCancel}

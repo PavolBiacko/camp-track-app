@@ -65,6 +65,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
           control={control}
           mode="time"
           action='secondary'
+          textStyles='text-3xl font-pbold mt-2'
           otherStyles='w-2/5 items-start'
         />
         <DateTimeButton
@@ -73,6 +74,8 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
           control={control}
           mode="date"
           action='tertiary'
+          titleStyles='self-start'
+          textStyles='text-3xl font-pbold mt-2'
           otherStyles='w-3/5 pl-5 items-end'
           isDisabled={isPeriodic}
         />
