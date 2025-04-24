@@ -1,5 +1,6 @@
+import { User } from "@/types/models/users";
 import { ImageProps } from "react-native";
-import { ColorScheme, UserRolesProps } from "./base";
+import { ColorScheme } from "./base";
 
 export type SettingsBoxProps = {
   title: string,
@@ -19,4 +20,6 @@ export type SettingsSwitchLineProps = {
   containerStyles?: string;
 }
 
-export type ProfileBadgeProps = UserRolesProps;
+export type ProfileBadgeProps = {
+  user: User;
+};

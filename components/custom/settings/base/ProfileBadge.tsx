@@ -1,21 +1,28 @@
 import { Badge, BadgeText } from '@/components/ui/badge'
+import { useGroupNumberByLeader } from '@/hooks/models/useGroups'
 import { UserRoles } from '@/types/enums/roles'
 import { ProfileBadgeProps } from '@/types/settings'
 import { getBadgeStylesAndText } from '@/utils/ui'
 import React from 'react'
 import { View } from 'react-native'
+import Loading from '../../Loading'
 
-const ProfileBadge = ({ role }: ProfileBadgeProps) => {
-  const { text, styles } = getBadgeStylesAndText(role);
+const ProfileBadge = ({ user }: ProfileBadgeProps) => {
+  const { text, styles } = getBadgeStylesAndText(user.role);
+  const { groupNumber, isLoading, isError } = useGroupNumberByLeader(user.id);
 
   return (
     <View className='flex flex-row gap-2'>
       <Badge className={`${styles} rounded-xl mt-2`}>
         <BadgeText className='text-typography-950 text-xs font-pbold px-2'>{text}</BadgeText>
       </Badge>
-      {role === UserRoles.GROUP_LEADER && (
+      {user.role === UserRoles.GROUP_LEADER && (
         <Badge className={`${styles} rounded-xl mt-2`}>
-          <BadgeText className='text-typography-950 text-xs font-pbold px-2'>6. ODD</BadgeText>
+          {!groupNumber || isLoading || isError ? (
+            <Loading showText={false} />
+          ) : (
+            <BadgeText className='text-typography-950 text-xs font-pbold px-2'>{groupNumber}. ODD</BadgeText>
+          )}
         </Badge>
       )}
     </View>

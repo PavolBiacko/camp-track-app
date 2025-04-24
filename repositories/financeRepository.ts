@@ -150,7 +150,6 @@ const updateCashRegisterByChild = async (childId: string, counts: CashRegisterRe
   }
 }
 
-
 export const financeRepository = {
   readChildrenByLeader,
   readChildById,

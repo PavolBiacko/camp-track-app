@@ -9,9 +9,9 @@ import { ScrollView } from 'react-native'
 const ScheduleContent = () => {
   const currentTime = useCurrentTime();
   const { selectedDate } = useScheduleContext();
-  const { activities, isFetching, isError } = useActivitiesByDay(selectedDate);
+  const { activities, isLoading, isError } = useActivitiesByDay(selectedDate);
 
-  if (!activities || isFetching || isError) {
+  if (!activities || isLoading || isError) {
     return <Loading showText={false} />
   }
 

@@ -21,7 +21,7 @@ const ProfileSettings = () => {
           <View className='ml-3 w-[70%] gap-1'>
             <Text className='text-typography-950 text-xl font-psemibold'>{user.firstName} {user.lastName}</Text>
             <Text className='text-typography-700 text-xs font-pregular'>{user.email}</Text>
-            <ProfileBadge role={user.role} />
+            <ProfileBadge user={user} />
           </View>
         </View>}
     </SettingsBox>
