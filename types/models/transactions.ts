@@ -2,7 +2,7 @@ import { TransactionType } from "@/types/enums/finance"
 
 export type Transaction = {
   id: number
-  childId: string
+  childId: string | null
   amount: number
   type: TransactionType
   date: Date
@@ -10,7 +10,7 @@ export type Transaction = {
 }
 
 export type TransactionCreate = {
-  childId: string
+  childId: string | null
   amount: number
   type: TransactionType
   date: Date

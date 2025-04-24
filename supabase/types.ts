@@ -187,7 +187,7 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
-          child_id: string
+          child_id: string | null
           created_at: string
           date: string
           id: number
@@ -195,7 +195,7 @@ export type Database = {
         }
         Insert: {
           amount: number
-          child_id: string
+          child_id?: string | null
           created_at?: string
           date: string
           id?: number
@@ -203,7 +203,7 @@ export type Database = {
         }
         Update: {
           amount?: number
-          child_id?: string
+          child_id?: string | null
           created_at?: string
           date?: string
           id?: number
@@ -254,7 +254,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      process_transaction: {
+        Args: {
+          child_id: string
+          new_balance: number
+          cash_register_records: Database["public"]["CompositeTypes"]["cash_register_record"][]
+        }
+        Returns: Json
+      }
     }
     Enums: {
       camp_roles: "CAMP_LEADER" | "GROUP_LEADER" | "PARENT" | "USER"
@@ -278,7 +285,10 @@ export type Database = {
       transaction_type: "DEPOSIT" | "WITHDRAWAL" | "PURCHASE"
     }
     CompositeTypes: {
-      [_ in never]: never
+      cash_register_record: {
+        denomination: Database["public"]["Enums"]["euro_denominations"] | null
+        quantity: number | null
+      }
     }
   }
 }
