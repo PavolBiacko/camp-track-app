@@ -17,11 +17,12 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
       onRequestClose={handleCloseModal}>
       <TouchableOpacity
         activeOpacity={1}
+        disabled={props.type === "confirmation"}
         onPress={handleCloseModal}
         className="flex-1 justify-center items-center bg-background-0/50">
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() => { }}
+          disabled={props.type === "confirmation"}
           className={`bg-background-100 border-2 border-primary-500 rounded-xl p-6 ${props.containerStyles}`}>
           {props.title && <Text className="text-3xl font-pbold text-typography-800 text-center mb-4">
             {props.title}
@@ -31,7 +32,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
             <View className="flex-row justify-between gap-4 mt-4">
               <CustomButton
                 title="Zrušiť"
-                action="background"
+                action="error"
                 variant="combined"
                 handlePress={handleCloseModal}
                 containerStyles="rounded-xl py-3 flex-1"

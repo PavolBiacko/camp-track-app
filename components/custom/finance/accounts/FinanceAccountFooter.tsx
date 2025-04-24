@@ -29,7 +29,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
       Alert.alert("Pozor!", error.message);
       return;
     } finally {
-      resetDenominations(); // Reset denominations after updating
+      // resetDenominations(); // Reset denominations after updating
       // setModalVisible(false);
     }
   };
@@ -44,10 +44,12 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
           textStyles="text-2xl text-center"
           containerStyles="w-2/3 h-16 rounded-3xl px-5"
           isLoading={isLoading}
+          isDisabled={actionAmount === 0}
         />
 
       </View>
       <FinanceAccountSummaryModal
+        type={props.type}
         childId={props.childId}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}

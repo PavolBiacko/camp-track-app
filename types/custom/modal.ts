@@ -1,8 +1,11 @@
-export type CustomModalProps = {
+export type CustomModalProps = ModalBasicProps & {
   title?: string,
   type: "confirmation" | "custom",
-  modalVisible: boolean,
-  setModalVisible: (isModalVisible: boolean) => void,
   handleConfirm?: () => void,
   containerStyles?: string,
+}
+
+export type ModalBasicProps = {
+  modalVisible: boolean,
+  setModalVisible: (isModalVisible: boolean) => void,
 }

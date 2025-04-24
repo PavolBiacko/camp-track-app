@@ -1,3 +1,4 @@
+import { ModalBasicProps } from "@/types/custom/modal";
 import { Denominations } from "@/types/enums/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
@@ -69,12 +70,19 @@ export type FinanceAccountsParams = {
 }
 
 export type ChildAccountParams = {
-  childId: string,
   type: AccountActionType,
+  childId: string,
 }
 
-export type FinanceAccountActionModalProps = {
+export type FinanceAccountActionModalProps = ModalBasicProps & {
   childId: string,
-  modalVisible: boolean,
-  setModalVisible: (isModalVisible: boolean) => void,
+}
+
+export type FinanceAccountSummaryModalProps = ModalBasicProps & {
+  type: AccountActionType,
+  childId: string,
+}
+
+export type FinanceAccountActionSummaryProps = {
+  type: AccountActionType,
 }
