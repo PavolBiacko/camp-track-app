@@ -5,7 +5,6 @@ import { ProfileBadgeProps } from '@/types/settings'
 import { getBadgeStylesAndText } from '@/utils/ui'
 import React from 'react'
 import { View } from 'react-native'
-import Loading from '../../Loading'
 
 const ProfileBadge = ({ user }: ProfileBadgeProps) => {
   const { text, styles } = getBadgeStylesAndText(user.role);
@@ -18,11 +17,9 @@ const ProfileBadge = ({ user }: ProfileBadgeProps) => {
       </Badge>
       {user.role === UserRoles.GROUP_LEADER && (
         <Badge className={`${styles} rounded-xl mt-2`}>
-          {!groupNumber || isLoading || isError ? (
-            <Loading showText={false} />
-          ) : (
-            <BadgeText className='text-typography-950 text-xs font-pbold px-2'>{groupNumber}. ODD</BadgeText>
-          )}
+          <BadgeText className='text-typography-950 text-xs font-pbold px-2'>
+            {!groupNumber || isLoading || isError ? "..." : `${groupNumber}. ODD`}
+          </BadgeText>
         </Badge>
       )}
     </View>
