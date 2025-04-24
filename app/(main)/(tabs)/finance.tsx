@@ -25,34 +25,27 @@ const Finance = () => {
           textStyles={textStyles}
         />
         <CustomButton
-          title='Výpis pohybov'
-          action='background'
-          handlePress={() => router.push('/(main)/(finance)/transactions')}
-          containerStyles={containerStyles}
-          textStyles={textStyles}
-        />
-      </View>
-      <View className="h-1/4 flex-row justify-between m-5">
-        <CustomButton
           title='Nastavenia účtov detí'
           action='background'
           handlePress={() => router.push({ pathname: '/(main)/(finance)/accounts', params: { leaderId: user.id } })}
           containerStyles={containerStyles}
           textStyles={textStyles}
         />
-        <CustomButton
-          title='Výpočet výdavkov'
-          action='background'
-          handlePress={() => router.push('/(main)/(finance)/calculation')}
-          containerStyles={containerStyles}
-          textStyles={textStyles}
-        />
       </View>
-      <View className="h-1/4 m-5">
+      <View className="h-1/3 m-5">
         <CustomButton
           title='Návšteva bufetu'
           action='tertiary'
           handlePress={() => router.push('/(main)/(finance)/buffet')}
+          containerStyles="rounded-3xl h-full"
+          textStyles={textStyles}
+        />
+      </View>
+      <View className="h-1/6 m-5">
+        <CustomButton
+          title='Výpočet výdavkov'
+          action='secondary'
+          handlePress={() => router.push('/(main)/(finance)/calculation')}
           containerStyles="rounded-3xl h-full"
           textStyles={textStyles}
         />
