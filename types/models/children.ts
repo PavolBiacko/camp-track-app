@@ -10,3 +10,8 @@ export type Child = {
   accountBalance: number;
   createdAt: Date;
 }
+
+export type ChildName = {
+  firstName: string;
+  lastName: string;
+}

@@ -8,15 +8,16 @@ import { Text, TouchableOpacity } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const ScheduleLine = (props: ScheduleLineProps) => {
-  const textStyles: ClassNameValue = `text-typography-900 text-lg pt-1 ${props.textStyles}`;
-  const statusContainterStyles = getActivityStyles(props.status, props.isCustom);
-
-  const { id, name, time: { hours, minutes }, leaderId } = props.activity;
   const { user } = useAuth();
 
   if (!user) {
     return null;  // should not happen, since useAuth is used in the layout layer
   }
+
+  const textStyles: ClassNameValue = `text-typography-900 text-lg pt-1 ${props.textStyles}`;
+  const statusContainterStyles = getActivityStyles(props.status, props.isCustom);
+
+  const { id, name, time: { hours, minutes }, leaderId } = props.activity;
 
   const handleUpdateActivity = () => {
     if (user.role === UserRoles.CAMP_LEADER || leaderId === user.id) {

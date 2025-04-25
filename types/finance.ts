@@ -2,6 +2,7 @@ import { ModalBasicProps } from "@/types/custom/modal";
 import { Denominations } from "@/types/enums/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
+import { TransactionComplex } from "@/types/models/transactions";
 
 export type MoneyType = 'coin' | 'bill';
 
@@ -85,4 +86,20 @@ export type FinanceAccountSummaryModalProps = ModalBasicProps & {
 
 export type FinanceAccountActionSummaryProps = {
   type: AccountActionType,
+}
+
+export type FinanceTransactionHeaderData = {
+  dateFrom: string;
+  dateTo: string;
+}
+
+export type FinanceTransactionContextType = {
+  dateFrom: Date;
+  dateTo: Date;
+  setDateFrom: (date: Date) => void;
+  setDateTo: (date: Date) => void;
+}
+
+export type FinanceTransactionLineProps = {
+  transaction: TransactionComplex;  // TODO: Define the type for transaction
 }

@@ -1,12 +1,13 @@
 import { mapCashRegisterRecordToDbCashRegister, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
 import { mapDbChildToChild } from "@/mappers/children";
-import { mapTransactionCreateToDbTransaction } from "@/mappers/transactions";
+import { mapDbTransactionToTransactionComplex, mapTransactionCreateToDbTransaction } from "@/mappers/transactions";
 import supabase from "@/supabase/client";
 import { Tables } from "@/supabase/types";
 import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
-import { TransactionCreate } from "@/types/models/transactions";
+import { TransactionComplex, TransactionCreate } from "@/types/models/transactions";
+import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
 const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> => {
@@ -145,7 +146,7 @@ const updateCashRegisterByChild = async (childId: string, counts: CashRegisterRe
       if (data) updatedRows.push(data);
     }
 
-    return updatedRows.map((updatedRows) => mapDbCashRegisterToCashRegister(updatedRows));;
+    return updatedRows.map((updatedRows) => mapDbCashRegisterToCashRegister(updatedRows));
   } catch (error: any) {
     // console.error('Error updating account balance:', (error as AuthError).message);
     throw error as AuthError;
@@ -170,11 +171,41 @@ const createTransaction = async (transaction: TransactionCreate): Promise<number
   }
 }
 
+const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promise<TransactionComplex[]> => {
+  try {
+    const { data: transactionData, error: transactionError } = await supabase
+      .from('transactions')
+      .select(`
+        id,
+        amount,
+        type,
+        date,
+        created_at,
+        child_id,
+        children (
+          first_name,
+          last_name
+        )
+      `)
+      .gte('date', formatDateToISOLocal(dateFrom)) // Filter: date >= dateFrom
+      .lte('date', formatDateToISOLocal(dateTo)); // Filter: date <= dateTo
+
+    if (transactionError) throw transactionError;
+
+    return transactionData.map((dbTransaction) => mapDbTransactionToTransactionComplex(dbTransaction));
+
+  } catch (error: any) {
+    // console.error('Error reading transactions:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+};
+
 export const financeRepository = {
   readChildrenByLeader,
   readChildById,
   readCashRegisterByLeader,
   updateAccountBalanceById,
   updateCashRegisterByChild,
-  createTransaction
+  createTransaction,
+  readTransactionsInDateRange
 }

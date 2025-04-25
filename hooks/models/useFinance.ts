@@ -55,6 +55,14 @@ export const useUpdateCashRegisterByChild = (childId: string) => {
   return { updateCashRegister: mutateAsync, isError };
 }
 
+export const useTransactionsInDateRange = (dateFrom: Date, dateTo: Date) => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['transactions', dateFrom, dateTo],
+    queryFn: async () => await financeRepository.readTransactionsInDateRange(dateFrom, dateTo),
+  });
+  return { transactions: data, isLoading, isError };
+}
+
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
 

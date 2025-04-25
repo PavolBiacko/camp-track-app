@@ -12,10 +12,15 @@ export const formatDateToISOLocal = (date: Date): string => {
   return format(date, 'yyyy-MM-dd');
 }
 
-export const formatISOLocalToHumanReadable = (date: string | null): string => {
+export const formatISOLocalToHumanReadable = (date: Date | string | null): string => {
   if (!date) {
     return dateformats.DISABLED_DATE;
   }
+
+  if (date instanceof Date) {
+    return format(date, 'dd.MM.yyyy');
+  }
+
   const [year, month, day] = date.split('-');
   return `${day}.${month}.${year}`;
 }
