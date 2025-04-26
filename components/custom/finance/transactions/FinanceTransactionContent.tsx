@@ -15,8 +15,8 @@ const FinanceAccountContent = () => {
   if (transactions.length === 0) {
     return (
       <View className="flex-1 justify-center items-center h-full">
-        <Text className="text-typography-500 text-center text-2xl font-pregular mx-10">
-          Neboli zatiaľ zaznamenané žiadne pohyby
+        <Text className="text-typography-500 text-center text-2xl font-pregular mx-5">
+          V danom období nie sú zaznamenané žiadne pohyby.
         </Text>
       </View>
     );
