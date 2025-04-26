@@ -188,7 +188,9 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
         )
       `)
       .gte('date', formatDateToISOLocal(dateFrom)) // Filter: date >= dateFrom
-      .lte('date', formatDateToISOLocal(dateTo)); // Filter: date <= dateTo
+      .lte('date', formatDateToISOLocal(dateTo)) // Filter: date <= dateTo
+      .order('date')
+      .order('child_id');
 
     if (transactionError) throw transactionError;
 

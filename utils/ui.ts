@@ -2,6 +2,7 @@ import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
 import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
+import { TransactionType } from "@/types/enums/finance";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
@@ -104,4 +105,52 @@ export const getActivityStyles = (status: ActivityStatus, isCustom: boolean): Cl
   }
 
   return `bg-${bgColor}-300 border-2 border-${borderColor}-500 ${additionalContainterStyles}`;
+}
+
+export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
+  let text = "";
+  let color: ColorStyle = "primary";
+
+  switch (type) {
+    case TransactionType.DEPOSIT:
+      text = "Vklad";
+      color = "secondary";
+      break;
+    case TransactionType.WITHDRAWAL:
+      text = "Výber";
+      color = "quaternary";
+      break;
+    case TransactionType.PURCHASE:
+      text = "Buffet";
+      color = "primary";
+      break;
+    default:
+      throw new Error(`Unknown transaction type: ${type}`);
+  }
+
+  const styles = `bg-${color}-300 border border-${color}-700`
+  return { text, styles };
+}
+
+export const getTransactionStyles = (status: ActivityStatus, isCustom: boolean): ClassNameValue => {
+  let bgColor: ColorStyle = "background";
+  let borderColor: ColorStyle = isCustom ? "quaternary" : "outline";
+
+  let additionalContainterStyles: ClassNameValue = "";
+
+  switch (status) {
+    case ActivityStatus.PAST:
+      additionalContainterStyles = "opacity-30";
+      break;
+    case ActivityStatus.ACTIVE:
+      bgColor = "secondary";
+      additionalContainterStyles = "h-24";
+      break;
+    case ActivityStatus.FUTURE:
+      break;
+    default:
+      throw new Error(`Unknown activity status: ${status}`);
+  }
+
+  return `bg-background-300 border-2 border-success-500 ${additionalContainterStyles}`;
 }

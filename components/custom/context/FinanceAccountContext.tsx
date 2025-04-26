@@ -28,6 +28,10 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
     setCounts(mapCashRegisterDataToCashRegisterRecord(undefined));
   };
 
+  console.log('Child Account Balance:', childAccountBalance);
+  console.log('Action Amount:', actionAmount);
+  console.log('Counts:', counts);
+
   return (
     <FinanceAccountContext.Provider
       value={{

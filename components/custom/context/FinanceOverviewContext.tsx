@@ -15,6 +15,8 @@ export const FinanceOverviewProvider = (props: PropsWithChildren<FinanceOverview
     return sum + Number(denomination) * quantity;
   }, 0);
 
+  console.log('Total Amount:', totalAmount);
+
   return (
     <FinanceOverviewContext.Provider value={{ totalAmount, quantities }}>
       {props.children}
