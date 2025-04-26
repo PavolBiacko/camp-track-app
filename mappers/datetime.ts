@@ -54,3 +54,15 @@ export const mapStringToDateTime = (value: string, mode: DateTimeButtonMode): Da
       throw new Error(`Unsupported mode: ${mode}`);
   }
 };
+
+export const mapDateToDayStart = (date: Date): Date => {
+  const transformedDate = new Date(date);
+  transformedDate.setHours(0, 0, 0, 0); // Start of day: 00:00:00.000 (local time)
+  return transformedDate;
+};
+
+export const mapDateToDayEnd = (date: Date): Date => {
+  const transformedDate = new Date(date);
+  transformedDate.setHours(23, 59, 59, 999); // End of day: 23:59:59.999 (local time)
+  return transformedDate;
+};

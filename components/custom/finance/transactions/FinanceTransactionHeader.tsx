@@ -1,6 +1,6 @@
 import { useFinanceTransactionContext } from '@/components/custom/context/FinanceTransactionContext';
 import DateTimeButton from '@/components/custom/DateTimeButton';
-import { mapStringToDateTime } from '@/mappers/datetime';
+import { mapDateToDayEnd, mapDateToDayStart, mapStringToDateTime } from '@/mappers/datetime';
 import { FinanceTransactionHeaderData } from '@/types/finance';
 import { formatDateToISOLocal } from '@/utils/dates';
 import { useForm } from 'react-hook-form';
@@ -13,8 +13,10 @@ const FinanceTransactionHeader = () => {
   });
 
   const handleSubmit = () => {
-    setDateFrom(mapStringToDateTime(watch('dateFrom'), "date"));
-    setDateTo(mapStringToDateTime(watch('dateTo'), "date"));
+    const dateFromStart = mapDateToDayStart(mapStringToDateTime(watch('dateFrom'), "date"))
+    const dateToEnd = mapDateToDayEnd(mapStringToDateTime(watch('dateTo'), "date"))
+    setDateFrom(dateFromStart);
+    setDateTo(dateToEnd);
   }
 
   return (

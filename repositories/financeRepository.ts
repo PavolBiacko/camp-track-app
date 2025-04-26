@@ -7,7 +7,7 @@ import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
 import { TransactionComplex, TransactionCreate } from "@/types/models/transactions";
-import { formatDateToISOLocal } from "@/utils/dates";
+import { formatDateToISOLocalFull } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
 const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> => {
@@ -187,8 +187,8 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
           last_name
         )
       `)
-      .gte('date', formatDateToISOLocal(dateFrom)) // Filter: date >= dateFrom
-      .lte('date', formatDateToISOLocal(dateTo)) // Filter: date <= dateTo
+      .gte('date', formatDateToISOLocalFull(dateFrom)) // Filter: date >= dateFrom
+      .lte('date', formatDateToISOLocalFull(dateTo)) // Filter: date <= dateTo
       .order('date')
       .order('child_id');
 
