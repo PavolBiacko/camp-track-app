@@ -131,26 +131,3 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
   const styles = `bg-${color}-300 border border-${color}-700`
   return { text, styles };
 }
-
-export const getTransactionStyles = (status: ActivityStatus, isCustom: boolean): ClassNameValue => {
-  let bgColor: ColorStyle = "background";
-  let borderColor: ColorStyle = isCustom ? "quaternary" : "outline";
-
-  let additionalContainterStyles: ClassNameValue = "";
-
-  switch (status) {
-    case ActivityStatus.PAST:
-      additionalContainterStyles = "opacity-30";
-      break;
-    case ActivityStatus.ACTIVE:
-      bgColor = "secondary";
-      additionalContainterStyles = "h-24";
-      break;
-    case ActivityStatus.FUTURE:
-      break;
-    default:
-      throw new Error(`Unknown activity status: ${status}`);
-  }
-
-  return `bg-background-300 border-2 border-success-500 ${additionalContainterStyles}`;
-}

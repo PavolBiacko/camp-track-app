@@ -26,13 +26,13 @@ const FinanceAccountSummaryModal = ({ type, childId, modalVisible, setModalVisib
       await updateAccountBalance(newBalance);
       await updateCashRegister(updatedCounts);
       await createTransaction(transactionData)
-      router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;
     } finally {
       resetDenominations(); // Reset denominations after updating
       setModalVisible(false);
+      router.back();
     }
   };
 

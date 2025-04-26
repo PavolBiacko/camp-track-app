@@ -1,14 +1,14 @@
+import { mapDateTimeToString } from "@/mappers/datetime";
 import { Enums, TablesInsert } from "@/supabase/types";
 import { TransactionType } from "@/types/enums/finance";
 import { DbTransactionWithChild, TransactionComplex, TransactionCreate } from "@/types/models/transactions";
-import { formatDateToISOLocal } from "@/utils/dates";
 
 export const mapTransactionCreateToDbTransaction = (transaction: TransactionCreate): TablesInsert<"transactions"> => {
   return {
     child_id: transaction.childId,
     amount: transaction.amount,
     type: mapTransactionTypeToDbTransactionType(transaction.type),
-    date: formatDateToISOLocal(transaction.date),
+    date: mapDateTimeToString(transaction.date, "datetime")!,
   };
 }
 
