@@ -101,5 +101,9 @@ export type FinanceTransactionContextType = {
 }
 
 export type FinanceTransactionLineProps = {
-  transaction: TransactionComplex;  // TODO: Define the type for transaction
+  transaction: TransactionComplex;
+}
+
+export type FinanceBuffetParams = {
+  leaderId: string,
 }

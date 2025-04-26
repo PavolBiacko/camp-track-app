@@ -25,7 +25,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (error) throw error;
     if (fontsLoaded) SplashScreen.hideAsync();
-    queryClient.invalidateQueries();
+    // queryClient.invalidateQueries();
   }, [fontsLoaded, error]);
 
   // Potential error? No waiting state

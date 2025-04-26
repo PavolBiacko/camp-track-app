@@ -53,7 +53,7 @@ const Finance = () => {
         <CustomButton
           title='Návšteva bufetu'
           action='tertiary'
-          handlePress={() => router.push('/(main)/(finance)/buffet')}
+          handlePress={() => router.push({ pathname: '/(main)/(finance)/buffet', params: { leaderId: user.id } })}
           containerStyles="rounded-3xl h-full"
           textStyles={textStyles}
         />
