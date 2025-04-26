@@ -23,7 +23,7 @@ const FinanceAccountContent = () => {
   }
 
   return (
-    <ScrollView contentContainerClassName="items-center gap-5 py-5 ">
+    <ScrollView contentContainerClassName="items-center gap-5 py-5">
       {transactions.map((transaction, index) => (
         <FinanceTransactionLine
           key={index}
