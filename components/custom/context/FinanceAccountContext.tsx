@@ -1,6 +1,7 @@
 import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister';
 import { Denominations } from '@/types/enums/finance';
 import { CashRegisterRecord, FinanceAccountContextType, FinanceAccountProviderProps } from '@/types/finance';
+import { multiplyDecimals } from '@/utils/decimal';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
@@ -14,7 +15,7 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
 
   // Compute the total amount being increased/decreased based on denominations
   const actionAmount = Object.entries(counts).reduce((sum, [denomination, count]) => {
-    return sum + Number(denomination) * count;
+    return sum + multiplyDecimals(Number(denomination), count);
   }, 0);
 
   const updateCount = (denomination: Denominations, count: number) => {
@@ -27,10 +28,6 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
   const resetDenominations = () => {
     setCounts(mapCashRegisterDataToCashRegisterRecord(undefined));
   };
-
-  console.log('Child Account Balance:', childAccountBalance);
-  console.log('Action Amount:', actionAmount);
-  console.log('Counts:', counts);
 
   return (
     <FinanceAccountContext.Provider
