@@ -1,4 +1,3 @@
-import { mapDateTimeToString } from "@/mappers/datetime";
 import { Enums, TablesInsert } from "@/supabase/types";
 import { TransactionType } from "@/types/enums/finance";
 import { DbTransactionWithChild, TransactionComplex, TransactionCreate } from "@/types/models/transactions";
@@ -8,7 +7,6 @@ export const mapTransactionCreateToDbTransaction = (transaction: TransactionCrea
     child_id: transaction.childId,
     amount: transaction.amount,
     type: mapTransactionTypeToDbTransactionType(transaction.type),
-    date: mapDateTimeToString(transaction.date, "datetime")!,
   };
 }
 
@@ -23,7 +21,6 @@ export const mapDbTransactionToTransactionComplex = (dbTransaction: DbTransactio
       : null,
     amount: dbTransaction.amount,
     type: mapDbTransactionTypeToTransactionType(dbTransaction.type),
-    date: new Date(dbTransaction.date),
     createdAt: new Date(dbTransaction.created_at),
   };
 }

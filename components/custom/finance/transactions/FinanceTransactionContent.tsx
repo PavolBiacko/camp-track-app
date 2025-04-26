@@ -1,59 +1,8 @@
+import { useFinanceTransactionContext } from '@/components/custom/context/FinanceTransactionContext';
 import FinanceTransactionLine from '@/components/custom/finance/transactions/base/FinanceTransactionLine';
+import Loading from '@/components/custom/Loading';
 import { useTransactionsInDateRange } from '@/hooks/models/useFinance';
-import { ScrollView } from 'react-native';
-import { useFinanceTransactionContext } from '../../context/FinanceTransactionContext';
-import Loading from '../../Loading';
-
-// const dummyData: TransactionComplex[] = [
-//   {
-//     id: 1,
-//     child: { firstName: 'John', lastName: 'Doe' },
-//     amount: 100,
-//     type: TransactionType.DEPOSIT,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-//   {
-//     id: 2,
-//     child: { firstName: 'Jane', lastName: 'Smith' },
-//     amount: -50,
-//     type: TransactionType.WITHDRAWAL,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-//   {
-//     id: 3,
-//     child: { firstName: 'Alice', lastName: 'Johnson' },
-//     amount: 200,
-//     type: TransactionType.PURCHASE,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-//   {
-//     id: 4,
-//     child: { firstName: 'Bob', lastName: 'Brown' },
-//     amount: -75,
-//     type: TransactionType.WITHDRAWAL,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-//   {
-//     id: 5,
-//     child: { firstName: 'Charlie', lastName: 'Davis' },
-//     amount: 150,
-//     type: TransactionType.DEPOSIT,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-//   {
-//     id: 6,
-//     child: { firstName: 'Eve', lastName: 'Wilson' },
-//     amount: -30,
-//     type: TransactionType.PURCHASE,
-//     date: new Date(),
-//     createdAt: new Date(),
-//   },
-// ]
+import { ScrollView, Text, View } from 'react-native';
 
 const FinanceAccountContent = () => {
   const { dateFrom, dateTo } = useFinanceTransactionContext();
@@ -61,6 +10,16 @@ const FinanceAccountContent = () => {
 
   if (!transactions || isLoading || isError) {
     return <Loading showText={false} />;
+  }
+
+  if (transactions.length === 0) {
+    return (
+      <View className="flex-1 justify-center items-center h-full">
+        <Text className="text-typography-500 text-center text-2xl font-pregular mx-10">
+          Neboli zatiaľ zaznamenané žiadne pohyby
+        </Text>
+      </View>
+    );
   }
 
   return (

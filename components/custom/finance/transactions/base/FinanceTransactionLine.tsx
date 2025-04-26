@@ -6,7 +6,7 @@ import { Text, View } from 'react-native';
 import { ClassNameValue, twMerge } from 'tailwind-merge';
 
 const FinanceTransactionLine = (props: FinanceTransactionLineProps) => {
-  const { child, amount, type, date } = props.transaction;
+  const { child, amount, type, createdAt } = props.transaction;
 
   const colorStyle: ClassNameValue = amount < 0 ? "error-400" : "success-500";  // can't be transaction with 0 amount
   const { text: badgeText, styles: badgeStyles } = getBadgeStylesAndTextForTransaction(type);
@@ -20,7 +20,7 @@ const FinanceTransactionLine = (props: FinanceTransactionLineProps) => {
           `bg-background-300 border-2 border-${colorStyle}`,
         )}>
       <View className="items-start">
-        <Text className="text-typography-700 font-plight text-sm">{formatISOLocalToHumanReadable(date)}</Text>
+        <Text className="text-typography-700 font-plight text-sm">{formatISOLocalToHumanReadable(createdAt)}</Text>
         <Text className="text-typography-900 font-pbold text-2xl pt-1">{child ? `${child.firstName}` : "BUFFET"}</Text>
         <Text className="text-typography-900 font-pbold text-2xl pt-1">{child ? `${child.lastName}` : "BUFFET"}</Text>
       </View>

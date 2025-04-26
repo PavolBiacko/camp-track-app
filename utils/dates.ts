@@ -12,10 +12,6 @@ export const formatDateToISOLocal = (date: Date): string => {
   return format(date, 'yyyy-MM-dd');
 }
 
-export const formatDateToISOLocalFull = (date: Date): string => {
-  return format(date, "yyyy-MM-dd'T'HH:mm:ss'Z'");
-}
-
 export const formatISOLocalToHumanReadable = (date: Date | string | null): string => {
   if (!date) {
     return dateformats.DISABLED_DATE;

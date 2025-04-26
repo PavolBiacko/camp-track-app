@@ -171,7 +171,7 @@ export type Database = {
           {
             foreignKeyName: "groups_leader_id_fkey"
             columns: ["leader_id"]
-            isOneToOne: true
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
@@ -189,7 +189,6 @@ export type Database = {
           amount: number
           child_id: string | null
           created_at: string
-          date: string
           id: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
@@ -197,7 +196,6 @@ export type Database = {
           amount: number
           child_id?: string | null
           created_at?: string
-          date: string
           id?: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
@@ -205,7 +203,6 @@ export type Database = {
           amount?: number
           child_id?: string | null
           created_at?: string
-          date?: string
           id?: number
           type?: Database["public"]["Enums"]["transaction_type"]
         }

@@ -16,7 +16,6 @@ export type TransactionComplex = {
   child: ChildName | null
   amount: number
   type: TransactionType
-  date: Date
   createdAt: Date
 }
 
@@ -24,7 +23,7 @@ export type TransactionCreate = {
   childId: string | null
   amount: number
   type: TransactionType
-  date: Date
+
 }
 
 export type DbTransactionWithChild = Tables<"transactions"> & {
