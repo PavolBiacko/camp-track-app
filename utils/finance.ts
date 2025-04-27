@@ -97,7 +97,12 @@ export const getDenominations = (): Denominations[] => {
   ];
 };
 
-export const processCountsWithQuantities = (type: AccountActionType, quantities: CashRegisterRecord, counts: CashRegisterRecord): CashRegisterRecord => {
+export const processCountsWithQuantities = (
+  quantities: CashRegisterRecord,
+  counts: CashRegisterRecord,
+  type: AccountActionType
+): CashRegisterRecord => {
+
   const result: CashRegisterRecord = { ...quantities };
 
   const operation = type === 'increment' ? 1 : -1;
@@ -125,10 +130,22 @@ export const isIncrementAvailable = (
   return true;
 };
 
-export const getTransactionObject = (childId: string, actionType: AccountActionType, actionAmount: number): TransactionCreate => {
+export const getTransactionObject = (childId: string, actionAmount: number, transactionType: TransactionType): TransactionCreate => {
   return {
     childId,
-    amount: (actionType === "increment") ? actionAmount : -actionAmount,
-    type: (actionType === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL,
+    amount: actionAmount * getTransactionDirection(transactionType),
+    type: transactionType,
+  }
+}
+
+export const getTransactionDirection = (transactionType: TransactionType): number => {
+  switch (transactionType) {
+    case TransactionType.DEPOSIT:
+      return 1;
+    case TransactionType.WITHDRAWAL:
+    case TransactionType.PURCHASE:
+      return -1;
+    default:
+      throw new Error("Invalid transaction type");
   }
 }

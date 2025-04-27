@@ -5,6 +5,7 @@ import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { TransactionType } from "@/types/enums/finance";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
+import { ChildName } from "@/types/models/children";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
 import { Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
@@ -109,7 +110,7 @@ export const getActivityStyles = (status: ActivityStatus, isCustom: boolean): Cl
 
 export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
   let text = "";
-  let color: ColorStyle = "primary";
+  let color: ColorStyle = "background";
 
   switch (type) {
     case TransactionType.DEPOSIT:
@@ -117,7 +118,7 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
       color = "secondary";
       break;
     case TransactionType.WITHDRAWAL:
-      text = "Výber";
+      text = "Vrátenie";
       color = "quaternary";
       break;
     case TransactionType.PURCHASE:
@@ -130,4 +131,11 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
 
   const styles = `bg-${color}-300 border border-${color}-700`
   return { text, styles };
+}
+
+export const getTransactionColorStyle = (child: ChildName | null, amount: number): ClassNameValue => {
+  if (!child) {
+    return "primary-500";
+  }
+  return amount < 0 ? "error-400" : "success-500";
 }

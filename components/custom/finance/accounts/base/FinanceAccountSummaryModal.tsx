@@ -3,6 +3,7 @@ import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOv
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
 import { useCreateTransaction, useUpdateAccountBalanceWithLeader, useUpdateCashRegisterByLeader } from '@/hooks/models/useFinance';
+import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
 import { getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
 import { router } from 'expo-router';
@@ -19,8 +20,9 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
   const handleConfirm = async () => {
     try {
       const newBalance = (type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount;
-      const updatedCounts = processCountsWithQuantities(type, quantities, counts);
-      const transactionData = getTransactionObject(childId, type, actionAmount);
+      const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
+      const updatedCounts = processCountsWithQuantities(quantities, counts, type);
+      const transactionData = getTransactionObject(childId, actionAmount, transactionType);
 
       // Should be as atomic transaction in database
       await updateAccountBalance(newBalance);
