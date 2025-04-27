@@ -1,3 +1,4 @@
+import { Enums, Tables } from "@/supabase/types";
 import { Gender } from "@/types/enums/gender";
 
 export type Child = {
@@ -15,3 +16,13 @@ export type ChildName = {
   firstName: string;
   lastName: string;
 }
+
+export type DbChildGroupLinkWithChild = Tables<"child_group_link"> & {
+  children: {
+    id: string;
+    first_name: string;
+    last_name: string;
+    birth_date: string | null;
+    gender: Enums<"gender">;
+  };
+};

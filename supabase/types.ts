@@ -101,46 +101,71 @@ export type Database = {
           },
         ]
       }
-      children: {
+      child_group_link: {
         Row: {
           account_balance: number
-          birth_date: string | null
+          child_id: string
           created_at: string
-          first_name: string
-          gender: Database["public"]["Enums"]["gender"]
-          group_id: number | null
-          id: string
-          last_name: string
+          group_id: number
+          id: number
         }
         Insert: {
           account_balance?: number
-          birth_date?: string | null
+          child_id: string
           created_at?: string
-          first_name: string
-          gender?: Database["public"]["Enums"]["gender"]
-          group_id?: number | null
-          id?: string
-          last_name: string
+          group_id: number
+          id?: number
         }
         Update: {
           account_balance?: number
-          birth_date?: string | null
+          child_id?: string
           created_at?: string
-          first_name?: string
-          gender?: Database["public"]["Enums"]["gender"]
-          group_id?: number | null
-          id?: string
-          last_name?: string
+          group_id?: number
+          id?: number
         }
         Relationships: [
           {
-            foreignKeyName: "children_group_id_fkey"
+            foreignKeyName: "child_group_link_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "child_group_link_group_id_fkey"
             columns: ["group_id"]
             isOneToOne: false
             referencedRelation: "groups"
             referencedColumns: ["id"]
           },
         ]
+      }
+      children: {
+        Row: {
+          birth_date: string | null
+          created_at: string
+          first_name: string
+          gender: Database["public"]["Enums"]["gender"]
+          id: string
+          last_name: string
+        }
+        Insert: {
+          birth_date?: string | null
+          created_at?: string
+          first_name: string
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: string
+          last_name: string
+        }
+        Update: {
+          birth_date?: string | null
+          created_at?: string
+          first_name?: string
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: string
+          last_name?: string
+        }
+        Relationships: []
       }
       groups: {
         Row: {

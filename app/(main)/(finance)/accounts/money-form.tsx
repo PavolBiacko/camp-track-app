@@ -3,7 +3,7 @@ import FinanceAccountContent from '@/components/custom/finance/accounts/FinanceA
 import FinanceAccountFooter from '@/components/custom/finance/accounts/FinanceAccountFooter';
 import FinanceAccountHeader from '@/components/custom/finance/accounts/FinanceAccountHeader';
 import Loading from '@/components/custom/Loading';
-import { useChildById } from '@/hooks/models/useFinance';
+import { useChildByIdWithLeader } from '@/hooks/models/useFinance';
 import { ChildAccountParams } from '@/types/finance';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
@@ -11,8 +11,8 @@ import { View } from 'react-native';
 
 const MoneyForm = () => {
   const navigation = useNavigation();
-  const { childId, type } = useLocalSearchParams<ChildAccountParams>();
-  const { child, isLoading, isError } = useChildById(childId);
+  const { childId, leaderId, type } = useLocalSearchParams<ChildAccountParams>();
+  const { child, isLoading, isError } = useChildByIdWithLeader(childId, leaderId);
 
   // setting the header title
   useEffect(() => {

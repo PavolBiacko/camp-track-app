@@ -130,6 +130,5 @@ export const getTransactionObject = (childId: string, actionType: AccountActionT
     childId,
     amount: (actionType === "increment") ? actionAmount : -actionAmount,
     type: (actionType === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL,
-    date: new Date(),
   }
 }

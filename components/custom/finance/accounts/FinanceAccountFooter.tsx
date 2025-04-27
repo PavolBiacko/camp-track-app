@@ -1,6 +1,7 @@
 import { useFinanceAccountContext } from '@/components/custom/context/FinanceAccountContext';
 import CustomButton from '@/components/custom/CustomButton';
 import FinanceAccountSummaryModal from '@/components/custom/finance/accounts/base/FinanceAccountSummaryModal';
+import { useAuth } from '@/hooks/useAuth';
 import { FinanceAccountFooterProps } from '@/types/finance';
 import { useState } from 'react';
 import { View } from 'react-native';
@@ -8,6 +9,11 @@ import { View } from 'react-native';
 const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
   const { actionAmount } = useFinanceAccountContext();
   const [modalVisible, setModalVisible] = useState(false);
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;  // should not happen, since useAuth is used in the layout layer
+  }
 
   return (
     <>
@@ -25,6 +31,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
       <FinanceAccountSummaryModal
         type={props.type}
         childId={props.childId}
+        leaderId={user.id}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />

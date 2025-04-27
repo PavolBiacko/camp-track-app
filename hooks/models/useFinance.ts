@@ -11,10 +11,10 @@ export const useChildrenByLeader = (leaderId: string) => {
   return { children: data, isLoading, isError };
 }
 
-export const useChildById = (id: string) => {
+export const useChildByIdWithLeader = (childId: string, leaderId: string) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['children', id],
-    queryFn: async () => await financeRepository.readChildById(id),
+    queryKey: ['children', childId, leaderId],
+    queryFn: async () => await financeRepository.readChildByIdWithLeader(childId, leaderId),
   });
   return { child: data, isLoading, isError };
 }
@@ -27,12 +27,12 @@ export const useCashRegisterByLeader = (leaderId: string) => {
   return { cashRegister: data, isLoading, isError };
 }
 
-export const useUpdateAccountBalance = (id: string) => {
+export const useUpdateAccountBalanceWithLeader = (childId: string, leaderId: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: async (accountBalance: number) => {
-      return await financeRepository.updateAccountBalanceById(id, accountBalance);
+      return await financeRepository.updateAccountBalanceByIdWithLeader(childId, leaderId, accountBalance);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['children'] });
@@ -41,12 +41,12 @@ export const useUpdateAccountBalance = (id: string) => {
   return { updateAccountBalance: mutateAsync, isError };
 }
 
-export const useUpdateCashRegisterByChild = (childId: string) => {
+export const useUpdateCashRegisterByLeader = (leaderId: string) => {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: async (counts: CashRegisterRecord) => {
-      return await financeRepository.updateCashRegisterByChild(childId, counts);
+      return await financeRepository.updateCashRegisterByLeader(leaderId, counts);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cashRegister'] });

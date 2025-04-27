@@ -1,13 +1,22 @@
 import CustomButton from '@/components/custom/CustomButton';
 import CustomModal from '@/components/custom/CustomModal';
+import { useAuth } from '@/hooks/useAuth';
 import { FinanceAccountActionModalProps } from '@/types/finance';
 import { router } from 'expo-router';
 
 const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: FinanceAccountActionModalProps) => {
 
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;  // should not happen, since useAuth is used in the layout layer
+  }
+
+  const leaderId = user.id;
+
   const handleOptionSelect = (type: 'increment' | 'decrement') => {
     setModalVisible(false);
-    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { childId, type } });
+    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { childId, leaderId, type } });
   };
 
   return (

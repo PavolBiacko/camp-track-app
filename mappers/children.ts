@@ -1,16 +1,15 @@
 import { mapDbGenderToGender } from "@/mappers/gender";
-import { Tables } from "@/supabase/types";
-import { Child } from "@/types/models/children";
+import { Child, DbChildGroupLinkWithChild } from "@/types/models/children";
 
-export const mapDbChildToChild = (dbChild: Tables<"children">): Child => {
+export const mapDbChildGroupLinkWithChildToChild = (dbChildGroup: DbChildGroupLinkWithChild): Child => {
   return {
-    id: dbChild.id,
-    firstName: dbChild.first_name,
-    lastName: dbChild.last_name,
-    birthDate: dbChild.birth_date ? new Date(dbChild.birth_date) : null,
-    gender: mapDbGenderToGender(dbChild.gender), // Map to Gender enum (assumes DB values match enum)
-    groupId: dbChild.group_id,
-    accountBalance: dbChild.account_balance,
-    createdAt: new Date(dbChild.created_at)
+    id: dbChildGroup.children.id,
+    firstName: dbChildGroup.children.first_name,
+    lastName: dbChildGroup.children.last_name,
+    birthDate: dbChildGroup.children.birth_date ? new Date(dbChildGroup.children.birth_date) : null,
+    gender: mapDbGenderToGender(dbChildGroup.children.gender), // Map to Gender enum (assumes DB values match enum)
+    groupId: dbChildGroup.group_id,
+    accountBalance: dbChildGroup.account_balance,
+    createdAt: new Date(dbChildGroup.created_at) // Assuming created_at is in the child_group_link table (not whole child creaeted_at)
   };
 };

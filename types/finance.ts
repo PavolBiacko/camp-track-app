@@ -71,8 +71,9 @@ export type FinanceAccountsParams = {
 }
 
 export type ChildAccountParams = {
-  type: AccountActionType,
   childId: string,
+  leaderId: string,
+  type: AccountActionType,
 }
 
 export type FinanceAccountActionModalProps = ModalBasicProps & {
@@ -80,8 +81,9 @@ export type FinanceAccountActionModalProps = ModalBasicProps & {
 }
 
 export type FinanceAccountSummaryModalProps = ModalBasicProps & {
-  type: AccountActionType,
   childId: string,
+  leaderId: string,
+  type: AccountActionType,
 }
 
 export type FinanceAccountActionSummaryProps = {
