@@ -7,7 +7,7 @@ import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { ChildName } from "@/types/models/children";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
-import { Platform } from "react-native";
+import { KeyboardTypeOptions, Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
 
 export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions => {
@@ -138,4 +138,34 @@ export const getTransactionColorStyle = (child: ChildName | null, amount: number
     return "primary-500";
   }
   return amount < 0 ? "error-400" : "success-500";
+}
+
+export const getProperTextSizeForChildName = (text: string | undefined): ClassNameValue => {
+  if (!text) {
+    return "";
+  }
+
+  if (text.length <= 8) {
+    return "text-6xl";
+  } else if (text.length <= 12) {
+    return "text-5xl";
+  } else if (text.length <= 15) {
+    return "text-4xl";
+  } else if (text.length <= 19) {
+    return "text-3xl";
+  } else if (text.length <= 24) {
+    return "text-2xl";
+  } else {
+    return "text-xl";
+  }
+}
+
+export const getKeyboardType = (formDataTypeKey: string): KeyboardTypeOptions => {
+  const formDataTypeLowercase = formDataTypeKey.toLowerCase();
+  if (formDataTypeLowercase.includes("email")) {
+    return "email-address";
+  } else if (formDataTypeLowercase.includes("amount") || formDataTypeLowercase.includes("phone")) {
+    return "number-pad";
+  }
+  return "default";
 }

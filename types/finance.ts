@@ -109,3 +109,11 @@ export type FinanceTransactionLineProps = {
 export type FinanceBuffetParams = {
   leaderId: string,
 }
+
+export type LocalBuffetActionAmounts = {
+  [childId: string]: number;
+}
+
+export type FinanceBuffetData = {
+  actionAmount: number
+}
