@@ -14,7 +14,7 @@ const FinanceAccountActionSummary = (props: FinanceAccountActionSummaryProps) =>
 
   const result = useMemo(() => {
     return (props.type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount
-  }, [childAccountBalance, actionAmount]);
+  }, [props.type, childAccountBalance, actionAmount]);
 
   return (
     <>

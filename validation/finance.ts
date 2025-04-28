@@ -8,5 +8,6 @@ export const buffetSchema = z.object({
       z
         .number({ invalid_type_error: "Nepovolený formát" })
         .nonnegative({ message: "Nesmie byť záporné" })
+        .nullable()
     ),
 });

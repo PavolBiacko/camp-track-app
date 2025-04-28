@@ -21,12 +21,11 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
         <CustomButton
           title={(props.type === "increment") ? "Pridanie peňazí" : "Vrátenie peňazí"}
           action="primary"
-          handlePress={() => setModalVisible(true)}  // Confirmation modal
+          handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
           containerStyles="w-2/3 h-16 rounded-3xl px-5"
           isDisabled={actionAmount === 0}
         />
-
       </View>
       <FinanceAccountSummaryModal
         type={props.type}

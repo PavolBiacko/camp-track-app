@@ -115,5 +115,14 @@ export type LocalBuffetActionAmounts = {
 }
 
 export type FinanceBuffetData = {
-  actionAmount: number
+  actionAmount: number | null
 }
+
+export type FinanceBuffetSummaryProps = {
+  children: Child[]
+  actionAmounts: LocalBuffetActionAmounts
+}
+
+export type FinanceBuffetModalProps = ModalBasicProps & FinanceBuffetSummaryProps;
+
+
