@@ -7,10 +7,12 @@ import { FinanceBuffetData, FinanceBuffetParams, LocalBuffetActionAmounts } from
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
 import { getLongerString } from '@/utils/strings';
 import { getProperTextSizeForChildName } from '@/utils/ui';
+import { buffetSchema } from '@/validation/finance';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ScrollView, Text, View } from 'react-native';
+import { Alert, ScrollView, Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 const Buffet = () => {
@@ -21,6 +23,7 @@ const Buffet = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { control, register, handleSubmit, watch, reset, formState: { errors } } = useForm<FinanceBuffetData>({
     defaultValues: { actionAmount: 0 },
+    resolver: zodResolver(buffetSchema),
   });
 
   // setting the header title based on current date
@@ -53,6 +56,13 @@ const Buffet = () => {
   };
 
   const saveAmountLocally = (data: FinanceBuffetData) => {
+    if (data.actionAmount > currentChild.accountBalance) {
+      Alert.alert(
+        "Zamietnutá akcia",
+        `Dieťa má na účte: ${currentChild.accountBalance.toFixed(2)} €.\nZadaná čiastka: ${data.actionAmount.toFixed(2)} €.`
+      );
+      return;
+    }
     setLocalActionAmounts((prev) => ({
       ...prev,
       [currentChild.id]: Number(data.actionAmount), // currentChild.id is a string, data.actionAmount is a number
@@ -71,7 +81,7 @@ const Buffet = () => {
         </Text>
       </View>
 
-      <View className="flex min-h-20 justify-center items-center border-b border-outline-500 py-4">
+      <View className="min-h-20 justify-center items-center border-b border-outline-500 py-4">
         <Text className={twMerge("text-tertiary-500 text-6xl pt-4", textStyles)}>
           {(currentChild.accountBalance).toFixed(2)} €
         </Text>
@@ -87,7 +97,6 @@ const Buffet = () => {
           register={register}
           error={errors.actionAmount}
           maxLength={8}
-          isCentered={false}
           otherStyles='w-48'
         />
       </View>
@@ -118,7 +127,7 @@ const Buffet = () => {
           handlePress={handleSubmit(saveAmountLocally)}
           containerStyles="rounded-3xl w-full h-16"
           textStyles="text-2xl"
-          isDisabled={!watch("actionAmount")}
+          isDisabled={watch("actionAmount").toString().trim().length === 0}
         />
 
         <CustomButton

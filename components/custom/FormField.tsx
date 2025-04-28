@@ -34,8 +34,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
               className={
                 twMerge(
                   "flex-1 text-typography-950 font-psemibold",
-                  "w-16 h-full px-6 text-xl",
-                  `${(props.isCentered ? "text-center" : "text-left")}`
+                  "w-16 h-full px-6 text-xl"
                 )}
               value={value}
               onChangeText={onChange}
@@ -64,7 +63,7 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
         )}
       </View>
       {props.error && (
-        <Text className="text-error-500 mt-1">
+        <Text className="text-error-500 text-center font-plight mt-1">
           {props.error?.message as string}
         </Text>)}
     </View>
