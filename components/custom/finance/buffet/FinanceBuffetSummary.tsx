@@ -4,6 +4,8 @@ import { ScrollView, Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 const FinanceBuffetSummary = ({ children, actionAmounts }: FinanceBuffetSummaryProps) => {
+  const totalAmount = Object.values(actionAmounts).reduce((sum, amount) => sum + amount, 0);
+
   return (
     <>
       <View className={
@@ -11,8 +13,8 @@ const FinanceBuffetSummary = ({ children, actionAmounts }: FinanceBuffetSummaryP
           'justify-center items-center w-full mb-5 py-1',
           'border-2 border-outline-500 rounded-xl bg-background-300'
         )}>
-        <Text className="text-secondary-500 text-3xl font-pbold mt-2">
-          0.00 €
+        <Text className="text-secondary-500 text-4xl font-pbold mt-3">
+          {totalAmount.toFixed(2)} €
         </Text>
       </View>
       <View className='flex-1 w-full border-2 border-outline-500 rounded-xl bg-background-300'>

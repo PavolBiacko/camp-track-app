@@ -153,7 +153,7 @@ export type Database = {
           birth_date?: string | null
           created_at?: string
           first_name: string
-          gender?: Database["public"]["Enums"]["gender"]
+          gender: Database["public"]["Enums"]["gender"]
           id?: string
           last_name: string
         }
@@ -303,7 +303,7 @@ export type Database = {
         | "5_CENT"
         | "2_CENT"
         | "1_CENT"
-      gender: "MALE" | "FEMALE" | "NOT_SPECIFIED"
+      gender: "MALE" | "FEMALE"
       transaction_type: "DEPOSIT" | "WITHDRAWAL" | "PURCHASE"
     }
     CompositeTypes: {
@@ -441,7 +441,7 @@ export const Constants = {
         "2_CENT",
         "1_CENT",
       ],
-      gender: ["MALE", "FEMALE", "NOT_SPECIFIED"],
+      gender: ["MALE", "FEMALE"],
       transaction_type: ["DEPOSIT", "WITHDRAWAL", "PURCHASE"],
     },
   },

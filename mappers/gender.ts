@@ -7,8 +7,6 @@ export const mapDbGenderToGender = (dbGender: Enums<"gender">): Gender => {
       return Gender.MALE;
     case "FEMALE":
       return Gender.FEMALE;
-    case "NOT_SPECIFIED":
-      return Gender.NOT_SPECIFIED;
     default:
       throw new Error(`Unknown gender: ${dbGender}`);
   }

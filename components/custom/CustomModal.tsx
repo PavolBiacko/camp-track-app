@@ -65,7 +65,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
               action="background"
               variant="combined"
               handlePress={handleCloseModal}
-              containerStyles="rounded-xl py-3 w-full"
+              containerStyles="rounded-xl py-3 w-full mt-4"
               textStyles="text-2xl"
             />
           )}

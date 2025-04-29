@@ -38,7 +38,7 @@ const FinanceTransactionLine = (props: FinanceTransactionLineProps) => {
         <Badge className={`rounded-xl ${badgeStyles}`}>
           <BadgeText className='text-typography-900 font-pbold text-sm px-2'>{badgeText}</BadgeText>
         </Badge>
-        <Text className={`font-pbold text-4xl text-${colorStyle}`}>{amount} €</Text>
+        <Text className={`font-pbold text-3xl text-${colorStyle}`}>{amount.toFixed(2)} €</Text>
       </View>
     </TouchableOpacity>
   )
