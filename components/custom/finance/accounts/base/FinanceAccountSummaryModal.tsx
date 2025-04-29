@@ -27,7 +27,7 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
       // Should be as atomic transaction in database
       await updateAccountBalance(newBalance);
       await updateCashRegister(updatedCounts);
-      await createTransaction(transactionData)
+      await createTransaction(transactionData);
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

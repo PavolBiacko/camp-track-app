@@ -123,6 +123,11 @@ export type FinanceBuffetSummaryProps = {
   actionAmounts: LocalBuffetActionAmounts
 }
 
+export type FinanceBuffetSummaryLineProps = {
+  child: Child,
+  actionAmount: number,
+}
+
 export type FinanceBuffetModalProps = ModalBasicProps & FinanceBuffetSummaryProps;
 
 
