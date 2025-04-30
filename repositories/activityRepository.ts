@@ -91,7 +91,7 @@ const deleteActivityById = async (id: number): Promise<void> => {
   }
 };
 
-export const scheduleRepository = {
+export const activityRepository = {
   readActivitiesByDate,
   readActivityById,
   createActivity,

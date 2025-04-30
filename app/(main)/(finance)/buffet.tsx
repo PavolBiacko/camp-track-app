@@ -2,7 +2,7 @@ import CustomButton from '@/components/custom/CustomButton';
 import FinanceBuffetModal from '@/components/custom/finance/buffet/FinanceBuffetModal';
 import FormField from '@/components/custom/FormField';
 import Loading from '@/components/custom/Loading';
-import { useChildrenByLeader } from '@/hooks/models/useFinance';
+import { useChildrenByLeader } from '@/hooks/models/useChildren';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { FinanceBuffetData, FinanceBuffetParams, LocalBuffetActionAmounts } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';

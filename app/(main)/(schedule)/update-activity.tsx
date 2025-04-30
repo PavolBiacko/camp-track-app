@@ -1,7 +1,7 @@
 import CustomButton from '@/components/custom/CustomButton'
 import Loading from '@/components/custom/Loading'
 import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
-import { useActivity, useDeleteActivity, useUpdateActivity } from '@/hooks/models/useSchedule'
+import { useActivity, useDeleteActivity, useUpdateActivity } from '@/hooks/models/useActivities'
 import { mapDateTimeToString } from '@/mappers/datetime'
 import { ActivityUpdate } from '@/types/models/activities'
 import { ScheduleParams } from '@/types/schedule'

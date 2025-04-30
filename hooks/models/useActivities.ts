@@ -1,11 +1,11 @@
-import { scheduleRepository } from "@/repositories/scheduleRepository";
+import { activityRepository } from "@/repositories/activityRepository";
 import { ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useActivitiesByDay = (date: Date) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['activities', date],
-    queryFn: async () => await scheduleRepository.readActivitiesByDate(date),
+    queryFn: async () => await activityRepository.readActivitiesByDate(date),
   });
   return { activities: data, isLoading, isError };
 }
@@ -13,7 +13,7 @@ export const useActivitiesByDay = (date: Date) => {
 export const useActivity = (id: number) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['activities', id],
-    queryFn: async () => await scheduleRepository.readActivityById(id),
+    queryFn: async () => await activityRepository.readActivityById(id),
   });
   return { activity: data, isLoading, isError };
 }
@@ -23,7 +23,7 @@ export const useCreateActivity = () => {
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: async (data: ActivityCreate) => {
-      return await scheduleRepository.createActivity(data);
+      return await activityRepository.createActivity(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -37,7 +37,7 @@ export const useUpdateActivity = (id: number) => {
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: async (data: ActivityUpdate) => {
-      return await scheduleRepository.updateActivityById(id, data);
+      return await activityRepository.updateActivityById(id, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -51,7 +51,7 @@ export const useDeleteActivity = (id: number) => {
 
   const { mutateAsync, isPending, isError } = useMutation({
     mutationFn: async () => {
-      return await scheduleRepository.deleteActivityById(id);
+      return await activityRepository.deleteActivityById(id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['activities'] });

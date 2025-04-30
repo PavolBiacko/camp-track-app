@@ -1,7 +1,7 @@
 import { useScheduleContext } from '@/components/custom/context/ScheduleContext'
 import Loading from '@/components/custom/Loading'
 import ScheduleLine from '@/components/custom/schedule/base/ScheduleLine'
-import { useActivitiesByDay } from '@/hooks/models/useSchedule'
+import { useActivitiesByDay } from '@/hooks/models/useActivities'
 import { useCurrentTime } from '@/hooks/useCurrentTime'
 import { getActiveActivityIndex, getActivityStatus } from '@/utils/schedule'
 import { ScrollView } from 'react-native'

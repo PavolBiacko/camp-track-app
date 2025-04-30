@@ -1,6 +1,6 @@
 import { useScheduleContext } from '@/components/custom/context/ScheduleContext'
 import ScheduleForm from '@/components/custom/schedule/ScheduleForm'
-import { useCreateActivity } from '@/hooks/models/useSchedule'
+import { useCreateActivity } from '@/hooks/models/useActivities'
 import { useAuth } from '@/hooks/useAuth'
 import { mapDateTimeToString } from '@/mappers/datetime'
 import { UserRoles } from '@/types/enums/roles'

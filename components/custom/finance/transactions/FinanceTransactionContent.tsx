@@ -1,7 +1,7 @@
 import { useFinanceTransactionContext } from '@/components/custom/context/FinanceTransactionContext';
 import FinanceTransactionLine from '@/components/custom/finance/transactions/base/FinanceTransactionLine';
 import Loading from '@/components/custom/Loading';
-import { useTransactionsInDateRange } from '@/hooks/models/useFinance';
+import { useTransactionsInDateRange } from '@/hooks/models/useTransactions';
 import { ScrollView, Text, View } from 'react-native';
 
 const FinanceAccountContent = () => {

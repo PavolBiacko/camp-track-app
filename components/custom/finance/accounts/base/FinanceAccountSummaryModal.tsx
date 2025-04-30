@@ -2,7 +2,9 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
-import { useCreateTransaction, useUpdateAccountBalanceWithLeader, useUpdateCashRegisterByLeader } from '@/hooks/models/useFinance';
+import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
+import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
+import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
 import { getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
@@ -45,7 +47,7 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       handleConfirm={handleConfirm}
-      containerStyles='w-11/12 h-2/3'>
+      containerStyles='w-11/12 h-[70%]'>
       <FinanceAccountActionSummary type={type} />
     </CustomModal>
   )

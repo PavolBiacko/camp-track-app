@@ -3,7 +3,7 @@ import FinanceAccountContent from '@/components/custom/finance/accounts/FinanceA
 import FinanceAccountFooter from '@/components/custom/finance/accounts/FinanceAccountFooter';
 import FinanceAccountHeader from '@/components/custom/finance/accounts/FinanceAccountHeader';
 import Loading from '@/components/custom/Loading';
-import { useChildByIdWithLeader } from '@/hooks/models/useFinance';
+import { useChildByIdWithLeader } from '@/hooks/models/useChildren';
 import { ChildAccountParams } from '@/types/finance';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';

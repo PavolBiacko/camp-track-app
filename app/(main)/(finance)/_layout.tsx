@@ -1,6 +1,6 @@
 import { FinanceOverviewProvider } from '@/components/custom/context/FinanceOverviewContext';
 import Loading from '@/components/custom/Loading';
-import { useCashRegisterByLeader } from '@/hooks/models/useFinance';
+import { useCashRegisterByLeader } from '@/hooks/models/useCashRegister';
 import { useAuth } from '@/hooks/useAuth';
 import { FinanceScreenConfigs } from '@/types/finance';
 import { getStackScreenOptions } from '@/utils/ui';
