@@ -101,45 +101,6 @@ export type Database = {
           },
         ]
       }
-      child_group_link: {
-        Row: {
-          account_balance: number
-          child_id: string
-          created_at: string
-          group_id: number
-          id: number
-        }
-        Insert: {
-          account_balance?: number
-          child_id: string
-          created_at?: string
-          group_id: number
-          id?: number
-        }
-        Update: {
-          account_balance?: number
-          child_id?: string
-          created_at?: string
-          group_id?: number
-          id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "child_group_link_child_id_fkey"
-            columns: ["child_id"]
-            isOneToOne: false
-            referencedRelation: "children"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "child_group_link_group_id_fkey"
-            columns: ["group_id"]
-            isOneToOne: false
-            referencedRelation: "groups"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       children: {
         Row: {
           birth_date: string | null
@@ -166,6 +127,45 @@ export type Database = {
           last_name?: string
         }
         Relationships: []
+      }
+      group_accounts: {
+        Row: {
+          account_balance: number
+          child_id: string
+          created_at: string
+          group_id: number
+          id: number
+        }
+        Insert: {
+          account_balance?: number
+          child_id: string
+          created_at?: string
+          group_id: number
+          id?: number
+        }
+        Update: {
+          account_balance?: number
+          child_id?: string
+          created_at?: string
+          group_id?: number
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_accounts_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_accounts_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       groups: {
         Row: {
@@ -212,21 +212,21 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
-          child_id: string | null
+          child_id: string
           created_at: string
           id: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Insert: {
           amount: number
-          child_id?: string | null
+          child_id: string
           created_at?: string
           id?: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Update: {
           amount?: number
-          child_id?: string | null
+          child_id?: string
           created_at?: string
           id?: number
           type?: Database["public"]["Enums"]["transaction_type"]

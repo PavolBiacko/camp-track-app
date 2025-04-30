@@ -23,7 +23,7 @@ export type ChildBalanceUpdate = {
 }
 
 // DB complex type
-export type DbChildGroupLinkWithChild = Tables<"child_group_link"> & {
+export type DbChildGroupLinkWithChild = Tables<"group_accounts"> & {
   children: {
     id: string;
     first_name: string;

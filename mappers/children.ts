@@ -10,11 +10,11 @@ export const mapDbChildGroupLinkWithChildToChild = (dbChildGroup: DbChildGroupLi
     gender: mapDbGenderToGender(dbChildGroup.children.gender), // Map to Gender enum (assumes DB values match enum)
     groupId: dbChildGroup.group_id,
     accountBalance: dbChildGroup.account_balance,
-    createdAt: new Date(dbChildGroup.created_at) // Assuming created_at is in the child_group_link table (not whole child creaeted_at)
+    createdAt: new Date(dbChildGroup.created_at) // Assuming created_at is in the group_accounts table (not whole child creaeted_at)
   };
 };
 
-// export const mapAccountUpdateToDbChildGroup = (groupId: number, accountUpdate: ChildBalanceUpdate): TablesInsert<"child_group_link"> => {
+// export const mapAccountUpdateToDbChildGroup = (groupId: number, accountUpdate: ChildBalanceUpdate): TablesInsert<"group_accounts"> => {
 //   return {
 //     group_id: groupId,
 //     child_id: accountUpdate.childId,
