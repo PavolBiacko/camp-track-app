@@ -2,13 +2,16 @@ import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister'
 import { Denominations } from '@/types/enums/finance';
 import { CashRegisterRecord, FinanceAccountContextType, FinanceAccountProviderProps } from '@/types/finance';
 import { multiplyDecimals } from '@/utils/decimal';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
 
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
 
 export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountProviderProps>) => {
 
-  const [childAccountBalance, _setChildAccountBalance] = useState<number>(props.initialBalance);
+  const childAccountBalance = useMemo(() => {
+    return props.initialBalance;
+  }, [props.initialBalance]);
+
   const [counts, setCounts] = useState<CashRegisterRecord>(
     mapCashRegisterDataToCashRegisterRecord(undefined)  // empty
   );

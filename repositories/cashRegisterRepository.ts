@@ -1,16 +1,16 @@
 import { mapCashRegisterRecordToDbCashRegister, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
+import { groupRepository } from "@/repositories/groupRepository";
 import supabase from "@/supabase/client";
 import { Tables } from "@/supabase/types";
 import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
-import { getGroupByLeaderForCurrentCampSession } from "@/utils/supabase";
 import { AuthError } from "@supabase/supabase-js";
 
 const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[] | null> => {
   try {
 
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;
@@ -34,7 +34,7 @@ const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[
 const updateCashRegisterByLeader = async (leaderId: string, counts: CashRegisterRecord): Promise<CashRegister[] | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;

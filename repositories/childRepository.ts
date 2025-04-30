@@ -1,20 +1,20 @@
 import { mapDbChildGroupLinkWithChildToChild } from "@/mappers/children";
+import { groupRepository } from "@/repositories/groupRepository";
 import supabase from "@/supabase/client";
 import { Child, ChildBalanceUpdate } from "@/types/models/children";
-import { getGroupByLeaderForCurrentCampSession } from "@/utils/supabase";
 import { AuthError } from "@supabase/supabase-js";
 
 const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;
 
     // Step 2: Fetch all children in that group
     const { data: childrenData, error: childrenError } = await supabase
-      .from('child_group_link')
+      .from('group_accounts')
       .select(`
         id,
         group_id,
@@ -48,14 +48,14 @@ const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> =
 const readChildByIdWithLeader = async (childId: string, leaderId: string): Promise<Child | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;
 
     // Step 2: Fetch all children in that group
     const { data: childData, error: childError } = await supabase
-      .from('child_group_link')
+      .from('group_accounts')
       .select(`
         id,
         group_id,
@@ -86,14 +86,14 @@ const readChildByIdWithLeader = async (childId: string, leaderId: string): Promi
 const updateAccountBalanceByIdWithLeader = async (childId: string, leaderId: string, accountBalance: number): Promise<Child | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;
 
     // Step 2: Update the account balance of the child
     const { data: childData, error: childError } = await supabase
-      .from('child_group_link')
+      .from('group_accounts')
       .update({ account_balance: accountBalance })
       .eq('child_id', childId)
       .eq('group_id', groupId)
@@ -114,7 +114,7 @@ const updateAccountBalanceByIdWithLeader = async (childId: string, leaderId: str
       .single();
 
     if (childError) throw childError;
-    if (!childData) return null; // No matching child_group_link found
+    if (!childData) return null; // No matching group_accounts found
 
     return mapDbChildGroupLinkWithChildToChild(childData);
   } catch (error: any) {
@@ -126,7 +126,7 @@ const updateAccountBalanceByIdWithLeader = async (childId: string, leaderId: str
 const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpdates: ChildBalanceUpdate[]): Promise<Child[] | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
-    const group = await getGroupByLeaderForCurrentCampSession(leaderId);
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
 
     const groupId = group.id;
@@ -135,7 +135,7 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
     // Step 2: Update the account balances of the children in a single query
     const updatePromises = accountUpdates.map(accountUpdate =>
       supabase
-        .from('child_group_link')
+        .from('group_accounts')
         .update({ account_balance: accountUpdate.accountBalance })
         .eq('child_id', accountUpdate.childId)
         .eq('group_id', groupId)
@@ -146,9 +146,9 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
     const errors = updateResults.filter(result => result.error);
     if (errors.length > 0) throw errors[0].error; // Throw the first error if any
 
-    // Step 4: Fetch the updated child_group_link records with child details
+    // Step 4: Fetch the updated group_accounts records with child details
     const { data: childData, error: childError } = await supabase
-      .from('child_group_link')
+      .from('group_accounts')
       .select(`
         id,
         group_id,
@@ -167,7 +167,7 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
       .eq('group_id', groupId);
 
     if (childError) throw childError;
-    if (!childData) return null; // No matching child_group_link found
+    if (!childData) return null; // No matching group_accounts found
 
     return childData.map(child => mapDbChildGroupLinkWithChildToChild(child));
   } catch (error: any) {
