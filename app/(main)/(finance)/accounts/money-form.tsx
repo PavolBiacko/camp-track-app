@@ -30,10 +30,10 @@ const MoneyForm = () => {
 
   return (
     <View className='flex-1'>
-      <FinanceAccountProvider initialBalance={child.accountBalance} type={type}>
-        <FinanceAccountHeader type={type} />
-        <FinanceAccountContent type={type} />
-        <FinanceAccountFooter type={type} childId={child.id} />
+      <FinanceAccountProvider type={type} initialBalance={child.accountBalance}>
+        <FinanceAccountHeader />
+        <FinanceAccountContent />
+        <FinanceAccountFooter childId={child.id} />
       </FinanceAccountProvider>
     </View>
 

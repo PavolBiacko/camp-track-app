@@ -12,18 +12,16 @@ type DenominationsType = {
   denomination: Denominations;
 }
 
-export type CashRegisterRecord = Record<Denominations, number>;
-
-export type FinanceOverviewLineProps = DenominationsType;
-
 export type FinanceScreenConfigs = {
   name: string;
   title: string;
 }
 
-export type FinanceAccountContentLineProps = DenominationsType & {
-  type: AccountActionType;
-}
+export type CashRegisterRecord = Record<Denominations, number>;
+
+export type FinanceOverviewLineProps = DenominationsType;
+
+export type FinanceAccountContentLineProps = DenominationsType;
 
 export type FinanceOverviewContextType = {
   totalAmount: number;
@@ -40,6 +38,7 @@ export type FinanceAccountContextType = {
   counts: CashRegisterRecord;
   updateCount: (denomination: Denominations, count: number) => void;
   resetDenominations: () => void;
+  type: AccountActionType
 }
 
 export type FinanceAccountProviderProps = {
@@ -47,16 +46,7 @@ export type FinanceAccountProviderProps = {
   initialBalance: number;
 }
 
-export type FinanceAccountHeaderProps = {
-  type: AccountActionType;
-}
-
-export type FinanceAccountContentProps = {
-  type: AccountActionType;
-}
-
 export type FinanceAccountFooterProps = {
-  type: AccountActionType;
   childId: string;
 }
 
@@ -83,11 +73,6 @@ export type FinanceAccountActionModalProps = ModalBasicProps & {
 export type FinanceAccountSummaryModalProps = ModalBasicProps & {
   childId: string,
   leaderId: string,
-  type: AccountActionType,
-}
-
-export type FinanceAccountActionSummaryProps = {
-  type: AccountActionType,
 }
 
 export type FinanceTransactionHeaderData = {

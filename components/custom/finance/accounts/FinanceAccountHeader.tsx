@@ -1,11 +1,10 @@
 import { useFinanceAccountContext } from '@/components/custom/context/FinanceAccountContext';
 import CustomButton from '@/components/custom/CustomButton';
-import { FinanceAccountHeaderProps } from '@/types/finance';
 import { Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
-const FinanceAccountHeader = ({ type }: FinanceAccountHeaderProps) => {
-  const { childAccountBalance, actionAmount } = useFinanceAccountContext();
+const FinanceAccountHeader = () => {
+  const { childAccountBalance, actionAmount, type } = useFinanceAccountContext();
 
   return (
     <View className="border-y border-outline-300 justify-center items-center pt-3 pb-1 gap-3">

@@ -2,19 +2,18 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import { ArrowRightIcon, Icon } from '@/components/ui/icon';
 import { Denominations } from '@/types/enums/finance';
-import { FinanceAccountActionSummaryProps } from '@/types/finance';
 import { getMoneyImage, getMoneyType } from '@/utils/finance';
 import React, { useMemo } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
-const FinanceAccountActionSummary = (props: FinanceAccountActionSummaryProps) => {
-  const { childAccountBalance, actionAmount, counts } = useFinanceAccountContext();
+const FinanceAccountActionSummary = () => {
+  const { childAccountBalance, actionAmount, counts, type } = useFinanceAccountContext();
   const { quantities } = useFinanceOverviewContext();
 
   const result = useMemo(() => {
-    return (props.type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount
-  }, [props.type, childAccountBalance, actionAmount]);
+    return (type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount
+  }, [type, childAccountBalance, actionAmount]);
 
   return (
     <>
@@ -25,7 +24,7 @@ const FinanceAccountActionSummary = (props: FinanceAccountActionSummaryProps) =>
         )}>
         <Text className="text-typography-950 text-2xl font-pbold mt-1 border-b border-outline-500">
           {childAccountBalance.toFixed(2)} €
-          {(props.type === "increment") ? " + " : " - "}
+          {(type === "increment") ? " + " : " - "}
           {actionAmount.toFixed(2)} €
         </Text>
         <Text className="text-secondary-500 text-2xl font-pbold mt-1">
@@ -50,7 +49,7 @@ const FinanceAccountActionSummary = (props: FinanceAccountActionSummaryProps) =>
                 />
                 <Icon as={ArrowRightIcon} size='xl' />
                 <Text className="text-typography-950 text-2xl font-pbold mt-1">
-                  {(props.type === "increment") ? `${count} ×` : `${count}/${quantities[parseFloat(denomination) as Denominations]}`}
+                  {(type === "increment") ? `${count} ×` : `${count}/${quantities[parseFloat(denomination) as Denominations]}`}
                 </Text>
               </View>
             ))}

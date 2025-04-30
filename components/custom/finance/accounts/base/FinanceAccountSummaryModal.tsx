@@ -11,9 +11,9 @@ import { getTransactionDirection, getTransactionObject, processCountsWithQuantit
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
-const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, setModalVisible }: FinanceAccountSummaryModalProps) => {
+const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalVisible }: FinanceAccountSummaryModalProps) => {
   const { quantities } = useFinanceOverviewContext();
-  const { childAccountBalance, actionAmount, counts, resetDenominations } = useFinanceAccountContext();
+  const { childAccountBalance, actionAmount, counts, resetDenominations, type } = useFinanceAccountContext();
 
   const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
   const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
@@ -50,7 +50,7 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
       setModalVisible={setModalVisible}
       handleConfirm={handleConfirm}
       containerStyles='w-11/12 h-[70%]'>
-      <FinanceAccountActionSummary type={type} />
+      <FinanceAccountActionSummary />
     </CustomModal>
   )
 }

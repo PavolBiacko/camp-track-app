@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { View } from 'react-native';
 
 const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
-  const { actionAmount } = useFinanceAccountContext();
+  const { actionAmount, type } = useFinanceAccountContext();
   const [modalVisible, setModalVisible] = useState(false);
   const { user } = useAuth();
 
@@ -19,7 +19,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
     <>
       <View className="border-t border-outline-300 justify-center items-center py-4">
         <CustomButton
-          title={(props.type === "increment") ? "Pridanie peňazí" : "Vrátenie peňazí"}
+          title={(type === "increment") ? "Pridanie peňazí" : "Vrátenie peňazí"}
           action="primary"
           handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
@@ -28,7 +28,6 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
         />
       </View>
       <FinanceAccountSummaryModal
-        type={props.type}
         childId={props.childId}
         leaderId={user.id}
         modalVisible={modalVisible}
