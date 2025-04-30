@@ -1,10 +1,13 @@
+import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
 import FinanceBuffetSummaryLine from '@/components/custom/finance/buffet/FinanceBuffetSummaryLine';
 import { FinanceBuffetSummaryProps } from '@/types/finance';
+import { getTotalAmount } from '@/utils/finance';
 import { ScrollView, Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
-const FinanceBuffetSummary = ({ children, actionAmounts }: FinanceBuffetSummaryProps) => {
-  const totalAmount = Object.values(actionAmounts).reduce((sum, amount) => sum + amount, 0);
+const FinanceBuffetSummary = ({ children }: FinanceBuffetSummaryProps) => {
+  const { actionAmounts } = useFinanceBuffetContext()
+  const totalAmount = getTotalAmount(actionAmounts)
 
   return (
     <>

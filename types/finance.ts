@@ -106,6 +106,11 @@ export type FinanceTransactionLineProps = {
   transaction: TransactionComplex;
 }
 
+export type FinanceBuffetContextType = {
+  actionAmounts: LocalBuffetActionAmounts;
+  setActionAmounts: (actionAmounts: LocalBuffetActionAmounts) => void;
+}
+
 export type FinanceBuffetParams = {
   leaderId: string,
 }
@@ -119,8 +124,7 @@ export type FinanceBuffetData = {
 }
 
 export type FinanceBuffetSummaryProps = {
-  children: Child[]
-  actionAmounts: LocalBuffetActionAmounts
+  children: Child[],
 }
 
 export type FinanceBuffetSummaryLineProps = {
@@ -129,5 +133,3 @@ export type FinanceBuffetSummaryLineProps = {
 }
 
 export type FinanceBuffetModalProps = ModalBasicProps & FinanceBuffetSummaryProps;
-
-

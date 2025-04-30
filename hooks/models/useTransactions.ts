@@ -23,3 +23,17 @@ export const useCreateTransaction = () => {
   });
   return { createTransaction: mutateAsync, isError };
 }
+
+export const useCreateManyTransactions = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (transactions: TransactionCreate[]) => {
+      return await transactionRepository.createManyTransactions(transactions);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['transactions'] });
+    }
+  });
+  return { createManyTransactions: mutateAsync, isError };
+}

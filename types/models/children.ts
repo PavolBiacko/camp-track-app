@@ -17,6 +17,12 @@ export type ChildName = {
   lastName: string;
 }
 
+export type ChildBalanceUpdate = {
+  childId: string,
+  accountBalance: number,
+}
+
+// DB complex type
 export type DbChildGroupLinkWithChild = Tables<"child_group_link"> & {
   children: {
     id: string;

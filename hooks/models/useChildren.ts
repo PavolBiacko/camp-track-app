@@ -1,4 +1,5 @@
 import { childRepository } from "@/repositories/childRepository";
+import { ChildBalanceUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useChildrenByLeader = (leaderId: string) => {
@@ -29,4 +30,18 @@ export const useUpdateAccountBalanceWithLeader = (childId: string, leaderId: str
     }
   });
   return { updateAccountBalance: mutateAsync, isError };
+}
+
+export const useUpdateManyAccountBalancesWithLeader = (leaderId: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (accountUpdates: ChildBalanceUpdate[]) => {
+      return await childRepository.updateManyAccountBalancesWithLeader(leaderId, accountUpdates);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] });
+    }
+  });
+  return { updateManyAccountBalances: mutateAsync, isError };
 }

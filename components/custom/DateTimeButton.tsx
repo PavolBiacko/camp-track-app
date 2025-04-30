@@ -3,13 +3,16 @@ import { dateformats } from '@/constants'
 import { mapDateTimeToString, mapStringToDateTime } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
 import { formatISOLocalToHumanReadable } from '@/utils/dates'
+import { useColorScheme } from 'nativewind'
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
+import { getRGBColor } from '../ui/gluestack-ui-provider/colors'
 
 const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) => {
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const { colorScheme } = useColorScheme()
 
   const openDatePicker = () => {
     setDatePickerVisible(true);
@@ -36,7 +39,20 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
             isDisabled={props.isDisabled}
           />
           <DateTimePickerModal
+            display={(props.mode === "time" ? "spinner" : "default")}
+            {...(props.mode === "time" && {
+              negativeButton: {
+                label: "Zrušiť",
+                textColor: getRGBColor("error", "500", colorScheme),
+              },
+              positiveButton: {
+                label: "Ok",
+                textColor: getRGBColor("success", "500", colorScheme),
+              },
+            })}
             isVisible={isDatePickerVisible}
+            minimumDate={props.minimumDate}
+            maximumDate={props.maximumDate}
             mode={props.mode}
             date={mapStringToDateTime(value, props.mode)}
             onConfirm={
@@ -48,8 +64,6 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
             }
             onCancel={handleCancel}
             locale="sk-SK"
-            confirmTextIOS="Potvrdiť"
-            cancelTextIOS="Zrušiť"
           />
         </View>
       )}

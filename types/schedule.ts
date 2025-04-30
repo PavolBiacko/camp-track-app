@@ -1,6 +1,6 @@
-import { UserRolesProps } from "./base";
-import { ActivityStatus } from "./enums/schedule";
-import { Activity } from "./models/activities";
+import { UserRolesProps } from "@/types/base";
+import { ActivityStatus } from "@/types/enums/schedule";
+import { Activity } from "@/types/models/activities";
 
 export type ScheduleLineProps = {
   activity: Activity,

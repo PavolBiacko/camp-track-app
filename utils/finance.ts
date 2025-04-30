@@ -1,6 +1,7 @@
 import { images } from "@/constants";
 import { Denominations, TransactionType } from "@/types/enums/finance";
-import { AccountActionType, CashRegisterRecord, MoneyType } from "@/types/finance";
+import { AccountActionType, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
+import { Child, ChildBalanceUpdate } from "@/types/models/children";
 import { TransactionCreate } from "@/types/models/transactions";
 import { ImageProps } from "react-native";
 
@@ -138,6 +139,16 @@ export const getTransactionObject = (childId: string, actionAmount: number, tran
   }
 }
 
+export const getManyTransactionObjectsOfType = (
+  children: Child[],
+  actionAmounts: LocalBuffetActionAmounts,
+  transactionType: TransactionType
+): TransactionCreate[] => {
+  return children.map((child) => {
+    return getTransactionObject(child.id, actionAmounts[child.id] || 0, transactionType);
+  });
+}
+
 export const getTransactionDirection = (transactionType: TransactionType): number => {
   switch (transactionType) {
     case TransactionType.DEPOSIT:
@@ -148,4 +159,20 @@ export const getTransactionDirection = (transactionType: TransactionType): numbe
     default:
       throw new Error("Invalid transaction type");
   }
+}
+
+export const getManyChildBalanceObjects = (children: Child[], actionAmounts: LocalBuffetActionAmounts): ChildBalanceUpdate[] => {
+  return children
+    .filter(child => child.id in actionAmounts)
+    .map(child => {
+      const newBalance = child.accountBalance - actionAmounts[child.id];
+      return {
+        childId: child.id,
+        accountBalance: newBalance,
+      };
+    });
+}
+
+export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts) => {
+  return Object.values(actionAmounts).reduce((sum, amount) => sum + amount, 0);
 }

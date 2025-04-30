@@ -26,6 +26,7 @@ const FinanceTransactionHeader = () => {
         formDataTypeKey="dateFrom"
         control={control}
         mode="date"
+        maximumDate={dateTo}
         action="tertiary"
         handleSubmit={handleSubmit}
         titleStyles='text-2xl ml-3'
@@ -39,6 +40,7 @@ const FinanceTransactionHeader = () => {
         formDataTypeKey="dateTo"
         control={control}
         mode="date"
+        minimumDate={dateFrom}
         action="tertiary"
         handleSubmit={handleSubmit}
         titleStyles='text-2xl ml-3'

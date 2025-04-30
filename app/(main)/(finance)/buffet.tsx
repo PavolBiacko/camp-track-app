@@ -1,10 +1,10 @@
+import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
 import CustomButton from '@/components/custom/CustomButton';
 import FinanceBuffetModal from '@/components/custom/finance/buffet/FinanceBuffetModal';
 import FormField from '@/components/custom/FormField';
 import Loading from '@/components/custom/Loading';
 import { useChildrenByLeader } from '@/hooks/models/useChildren';
-import useLocalStorage from '@/hooks/useLocalStorage';
-import { FinanceBuffetData, FinanceBuffetParams, LocalBuffetActionAmounts } from '@/types/finance';
+import { FinanceBuffetData, FinanceBuffetParams } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
 import { getLongerString } from '@/utils/strings';
 import { getProperTextSizeForChildName } from '@/utils/ui';
@@ -20,7 +20,7 @@ const Buffet = () => {
   const navigation = useNavigation();
   const { leaderId } = useLocalSearchParams<FinanceBuffetParams>();
   const { children, isLoading, isError } = useChildrenByLeader(leaderId);
-  const [localActionAmounts, setLocalActionAmounts] = useLocalStorage<LocalBuffetActionAmounts>("actionAmounts", {});
+  const { actionAmounts, setActionAmounts } = useFinanceBuffetContext();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const { control, register, handleSubmit, watch, reset, formState: { errors } } = useForm<FinanceBuffetData>({
@@ -43,7 +43,7 @@ const Buffet = () => {
   const textStyles = "text-center font-pextrabold";
 
   const currentChild = children[currentIndex];
-  const actionAmount = localActionAmounts[currentChild.id] || 0;
+  const actionAmount = actionAmounts[currentChild.id] || 0;
 
   const handleNext = () => {
     if (currentIndex < children.length - 1) {
@@ -57,18 +57,18 @@ const Buffet = () => {
     }
   };
 
-  const saveAmountLocally = (data: FinanceBuffetData) => {
+  const saveActionAmountLocally = (data: FinanceBuffetData) => {
     if (data.actionAmount! > currentChild.accountBalance) {
       Alert.alert(
-        "Zamietnutá akcia",
+        "Zamietnutá akcia!",
         `Dieťa má na účte: ${currentChild.accountBalance.toFixed(2)} €.\nZadaná čiastka: ${data.actionAmount!.toFixed(2)} €.`
       );
       return;
     }
-    setLocalActionAmounts((prev) => ({
-      ...prev,
-      [currentChild.id]: Number(data.actionAmount), // currentChild.id is a string, data.actionAmount is a number
-    }));
+    setActionAmounts({
+      ...actionAmounts,
+      [currentChild.id]: Number(data.actionAmount),
+    });
     reset();
   };
 
@@ -127,7 +127,7 @@ const Buffet = () => {
           <CustomButton
             title="Uložiť čiastku"
             action="secondary"
-            handlePress={handleSubmit(saveAmountLocally)}
+            handlePress={handleSubmit(saveActionAmountLocally)}
             containerStyles="rounded-3xl w-full h-16"
             textStyles="text-2xl"
             isDisabled={watch("actionAmount") === null || watch("actionAmount")!.toString().trim().length === 0}
@@ -145,7 +145,6 @@ const Buffet = () => {
       </ScrollView>
       <FinanceBuffetModal
         children={children}
-        actionAmounts={localActionAmounts}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />

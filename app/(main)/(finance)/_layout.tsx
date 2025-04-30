@@ -17,8 +17,8 @@ const financeScreenConfigs: FinanceScreenConfigs[] = [
 ];
 
 const FinanceLayout = () => {
-  const { colorScheme } = useColorScheme();
   const { user } = useAuth();
+  const { colorScheme } = useColorScheme();
   const { cashRegister, isLoading, isError } = useCashRegisterByLeader(user?.id!);  // id loaded in tabs layout
 
   if (!cashRegister || isLoading || isError) {

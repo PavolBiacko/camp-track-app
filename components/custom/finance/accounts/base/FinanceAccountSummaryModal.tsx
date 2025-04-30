@@ -7,7 +7,7 @@ import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
-import { getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
+import { getTransactionDirection, getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
@@ -21,8 +21,8 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
 
   const handleConfirm = async () => {
     try {
-      const newBalance = (type === "increment") ? childAccountBalance + actionAmount : childAccountBalance - actionAmount;
       const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
+      const newBalance = childAccountBalance + (actionAmount * getTransactionDirection(transactionType))
       const updatedCounts = processCountsWithQuantities(quantities, counts, type);
       const transactionData = getTransactionObject(childId, actionAmount, transactionType);
 
@@ -30,6 +30,8 @@ const FinanceAccountSummaryModal = ({ type, childId, leaderId, modalVisible, set
       await updateAccountBalance(newBalance);
       await updateCashRegister(updatedCounts);
       await createTransaction(transactionData);
+
+      Alert.alert("Hotovo!", `${(transactionType === TransactionType.DEPOSIT) ? "Pridané" : "Vrátené"} peniaze : ${actionAmount} €.`);
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

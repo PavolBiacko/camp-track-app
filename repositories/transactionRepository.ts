@@ -6,15 +6,32 @@ import { AuthError } from "@supabase/supabase-js";
 const createTransaction = async (transaction: TransactionCreate): Promise<number> => {
   try {
     const newMappedTransaction = mapTransactionCreateToDbTransaction(transaction);
-    const { data, error } = await supabase
+    const { data: transactionData, error: transactionError } = await supabase
       .from('transactions')
       .insert(newMappedTransaction)
       .select()
       .single();
 
-    if (error) throw error;
+    if (transactionError) throw transactionError;
 
-    return data.id;
+    return transactionData.id;
+  } catch (error: any) {
+    // console.error('Error creating transaction:', (error as AuthError).message);
+    throw error as AuthError;
+  }
+}
+
+const createManyTransactions = async (transactions: TransactionCreate[]): Promise<number[]> => {
+  try {
+    const newMappedTransactions = transactions.map(transaction => mapTransactionCreateToDbTransaction(transaction));
+    const { data: transactionData, error: transactionError } = await supabase
+      .from('transactions')
+      .insert(newMappedTransactions)
+      .select();
+
+    if (transactionError) throw transactionError;
+
+    return transactionData.map(transaction => transaction.id);
   } catch (error: any) {
     // console.error('Error creating transaction:', (error as AuthError).message);
     throw error as AuthError;
@@ -53,5 +70,6 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
 
 export const transactionRepository = {
   createTransaction,
+  createManyTransactions,
   readTransactionsInDateRange
 }

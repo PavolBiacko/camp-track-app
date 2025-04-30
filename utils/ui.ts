@@ -137,7 +137,14 @@ export const getTransactionColorStyle = (child: ChildName | null, amount: number
   if (!child) {
     return "primary-500";
   }
-  return amount < 0 ? "error-400" : "success-500";
+
+  if (amount < 0) {
+    return "error-400";
+  } else if (amount > 0) {
+    return "success-500";
+  } else {
+    return "outline-500"
+  }
 }
 
 export const getProperTextSizeForChildName = (text: string | undefined): ClassNameValue => {
