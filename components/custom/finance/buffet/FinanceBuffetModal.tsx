@@ -2,6 +2,7 @@ import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuff
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceBuffetSummary from '@/components/custom/finance/buffet/FinanceBuffetSummary';
 import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useChildren';
+import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateManyTransactions } from '@/hooks/models/useTransactions';
 import { useAuth } from '@/hooks/useAuth';
 import { TransactionType } from '@/types/enums/finance';
@@ -16,10 +17,11 @@ const FinanceBuffetModal = ({ children, modalVisible, setModalVisible }: Finance
   const { actionAmounts, resetsActionAmounts } = useFinanceBuffetContext()
   const { createManyTransactions } = useCreateManyTransactions();
   const { updateManyAccountBalances } = useUpdateManyAccountBalancesWithLeader(user?.id!)  // id loaded in tabs layout
+  const { groupBasic } = useGroupBasicByLeader(user?.id!)  // id loaded in tabs layout
 
   const handleConfirm = async () => {
     try {
-      const buffetTransactions = getManyTransactionObjectsOfType(children, actionAmounts, TransactionType.PURCHASE);
+      const buffetTransactions = getManyTransactionObjectsOfType(groupBasic?.id!, children, actionAmounts, TransactionType.PURCHASE);
       const accountBalances = getManyChildBalanceObjects(children, actionAmounts);
 
       // Should be as atomic transaction in database

@@ -4,6 +4,7 @@ import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
 import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
 import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
+import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
@@ -16,16 +17,19 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const { quantities } = useFinanceOverviewContext();
   const { childAccountBalance, actionAmount, counts, resetDenominations, type } = useFinanceAccountContext();
 
+  const { groupBasic } = useGroupBasicByLeader(leaderId);
   const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
   const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
   const { createTransaction } = useCreateTransaction();
+
+  console.log(groupBasic?.id);
 
   const handleConfirm = async () => {
     try {
       const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
       const newBalance = addDecimals(childAccountBalance, (actionAmount * getTransactionDirection(transactionType)))
       const updatedCounts = processCountsWithQuantities(quantities, counts, type);
-      const transactionData = getTransactionObject(childId, actionAmount, transactionType);
+      const transactionData = getTransactionObject(groupBasic?.id!, childId, actionAmount, transactionType);
 
       // Should be as atomic transaction in database
       await updateCashRegister(updatedCounts);

@@ -4,6 +4,7 @@ import { DbTransactionWithChild, TransactionComplex, TransactionCreate } from "@
 
 export const mapTransactionCreateToDbTransaction = (transaction: TransactionCreate): TablesInsert<"transactions"> => {
   return {
+    group_id: transaction.groupId,
     child_id: transaction.childId,
     amount: transaction.amount,
     type: mapTransactionTypeToDbTransactionType(transaction.type),
@@ -13,6 +14,7 @@ export const mapTransactionCreateToDbTransaction = (transaction: TransactionCrea
 export const mapDbTransactionToTransactionComplex = (dbTransaction: DbTransactionWithChild): TransactionComplex => {
   return {
     id: dbTransaction.id,
+    groupId: dbTransaction.group_id,
     child: dbTransaction.children
       ? {
         firstName: dbTransaction.children.first_name,

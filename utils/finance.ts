@@ -131,8 +131,14 @@ export const isIncrementAvailable = (
   return true;
 };
 
-export const getTransactionObject = (childId: string, actionAmount: number, transactionType: TransactionType): TransactionCreate => {
+export const getTransactionObject = (
+  groupId: number,
+  childId: string,
+  actionAmount: number,
+  transactionType: TransactionType
+): TransactionCreate => {
   return {
+    groupId,
     childId,
     amount: actionAmount * getTransactionDirection(transactionType),
     type: transactionType,
@@ -140,12 +146,13 @@ export const getTransactionObject = (childId: string, actionAmount: number, tran
 }
 
 export const getManyTransactionObjectsOfType = (
+  groupId: number,
   children: Child[],
   actionAmounts: LocalBuffetActionAmounts,
   transactionType: TransactionType
 ): TransactionCreate[] => {
   return children.map((child) => {
-    return getTransactionObject(child.id, actionAmounts[child.id] || 0, transactionType);
+    return getTransactionObject(groupId, child.id, actionAmounts[child.id] || 0, transactionType);
   });
 }
 

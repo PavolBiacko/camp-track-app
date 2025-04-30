@@ -3,7 +3,7 @@ import supabase from "@/supabase/client";
 import { GroupBasic } from "@/types/models/groups";
 import { AuthError } from "@supabase/supabase-js";
 
-const readGroupNumberByLeader = async (leaderId: string): Promise<number | null> => {
+const readGroupNumberByLeader = async (leaderId: string): Promise<number | null> => {  // TODO - current camp   session
   try {
     const { data: groupNumber, error: groupError } = await supabase
       .from('groups')

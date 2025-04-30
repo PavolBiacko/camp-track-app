@@ -4,6 +4,7 @@ import { ChildName } from "@/types/models/children"
 
 export type Transaction = {
   id: number
+  groupId: number
   childId: string | null
   amount: number
   type: TransactionType
@@ -13,6 +14,7 @@ export type Transaction = {
 
 export type TransactionComplex = {
   id: number
+  groupId: number
   child: ChildName | null
   amount: number
   type: TransactionType
@@ -20,6 +22,7 @@ export type TransactionComplex = {
 }
 
 export type TransactionCreate = {
+  groupId: number
   childId: string | null
   amount: number
   type: TransactionType

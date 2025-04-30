@@ -212,22 +212,25 @@ export type Database = {
       transactions: {
         Row: {
           amount: number
-          child_id: string
+          child_id: string | null
           created_at: string
+          group_id: number
           id: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Insert: {
           amount: number
-          child_id: string
+          child_id?: string | null
           created_at?: string
+          group_id: number
           id?: number
           type: Database["public"]["Enums"]["transaction_type"]
         }
         Update: {
           amount?: number
-          child_id?: string
+          child_id?: string | null
           created_at?: string
+          group_id?: number
           id?: number
           type?: Database["public"]["Enums"]["transaction_type"]
         }
@@ -237,6 +240,13 @@ export type Database = {
             columns: ["child_id"]
             isOneToOne: false
             referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
             referencedColumns: ["id"]
           },
         ]

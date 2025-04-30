@@ -44,6 +44,7 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
       .from('transactions')
       .select(`
         id,
+        group_id,
         amount,
         type,
         created_at,
