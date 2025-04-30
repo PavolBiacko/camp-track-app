@@ -39,13 +39,13 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
           </Text>}
           {props.children}
           {props.type === "confirmation" ? (
-            <View className="flex-row justify-between gap-4 mt-4">
+            <View className="flex-row justify-between gap-4 mt-4 h-20">
               <CustomButton
                 title="Zrušiť"
                 action="error"
                 variant="combined"
                 handlePress={handleCloseModal}
-                containerStyles="rounded-xl py-3 flex-1"
+                containerStyles="flex-1 rounded-xl py-3"
                 textStyles="text-2xl"
                 isDisabled={isLoading}
               />
@@ -54,7 +54,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
                 action="success"
                 variant="combined"
                 handlePress={handleSubmitModal}
-                containerStyles="rounded-xl py-3 flex-1"
+                containerStyles="flex-1 rounded-xl py-3"
                 textStyles="text-2xl"
                 isLoading={isLoading}
               />

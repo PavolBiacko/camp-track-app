@@ -12,7 +12,7 @@ const FinanceBuffetSummaryLine = ({ child, actionAmount }: FinanceBuffetSummaryL
         <Text className="text-error-500 text-xl font-pbold underline">
           {child.gender === Gender.MALE ? "Zaplatil" : "Zaplatila"}: {actionAmount.toFixed(2)} €
         </Text>
-        <Text className="text-tertiary-500 text-xl font-pbold">
+        <Text className="text-success-400 text-xl font-pbold">
           Zostatok: {(child.accountBalance - actionAmount).toFixed(2)} €
         </Text>
       </View>

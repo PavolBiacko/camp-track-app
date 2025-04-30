@@ -9,5 +9,13 @@ export const buffetSchema = z.object({
         .number({ invalid_type_error: "Nepovolený formát" })
         .nonnegative({ message: "Nesmie byť záporné" })
         .nullable()
-    ),
+        .refine(
+          (val) => {
+            if (val === null) return true; // Skip validation if value is null
+            const decimalPlaces = val.toString().split('.')[1]?.length || 0;
+            return decimalPlaces <= 2;
+          },
+          { message: "Povolené sú maximálne 2 desatinné miesta" }
+        ),
+    )
 });
