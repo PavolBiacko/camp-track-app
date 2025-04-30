@@ -109,6 +109,7 @@ export type FinanceTransactionLineProps = {
 export type FinanceBuffetContextType = {
   actionAmounts: LocalBuffetActionAmounts;
   setActionAmounts: (actionAmounts: LocalBuffetActionAmounts) => void;
+  resetsActionAmounts: () => void;
 }
 
 export type FinanceBuffetParams = {

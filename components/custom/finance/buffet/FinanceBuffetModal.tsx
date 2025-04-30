@@ -13,7 +13,7 @@ import { Alert } from 'react-native';
 
 const FinanceBuffetModal = ({ children, modalVisible, setModalVisible }: FinanceBuffetModalProps) => {
   const { user } = useAuth();
-  const { actionAmounts, setActionAmounts } = useFinanceBuffetContext()
+  const { actionAmounts, resetsActionAmounts } = useFinanceBuffetContext()
   const { createManyTransactions } = useCreateManyTransactions();
   const { updateManyAccountBalances } = useUpdateManyAccountBalancesWithLeader(user?.id!)  // id loaded in tabs layout
 
@@ -27,12 +27,12 @@ const FinanceBuffetModal = ({ children, modalVisible, setModalVisible }: Finance
       await updateManyAccountBalances(accountBalances);
 
       Alert.alert("Návšteva bufetu úspešná!", `Celková suma: ${getTotalAmount(actionAmounts)} €`);
-
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;
     } finally {
-      setActionAmounts({})
+      resetsActionAmounts();  //  Reset local amounts after updating
+      setModalVisible(false);
       router.back();
     }
   };

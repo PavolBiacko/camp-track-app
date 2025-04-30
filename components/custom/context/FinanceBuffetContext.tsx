@@ -6,8 +6,12 @@ const FinanceBuffetContext = createContext<FinanceBuffetContextType | undefined>
 export const FinanceBuffetProvider = (props: PropsWithChildren) => {
   const [actionAmounts, setActionAmounts] = useState<LocalBuffetActionAmounts>({});
 
+  const resetsActionAmounts = () => {
+    setActionAmounts({});
+  };
+
   return (
-    <FinanceBuffetContext.Provider value={{ actionAmounts, setActionAmounts }}>
+    <FinanceBuffetContext.Provider value={{ actionAmounts, setActionAmounts, resetsActionAmounts }}>
       {props.children}
     </FinanceBuffetContext.Provider>
   );
