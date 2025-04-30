@@ -28,9 +28,9 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
       const transactionData = getTransactionObject(childId, actionAmount, transactionType);
 
       // Should be as atomic transaction in database
-      await updateAccountBalance(newBalance);
       await updateCashRegister(updatedCounts);
       await createTransaction(transactionData);
+      await updateAccountBalance(newBalance);
 
       Alert.alert("Hotovo!", `${(transactionType === TransactionType.DEPOSIT) ? "Pridané" : "Vrátené"} peniaze : ${actionAmount} €.`);
     } catch (error: any) {
