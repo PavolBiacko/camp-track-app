@@ -15,7 +15,7 @@ export const buffetSchema = z.object({
             const decimalPlaces = val.toString().split('.')[1]?.length || 0;
             return decimalPlaces <= 2;
           },
-          { message: "Povolené sú maximálne 2 desatinné miesta" }
+          { message: "Iba 2 desatinné miesta" }
         ),
     )
 });
