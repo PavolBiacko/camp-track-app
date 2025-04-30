@@ -7,6 +7,7 @@ import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
+import { addDecimals } from '@/utils/decimal';
 import { getTransactionDirection, getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
@@ -22,7 +23,7 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const handleConfirm = async () => {
     try {
       const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
-      const newBalance = childAccountBalance + (actionAmount * getTransactionDirection(transactionType))
+      const newBalance = addDecimals(childAccountBalance, (actionAmount * getTransactionDirection(transactionType)))
       const updatedCounts = processCountsWithQuantities(quantities, counts, type);
       const transactionData = getTransactionObject(childId, actionAmount, transactionType);
 
