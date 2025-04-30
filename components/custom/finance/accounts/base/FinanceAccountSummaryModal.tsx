@@ -22,8 +22,6 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
   const { createTransaction } = useCreateTransaction();
 
-  console.log(groupBasic?.id);
-
   const handleConfirm = async () => {
     try {
       const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
