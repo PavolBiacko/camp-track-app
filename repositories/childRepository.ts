@@ -45,8 +45,11 @@ const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> =
   }
 };
 
-const readChildByIdWithLeader = async (childId: string, leaderId: string): Promise<Child | null> => {
+const readChildByIdWithLeader = async (childId: string | null, leaderId: string): Promise<Child | null> => {
   try {
+    // Step 0: If childId is null, then it is buffet payment, no child balance to update.
+    if (childId == null) return null;
+
     // Step 1: Find group by leader_id for current camp session
     const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader
@@ -83,8 +86,11 @@ const readChildByIdWithLeader = async (childId: string, leaderId: string): Promi
   }
 };
 
-const updateAccountBalanceByIdWithLeader = async (childId: string, leaderId: string, accountBalance: number): Promise<Child | null> => {
+const updateAccountBalanceByIdWithLeader = async (childId: string | null, leaderId: string, accountBalance: number): Promise<Child | null> => {
   try {
+    // Step 0: If childId is null, then it is buffet payment, no child balance to update.
+    if (childId == null) return null;
+
     // Step 1: Find group by leader_id for current camp session
     const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
     if (!group) return null; // No group found for this leader

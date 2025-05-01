@@ -18,9 +18,9 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const { childAccountBalance, actionAmount, counts, resetDenominations, type } = useFinanceAccountContext();
 
   const { groupBasic } = useGroupBasicByLeader(leaderId);
-  const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
   const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
   const { createTransaction } = useCreateTransaction();
+  const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
 
   const handleConfirm = async () => {
     try {

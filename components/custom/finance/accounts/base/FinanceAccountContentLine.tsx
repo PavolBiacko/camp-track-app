@@ -2,22 +2,22 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext'
 import CustomButton from '@/components/custom/CustomButton'
 import { FinanceAccountContentLineProps } from '@/types/finance'
-import { getMoneyImage, getMoneyType, isIncrementAvailable } from '@/utils/finance'
+import { getActionAccountType, getMoneyImage, getMoneyType, isIncrementAvailable } from '@/utils/finance'
 import { Image, Text, View } from 'react-native'
 import { ClassNameValue, twMerge } from 'tailwind-merge'
 
 const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
   const { quantities } = useFinanceOverviewContext();
-  const { counts, updateCount, childAccountBalance, actionAmount, type } = useFinanceAccountContext();
+  const { counts, updateCount, childAccountBalance, actionAmount, transactionType } = useFinanceAccountContext();
 
   const quantity = quantities[props.denomination];
   const count = counts[props.denomination];
 
-  const coinImageStyles: ClassNameValue = (type === "increment" ? "w-16 h-16 mx-6" : "w-16 h-16 mx-4");
-  const billImageStyles: ClassNameValue = (type === "increment" ? "w-28 h-16" : "w-24 h-16");
+  const coinImageStyles: ClassNameValue = (getActionAccountType(transactionType) === "increment" ? "w-16 h-16 mx-6" : "w-16 h-16 mx-4");
+  const billImageStyles: ClassNameValue = (getActionAccountType(transactionType) === "increment" ? "w-28 h-16" : "w-24 h-16");
 
   const handleIncrement = () => {
-    if (isIncrementAvailable(type, props.denomination, quantity, count, childAccountBalance, actionAmount)) {
+    if (isIncrementAvailable(transactionType, props.denomination, quantity, count, childAccountBalance, actionAmount)) {
       updateCount(props.denomination, count + 1);
     }
   }
@@ -49,16 +49,16 @@ const FinanceAccountContentLine = (props: FinanceAccountContentLineProps) => {
         handlePress={handleIncrement}
         textStyles="text-2xl"
         containerStyles="px-5 rounded-full w-16 h-16"
-        isDisabled={!isIncrementAvailable(type, props.denomination, quantity, count, childAccountBalance, actionAmount)}
+        isDisabled={!isIncrementAvailable(transactionType, props.denomination, quantity, count, childAccountBalance, actionAmount)}
       />
       <View className='flex-1 items-center'>
         <Text className={
           twMerge(
             'text-typography-950 font-pbold',
-            (type === "increment" ? "text-2xl" : "text-xl")
+            (getActionAccountType(transactionType) === "increment" ? "text-2xl" : "text-xl")
           )
         }>
-          {(type === "increment") ? `${count} ×` : `${count}/${quantity}`}
+          {(getActionAccountType(transactionType) === "increment") ? `${count} ×` : `${count}/${quantity}`}
         </Text>
       </View>
     </View>

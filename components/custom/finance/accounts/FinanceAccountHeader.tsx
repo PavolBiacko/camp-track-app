@@ -1,10 +1,11 @@
 import { useFinanceAccountContext } from '@/components/custom/context/FinanceAccountContext';
 import CustomButton from '@/components/custom/CustomButton';
+import { getActionAccountType } from '@/utils/finance';
 import { Text, View } from 'react-native';
 import { twMerge } from 'tailwind-merge';
 
 const FinanceAccountHeader = () => {
-  const { childAccountBalance, actionAmount, type } = useFinanceAccountContext();
+  const { childAccountBalance, actionAmount, transactionType } = useFinanceAccountContext();
 
   return (
     <View className="border-y border-outline-300 justify-center items-center pt-3 pb-1 gap-3">
@@ -18,10 +19,10 @@ const FinanceAccountHeader = () => {
       <Text className={
         twMerge(
           'text-quaternary-950 text-2xl font-psemibold',
-          (type === "increment" ? "text-success-500" : "text-error-500")
+          (getActionAccountType(transactionType) === "increment" ? "text-success-500" : "text-error-500")
         )
       }>
-        {(type === "increment") ? "+" : "-"} {actionAmount.toFixed(2)} €
+        {(getActionAccountType(transactionType) === "increment") ? "+" : "-"} {actionAmount.toFixed(2)} €
       </Text>
     </View>
   )

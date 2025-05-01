@@ -40,7 +40,7 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
         counts,
         updateCount,
         resetDenominations,
-        type: props.type
+        transactionType: props.transactionType
       }}
     >
       {props.children}

@@ -10,7 +10,7 @@ export const useChildrenByLeader = (leaderId: string) => {
   return { children: mutation.data, ...mutation };
 }
 
-export const useChildByIdWithLeader = (childId: string, leaderId: string) => {
+export const useChildByIdWithLeader = (childId: string | null, leaderId: string) => {
   const mutation = useQuery({
     queryKey: ['children', leaderId, childId],
     queryFn: async () => await childRepository.readChildByIdWithLeader(childId, leaderId),
@@ -18,7 +18,7 @@ export const useChildByIdWithLeader = (childId: string, leaderId: string) => {
   return { child: mutation.data, ...mutation };
 }
 
-export const useUpdateAccountBalanceWithLeader = (childId: string, leaderId: string) => {
+export const useUpdateAccountBalanceWithLeader = (childId: string | null, leaderId: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

@@ -116,15 +116,20 @@ export const processCountsWithQuantities = (
 };
 
 export const isIncrementAvailable = (
-  type: AccountActionType,
+  transactionType: TransactionType,
   denomination: Denominations,
   quantity: number,
   count: number,
-  childAccountBalance: number,
+  accountBalance: number,
   actionAmount: number
 ): boolean => {
-  if (type === "decrement") {
-    if (count === quantity || childAccountBalance - actionAmount < denomination) {
+  if (transactionType === TransactionType.WITHDRAWAL) {
+    if (count === quantity || accountBalance - actionAmount < denomination) {
+      return false;
+    }
+  }
+  if (transactionType === TransactionType.PURCHASE) {
+    if (count === quantity || actionAmount >= accountBalance) {
       return false;
     }
   }
@@ -133,7 +138,7 @@ export const isIncrementAvailable = (
 
 export const getTransactionObject = (
   groupId: number,
-  childId: string,
+  childId: string | null,
   actionAmount: number,
   transactionType: TransactionType
 ): TransactionCreate => {
@@ -180,6 +185,22 @@ export const getManyChildBalanceObjects = (children: Child[], actionAmounts: Loc
     });
 }
 
-export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts) => {
+export const getActionAccountType = (transactionType: TransactionType): AccountActionType => {
+  switch (transactionType) {
+    case TransactionType.DEPOSIT:
+      return "increment"
+    case TransactionType.WITHDRAWAL:
+    case TransactionType.PURCHASE:
+      return "decrement"
+    default:
+      throw new Error("Invalid transaction type");
+  }
+}
+
+export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts): number => {
   return Object.values(actionAmounts).reduce((sum, amount) => sum + amount, 0);
+}
+
+export const getTotalOfChildrenBalances = (children: Child[]): number => {
+  return children.reduce((sum, child) => sum + child.accountBalance, 0);
 }

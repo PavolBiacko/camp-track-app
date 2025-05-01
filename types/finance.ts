@@ -1,5 +1,5 @@
 import { ModalBasicProps } from "@/types/custom/modal";
-import { Denominations } from "@/types/enums/finance";
+import { Denominations, TransactionType } from "@/types/enums/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { Child } from "@/types/models/children";
 import { TransactionComplex } from "@/types/models/transactions";
@@ -38,16 +38,16 @@ export type FinanceAccountContextType = {
   counts: CashRegisterRecord;
   updateCount: (denomination: Denominations, count: number) => void;
   resetDenominations: () => void;
-  type: AccountActionType
+  transactionType: TransactionType
 }
 
 export type FinanceAccountProviderProps = {
-  type: AccountActionType;
+  transactionType: TransactionType;
   initialBalance: number;
 }
 
 export type FinanceAccountFooterProps = {
-  childId: string;
+  childId: string | null;
 }
 
 export type FinanceAccountLineProps = {
@@ -61,7 +61,7 @@ export type FinanceAccountsParams = {
 }
 
 export type ChildAccountParams = {
-  childId: string,
+  childId?: string,
   leaderId: string,
   type: AccountActionType,
 }
@@ -71,7 +71,7 @@ export type FinanceAccountActionModalProps = ModalBasicProps & {
 }
 
 export type FinanceAccountSummaryModalProps = ModalBasicProps & {
-  childId: string,
+  childId: string | null,
   leaderId: string,
 }
 
