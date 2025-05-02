@@ -2,7 +2,7 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import { ArrowRightIcon, Icon } from '@/components/ui/icon';
 import { Denominations } from '@/types/enums/finance';
-import { addDecimals, subDecimals } from '@/utils/decimal';
+import { addDecimals, subtractDecimals } from '@/utils/decimal';
 import { getActionAccountType, getMoneyImage, getMoneyType } from '@/utils/finance';
 import React, { useMemo } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
@@ -15,7 +15,7 @@ const FinanceAccountActionSummary = () => {
   const result = useMemo(() => {
     return (getActionAccountType(transactionType) === "increment")
       ? addDecimals(childAccountBalance, actionAmount)
-      : subDecimals(childAccountBalance, actionAmount);
+      : subtractDecimals(childAccountBalance, actionAmount);
   }, [transactionType, childAccountBalance, actionAmount]);
 
   return (

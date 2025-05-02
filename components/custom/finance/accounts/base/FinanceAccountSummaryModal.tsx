@@ -7,7 +7,7 @@ import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
-import { addDecimals } from '@/utils/decimal';
+import { addDecimals, multiplyDecimals } from '@/utils/decimal';
 import { getTransactionDirection, getTransactionObject, getTransactionSuccessMessage, processCountsWithQuantities } from '@/utils/finance';
 import { getTrasactionAlertButtons } from '@/utils/ui';
 import { router } from 'expo-router';
@@ -29,7 +29,7 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
 
   const handleConfirm = async () => {
     try {
-      const newBalance = addDecimals(childAccountBalance, (actionAmount * getTransactionDirection(transactionType)))
+      const newBalance = addDecimals(childAccountBalance, multiplyDecimals(actionAmount, getTransactionDirection(transactionType)))
       const updatedCounts = processCountsWithQuantities(quantities, counts, transactionType);
       const transactionData = getTransactionObject(groupBasic?.id!, childId, actionAmount, transactionType);
 

@@ -3,7 +3,7 @@ import { Denominations, TransactionType } from "@/types/enums/finance";
 import { AccountActionType, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
 import { Child, ChildBalanceUpdate } from "@/types/models/children";
 import { TransactionCreate } from "@/types/models/transactions";
-import { addDecimals } from "@/utils/decimal";
+import { addDecimals, multiplyDecimals, subtractDecimals } from "@/utils/decimal";
 import { ImageProps } from "react-native";
 
 export const getMoneyType = (denomination: Denominations): MoneyType => {
@@ -125,17 +125,17 @@ export const isIncrementAvailable = (
   actionAmount: number
 ): boolean => {
   if (transactionType === TransactionType.WITHDRAWAL) {
-    if (count === quantity || accountBalance - actionAmount < denomination) {
+    if (count === quantity || subtractDecimals(accountBalance, actionAmount) < denomination) {
       return false;
     }
   }
   if (transactionType === TransactionType.PAYOUT) {
-    if (count === quantity || actionAmount >= accountBalance) {
+    if (count === quantity) {
       return false;
     }
   }
   if (transactionType === TransactionType.PAYBACK) {
-    if (-accountBalance - actionAmount < denomination)
+    if (subtractDecimals(-accountBalance, actionAmount) < denomination)
       return false;
   }
   return true;
@@ -175,7 +175,7 @@ export const getTransactionObject = (
   return {
     groupId,
     childId,
-    amount: actionAmount * getTransactionDirection(transactionType),
+    amount: multiplyDecimals(actionAmount, getTransactionDirection(transactionType)),
     type: transactionType,
   }
 }
@@ -209,7 +209,7 @@ export const getManyChildBalanceObjects = (children: Child[], actionAmounts: Loc
   return children
     .filter(child => child.id in actionAmounts)
     .map(child => {
-      const newBalance = child.accountBalance - actionAmounts[child.id];
+      const newBalance = subtractDecimals(child.accountBalance, actionAmounts[child.id]);
       return {
         childId: child.id,
         accountBalance: newBalance,

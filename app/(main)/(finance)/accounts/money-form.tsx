@@ -7,7 +7,7 @@ import Loading from '@/components/custom/Loading';
 import { useChildByIdWithLeader, useChildrenByLeader } from '@/hooks/models/useChildren';
 import { TransactionType } from '@/types/enums/finance';
 import { ChildAccountParams } from '@/types/finance';
-import { subDecimals } from '@/utils/decimal';
+import { subtractDecimals } from '@/utils/decimal';
 import { getTotalOfChildrenBalances } from '@/utils/finance';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
@@ -43,7 +43,7 @@ const MoneyForm = () => {
     return <Loading showText={true} />;
   }
 
-  const initialBalance = (child) ? child.accountBalance : subDecimals(totalAmount, getTotalOfChildrenBalances(children));
+  const initialBalance = (child) ? child.accountBalance : subtractDecimals(totalAmount, getTotalOfChildrenBalances(children));
   const transactionType = (child)
     ? ((type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL)
     : ((type === "increment") ? TransactionType.PAYBACK : TransactionType.PAYOUT);

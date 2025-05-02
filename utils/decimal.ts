@@ -16,7 +16,7 @@ export const addDecimals = (value1: number, value2: number): number => {
   return result.toNumber();
 };
 
-export const subDecimals = (value1: number, value2: number): number => {
+export const subtractDecimals = (value1: number, value2: number): number => {
   const decimalValue1 = new Decimal(value1);
   const decimalValue2 = new Decimal(value2);
 

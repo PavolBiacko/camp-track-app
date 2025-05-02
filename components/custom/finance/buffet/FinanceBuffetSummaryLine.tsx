@@ -1,5 +1,6 @@
 import { Gender } from '@/types/enums/gender'
 import { FinanceBuffetSummaryLineProps } from '@/types/finance'
+import { subtractDecimals } from '@/utils/decimal'
 import { Text, View } from 'react-native'
 
 const FinanceBuffetSummaryLine = ({ child, actionAmount }: FinanceBuffetSummaryLineProps) => {
@@ -13,7 +14,7 @@ const FinanceBuffetSummaryLine = ({ child, actionAmount }: FinanceBuffetSummaryL
           {child.gender === Gender.MALE ? "Zaplatil" : "Zaplatila"}: {actionAmount.toFixed(2)} €
         </Text>
         <Text className="text-success-400 text-xl font-pbold">
-          Zostatok: {(child.accountBalance - actionAmount).toFixed(2)} €
+          Zostatok: {subtractDecimals(child.accountBalance, actionAmount).toFixed(2)} €
         </Text>
       </View>
     </View>
