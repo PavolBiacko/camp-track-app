@@ -32,7 +32,7 @@ const CustomButton: FC<CustomButtonProps> = ({ iconPosition = "left", ...props }
       ) : (
         <>
           {props.icon && iconPosition === "left" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} style={{ tintColor: props.iconTintColor }} />}
-          {props.title && <Text className={twMerge("text-typography-800 text-lg font-psemibold text-center mt-1", props.textStyles)}>{props.title}</Text>}
+          {props.title && <Text className={twMerge("text-typography-800 text-xl font-psemibold mt-1", props.textStyles)}>{props.title}</Text>}
           {props.icon && iconPosition === "right" && <Image source={props.icon} resizeMode="contain" className={props.iconStyles} style={{ tintColor: props.iconTintColor }} />}
         </>
       )}

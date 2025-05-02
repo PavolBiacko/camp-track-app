@@ -20,7 +20,7 @@ const FinanceOverviewFooter = () => {
           action="primary"
           handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
-          containerStyles="h-16 rounded-3xl px-5"
+          containerStyles="w-2/3 h-16 rounded-3xl px-5"
         />
       </View>
       <FinanceAccountActionModal

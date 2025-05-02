@@ -1,4 +1,5 @@
 import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
+import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomButton from '@/components/custom/CustomButton';
 import FinanceBuffetModal from '@/components/custom/finance/buffet/FinanceBuffetModal';
 import FormField from '@/components/custom/FormField';
@@ -6,6 +7,7 @@ import Loading from '@/components/custom/Loading';
 import { useChildrenByLeader } from '@/hooks/models/useChildren';
 import { FinanceBuffetData, FinanceBuffetParams } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
+import { getTotalOfChildrenBalances, isAccountActionAvailable } from '@/utils/finance';
 import { getLongerString } from '@/utils/strings';
 import { getProperTextSizeForChildName } from '@/utils/ui';
 import { buffetSchema } from '@/validation/finance';
@@ -21,6 +23,7 @@ const Buffet = () => {
   const { leaderId } = useLocalSearchParams<FinanceBuffetParams>();
   const { children, isLoading, isError } = useChildrenByLeader(leaderId);
   const { actionAmounts, setActionAmounts } = useFinanceBuffetContext();
+  const { totalAmount } = useFinanceOverviewContext();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const { control, register, handleSubmit, watch, reset, formState: { errors } } = useForm<FinanceBuffetData>({
@@ -139,7 +142,7 @@ const Buffet = () => {
             handlePress={() => setModalVisible(true)}
             containerStyles="rounded-3xl w-full h-16"
             textStyles="text-2xl"
-            isDisabled={currentIndex !== children.length - 1}
+            isDisabled={!isAccountActionAvailable("decrement", currentChild.id, totalAmount, getTotalOfChildrenBalances(children))}
           />
         </View>
       </ScrollView>

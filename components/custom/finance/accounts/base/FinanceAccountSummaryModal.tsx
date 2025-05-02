@@ -6,10 +6,10 @@ import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
 import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
-import { TransactionType } from '@/types/enums/finance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
 import { addDecimals } from '@/utils/decimal';
-import { getTransactionDirection, getTransactionObject, processCountsWithQuantities } from '@/utils/finance';
+import { getTransactionDirection, getTransactionObject, getTransactionSuccessMessage, processCountsWithQuantities } from '@/utils/finance';
+import { getTrasactionAlertButtons } from '@/utils/ui';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
@@ -22,6 +22,11 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const { createTransaction } = useCreateTransaction();
   const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
 
+  const handleConfirmPaybackAlert = () => {
+    // After buffet payout, there needs to be payback
+    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { leaderId, type: "increment" } })
+  }
+
   const handleConfirm = async () => {
     try {
       const newBalance = addDecimals(childAccountBalance, (actionAmount * getTransactionDirection(transactionType)))
@@ -33,7 +38,11 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
       await updateCashRegister(updatedCounts);
       await updateAccountBalance(newBalance);
 
-      Alert.alert("Hotovo!", `${(transactionType === TransactionType.DEPOSIT) ? "Pridané" : "Vrátené"} peniaze : ${actionAmount.toFixed(2)} €.`);
+      Alert.alert(
+        "Hotovo!",
+        getTransactionSuccessMessage(transactionType, actionAmount),
+        getTrasactionAlertButtons(transactionType, newBalance, handleConfirmPaybackAlert)
+      );
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

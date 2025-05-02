@@ -3,13 +3,13 @@ import CustomButton from '@/components/custom/CustomButton';
 import FinanceAccountSummaryModal from '@/components/custom/finance/accounts/base/FinanceAccountSummaryModal';
 import { useAuth } from '@/hooks/useAuth';
 import { FinanceAccountFooterProps } from '@/types/finance';
-import { getActionButtonTitle } from '@/utils/finance';
+import { getActionButtonTitle, isTransactionActionAvailable } from '@/utils/finance';
 import { useState } from 'react';
 import { View } from 'react-native';
 
 const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { actionAmount, transactionType } = useFinanceAccountContext();
+  const { childAccountBalance, actionAmount, transactionType } = useFinanceAccountContext();
   const { user } = useAuth();
 
   if (!user) {
@@ -25,7 +25,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
           handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
           containerStyles="w-3/4 h-16 rounded-3xl px-5"
-          isDisabled={actionAmount === 0}
+          isDisabled={!isTransactionActionAvailable(transactionType, childAccountBalance, actionAmount)}
         />
       </View>
       <FinanceAccountSummaryModal

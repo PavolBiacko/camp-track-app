@@ -8,7 +8,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceBuffetModalProps } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
-import { getManyChildBalanceObjects, getManyTransactionObjectsOfType, getTotalAmount } from '@/utils/finance';
+import { getManyChildBalanceObjects, getManyTransactionObjectsOfType, getTotalAmount, getTransactionSuccessMessage } from '@/utils/finance';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
@@ -28,7 +28,10 @@ const FinanceBuffetModal = ({ children, modalVisible, setModalVisible }: Finance
       await createManyTransactions(buffetTransactions);
       await updateManyAccountBalances(accountBalances);
 
-      Alert.alert("Návšteva bufetu úspešná!", `Celková suma: ${getTotalAmount(actionAmounts)} €`);
+      Alert.alert(
+        "Návšteva bufetu úspešná!",
+        getTransactionSuccessMessage(TransactionType.PURCHASE, getTotalAmount(actionAmounts)),
+      );
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

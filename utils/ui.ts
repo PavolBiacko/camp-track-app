@@ -7,7 +7,7 @@ import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { ChildName } from "@/types/models/children";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
-import { KeyboardTypeOptions, Platform } from "react-native";
+import { AlertButton, KeyboardTypeOptions, Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
 
 export const getTabScreenOptions = (colorScheme?: ColorScheme): TabScreenOptions => {
@@ -184,3 +184,18 @@ export const getKeyboardType = (formDataTypeKey: string): KeyboardTypeOptions =>
   }
   return "default";
 }
+
+export const getTrasactionAlertButtons = (
+  transactionType: TransactionType,
+  newBalance: number,
+  handleConfirmPaybackAlert: () => void
+): AlertButton[] => {
+  const isPayoutWithBalance = transactionType === TransactionType.PAYOUT && newBalance !== 0;
+
+  return [
+    {
+      text: isPayoutWithBalance ? "Výdavok" : "OK",
+      onPress: isPayoutWithBalance ? handleConfirmPaybackAlert : undefined,
+    },
+  ];
+};

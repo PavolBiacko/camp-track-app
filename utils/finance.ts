@@ -134,6 +134,10 @@ export const isIncrementAvailable = (
       return false;
     }
   }
+  if (transactionType === TransactionType.PAYBACK) {
+    if (-accountBalance - actionAmount < denomination)
+      return false;
+  }
   return true;
 };
 
@@ -146,6 +150,20 @@ export const isAccountActionAvailable = (
   return (childId)
     ? childrenBalances <= totalAmount
     : (type === "increment") ? childrenBalances > totalAmount : childrenBalances < totalAmount;
+}
+
+export const isTransactionActionAvailable = (
+  transactionType: TransactionType,
+  accountBalance: number,
+  actionAmount: number,
+): boolean => {
+  if (transactionType === TransactionType.PAYOUT) {
+    return accountBalance <= actionAmount;
+  }
+  if (transactionType === TransactionType.PAYBACK) {
+    return -accountBalance === actionAmount;
+  }
+  return actionAmount !== 0;
 }
 
 export const getTransactionObject = (
@@ -226,6 +244,30 @@ export const getActionButtonTitle = (transactionType: TransactionType): string =
     default:
       throw new Error("Invalid transaction type");
   }
+}
+
+export const getTransactionSuccessMessage = (transactionType: TransactionType, actionAmount: number): string => {
+  let textPrefix = "";
+  switch (transactionType) {
+    case TransactionType.DEPOSIT:
+      textPrefix = "Pridané peniaze"
+      break;
+    case TransactionType.WITHDRAWAL:
+      textPrefix = "Vrátené peniaze"
+      break;
+    case TransactionType.PURCHASE:
+      textPrefix = "Celková suma"
+      break;
+    case TransactionType.PAYOUT:
+      textPrefix = "Suma za vyplatený bufet"
+      break;
+    case TransactionType.PAYBACK:
+      textPrefix = "Výdavok vyplatenia"
+      break;
+    default:
+      throw new Error("Invalid transaction type");
+  }
+  return `${textPrefix}: ${actionAmount.toFixed(2)} €.`;
 }
 
 export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts): number => {
