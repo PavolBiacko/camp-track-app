@@ -35,6 +35,10 @@ export const mapTransactionTypeToDbTransactionType = (transactionType: Transacti
       return "WITHDRAWAL";
     case TransactionType.PURCHASE:
       return "PURCHASE";
+    case TransactionType.PAYOUT:
+      return "PAYOUT";
+    case TransactionType.PAYBACK:
+      return "PAYBACK";
     default:
       throw new Error(`Unknown transaction type: ${transactionType}`);
   }
@@ -48,6 +52,10 @@ export const mapDbTransactionTypeToTransactionType = (dbTransactionType: Enums<"
       return TransactionType.WITHDRAWAL;
     case "PURCHASE":
       return TransactionType.PURCHASE;
+    case "PAYOUT":
+      return TransactionType.PAYOUT;
+    case "PAYBACK":
+      return TransactionType.PAYBACK;
     default:
       throw new Error(`Unknown transaction type: ${dbTransactionType}`);
   }

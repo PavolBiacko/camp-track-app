@@ -314,7 +314,12 @@ export type Database = {
         | "2_CENT"
         | "1_CENT"
       gender: "MALE" | "FEMALE"
-      transaction_type: "DEPOSIT" | "WITHDRAWAL" | "PURCHASE"
+      transaction_type:
+        | "DEPOSIT"
+        | "WITHDRAWAL"
+        | "PURCHASE"
+        | "PAYOUT"
+        | "PAYBACK"
     }
     CompositeTypes: {
       cash_register_record: {
@@ -452,7 +457,13 @@ export const Constants = {
         "1_CENT",
       ],
       gender: ["MALE", "FEMALE"],
-      transaction_type: ["DEPOSIT", "WITHDRAWAL", "PURCHASE"],
+      transaction_type: [
+        "DEPOSIT",
+        "WITHDRAWAL",
+        "PURCHASE",
+        "PAYOUT",
+        "PAYBACK",
+      ],
     },
   },
 } as const

@@ -7,6 +7,7 @@ import Loading from '@/components/custom/Loading';
 import { useChildByIdWithLeader, useChildrenByLeader } from '@/hooks/models/useChildren';
 import { TransactionType } from '@/types/enums/finance';
 import { ChildAccountParams } from '@/types/finance';
+import { subDecimals } from '@/utils/decimal';
 import { getTotalOfChildrenBalances } from '@/utils/finance';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect } from 'react';
@@ -17,13 +18,13 @@ const MoneyForm = () => {
   const { childId, leaderId, type } = useLocalSearchParams<ChildAccountParams>();
   const { child, isLoading: isChildLoading, isError: isChildError } = useChildByIdWithLeader(childId ?? null, leaderId);
   const { children, isLoading: isChildrenLoading, isError: isChildrenError } = useChildrenByLeader(leaderId);
-  const { totalAmount } = useFinanceOverviewContext()
+  const { totalAmount } = useFinanceOverviewContext();
 
   // setting the header title
   useEffect(() => {
     if (child === null) {
       navigation.setOptions({
-        title: "Vyplatenie bufetu",
+        title: (type === "increment") ? "Výdavok vyplatenia" : "Vyplatenie bufetu",
       });
     }
     if (child) {
@@ -42,10 +43,10 @@ const MoneyForm = () => {
     return <Loading showText={true} />;
   }
 
-  const initialBalance = (child) ? child.accountBalance : totalAmount - getTotalOfChildrenBalances(children);
+  const initialBalance = (child) ? child.accountBalance : subDecimals(totalAmount, getTotalOfChildrenBalances(children));
   const transactionType = (child)
     ? ((type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL)
-    : TransactionType.PURCHASE;
+    : ((type === "increment") ? TransactionType.PAYBACK : TransactionType.PAYOUT);
 
   return (
     <View className='flex-1'>

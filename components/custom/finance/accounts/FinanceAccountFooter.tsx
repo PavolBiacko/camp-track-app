@@ -3,7 +3,7 @@ import CustomButton from '@/components/custom/CustomButton';
 import FinanceAccountSummaryModal from '@/components/custom/finance/accounts/base/FinanceAccountSummaryModal';
 import { useAuth } from '@/hooks/useAuth';
 import { FinanceAccountFooterProps } from '@/types/finance';
-import { getActionAccountType } from '@/utils/finance';
+import { getActionButtonTitle } from '@/utils/finance';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -20,7 +20,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
     <>
       <View className="border-t border-outline-300 justify-center items-center py-4">
         <CustomButton
-          title={(getActionAccountType(transactionType) === "increment") ? "Pridanie peňazí" : "Vrátenie peňazí"}
+          title={getActionButtonTitle(transactionType)}
           action="primary"
           handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"

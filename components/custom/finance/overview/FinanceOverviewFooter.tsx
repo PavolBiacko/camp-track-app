@@ -11,12 +11,12 @@ const FinanceOverviewFooter = () => {
   }
 
   const handleBuffetPayment = () => {
-    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { leaderId: user.id, type: "increment" } })
+    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { leaderId: user.id, type: "decrement" } })
   }
 
   return (
     <>
-      <View className="border-t border-outline-300 justify-center items-center py-4">
+      <View className="flex-row border-t border-outline-300 justify-center items-center py-4">
         <CustomButton
           title="Vyplatenie bufetu"
           action="primary"

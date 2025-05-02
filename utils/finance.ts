@@ -3,6 +3,7 @@ import { Denominations, TransactionType } from "@/types/enums/finance";
 import { AccountActionType, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
 import { Child, ChildBalanceUpdate } from "@/types/models/children";
 import { TransactionCreate } from "@/types/models/transactions";
+import { addDecimals } from "@/utils/decimal";
 import { ImageProps } from "react-native";
 
 export const getMoneyType = (denomination: Denominations): MoneyType => {
@@ -101,12 +102,12 @@ export const getDenominations = (): Denominations[] => {
 export const processCountsWithQuantities = (
   quantities: CashRegisterRecord,
   counts: CashRegisterRecord,
-  type: AccountActionType
+  transactionType: TransactionType
 ): CashRegisterRecord => {
 
   const result: CashRegisterRecord = { ...quantities };
 
-  const operation = type === 'increment' ? 1 : -1;
+  const operation = getActionAccountType(transactionType) === 'increment' ? 1 : -1;
 
   (Object.entries(counts) as [keyof typeof Denominations, number][]).forEach(([denomination, count]) => {
     result[denomination as unknown as Denominations] += count * operation;
@@ -128,7 +129,7 @@ export const isIncrementAvailable = (
       return false;
     }
   }
-  if (transactionType === TransactionType.PURCHASE) {
+  if (transactionType === TransactionType.PAYOUT) {
     if (count === quantity || actionAmount >= accountBalance) {
       return false;
     }
@@ -164,9 +165,11 @@ export const getManyTransactionObjectsOfType = (
 export const getTransactionDirection = (transactionType: TransactionType): number => {
   switch (transactionType) {
     case TransactionType.DEPOSIT:
+    case TransactionType.PAYBACK:
       return 1;
     case TransactionType.WITHDRAWAL:
     case TransactionType.PURCHASE:
+    case TransactionType.PAYOUT:
       return -1;
     default:
       throw new Error("Invalid transaction type");
@@ -188,19 +191,36 @@ export const getManyChildBalanceObjects = (children: Child[], actionAmounts: Loc
 export const getActionAccountType = (transactionType: TransactionType): AccountActionType => {
   switch (transactionType) {
     case TransactionType.DEPOSIT:
+    case TransactionType.PAYBACK:
       return "increment"
     case TransactionType.WITHDRAWAL:
     case TransactionType.PURCHASE:
+    case TransactionType.PAYOUT:
       return "decrement"
     default:
       throw new Error("Invalid transaction type");
   }
 }
 
+export const getActionButtonTitle = (transactionType: TransactionType): string => {
+  switch (transactionType) {
+    case TransactionType.DEPOSIT:
+      return "Pridanie peňazí"
+    case TransactionType.WITHDRAWAL:
+      return "Vrátenie peňazí"
+    case TransactionType.PAYOUT:
+      return "Vyplatenie bufetu"
+    case TransactionType.PAYBACK:
+      return "Výdavok vyplatenia"
+    default:
+      throw new Error("Invalid transaction type");
+  }
+}
+
 export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts): number => {
-  return Object.values(actionAmounts).reduce((sum, amount) => sum + amount, 0);
+  return Object.values(actionAmounts).reduce((sum, amount) => addDecimals(sum, amount), 0);
 }
 
 export const getTotalOfChildrenBalances = (children: Child[]): number => {
-  return children.reduce((sum, child) => sum + child.accountBalance, 0);
+  return children.reduce((sum, child) => addDecimals(sum, child.accountBalance), 0);
 }

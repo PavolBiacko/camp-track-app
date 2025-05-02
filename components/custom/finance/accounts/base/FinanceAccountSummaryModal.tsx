@@ -15,7 +15,7 @@ import { Alert } from 'react-native';
 
 const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalVisible }: FinanceAccountSummaryModalProps) => {
   const { quantities } = useFinanceOverviewContext();
-  const { childAccountBalance, actionAmount, counts, resetDenominations, type } = useFinanceAccountContext();
+  const { childAccountBalance, actionAmount, counts, resetDenominations, transactionType } = useFinanceAccountContext();
 
   const { groupBasic } = useGroupBasicByLeader(leaderId);
   const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
@@ -24,17 +24,16 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
 
   const handleConfirm = async () => {
     try {
-      const transactionType = (type === "increment") ? TransactionType.DEPOSIT : TransactionType.WITHDRAWAL;
       const newBalance = addDecimals(childAccountBalance, (actionAmount * getTransactionDirection(transactionType)))
-      const updatedCounts = processCountsWithQuantities(quantities, counts, type);
+      const updatedCounts = processCountsWithQuantities(quantities, counts, transactionType);
       const transactionData = getTransactionObject(groupBasic?.id!, childId, actionAmount, transactionType);
 
       // Should be as atomic transaction in database
-      await updateCashRegister(updatedCounts);
       await createTransaction(transactionData);
+      await updateCashRegister(updatedCounts);
       await updateAccountBalance(newBalance);
 
-      Alert.alert("Hotovo!", `${(transactionType === TransactionType.DEPOSIT) ? "Pridané" : "Vrátené"} peniaze : ${actionAmount} €.`);
+      Alert.alert("Hotovo!", `${(transactionType === TransactionType.DEPOSIT) ? "Pridané" : "Vrátené"} peniaze : ${actionAmount.toFixed(2)} €.`);
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

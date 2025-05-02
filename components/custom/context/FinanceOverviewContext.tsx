@@ -1,6 +1,6 @@
 import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister';
 import { FinanceOverviewContextType, FinanceOverviewProviderProps } from '@/types/finance';
-import { multiplyDecimals } from '@/utils/decimal';
+import { addDecimals, multiplyDecimals } from '@/utils/decimal';
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 
 const FinanceOverviewContext = createContext<FinanceOverviewContextType | undefined>(undefined);
@@ -13,7 +13,7 @@ export const FinanceOverviewProvider = (props: PropsWithChildren<FinanceOverview
 
   // Calculate total amount
   const totalAmount = Object.entries(quantities).reduce((sum, [denomination, quantity]) => {
-    return sum + multiplyDecimals(Number(denomination), quantity);
+    return addDecimals(sum, multiplyDecimals(Number(denomination), quantity));
   }, 0);
 
   return (
