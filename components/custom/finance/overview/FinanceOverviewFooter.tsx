@@ -1,30 +1,32 @@
 import CustomButton from '@/components/custom/CustomButton'
 import { useAuth } from '@/hooks/useAuth'
-import { router } from 'expo-router'
+import { useState } from 'react'
 import { View } from 'react-native'
+import FinanceAccountActionModal from '../accounts/base/FinanceAccountActionModal'
 
 const FinanceOverviewFooter = () => {
   const { user } = useAuth();
+  const [modalVisible, setModalVisible] = useState(false);
 
   if (!user) {
     return null;  // should not happen, since useAuth is used in the layout layer
-  }
-
-  const handleBuffetPayment = () => {
-    router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { leaderId: user.id, type: "decrement" } })
   }
 
   return (
     <>
       <View className="flex-row border-t border-outline-300 justify-center items-center py-4">
         <CustomButton
-          title="Vyplatenie bufetu"
+          title="Výber akcie"
           action="primary"
-          handlePress={handleBuffetPayment}
+          handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
           containerStyles="h-16 rounded-3xl px-5"
         />
       </View>
+      <FinanceAccountActionModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </>
   )
 }

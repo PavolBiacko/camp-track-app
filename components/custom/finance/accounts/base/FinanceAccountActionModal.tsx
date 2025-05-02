@@ -1,20 +1,20 @@
+import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomButton from '@/components/custom/CustomButton';
 import CustomModal from '@/components/custom/CustomModal';
+import { useChildrenByLeader } from '@/hooks/models/useChildren';
 import { useAuth } from '@/hooks/useAuth';
-import { FinanceAccountActionModalProps } from '@/types/finance';
+import { AccountActionType, FinanceAccountActionModalProps } from '@/types/finance';
+import { getTotalOfChildrenBalances, isAccountActionAvailable } from '@/utils/finance';
 import { router } from 'expo-router';
 
 const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: FinanceAccountActionModalProps) => {
-
   const { user } = useAuth();
+  const leaderId = user?.id!;
 
-  if (!user) {
-    return null;  // should not happen, since useAuth is used in the layout layer
-  }
+  const { totalAmount } = useFinanceOverviewContext();
+  const { children, isLoading } = useChildrenByLeader(leaderId);
 
-  const leaderId = user.id;
-
-  const handleOptionSelect = (type: 'increment' | 'decrement') => {
+  const handleOptionSelect = (type: AccountActionType) => {
     setModalVisible(false);
     router.push({ pathname: "/(main)/(finance)/accounts/money-form", params: { childId, leaderId, type } });
   };
@@ -25,22 +25,26 @@ const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: F
       type="custom"
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
-      containerStyles='w-3/4'>
+      containerStyles='w-5/6'>
       <CustomButton
-        title="Pridanie peňazí"
+        title={(childId) ? "Pridanie peňazí" : "Výdavok vyplatenia"}
         action="success"
         variant="solid"
         handlePress={() => handleOptionSelect('increment')}
         containerStyles="rounded-xl py-3 mb-3"
         textStyles="text-2xl"
+        isLoading={isLoading}
+        isDisabled={!!children && !isAccountActionAvailable('increment', childId, totalAmount, getTotalOfChildrenBalances(children))}
       />
       <CustomButton
-        title="Vrátenie peňazí"
+        title={(childId) ? "Vrátenie peňazí" : "Vyplatenie bufetu"}
         action="error"
         variant="solid"
         handlePress={() => handleOptionSelect('decrement')}
         containerStyles="rounded-xl py-3 mb-3"
         textStyles="text-2xl"
+        isLoading={isLoading}
+        isDisabled={!!children && !isAccountActionAvailable('decrement', childId, totalAmount, getTotalOfChildrenBalances(children))}
       />
     </CustomModal>
   )

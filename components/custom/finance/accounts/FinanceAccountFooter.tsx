@@ -24,7 +24,7 @@ const FinanceAccountFooter = (props: FinanceAccountFooterProps) => {
           action="primary"
           handlePress={() => setModalVisible(true)}
           textStyles="text-2xl text-center"
-          containerStyles="w-2/3 h-16 rounded-3xl px-5"
+          containerStyles="w-3/4 h-16 rounded-3xl px-5"
           isDisabled={actionAmount === 0}
         />
       </View>

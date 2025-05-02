@@ -125,6 +125,14 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
       text = "Buffet";
       color = "primary";
       break;
+    case TransactionType.PAYOUT:
+      text = "DACO DACO";
+      color = "background";
+      break;
+    case TransactionType.PAYBACK:
+      text = "SKUSKA SKUSKA";
+      color = "background";
+      break;
     default:
       throw new Error(`Unknown transaction type: ${type}`);
   }

@@ -137,6 +137,17 @@ export const isIncrementAvailable = (
   return true;
 };
 
+export const isAccountActionAvailable = (
+  type: AccountActionType,
+  childId: string | undefined,
+  totalAmount: number,
+  childrenBalances: number,
+): boolean => {
+  return (childId)
+    ? childrenBalances <= totalAmount
+    : (type === "increment") ? childrenBalances > totalAmount : childrenBalances < totalAmount;
+}
+
 export const getTransactionObject = (
   groupId: number,
   childId: string | null,

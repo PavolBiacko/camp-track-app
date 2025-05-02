@@ -67,7 +67,7 @@ export type ChildAccountParams = {
 }
 
 export type FinanceAccountActionModalProps = ModalBasicProps & {
-  childId: string,
+  childId?: string,
 }
 
 export type FinanceAccountSummaryModalProps = ModalBasicProps & {
