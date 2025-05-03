@@ -14,7 +14,7 @@ const FinanceOverviewFooter = () => {
 
   return (
     <>
-      <View className="flex-row border-t border-outline-300 justify-center items-center py-4">
+      <View className="border-t border-outline-300 justify-center items-center py-4">
         <CustomButton
           title="Výber akcie"
           action="primary"

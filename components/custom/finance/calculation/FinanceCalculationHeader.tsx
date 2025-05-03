@@ -6,8 +6,8 @@ import { ScrollView, Text, View } from 'react-native'
 
 const FinanceCalculationHeader = ({ exchange }: FinanceCalculationHeaderProps) => {
   return (
-    <View className='h-1/5'>
-      <View className='flex-row justify-center items-center bg-background-300 border-y border-outline-300 gap-5 py-2'>
+    <View className='h-[20%]'>
+      <View className='flex-row justify-center items-center bg-background-300 border-y-2 border-outline-500 gap-5 py-2'>
         <Icon as={ArrowLeftIcon} size='sm' />
         <Text className='text-typography-950 text-2xl text-center font-pbold'>
           Treba rozmeniť

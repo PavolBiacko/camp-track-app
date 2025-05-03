@@ -1,6 +1,7 @@
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import EmptyScreenMessage from '@/components/custom/EmptyScreenMessage';
 import FinanceCalculationContent from '@/components/custom/finance/calculation/FinanceCalculationContent';
+import FinanceCalculationFooter from '@/components/custom/finance/calculation/FinanceCalculationFooter';
 import FinanceCalculationHeader from '@/components/custom/finance/calculation/FinanceCalculationHeader';
 import Loading from '@/components/custom/Loading';
 import { useChildrenByLeader } from '@/hooks/models/useChildren';
@@ -37,7 +38,7 @@ const Calculation = () => {
     <View className='flex-1'>
       <FinanceCalculationHeader exchange={exchange} />
       <FinanceCalculationContent distribution={distribution} children={children} />
-      {/*<FInanceCalculationFooter />*/}
+      <FinanceCalculationFooter />
     </View>
   )
 }
