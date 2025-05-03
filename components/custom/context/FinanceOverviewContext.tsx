@@ -12,9 +12,11 @@ export const FinanceOverviewProvider = (props: PropsWithChildren<FinanceOverview
   }, [props.cashRegisterData]);
 
   // Calculate total amount
-  const totalAmount = Object.entries(quantities).reduce((sum, [denomination, quantity]) => {
-    return addDecimals(sum, multiplyDecimals(Number(denomination), quantity));
-  }, 0);
+  const totalAmount = useMemo(() => {
+    return Object.entries(quantities).reduce((sum, [denomination, quantity]) => {
+      return addDecimals(sum, multiplyDecimals(Number(denomination), quantity));
+    }, 0)
+  }, [quantities]);
 
   return (
     <FinanceOverviewContext.Provider value={{ totalAmount, quantities }}>

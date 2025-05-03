@@ -1,3 +1,4 @@
+import FinanceTransactionLineText from '@/components/custom/finance/transactions/base/FinanceTransactionLineText';
 import { Badge, BadgeText } from '@/components/ui/badge';
 import { FinanceTransactionLineProps } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
@@ -8,7 +9,7 @@ import { twMerge } from 'tailwind-merge';
 const FinanceTransactionLine = (props: FinanceTransactionLineProps) => {
   const { child, amount, type, createdAt } = props.transaction;
 
-  const { borderStyles, textStyles } = getTransactionColorStyle(type, amount);
+  const { borderStyles, textStyles } = getTransactionColorStyle(child, amount);
   const { text: badgeText, styles: badgeStyles } = getBadgeStylesAndTextForTransaction(type);
 
   return (
@@ -22,17 +23,10 @@ const FinanceTransactionLine = (props: FinanceTransactionLineProps) => {
         )}>
       <View className="items-start">
         <Text className="text-typography-800 font-plight text-sm">{formatISOLocalToHumanReadable(createdAt)}</Text>
-        {child ? (
-          <>
-            <Text className="text-typography-900 font-pbold text-2xl pt-1">{child.firstName}</Text>
-            <Text className="text-typography-900 font-pbold text-2xl pt-1">{child.lastName}</Text>
-          </>
-        ) : (
-          <>
-            <Text className="text-primary-500 font-pbold text-2xl pt-1">AKCIA</Text>
-            <Text className="text-primary-500 font-pbold text-2xl pt-1">BUFETU</Text>
-          </>
-        )}
+        <FinanceTransactionLineText
+          child={child}
+          type={type}
+        />
       </View>
       <View className="items-end gap-4 mt-1">
         <Badge className={`rounded-xl ${badgeStyles}`}>

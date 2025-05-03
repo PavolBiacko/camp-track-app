@@ -278,6 +278,17 @@ export const getTotalOfChildrenBalances = (children: Child[]): number => {
   return children.reduce((sum, child) => addDecimals(sum, child.accountBalance), 0);
 }
 
+export const getEmptyCashRegister = (): CashRegisterRecord => {
+  return Object.fromEntries(getDenominations().map(value => [value, 0])) as CashRegisterRecord;
+}
+
+export const getEmptyAccountBalances = (children: Child[]): ChildBalanceUpdate[] => {
+  return children.map(child => ({
+    childId: child.id,
+    accountBalance: 0,
+  }));
+}
+
 export const sortChildBalancesReversed = (
   balancesArray: ChildBalanceUpdate[]
 ): ChildBalanceUpdate[] => {

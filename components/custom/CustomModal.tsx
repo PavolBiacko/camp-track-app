@@ -34,9 +34,14 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
           activeOpacity={1}
           disabled={props.type === "confirmation"}
           className={`bg-background-100 border-2 border-primary-500 rounded-xl p-6 ${props.containerStyles}`}>
-          {props.title && <Text className="text-3xl font-pbold text-typography-800 text-center mb-4">
-            {props.title}
-          </Text>}
+          {props.title &&
+            (<Text className="text-3xl font-pbold text-typography-900 text-center mb-4">
+              {props.title}
+            </Text>)}
+          {props.subTitle &&
+            (<Text className="text-xl font-pbold text-typography-600 text-center mb-4">
+              {props.subTitle}
+            </Text>)}
           {props.children}
           {props.type === "confirmation" ? (
             <View className="flex-row justify-between gap-4 mt-4 h-20">

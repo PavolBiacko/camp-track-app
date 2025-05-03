@@ -46,7 +46,7 @@ const Calculation = () => {
     <View className='flex-1'>
       <FinanceCalculationHeader exchanges={exchanges} />
       <FinanceCalculationContent distribution={distribution} children={children} />
-      <FinanceCalculationFooter />
+      <FinanceCalculationFooter children={children} />
     </View>
   )
 }

@@ -5,6 +5,7 @@ import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { TransactionType } from "@/types/enums/finance";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
+import { ChildName } from "@/types/models/children";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
 import { AlertButton, KeyboardTypeOptions, Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
@@ -140,7 +141,7 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
   return { text, styles };
 }
 
-export const getTransactionColorStyle = (type: TransactionType, amount: number) => {
+export const getTransactionColorStyle = (child: ChildName | null, amount: number) => {
   let borderStyles = "border-outline-500";
   let textStyles = "text-outline-500";
 
@@ -152,7 +153,7 @@ export const getTransactionColorStyle = (type: TransactionType, amount: number) 
     textStyles = "text-success-500";
   }
 
-  if (type === TransactionType.PAYOUT || type === TransactionType.PAYBACK) {
+  if (!child) {
     borderStyles = "border-primary-500";
   }
 

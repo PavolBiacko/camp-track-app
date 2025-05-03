@@ -24,7 +24,7 @@ const FinanceCalculationContentLine = ({ child, distribution }: FinanceCalculati
             ))
           : (
             <Text className='text-typography-950 text-3xl font-psemibold mt-2'>
-              Nie je čo rozmienať.
+              Nie je čo rozmeniť
             </Text>
           )}
       </View>

@@ -1,10 +1,11 @@
 import CustomButton from '@/components/custom/CustomButton';
-import FinanceAccountActionModal from '@/components/custom/finance/accounts/base/FinanceAccountActionModal';
+import FinanceCalculationModal from '@/components/custom/finance/calculation/base/FinanceCalculationModal';
 import { useAuth } from '@/hooks/useAuth';
+import { FinanceCalculationFooterProps } from '@/types/finance';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-const FinanceCalculationFooter = () => {
+const FinanceCalculationFooter = (props: FinanceCalculationFooterProps) => {
   const { user } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -26,7 +27,9 @@ const FinanceCalculationFooter = () => {
           />
         </View>
       </View>
-      <FinanceAccountActionModal
+      <FinanceCalculationModal
+        leaderId={user.id}
+        children={props.children}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />

@@ -17,9 +17,11 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
   );
 
   // Compute the total amount being increased/decreased based on denominations
-  const actionAmount = Object.entries(counts).reduce((sum, [denomination, count]) => {
-    return addDecimals(sum, multiplyDecimals(Number(denomination), count));
-  }, 0);
+  const actionAmount = useMemo(() => {
+    return Object.entries(counts).reduce((sum, [denomination, count]) => {
+      return addDecimals(sum, multiplyDecimals(Number(denomination), count));
+    }, 0)
+  }, [counts]);
 
   const updateCount = (denomination: Denominations, count: number) => {
     setCounts((prev) => ({

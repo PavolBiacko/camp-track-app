@@ -18,7 +18,7 @@ const tabConfigs: TabConfigs[] = [
   { name: 'finance', shownLabel: 'Financie', icon: icons.accounts, roles: [UserRoles.GROUP_LEADER] },
   { name: 'camp', shownLabel: 'Tábor', icon: icons.connections, roles: [UserRoles.CAMP_LEADER] },
   { name: 'children', shownLabel: 'Moje deti', icon: icons.children, roles: [UserRoles.PARENT] },
-  { name: 'messages', shownLabel: 'Správy', icon: icons.message, roles: EVERYBODY },
+  { name: 'messages', shownLabel: 'Správy', icon: icons.message, roles: [UserRoles.CAMP_LEADER, UserRoles.GROUP_LEADER] },
   { name: 'gallery', shownLabel: 'Galéria', icon: icons.gallery, roles: EVERYBODY },
 ];
 
