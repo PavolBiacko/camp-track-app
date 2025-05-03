@@ -7,7 +7,8 @@ import Loading from '@/components/custom/Loading';
 import { useChildrenByLeader } from '@/hooks/models/useChildren';
 import { useAuth } from '@/hooks/useAuth';
 import { FinanceCalculationBalances } from '@/types/finance';
-import { distributeCash, getTotalOfChildrenBalances } from '@/utils/finance';
+import { distributeCash } from '@/utils/calculation';
+import { getTotalOfChildrenBalances } from '@/utils/finance';
 import { View } from 'react-native';
 
 const Calculation = () => {

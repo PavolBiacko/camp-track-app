@@ -135,9 +135,14 @@ export type FinanceCalculationExchangeLineProps = {
   side: "from" | "to",
 }
 
-export type FinanceCalculationDistributionLineProps = {
+export type FinanceCalculationContentLineProps = {
   child: Child,
   distribution: Distribution
+}
+
+export type FinanceCalculationDistributionLineProps = {
+  count: number,
+  denomString: string,
 }
 
 export type FinanceCalculationBalances = {

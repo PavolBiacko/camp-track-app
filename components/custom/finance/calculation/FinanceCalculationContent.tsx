@@ -1,4 +1,4 @@
-import FinanceCalculationDistributionLine from '@/components/custom/finance/calculation/base/FinanceCalculationDistributionLine'
+import FinanceCalculationContentLine from '@/components/custom/finance/calculation/base/FinanceCalculationContentLine'
 import { ArrowDownIcon, ArrowUpIcon, Icon } from '@/components/ui/icon'
 import { FinanceCalculationContentProps } from '@/types/finance'
 import { ScrollView, Text, View } from 'react-native'
@@ -15,7 +15,7 @@ const FinanceCalculationContent = (props: FinanceCalculationContentProps) => {
       </View>
       <ScrollView contentContainerClassName="items-center gap-5 py-5 px-3">
         {props.children.map((child, index) => (
-          <FinanceCalculationDistributionLine
+          <FinanceCalculationContentLine
             key={index}
             child={child}
             distribution={props.distribution}
