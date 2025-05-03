@@ -277,3 +277,9 @@ export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts): number 
 export const getTotalOfChildrenBalances = (children: Child[]): number => {
   return children.reduce((sum, child) => addDecimals(sum, child.accountBalance), 0);
 }
+
+export const sortChildBalancesReversed = (
+  balancesArray: ChildBalanceUpdate[]
+): ChildBalanceUpdate[] => {
+  return balancesArray.sort((a, b) => b.accountBalance - a.accountBalance);
+};

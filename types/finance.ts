@@ -19,6 +19,8 @@ export type FinanceScreenConfigs = {
 
 export type CashRegisterRecord = Record<Denominations, number>;
 
+export type CashRegisterMap = Map<Denominations, number>;
+
 export type FinanceOverviewLineProps = DenominationsType;
 
 export type FinanceAccountContentLineProps = DenominationsType;
@@ -121,7 +123,7 @@ export type FinanceBuffetSummaryLineProps = {
 export type FinanceBuffetModalProps = ModalBasicProps & FinanceBuffetSummaryProps;
 
 export type FinanceCalculationHeaderProps = {
-  exchange: Exchange,
+  exchanges: Exchanges,
 }
 
 export type FinanceCalculationContentProps = {
@@ -129,36 +131,35 @@ export type FinanceCalculationContentProps = {
   children: Child[],
 }
 
-export type FinanceCalculationExchangeLineProps = {
-  exchange: Exchange,
-  denomination: Denominations,
-  side: "from" | "to",
-}
-
 export type FinanceCalculationContentLineProps = {
-  child: Child,
   distribution: Distribution
+  child: Child,
 }
 
-export type FinanceCalculationDistributionLineProps = {
+type FinanceCalculationCashLineProps = {
   count: number,
-  denomString: string,
+  denomination: Denominations,
 }
 
-export type FinanceCalculationBalances = {
-  [childId: string]: number
-};
+export type FinanceCalculationExchangeLineProps = FinanceCalculationCashLineProps;
+
+export type FinanceCalculationDistributionLineProps = FinanceCalculationCashLineProps;
 
 export type DistributeCashResult = {
-  exchange: Exchange;
+  exchanges: Exchanges;
   distribution: Distribution;
 }
 
-export type Exchange = {
+export type Exchanges = {
   from: Partial<CashRegisterRecord>;
   to: Partial<CashRegisterRecord>;
 }
 
 export type Distribution = {
   [childId: string]: Partial<CashRegisterRecord>;
+}
+
+export type ChildBalanceRecord = {
+  id: string,
+  accountBalance: number,
 }
