@@ -5,7 +5,6 @@ import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { TransactionType } from "@/types/enums/finance";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
-import { ChildName } from "@/types/models/children";
 import { StackScreenOptions, TabScreenOptions } from "@/types/options";
 import { AlertButton, KeyboardTypeOptions, Platform } from "react-native";
 import { ClassNameValue } from "tailwind-merge";
@@ -122,16 +121,16 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
       color = "quaternary";
       break;
     case TransactionType.PURCHASE:
-      text = "Buffet";
+      text = "Bufet";
       color = "primary";
       break;
     case TransactionType.PAYOUT:
-      text = "DACO DACO";
-      color = "background";
+      text = "Vyplatenie";
+      color = "error";
       break;
     case TransactionType.PAYBACK:
-      text = "SKUSKA SKUSKA";
-      color = "background";
+      text = "výdavok";
+      color = "success";
       break;
     default:
       throw new Error(`Unknown transaction type: ${type}`);
@@ -141,18 +140,23 @@ export const getBadgeStylesAndTextForTransaction = (type: TransactionType) => {
   return { text, styles };
 }
 
-export const getTransactionColorStyle = (child: ChildName | null, amount: number): ClassNameValue => {
-  if (!child) {
-    return "primary-500";
-  }
+export const getTransactionColorStyle = (type: TransactionType, amount: number) => {
+  let borderStyles = "border-outline-500";
+  let textStyles = "text-outline-500";
 
   if (amount < 0) {
-    return "error-400";
+    borderStyles = "border-error-400";
+    textStyles = "text-error-400";
   } else if (amount > 0) {
-    return "success-500";
-  } else {
-    return "outline-500"
+    borderStyles = "border-success-500";
+    textStyles = "text-success-500";
   }
+
+  if (type === TransactionType.PAYOUT || type === TransactionType.PAYBACK) {
+    borderStyles = "border-primary-500";
+  }
+
+  return { borderStyles, textStyles }
 }
 
 export const getProperTextSizeForChildName = (text: string | undefined): ClassNameValue => {
