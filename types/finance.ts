@@ -119,3 +119,41 @@ export type FinanceBuffetSummaryLineProps = {
 }
 
 export type FinanceBuffetModalProps = ModalBasicProps & FinanceBuffetSummaryProps;
+
+export type FinanceCalculationHeaderProps = {
+  exchange: Exchange,
+}
+
+export type FinanceCalculationContentProps = {
+  distribution: Distribution,
+  children: Child[],
+}
+
+export type FinanceCalculationExchangeLineProps = {
+  exchange: Exchange,
+  denomination: Denominations,
+  side: "from" | "to",
+}
+
+export type FinanceCalculationDistributionLineProps = {
+  child: Child,
+  distribution: Distribution
+}
+
+export type FinanceCalculationBalances = {
+  [childId: string]: number
+};
+
+export type DistributeCashResult = {
+  exchange: Exchange;
+  distribution: Distribution;
+}
+
+export type Exchange = {
+  from: Partial<CashRegisterRecord>;
+  to: Partial<CashRegisterRecord>;
+}
+
+export type Distribution = {
+  [childId: string]: Partial<CashRegisterRecord>;
+}

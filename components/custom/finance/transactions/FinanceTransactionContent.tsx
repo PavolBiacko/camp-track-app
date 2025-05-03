@@ -1,8 +1,9 @@
 import { useFinanceTransactionContext } from '@/components/custom/context/FinanceTransactionContext';
+import EmptyScreenMessage from '@/components/custom/EmptyScreenMessage';
 import FinanceTransactionLine from '@/components/custom/finance/transactions/base/FinanceTransactionLine';
 import Loading from '@/components/custom/Loading';
 import { useTransactionsInDateRange } from '@/hooks/models/useTransactions';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const FinanceAccountContent = () => {
   const { dateFrom, dateTo } = useFinanceTransactionContext();
@@ -13,13 +14,7 @@ const FinanceAccountContent = () => {
   }
 
   if (transactions.length === 0) {
-    return (
-      <View className="flex-1 justify-center items-center h-full">
-        <Text className="text-typography-500 text-center text-2xl font-pregular mx-5">
-          V danom období nie sú zaznamenané žiadne pohyby.
-        </Text>
-      </View>
-    );
+    return <EmptyScreenMessage text='V danom období nie sú zaznamenané žiadne pohyby.' />;
   }
 
   return (
