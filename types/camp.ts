@@ -1,4 +1,5 @@
 import { CampSession } from "@/types/models/campSessions"
+import { Child } from "@/types/models/children"
 
 export type CampSessionBoxProps = {
   year: CampSession[],
@@ -11,4 +12,8 @@ export type CampSessionLineProps = {
 
 export type CampSessionParams = {
   campSessionId: string,
+}
+
+export type CampChildrenLineProps = {
+  child: Child,
 }

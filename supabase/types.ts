@@ -103,6 +103,7 @@ export type Database = {
       }
       children: {
         Row: {
+          access_code: string
           birth_date: string | null
           created_at: string
           first_name: string
@@ -111,6 +112,7 @@ export type Database = {
           last_name: string
         }
         Insert: {
+          access_code: string
           birth_date?: string | null
           created_at?: string
           first_name: string
@@ -119,6 +121,7 @@ export type Database = {
           last_name: string
         }
         Update: {
+          access_code?: string
           birth_date?: string | null
           created_at?: string
           first_name?: string
@@ -286,6 +289,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_access_code: {
+        Args: { uuid_input: string }
+        Returns: string
+      }
       process_transaction: {
         Args: {
           child_id: string

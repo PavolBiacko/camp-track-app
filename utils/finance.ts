@@ -1,7 +1,7 @@
 import { images } from "@/constants";
 import { Denominations, TransactionType } from "@/types/enums/finance";
 import { AccountActionType, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
-import { Child, ChildBalanceUpdate } from "@/types/models/children";
+import { ChildBalanceUpdate, ChildWithBalance } from "@/types/models/children";
 import { TransactionCreate } from "@/types/models/transactions";
 import { addDecimals, multiplyDecimals, subtractDecimals } from "@/utils/decimal";
 import { ImageProps } from "react-native";
@@ -182,7 +182,7 @@ export const getTransactionObject = (
 
 export const getManyTransactionObjectsOfType = (
   groupId: number,
-  children: Child[],
+  children: ChildWithBalance[],
   actionAmounts: LocalBuffetActionAmounts,
   transactionType: TransactionType
 ): TransactionCreate[] => {
@@ -205,7 +205,7 @@ export const getTransactionDirection = (transactionType: TransactionType): numbe
   }
 }
 
-export const getManyChildBalanceObjects = (children: Child[], actionAmounts: LocalBuffetActionAmounts): ChildBalanceUpdate[] => {
+export const getManyChildBalanceObjects = (children: ChildWithBalance[], actionAmounts: LocalBuffetActionAmounts): ChildBalanceUpdate[] => {
   return children
     .filter(child => child.id in actionAmounts)
     .map(child => {
@@ -274,7 +274,7 @@ export const getTotalAmount = (actionAmounts: LocalBuffetActionAmounts): number 
   return Object.values(actionAmounts).reduce((sum, amount) => addDecimals(sum, amount), 0);
 }
 
-export const getTotalOfChildrenBalances = (children: Child[]): number => {
+export const getTotalOfChildrenBalances = (children: ChildWithBalance[]): number => {
   return children.reduce((sum, child) => addDecimals(sum, child.accountBalance), 0);
 }
 
@@ -282,7 +282,7 @@ export const getEmptyCashRegister = (): CashRegisterRecord => {
   return Object.fromEntries(getDenominations().map(value => [value, 0])) as CashRegisterRecord;
 }
 
-export const getEmptyAccountBalances = (children: Child[]): ChildBalanceUpdate[] => {
+export const getEmptyAccountBalances = (children: ChildWithBalance[]): ChildBalanceUpdate[] => {
   return children.map(child => ({
     childId: child.id,
     accountBalance: 0,

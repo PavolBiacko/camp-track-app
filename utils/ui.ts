@@ -3,6 +3,7 @@ import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
 import { ColorScheme } from "@/types/base";
 import { ButtonActionType, ButtonVariantType } from "@/types/custom/button";
 import { TransactionType } from "@/types/enums/finance";
+import { Gender } from "@/types/enums/gender";
 import { UserRoles } from "@/types/enums/roles";
 import { ActivityStatus } from "@/types/enums/schedule";
 import { ChildName } from "@/types/models/children";
@@ -56,7 +57,7 @@ export const getButtonStyles = (action: ButtonActionType = "primary", variant: B
   }
 }
 
-export const getBadgeStylesAndText = (role: UserRoles) => {
+export const getRoleBadgeStylesAndText = (role: UserRoles) => {
   let text = "";
   let color: ColorStyle = "background";
 
@@ -79,6 +80,27 @@ export const getBadgeStylesAndText = (role: UserRoles) => {
       break;
     default:
       throw new Error(`Unknown role: ${role}`);
+  }
+
+  const styles = `bg-${color}-300 border border-${color}-700`
+  return { text, styles };
+}
+
+export const getChildBadgeStylesAndText = (gender: Gender) => {
+  let text = "";
+  let color: ColorStyle = "background";
+
+  switch (gender) {
+    case Gender.MALE:
+      text = "Chlapec";
+      color = "secondary";
+      break;
+    case Gender.FEMALE:
+      text = "Dievča";
+      color = "quaternary";
+      break;
+    default:
+      throw new Error(`Unknown gender: ${gender}`);
   }
 
   const styles = `bg-${color}-300 border border-${color}-700`
@@ -160,20 +182,20 @@ export const getTransactionColorStyle = (child: ChildName | null, amount: number
   return { borderStyles, textStyles }
 }
 
-export const getProperTextSizeForChildName = (text: string | undefined): ClassNameValue => {
+export const getProperTextSizeForChildName = (text: string | undefined, offSet: number = 0): ClassNameValue => {
   if (!text) {
     return "";
   }
 
-  if (text.length <= 8) {
+  if (text.length <= 8 - offSet) {
     return "text-6xl";
-  } else if (text.length <= 12) {
+  } else if (text.length <= 12 - offSet) {
     return "text-5xl";
-  } else if (text.length <= 15) {
+  } else if (text.length <= 15 - offSet) {
     return "text-4xl";
-  } else if (text.length <= 19) {
+  } else if (text.length <= 19 - offSet) {
     return "text-3xl";
-  } else if (text.length <= 24) {
+  } else if (text.length <= 24 - offSet) {
     return "text-2xl";
   } else {
     return "text-xl";

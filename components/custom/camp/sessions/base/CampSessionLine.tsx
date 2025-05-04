@@ -37,7 +37,7 @@ const CampSessionLine = ({ campSession, order }: CampSessionLineProps) => {
           </Text>
         </View>
       </View>
-    </TouchableOpacity >
+    </TouchableOpacity>
   )
 }
 

@@ -1,15 +1,21 @@
 import { Enums, Tables } from "@/supabase/types";
 import { Gender } from "@/types/enums/gender";
 
-export type Child = {
+export type ChildInfo = {
   id: string;
   firstName: string;
   lastName: string;
   birthDate: Date | null;
   gender: Gender;
-  groupId: number | null;
-  accountBalance: number;
   createdAt: Date;
+}
+
+export type Child = ChildInfo & {
+  accessCode: string;
+}
+
+export type ChildWithBalance = ChildInfo & {  // accessCode was added later
+  accountBalance: number;
 }
 
 export type ChildName = {

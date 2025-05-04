@@ -5,9 +5,11 @@ import { useColorScheme } from 'nativewind';
 
 const campScreenConfigs: ScreenConfigs[] = [
   { name: 'sessions/index', title: 'Turnusy' },
-  { name: 'sessions/update-session', title: 'Editačný formulár' },
-  { name: 'sessions/create-session', title: 'Vytvárací formulár' },
-  { name: 'children', title: 'Deti' },
+  { name: 'sessions/update-session', title: 'Editačný formulár turnusu' },
+  { name: 'sessions/create-session', title: 'Vytvárací formulár turnusu' },
+  { name: 'children/index', title: 'Deti' },
+  { name: 'children/update-child', title: 'Editačný formulár dieťata' },
+  { name: 'children/create-child', title: 'Vytvárací formulár dieťata' },
   { name: 'groups', title: 'Oddiely' },
 ];
 

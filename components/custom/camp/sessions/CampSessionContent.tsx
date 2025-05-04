@@ -1,6 +1,6 @@
 import EmptyScreenMessage from "@/components/custom/EmptyScreenMessage";
 import Loading from "@/components/custom/Loading";
-import CampSessionBox from "@/components/custom/camp/base/CampSessionBox";
+import CampSessionBox from "@/components/custom/camp/sessions/base/CampSessionBox";
 import { useManyCampSessionsGrouped } from "@/hooks/models/useCampSessions";
 import { ScrollView, View } from "react-native";
 
@@ -23,7 +23,6 @@ const CampSessionContent = () => {
         ))}
       </ScrollView>
     </View>
-
   )
 }
 

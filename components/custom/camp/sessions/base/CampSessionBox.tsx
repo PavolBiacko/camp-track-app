@@ -1,4 +1,4 @@
-import CampSessionLine from '@/components/custom/camp/base/CampSessionLine'
+import CampSessionLine from '@/components/custom/camp/sessions/base/CampSessionLine'
 import { CampSessionBoxProps } from '@/types/camp'
 import { Text, View } from 'react-native'
 

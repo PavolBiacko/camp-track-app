@@ -2,12 +2,12 @@ import { Badge, BadgeText } from '@/components/ui/badge'
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups'
 import { UserRoles } from '@/types/enums/roles'
 import { ProfileBadgeProps } from '@/types/settings'
-import { getBadgeStylesAndText } from '@/utils/ui'
+import { getRoleBadgeStylesAndText } from '@/utils/ui'
 import React from 'react'
 import { View } from 'react-native'
 
 const ProfileBadge = ({ user }: ProfileBadgeProps) => {
-  const { text, styles } = getBadgeStylesAndText(user.role);
+  const { text, styles } = getRoleBadgeStylesAndText(user.role);
   const { groupBasic, isLoading, isError } = useGroupBasicByLeader(user.id);
 
   return (

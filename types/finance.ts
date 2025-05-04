@@ -1,7 +1,7 @@
 import { ModalBasicProps } from "@/types/custom/modal";
 import { Denominations, TransactionType } from "@/types/enums/finance";
 import { CashRegister } from "@/types/models/cashRegister";
-import { Child, ChildName } from "@/types/models/children";
+import { ChildName, ChildWithBalance } from "@/types/models/children";
 import { TransactionComplex } from "@/types/models/transactions";
 
 export type MoneyType = 'coin' | 'bill';
@@ -48,7 +48,7 @@ export type FinanceAccountFooterProps = {
 }
 
 export type FinanceAccountLineProps = {
-  child: Child,
+  child: ChildWithBalance,
   textStyles?: string,
   containerStyles?: string,
 }
@@ -112,11 +112,11 @@ export type FinanceBuffetData = {
 }
 
 export type FinanceBuffetSummaryProps = {
-  children: Child[],
+  children: ChildWithBalance[],
 }
 
 export type FinanceBuffetSummaryLineProps = {
-  child: Child,
+  child: ChildWithBalance,
   actionAmount: number,
 }
 
@@ -128,16 +128,16 @@ export type FinanceCalculationHeaderProps = {
 
 export type FinanceCalculationContentProps = {
   distribution: Distribution,
-  children: Child[],
+  children: ChildWithBalance[],
 }
 
 export type FinanceCalculationFooterProps = {
-  children: Child[],
+  children: ChildWithBalance[],
 }
 
 export type FinanceCalculationContentLineProps = {
   distribution: Distribution
-  child: Child,
+  child: ChildWithBalance,
 }
 
 type FinanceCalculationCashLineProps = {
@@ -170,5 +170,5 @@ export type ChildBalanceRecord = {
 
 export type FinanceCalculationModalProps = ModalBasicProps & {
   leaderId: string,
-  children: Child[]
+  children: ChildWithBalance[]
 }

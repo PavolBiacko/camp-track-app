@@ -1,5 +1,5 @@
-import CampSessionContent from '@/components/custom/camp/CampSessionContent'
-import CampSessionFooter from '@/components/custom/camp/CampSessionFooter'
+import CampSessionContent from '@/components/custom/camp/sessions/CampSessionContent'
+import CampSessionFooter from '@/components/custom/camp/sessions/CampSessionFooter'
 import { View } from 'react-native'
 
 const Sessions = () => {

@@ -1,4 +1,4 @@
-import CampSessionForm from '@/components/custom/camp/base/CampSessionForm';
+import CampSessionForm from '@/components/custom/camp/sessions/base/CampSessionForm';
 import Loading from '@/components/custom/Loading';
 import { useCampSession, useManyCampSessionsGrouped, useUpdateCampSession } from '@/hooks/models/useCampSessions';
 import { mapDateTimeToString } from '@/mappers/datetime';
