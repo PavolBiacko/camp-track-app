@@ -1,6 +1,8 @@
+import { useManyChildren } from '@/hooks/models/useChildren';
 import { Gender } from '@/types/enums/gender';
 import { Child } from '@/types/models/children';
 import { ScrollView, View } from 'react-native';
+import Loading from '../../Loading';
 import ChildrenLine from './base/CampChildrenLine';
 
 const dummyData: Child[] = [
@@ -22,10 +24,16 @@ const dummyData: Child[] = [
 ];
 
 const ChildrenContent = () => {
+  const { children, isLoading, isError } = useManyChildren();
+
+  if (!children || isLoading || isError) {
+    return <Loading showText={false} />;
+  }
+
   return (
     <View className="h-[87.5%] border-t border-outline-500">
       <ScrollView contentContainerClassName="items-center gap-5 py-5">
-        {dummyData.map((child, index) => (
+        {children.map((child, index) => (
           <ChildrenLine
             key={index}
             child={child}

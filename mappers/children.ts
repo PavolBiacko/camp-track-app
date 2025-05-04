@@ -2,7 +2,7 @@ import { Tables } from "@/supabase/types";
 import { Child } from "@/types/models/children";
 import { mapDbGenderToGender } from "./gender";
 
-export const maDbChildToChild = (child: Tables<"children">): Child => {
+export const mapDbChildToChild = (child: Tables<"children">): Child => {
   return {
     id: child.id,
     firstName: child.first_name,
