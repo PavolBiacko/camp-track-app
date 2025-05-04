@@ -1,11 +1,11 @@
-import { accountRepository } from "@/repositories/accountRepository";
+import { groupAccountRepository } from "@/repositories/groupAccountRepository";
 import { ChildBalanceUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyAccountsWithLeader = (leaderId: string) => {
   const mutation = useQuery({
     queryKey: ['groupAccounts', leaderId],
-    queryFn: async () => await accountRepository.readManyAccountsByLeader(leaderId),
+    queryFn: async () => await groupAccountRepository.readManyAccountsByLeader(leaderId),
   });
   return { children: mutation.data, ...mutation };
 }
@@ -13,7 +13,7 @@ export const useManyAccountsWithLeader = (leaderId: string) => {
 export const useAccountByChildIdWithLeader = (childId: string | null, leaderId: string) => {
   const mutation = useQuery({
     queryKey: ['groupAccounts', leaderId, childId],
-    queryFn: async () => await accountRepository.readAccountByChildIdWithLeader(childId, leaderId),
+    queryFn: async () => await groupAccountRepository.readAccountByChildIdWithLeader(childId, leaderId),
   });
   return { child: mutation.data, ...mutation };
 }
@@ -23,7 +23,7 @@ export const useUpdateAccountBalanceWithLeader = (childId: string | null, leader
 
   const mutation = useMutation({
     mutationFn: async (accountBalance: number) => {
-      return await accountRepository.updateAccountBalanceByChildIdWithLeader(childId, leaderId, accountBalance);
+      return await groupAccountRepository.updateAccountBalanceByChildIdWithLeader(childId, leaderId, accountBalance);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -42,7 +42,7 @@ export const useUpdateManyAccountBalancesWithLeader = (leaderId: string) => {
 
   const mutation = useMutation({
     mutationFn: async (accountUpdates: ChildBalanceUpdate[]) => {
-      return await accountRepository.updateManyAccountBalancesWithLeader(leaderId, accountUpdates);
+      return await groupAccountRepository.updateManyAccountBalancesWithLeader(leaderId, accountUpdates);
     },
     onSuccess: (_data, accountUpdates) => {
       queryClient.invalidateQueries({

@@ -182,7 +182,7 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
   }
 };
 
-export const accountRepository = {
+export const groupAccountRepository = {
   readManyAccountsByLeader,
   readAccountByChildIdWithLeader,
   updateAccountBalanceByChildIdWithLeader,
