@@ -1,4 +1,4 @@
-import { sessionRepository } from "@/repositories/sessionRepository";
+import { campSessionRepository } from "@/repositories/campSessionRepository";
 import supabase from "@/supabase/client";
 import { GroupBasic } from "@/types/models/groups";
 import { AuthError } from "@supabase/supabase-js";
@@ -27,7 +27,7 @@ const readGroupNumberByLeader = async (leaderId: string): Promise<number | null>
 
 const readGroupBasicByLeaderForCurrentCampSession = async (leaderId: string): Promise<GroupBasic | null> => {
   try {
-    const currentSession = await sessionRepository.readCurrentCampSessionId();
+    const currentSession = await campSessionRepository.readCurrentCampSessionId();
     if (!currentSession) return null; // No current camp session found
 
     // Find the group with leader_id for current camp session

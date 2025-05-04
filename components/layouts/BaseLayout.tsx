@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton';
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
 import { icons } from '@/constants';
 import { BaseLayoutProps } from '@/types/base';
 import { router } from 'expo-router';
@@ -6,7 +7,6 @@ import { useColorScheme } from 'nativewind';
 import { PropsWithChildren } from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getRGBColor } from '../ui/gluestack-ui-provider/colors';
 
 const BaseLayout = (props: PropsWithChildren<BaseLayoutProps>) => {
   const { colorScheme } = useColorScheme();

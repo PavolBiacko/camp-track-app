@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { dateformats } from '@/constants'
 import { mapDateTimeToString, mapStringToDateTime } from '@/mappers/datetime'
 import { DateTimeButtonProps } from '@/types/custom/button'
@@ -8,7 +9,6 @@ import { useState } from 'react'
 import { Controller, FieldValues, Path } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
-import { getRGBColor } from '../ui/gluestack-ui-provider/colors'
 
 const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) => {
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);

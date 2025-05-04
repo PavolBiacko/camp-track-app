@@ -1,3 +1,4 @@
+import { useScheduleContext } from '@/components/custom/context/ScheduleContext'
 import CustomButton from '@/components/custom/CustomButton'
 import CustomSwitch from '@/components/custom/CustomSwitch'
 import DateTimeButton from '@/components/custom/DateTimeButton'
@@ -11,7 +12,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FieldError, FieldErrors, Path, PathValue, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
-import { useScheduleContext } from '../../context/ScheduleContext'
 
 const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
 

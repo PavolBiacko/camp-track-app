@@ -1,6 +1,6 @@
+import { ColorScheme } from "@/types/base";
 import { User } from "@/types/models/users";
 import { ImageProps } from "react-native";
-import { ColorScheme } from "./base";
 
 export type SettingsBoxProps = {
   title: string,

@@ -1,6 +1,6 @@
+import { mapDbUserRoleToUserRole } from "@/mappers/roles";
 import { Tables } from "@/supabase/types";
 import { User } from "@/types/models/users";
-import { mapDbUserRoleToUserRole } from "./roles";
 
 export const mapDbUserToUser = (dbUser: Tables<"users">): User => {
   return {

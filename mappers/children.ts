@@ -13,11 +13,3 @@ export const mapDbChildGroupLinkWithChildToChild = (dbChildGroup: DbChildGroupLi
     createdAt: new Date(dbChildGroup.created_at) // Assuming created_at is in the group_accounts table (not whole child creaeted_at)
   };
 };
-
-// export const mapAccountUpdateToDbChildGroup = (groupId: number, accountUpdate: ChildBalanceUpdate): TablesInsert<"group_accounts"> => {
-//   return {
-//     group_id: groupId,
-//     child_id: accountUpdate.childId,
-//     account_balance: accountUpdate.accountBalance
-//   };
-// };

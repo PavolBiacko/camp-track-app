@@ -1,8 +1,8 @@
+import { FieldBasics } from "@/types/custom/field";
 import { Href } from "expo-router";
 import { DefaultValues, FieldValues } from "react-hook-form";
 import { ImageProps } from "react-native";
 import { ZodSchema } from "zod";
-import { FieldBasics } from "./field";
 
 type LinkData = {
   prelinkText: string,

@@ -1,5 +1,5 @@
+import { UserRoles } from "@/types/enums/roles";
 import { ImageProps } from "react-native";
-import { UserRoles } from "./enums/roles";
 
 type TabConfigsBasic = {
   icon: ImageProps,

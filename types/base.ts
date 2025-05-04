@@ -1,4 +1,4 @@
-import { UserRoles } from "./enums/roles";
+import { UserRoles } from "@/types/enums/roles";
 
 export type ColorScheme = "light" | "dark";
 
