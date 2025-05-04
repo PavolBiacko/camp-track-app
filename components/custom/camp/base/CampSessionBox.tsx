@@ -10,12 +10,11 @@ const CampSessionBox = (props: CampSessionBoxProps) => {
       </Text>
       <View
         className="w-11/12 items-center justify-center border-2 border-outline-500 rounded-2xl gap-5 py-5">
-        {props.year.map((session, index) => (
+        {props.year.map((campSession, index) => (
           <CampSessionLine
             key={index}
             order={index + 1}
-            beginDate={session.beginDate}
-            endDate={session.endDate}
+            campSession={campSession}
           />))}
       </View>
     </View>

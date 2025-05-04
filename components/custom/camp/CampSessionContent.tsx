@@ -1,11 +1,11 @@
 import EmptyScreenMessage from "@/components/custom/EmptyScreenMessage";
 import Loading from "@/components/custom/Loading";
 import CampSessionBox from "@/components/custom/camp/base/CampSessionBox";
-import { useCampSessionsGrouped } from "@/hooks/models/useCampSessions";
+import { useManyCampSessionsGrouped } from "@/hooks/models/useCampSessions";
 import { ScrollView, View } from "react-native";
 
 const CampSessionContent = () => {
-  const { campSessionsGrouped, isLoading, isError } = useCampSessionsGrouped();
+  const { campSessionsGrouped, isLoading, isError } = useManyCampSessionsGrouped();
 
   if (!campSessionsGrouped || isLoading || isError) {
     return <Loading showText={false} />;

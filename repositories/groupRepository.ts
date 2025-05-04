@@ -28,7 +28,6 @@ const readGroupNumberByLeader = async (leaderId: string): Promise<number | null>
 const readGroupBasicByLeaderForCurrentCampSession = async (leaderId: string): Promise<GroupBasic | null> => {
   try {
     const currentSession = await campSessionRepository.readCurrentCampSessionId();
-    if (!currentSession) return null; // No current camp session found
 
     // Find the group with leader_id for current camp session
     const { data: group, error: groupError } = await supabase

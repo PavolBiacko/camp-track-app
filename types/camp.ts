@@ -5,7 +5,10 @@ export type CampSessionBoxProps = {
 }
 
 export type CampSessionLineProps = {
-  beginDate: Date,
-  endDate: Date,
   order: number,
+  campSession: CampSession,
+}
+
+export type CampSessionParams = {
+  campSessionId: string,
 }

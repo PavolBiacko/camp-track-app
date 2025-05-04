@@ -41,6 +41,7 @@ export const useUpdateActivity = (id: number) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['activities'] });
+      queryClient.invalidateQueries({ queryKey: ['activities', id] });
     }
   });
   return { updateActivity: mutateAsync, isError };

@@ -8,3 +8,17 @@ export type CampSession = {
   endDate: Date;
   createdAt: Date;
 }
+
+export type CampSessionCore = {
+  beginDate: string;
+  endDate: string;
+}
+
+export type CampSessionCreate = CampSessionCore;
+
+export type CampSessionUpdate = Partial<CampSessionCore>;
+
+export type CampSessionCoreWithDates = {
+  beginDate?: Date;
+  endDate?: Date;
+}
