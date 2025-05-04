@@ -25,6 +25,7 @@ const CreateActivity = () => {
       // - If user is CampLeader, set leaderId to null (so everyone can see that)
       // - If user is GroupLeader, set leaderId to user.id (so only they can see that)
       await createActivity({ ...data, leaderId: (user.role === UserRoles.GROUP_LEADER) ? user.id : null });
+      Alert.alert("Hotovo!", "Aktivita bola úspešne pridaná.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

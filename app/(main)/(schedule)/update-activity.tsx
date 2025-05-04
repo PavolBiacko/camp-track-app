@@ -21,6 +21,7 @@ const UpdateActivity = () => {
     // Data are valid, checked with Zod
     try {
       await updateActivity({ ...data });
+      Alert.alert("Hotovo!", "Aktivita bola úspešne upravená.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
@@ -32,6 +33,7 @@ const UpdateActivity = () => {
     // No need to check for validation, we are deleting the activity
     try {
       await deleteActivity();
+      Alert.alert("Hotovo!", "Aktivita bola úspešne odstránená.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
