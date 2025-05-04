@@ -7,7 +7,7 @@ const SettingsBox = (props: PropsWithChildren<SettingsBoxProps>) => {
 
   return (
     <View className="mx-7 my-4">
-      <Text className={`text-typography-950 text-lg font-psemibold mb-2`}>{props.title}</Text>
+      <Text className="text-typography-950 text-lg font-psemibold mb-2">{props.title}</Text>
       {props.isClickable ? (
         <TouchableOpacity
           className={contentWrapperStyles}
