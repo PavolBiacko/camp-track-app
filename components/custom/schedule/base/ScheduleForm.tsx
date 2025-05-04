@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { FieldError, FieldErrors, Path, PathValue, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
-import { useScheduleContext } from '../context/ScheduleContext'
+import { useScheduleContext } from '../../context/ScheduleContext'
 
 const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
 
