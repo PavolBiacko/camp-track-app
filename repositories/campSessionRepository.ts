@@ -40,7 +40,7 @@ export const readAllCampSessions = async (): Promise<CampSession[] | null> => {
   }
 }
 
-export const readAllCampSessionsGroupped = async (): Promise<CampSession[][] | null> => {
+export const readAllCampSessionsGrouped = async (): Promise<CampSession[][] | null> => {
   try {
     const campSessions = await readAllCampSessions();
     if (!campSessions) return null; // No camp sessions found
@@ -54,5 +54,5 @@ export const readAllCampSessionsGroupped = async (): Promise<CampSession[][] | n
 export const campSessionRepository = {
   readCurrentCampSessionId,
   readAllCampSessions,
-  readAllCampSessionsGroupped
+  readAllCampSessionsGrouped
 }
