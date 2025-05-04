@@ -1,7 +1,7 @@
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomButton from '@/components/custom/CustomButton';
 import CustomModal from '@/components/custom/CustomModal';
-import { useChildrenByLeader } from '@/hooks/models/useChildren';
+import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
 import { useAuth } from '@/hooks/useAuth';
 import { AccountActionType, FinanceAccountActionModalProps } from '@/types/finance';
 import { getTotalOfChildrenBalances, isAccountActionAvailable } from '@/utils/finance';
@@ -12,7 +12,7 @@ const FinanceAccountActionModal = ({ childId, modalVisible, setModalVisible }: F
   const leaderId = user?.id!;
 
   const { totalAmount } = useFinanceOverviewContext();
-  const { children, isLoading } = useChildrenByLeader(leaderId);
+  const { children, isLoading } = useManyAccountsWithLeader(leaderId);
 
   const handleOptionSelect = (type: AccountActionType) => {
     setModalVisible(false);

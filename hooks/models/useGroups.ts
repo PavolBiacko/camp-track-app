@@ -1,14 +1,6 @@
 import { groupRepository } from "@/repositories/groupRepository";
 import { useQuery } from "@tanstack/react-query";
 
-export const useGroupNumberByLeader = (leaderId: string) => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['groups', leaderId],
-    queryFn: async () => await groupRepository.readGroupNumberByLeader(leaderId),
-  });
-  return { groupNumber: data, isLoading, isError };
-}
-
 export const useGroupBasicByLeader = (leaderId: string) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['groups', leaderId],

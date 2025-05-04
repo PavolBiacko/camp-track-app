@@ -1,13 +1,13 @@
 import FinanceAccountLine from '@/components/custom/finance/accounts/base/FinanceAccountLine';
 import Loading from '@/components/custom/Loading';
-import { useChildrenByLeader } from '@/hooks/models/useChildren';
+import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
 import { FinanceAccountsParams } from '@/types/finance';
 import { useLocalSearchParams } from 'expo-router';
 import { ScrollView } from 'react-native';
 
 const Accounts = () => {
   const { leaderId } = useLocalSearchParams<FinanceAccountsParams>();
-  const { children, isLoading, isError } = useChildrenByLeader(leaderId);
+  const { children, isLoading, isError } = useManyAccountsWithLeader(leaderId);
 
   if (!children || isLoading || isError) {
     return <Loading showText={false} />;

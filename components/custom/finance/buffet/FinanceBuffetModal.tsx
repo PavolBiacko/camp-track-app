@@ -1,7 +1,7 @@
 import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceBuffetSummary from '@/components/custom/finance/buffet/FinanceBuffetSummary';
-import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useChildren';
+import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useGroupAccounts';
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateManyTransactions } from '@/hooks/models/useTransactions';
 import { useAuth } from '@/hooks/useAuth';

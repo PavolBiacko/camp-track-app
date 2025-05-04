@@ -1,19 +1,19 @@
-import { childRepository } from "@/repositories/childRepository";
+import { accountRepository } from "@/repositories/accountRepository";
 import { ChildBalanceUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useChildrenByLeader = (leaderId: string) => {
+export const useManyAccountsWithLeader = (leaderId: string) => {
   const mutation = useQuery({
-    queryKey: ['children', leaderId],
-    queryFn: async () => await childRepository.readChildrenByLeader(leaderId),
+    queryKey: ['groupAccounts', leaderId],
+    queryFn: async () => await accountRepository.readManyAccountsByLeader(leaderId),
   });
   return { children: mutation.data, ...mutation };
 }
 
-export const useChildByIdWithLeader = (childId: string | null, leaderId: string) => {
+export const useAccountByChildIdWithLeader = (childId: string | null, leaderId: string) => {
   const mutation = useQuery({
-    queryKey: ['children', leaderId, childId],
-    queryFn: async () => await childRepository.readChildByIdWithLeader(childId, leaderId),
+    queryKey: ['groupAccounts', leaderId, childId],
+    queryFn: async () => await accountRepository.readAccountByChildIdWithLeader(childId, leaderId),
   });
   return { child: mutation.data, ...mutation };
 }
@@ -23,14 +23,14 @@ export const useUpdateAccountBalanceWithLeader = (childId: string | null, leader
 
   const mutation = useMutation({
     mutationFn: async (accountBalance: number) => {
-      return await childRepository.updateAccountBalanceByIdWithLeader(childId, leaderId, accountBalance);
+      return await accountRepository.updateAccountBalanceByChildIdWithLeader(childId, leaderId, accountBalance);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['children', leaderId]
+        queryKey: ['groupAccounts', leaderId]
       });
       queryClient.invalidateQueries({
-        queryKey: ['children', leaderId, childId]
+        queryKey: ['groupAccounts', leaderId, childId]
       });
     }
   });
@@ -42,15 +42,15 @@ export const useUpdateManyAccountBalancesWithLeader = (leaderId: string) => {
 
   const mutation = useMutation({
     mutationFn: async (accountUpdates: ChildBalanceUpdate[]) => {
-      return await childRepository.updateManyAccountBalancesWithLeader(leaderId, accountUpdates);
+      return await accountRepository.updateManyAccountBalancesWithLeader(leaderId, accountUpdates);
     },
     onSuccess: (_data, accountUpdates) => {
       queryClient.invalidateQueries({
-        queryKey: ['children', leaderId]
+        queryKey: ['groupAccounts', leaderId]
       });
       accountUpdates.forEach((accountUpdate) => {
         queryClient.invalidateQueries({
-          queryKey: ['children', leaderId, accountUpdate.childId],
+          queryKey: ['groupAccounts', leaderId, accountUpdate.childId],
         });
       });
     }

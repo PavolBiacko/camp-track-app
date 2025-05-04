@@ -4,7 +4,7 @@ import supabase from "@/supabase/client";
 import { Child, ChildBalanceUpdate } from "@/types/models/children";
 import { AuthError } from "@supabase/supabase-js";
 
-const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> => {
+const readManyAccountsByLeader = async (leaderId: string): Promise<Child[] | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
     const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
@@ -45,7 +45,7 @@ const readChildrenByLeader = async (leaderId: string): Promise<Child[] | null> =
   }
 };
 
-const readChildByIdWithLeader = async (childId: string | null, leaderId: string): Promise<Child | null> => {
+const readAccountByChildIdWithLeader = async (childId: string | null, leaderId: string): Promise<Child | null> => {
   try {
     // Step 0: If childId is null, then it is buffet payment, no child balance to update.
     if (childId == null) return null;
@@ -86,7 +86,7 @@ const readChildByIdWithLeader = async (childId: string | null, leaderId: string)
   }
 };
 
-const updateAccountBalanceByIdWithLeader = async (childId: string | null, leaderId: string, accountBalance: number): Promise<Child | null> => {
+const updateAccountBalanceByChildIdWithLeader = async (childId: string | null, leaderId: string, accountBalance: number): Promise<Child | null> => {
   try {
     // Step 0: If childId is null, then it is buffet payment, no child balance to update.
     if (childId == null) return null;
@@ -182,9 +182,9 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
   }
 };
 
-export const childRepository = {
-  readChildrenByLeader,
-  readChildByIdWithLeader,
-  updateAccountBalanceByIdWithLeader,
+export const accountRepository = {
+  readManyAccountsByLeader,
+  readAccountByChildIdWithLeader,
+  updateAccountBalanceByChildIdWithLeader,
   updateManyAccountBalancesWithLeader,
 }

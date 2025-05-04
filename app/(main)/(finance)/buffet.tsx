@@ -4,7 +4,7 @@ import CustomButton from '@/components/custom/CustomButton';
 import FinanceBuffetModal from '@/components/custom/finance/buffet/FinanceBuffetModal';
 import FormField from '@/components/custom/FormField';
 import Loading from '@/components/custom/Loading';
-import { useChildrenByLeader } from '@/hooks/models/useChildren';
+import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
 import { FinanceBuffetData, FinanceBuffetParams } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
 import { getTotalOfChildrenBalances, isAccountActionAvailable } from '@/utils/finance';
@@ -21,7 +21,7 @@ import { twMerge } from 'tailwind-merge';
 const Buffet = () => {
   const navigation = useNavigation();
   const { leaderId } = useLocalSearchParams<FinanceBuffetParams>();
-  const { children, isLoading, isError } = useChildrenByLeader(leaderId);
+  const { children, isLoading, isError } = useManyAccountsWithLeader(leaderId);
   const { actionAmounts, setActionAmounts } = useFinanceBuffetContext();
   const { totalAmount } = useFinanceOverviewContext();
   const [currentIndex, setCurrentIndex] = useState(0);

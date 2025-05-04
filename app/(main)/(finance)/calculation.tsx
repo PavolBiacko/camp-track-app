@@ -4,7 +4,7 @@ import FinanceCalculationContent from '@/components/custom/finance/calculation/F
 import FinanceCalculationFooter from '@/components/custom/finance/calculation/FinanceCalculationFooter';
 import FinanceCalculationHeader from '@/components/custom/finance/calculation/FinanceCalculationHeader';
 import Loading from '@/components/custom/Loading';
-import { useChildrenByLeader } from '@/hooks/models/useChildren';
+import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
 import { useAuth } from '@/hooks/useAuth';
 import { ChildBalanceRecord } from '@/types/finance';
 import { distributeCash } from '@/utils/calculation';
@@ -15,7 +15,7 @@ import { View } from 'react-native';
 const Calculation = () => {
   const { user } = useAuth();  // should be defined, since useAuth is used in the layout layer
   const { totalAmount, quantities } = useFinanceOverviewContext();
-  const { children, isLoading, isError } = useChildrenByLeader(user?.id!);
+  const { children, isLoading, isError } = useManyAccountsWithLeader(user?.id!);
 
   const childrenBalancesTotal = useMemo(() => {
     if (!children || isLoading || isError) return 0;

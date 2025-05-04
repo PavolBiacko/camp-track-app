@@ -3,7 +3,7 @@ import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOv
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
 import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
-import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useChildren';
+import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useGroupAccounts';
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';

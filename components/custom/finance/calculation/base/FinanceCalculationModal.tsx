@@ -1,7 +1,7 @@
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomModal from '@/components/custom/CustomModal';
 import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
-import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useChildren';
+import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useGroupAccounts';
 import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
 import { useCreateTransaction } from '@/hooks/models/useTransactions';
 import { TransactionType } from '@/types/enums/finance';
