@@ -1,14 +1,14 @@
 import { FinanceBuffetContextType, LocalBuffetActionAmounts } from '@/types/finance';
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { createContext, PropsWithChildren, useCallback, useContext, useState } from 'react';
 
 const FinanceBuffetContext = createContext<FinanceBuffetContextType | undefined>(undefined);
 
 export const FinanceBuffetProvider = (props: PropsWithChildren) => {
   const [actionAmounts, setActionAmounts] = useState<LocalBuffetActionAmounts>({});
 
-  const resetsActionAmounts = () => {
+  const resetsActionAmounts = useCallback((): void => {
     setActionAmounts({});
-  };
+  }, [setActionAmounts]);
 
   return (
     <FinanceBuffetContext.Provider value={{ actionAmounts, setActionAmounts, resetsActionAmounts }}>

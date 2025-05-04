@@ -2,7 +2,7 @@ import { mapCashRegisterDataToCashRegisterRecord } from '@/mappers/cashRegister'
 import { Denominations } from '@/types/enums/finance';
 import { CashRegisterRecord, FinanceAccountContextType, FinanceAccountProviderProps } from '@/types/finance';
 import { addDecimals, multiplyDecimals } from '@/utils/decimal';
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
+import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from 'react';
 
 const FinanceAccountContext = createContext<FinanceAccountContextType | undefined>(undefined);
 
@@ -23,16 +23,16 @@ export const FinanceAccountProvider = (props: PropsWithChildren<FinanceAccountPr
     }, 0)
   }, [counts]);
 
-  const updateCount = (denomination: Denominations, count: number) => {
+  const updateCount = useCallback((denomination: Denominations, count: number): void => {
     setCounts((prev) => ({
       ...prev,
       [denomination]: Math.max(0, count),
     }));
-  };
+  }, [setCounts]);
 
-  const resetDenominations = () => {
+  const resetDenominations = useCallback((): void => {
     setCounts(mapCashRegisterDataToCashRegisterRecord(undefined));
-  };
+  }, [setCounts]);
 
   return (
     <FinanceAccountContext.Provider
