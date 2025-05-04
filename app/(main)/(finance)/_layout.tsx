@@ -2,12 +2,12 @@ import { FinanceOverviewProvider } from '@/components/custom/context/FinanceOver
 import Loading from '@/components/custom/Loading';
 import { useCashRegisterByLeader } from '@/hooks/models/useCashRegister';
 import { useAuth } from '@/hooks/useAuth';
-import { FinanceScreenConfigs } from '@/types/finance';
+import { ScreenConfigs } from '@/types/base';
 import { getStackScreenOptions } from '@/utils/ui';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 
-const financeScreenConfigs: FinanceScreenConfigs[] = [
+const financeScreenConfigs: ScreenConfigs[] = [
   { name: 'overview', title: 'Celkový prehľad' },
   { name: 'transactions', title: 'Výpis pohybov' },
   { name: 'accounts/index', title: 'Nastavenia účtov detí' },

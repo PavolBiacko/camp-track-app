@@ -23,3 +23,8 @@ export type CurrentTime = {
 export type AppProviderProps = {
   leaderId: string;
 }
+
+export type ScreenConfigs = {
+  name: string;
+  title: string;
+}

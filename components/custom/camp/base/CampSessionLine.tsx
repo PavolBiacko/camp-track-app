@@ -9,28 +9,33 @@ const CampSessionLine = (props: CampSessionLineProps) => {
       activeOpacity={0.5}
       className={
         twMerge(
-          "flex-row justify-around items-center",
-          "rounded-xl w-11/12 h-24",
-          `bg-background-300 border-2 border-outline-300`,
+          "flex-row items-center",
+          "rounded-xl h-24 mx-2",
+          `bg-background-400 border border-outline-400`,
         )}>
-      <View className="items-center bg-secondary-300 border-2 border-secondary-700 rounded-full p-2">
-        <Text className="text-typography-800 font-pbold text-lg mt-1">
-          1. turnus
-        </Text>
+      <View className='w-[25%] h-full items-center justify-center flex-row'>
+        <View className="w-16 items-center bg-secondary-300 border-2 border-secondary-700 rounded-full p-2">
+          <Text className="text-typography-800 font-pbold text-3xl mt-2">
+            {props.order}
+          </Text>
+        </View>
       </View>
-      <View className='flex-row items-center gap-4'>
-        <View className="items-center bg-tertiary-300 border-2 border-tertiary-700 rounded-xl p-2">
+      <View className='w-[75%] h-full items-center justify-center flex-row border-l border-outline-500 gap-3'>
+        <View className="bg-tertiary-300 border-2 border-tertiary-700 rounded-xl p-2">
           <Text className="text-typography-800 font-pbold text-md mt-1">
             {formatISOLocalToHumanReadable(props.beginDate)}
           </Text>
         </View>
-        <View className="items-center bg-tertiary-300 border-2 border-tertiary-700 rounded-xl p-2">
+        <Text className="text-typography-800 font-pbold text-md mt-1">
+          -
+        </Text>
+        <View className="bg-tertiary-300 border-2 border-tertiary-700 rounded-xl p-2">
           <Text className="text-typography-800 font-pbold text-md mt-1">
             {formatISOLocalToHumanReadable(props.endDate)}
           </Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableOpacity >
   )
 }
 

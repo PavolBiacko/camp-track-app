@@ -12,11 +12,6 @@ type DenominationsType = {
   denomination: Denominations;
 }
 
-export type FinanceScreenConfigs = {
-  name: string;
-  title: string;
-}
-
 export type CashRegisterRecord = Record<Denominations, number>;
 
 export type CashRegisterMap = Map<Denominations, number>;

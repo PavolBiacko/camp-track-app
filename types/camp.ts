@@ -1,4 +1,11 @@
+import { CampSession } from "@/types/models/campSessions"
+
+export type CampSessionBoxProps = {
+  year: CampSession[],
+}
+
 export type CampSessionLineProps = {
-  beginDate: string,
-  endDate: string,
+  beginDate: Date,
+  endDate: Date,
+  order: number,
 }

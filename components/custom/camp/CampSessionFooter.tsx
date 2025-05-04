@@ -1,9 +1,17 @@
-import { Text, View } from 'react-native'
+import CustomButton from '@/components/custom/CustomButton'
+import { View } from 'react-native'
 
 const CampSessionFooter = () => {
   return (
-    <View className='h-[15%] border-t-2 border-outline-500 justify-center items-center'>
-      <Text className='text-quaternary-950 text-2xl font-psemibold'>CampSessionFooter</Text>
+    <View className='h-[12.5%] border-t border-outline-500 justify-center items-center'>
+      <CustomButton
+        title="Pridaj nový turnus"
+        action="primary"
+        variant="combined"
+        handlePress={() => { }}
+        textStyles='text-xl font-pbold self-center'
+        containerStyles="w-2/3 h-16 rounded-3xl"
+      />
     </View>
   )
 }
