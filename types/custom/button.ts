@@ -24,7 +24,7 @@ export type CustomButtonProps = {
 export type DateTimeButtonMode = "time" | "date" | "datetime";
 
 export type DateTimeButtonProps<T extends FieldValues> = {
-  title: string,
+  title?: string,
   formDataTypeKey: keyof T,
   control: Control<T, any>,
   mode: DateTimeButtonMode,
