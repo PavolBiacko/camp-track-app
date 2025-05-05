@@ -1,4 +1,5 @@
 import CampChildrenForm from '@/components/custom/camp/children/base/CampChildrenForm';
+import { useCreateChild } from '@/hooks/models/useChildren';
 import { Gender } from '@/types/enums/gender';
 import { ChildCreate } from '@/types/models/children';
 import { campChildSchema } from '@/validation/camp';
@@ -6,12 +7,12 @@ import { router } from 'expo-router';
 import { Alert, ScrollView } from 'react-native';
 
 const CreateChild = () => {
+  const { createChild } = useCreateChild();
 
   const handleCreateChild = async (data: ChildCreate) => {
     // Data are valid, checked with Zod
     try {
-      console.log("data", JSON.stringify(data, null, 2));
-      // await createCampSession({ ...data });
+      await createChild(data);
       Alert.alert("Hotovo!", "Dieťa bolo úspešne vytvorené.");
       router.back();
     } catch (error: any) {

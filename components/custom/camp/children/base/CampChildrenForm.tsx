@@ -12,13 +12,11 @@ import { FieldError, FieldErrors, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<T>) => {
-  const { control, handleSubmit, register, watch, formState: { isSubmitting, errors } } = useForm<T>({
+  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
   const { firstNameField, lastNameField, birthDateField, genderField } = getCampChildrenFormFields<T>(props.fields);
-
-  console.log("watch", watch())
 
   return (
     <View className="w-full justify-center">

@@ -11,3 +11,14 @@ export const mapDbGenderToGender = (dbGender: Enums<"gender">): Gender => {
       throw new Error(`Unknown gender: ${dbGender}`);
   }
 };
+
+export const mapGenderToDbGender = (gender: Gender): Enums<"gender"> => {
+  switch (gender) {
+    case Gender.MALE:
+      return "MALE";
+    case Gender.FEMALE:
+      return "FEMALE";
+    default:
+      throw new Error(`Unknown gender: ${gender}`);
+  }
+};
