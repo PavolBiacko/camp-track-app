@@ -3,6 +3,7 @@ import { useCreateCampSession, useManyCampSessionsGrouped } from '@/hooks/models
 import { mapDateTimeToString } from '@/mappers/datetime';
 import { CampSessionCreate } from '@/types/models/campSessions';
 import { isCampSessionIntersecting } from '@/utils/camp';
+import { getFirstDayOfYear, getLastDayOfYear } from '@/utils/dates';
 import { campSessionSchema } from '@/validation/camp';
 import { router } from 'expo-router';
 import { Alert, ScrollView } from 'react-native';
@@ -40,8 +41,8 @@ const CreateSession = () => {
           { title: "Koniec", formDataTypeKey: "endDate" },
         ]}
         initialValues={{
-          beginDate: mapDateTimeToString(new Date(), "date")!,
-          endDate: mapDateTimeToString(new Date(), "date")!,
+          beginDate: mapDateTimeToString(getFirstDayOfYear(), "date")!,
+          endDate: mapDateTimeToString(getLastDayOfYear(), "date")!,
         }}
         validationSchema={campSessionSchema}
         onSubmit={handleCreateCampSession}

@@ -43,3 +43,11 @@ export const compareDates = (date1: Date, date2: Date): number => {
     return 0;
   }
 }
+
+export const getFirstDayOfYear = (): Date => {
+  return new Date(new Date().getFullYear(), 0, 1);
+}
+
+export const getLastDayOfYear = (): Date => {
+  return new Date(new Date().getFullYear(), 11, 31);
+}
