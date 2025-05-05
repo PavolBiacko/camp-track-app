@@ -14,7 +14,7 @@ const ChildrenLine = ({ child }: CampChildrenLineProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => router.push('/(main)/(camp)/children/update-child')}
+      onPress={() => router.push({ pathname: '/(main)/(camp)/children/update-child', params: { childId: child.id } })}
       className={
         twMerge(
           "items-center rounded-3xl w-10/12 h-40",

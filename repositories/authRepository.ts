@@ -16,7 +16,6 @@ const login = async ({ email, password }: LoginCredentials): Promise<string> => 
 
     return data.user.id;
   } catch (error: any) {
-    // console.error('Login error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -38,7 +37,6 @@ const register = async ({ email, password, firstName, lastName }: RegisterCreden
 
     return data.user?.id ?? null;
   } catch (error: any) {
-    // console.error('Register error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -54,7 +52,6 @@ const deleteAccount = async (userId: string): Promise<void> => {
     if (error) throw error;
 
   } catch (error: any) {
-    // console.error('Deleting user error:', (error as AuthError).message);
     throw error;
   }
 }
@@ -66,7 +63,6 @@ const logout = async (): Promise<void> => {
     if (error) throw error;
 
   } catch (error: any) {
-    // console.error('Logout error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -87,7 +83,6 @@ const whoami = async (): Promise<User> => {
 
     return mapDbUserToUser(user);
   } catch (error: any) {
-    // console.error('Whoami error:', (error as AuthError).message);
     throw error as AuthError;
   }
 };

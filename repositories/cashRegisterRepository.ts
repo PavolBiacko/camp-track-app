@@ -26,7 +26,6 @@ const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[
     return cashRegisterData.map((cashRegister) => mapDbCashRegisterToCashRegister(cashRegister));
   }
   catch (error: any) {
-    // console.error('Error reading cash registers:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -68,7 +67,6 @@ const updateCashRegisterByLeader = async (leaderId: string, counts: CashRegister
 
     return updatedRows.map((updatedRows) => mapDbCashRegisterToCashRegister(updatedRows));
   } catch (error: any) {
-    // console.error('Error updating account balance:', (error as AuthError).message);
     throw error as AuthError;
   }
 }

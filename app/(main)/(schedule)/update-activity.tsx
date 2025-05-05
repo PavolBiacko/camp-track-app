@@ -20,7 +20,7 @@ const UpdateActivity = () => {
   const handleUpdateActivity = async (data: ActivityUpdate) => {
     // Data are valid, checked with Zod
     try {
-      await updateActivity({ ...data });
+      await updateActivity(data);
       Alert.alert("Hotovo!", "Aktivita bola úspešne upravená.");
       router.back();
     } catch (error: any) {

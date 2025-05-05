@@ -17,3 +17,7 @@ export type CampSessionParams = {
 export type CampChildrenLineProps = {
   child: Child,
 }
+
+export type CampChildParams = {
+  childId: string,
+}

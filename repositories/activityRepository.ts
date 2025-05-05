@@ -17,7 +17,6 @@ const readActivitiesByDate = async (date: Date): Promise<Activity[]> => {
 
     return data.map((activity) => mapDbActivityToActivity(activity));
   } catch (error: any) {
-    // console.error('Error reading activities:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -34,7 +33,6 @@ const readActivityById = async (id: number): Promise<Activity> => {
 
     return mapDbActivityToActivity(data);
   } catch (error: any) {
-    // console.error('Error reading activity:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -52,7 +50,6 @@ const createActivity = async (activity: ActivityCreate): Promise<number> => {
 
     return data.id;
   } catch (error: any) {
-    // console.error('Error creating activity:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -71,7 +68,6 @@ const updateActivityById = async (id: number, activity: ActivityUpdate): Promise
 
     return mapDbActivityToActivity(data);
   } catch (error: any) {
-    // console.error('Error updating activity:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -86,7 +82,6 @@ const deleteActivityById = async (id: number): Promise<void> => {
     if (error) throw error;
 
   } catch (error: any) {
-    // console.error('Error deleting activity:', (error as AuthError).message);
     throw error as AuthError;
   }
 };

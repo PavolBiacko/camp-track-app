@@ -16,7 +16,6 @@ const createTransaction = async (transaction: TransactionCreate): Promise<number
 
     return transactionData.id;
   } catch (error: any) {
-    // console.error('Error creating transaction:', (error as AuthError).message);
     throw error as AuthError;
   }
 }
@@ -33,7 +32,6 @@ const createManyTransactions = async (transactions: TransactionCreate[]): Promis
 
     return transactionData.map(transaction => transaction.id);
   } catch (error: any) {
-    // console.error('Error creating transaction:', (error as AuthError).message);
     throw error as AuthError;
   }
 }
@@ -64,7 +62,6 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
     return transactionData.map((dbTransaction) => mapDbTransactionToTransactionComplex(dbTransaction));
 
   } catch (error: any) {
-    // console.error('Error reading transactions:', (error as AuthError).message);
     throw error as AuthError;
   }
 };

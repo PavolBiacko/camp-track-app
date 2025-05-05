@@ -30,7 +30,7 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
         error={errors[firstNameField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
         formDataTypeKey={firstNameField.formDataTypeKey}
         placeholder={firstNameField.placeholder}
-        otherStyles={firstNameField.otherStyles || "mt-5"}
+        otherStyles={firstNameField.otherStyles || "mt-4"}
       />
 
       {/* last name of the child */}
@@ -41,7 +41,7 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
         error={errors[lastNameField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
         formDataTypeKey={lastNameField.formDataTypeKey}
         placeholder={lastNameField.placeholder}
-        otherStyles={lastNameField.otherStyles || "mt-5"}
+        otherStyles={lastNameField.otherStyles || "mt-4"}
       />
 
       {/* birth date of the child */}
@@ -52,7 +52,7 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
         mode="date"
         action='tertiary'
         textStyles='text-3xl font-pbold mt-2'
-        otherStyles={birthDateField.otherStyles || "mt-5"}
+        otherStyles={birthDateField.otherStyles || "mt-4"}
       />
 
       {/* gender of the child */}
@@ -62,9 +62,9 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
         control={control}
         radioOptions={[
           { label: "Chlapec", value: Gender.MALE },
-          { label: "Dievča", value: Gender.FEMALE }
+          { label: "Dievča", value: Gender.FEMALE },
         ]}
-        containterStyles={genderField.otherStyles || "mt-5"}
+        containterStyles={genderField.otherStyles || "mt-4"}
         error={errors[genderField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
       />
 

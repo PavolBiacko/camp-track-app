@@ -1,11 +1,15 @@
 import { CircleIcon } from '@/components/ui/icon'
 import { Radio, RadioGroup, RadioIcon, RadioIndicator, RadioLabel } from '@/components/ui/radio'
 import { CustomRadioGroupProps } from '@/types/custom/radio'
+import { useColorScheme } from 'nativewind'
 import { Controller, FieldValues, Path } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
+import { getRGBColor } from '../ui/gluestack-ui-provider/colors'
 
 const CustomRadioGroup = <T extends FieldValues>({ direction = "row", ...props }: CustomRadioGroupProps<T>) => {
+  const { colorScheme } = useColorScheme();
+
   return (
     <Controller
       control={props.control}
@@ -19,17 +23,17 @@ const CustomRadioGroup = <T extends FieldValues>({ direction = "row", ...props }
             className={
               twMerge(
                 (direction === "row") ? "flex-row" : "flex-col",
-                "border-2 border-outline-500 rounded-2xl justify-center items-center gap-5 py-5",
+                "border-2 border-outline-500 rounded-2xl justify-center items-center py-2",
                 props.otherStyles
               )}
             value={value}
             onChange={(newValue) => onChange(newValue)}>
             {props.radioOptions.map((options, index) => (
-              <Radio key={index} size="lg" value={options.value}>
-                <RadioIndicator>
-                  <RadioIcon as={CircleIcon} />
+              <Radio key={index} size="lg" value={options.value} className={`w-[35%] flex-col pt-1`}>
+                <RadioIndicator className='w-8 h-8' style={{ borderColor: getRGBColor("outline", "500", colorScheme) }}>
+                  <RadioIcon as={CircleIcon} className='fill-secondary-500 text-secondary-500 w-6 h-6' />
                 </RadioIndicator>
-                <RadioLabel className='text-typography-950 text-xl font-psemibold'>
+                <RadioLabel className='text-typography-950 text-lg font-psemibold'>
                   {options.label}
                 </RadioLabel>
               </Radio>

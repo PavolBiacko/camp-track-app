@@ -40,7 +40,6 @@ const readManyAccountsByLeader = async (leaderId: string): Promise<ChildWithBala
 
     return sortedChildrenData.map((child) => mapDbChildGroupLinkWithChildToChild(child));
   } catch (error: any) {
-    // console.error('Error reading children:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -81,7 +80,6 @@ const readAccountByChildIdWithLeader = async (childId: string | null, leaderId: 
 
     return mapDbChildGroupLinkWithChildToChild(childData);
   } catch (error: any) {
-    // console.error('Error reading child:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -124,7 +122,6 @@ const updateAccountBalanceByChildIdWithLeader = async (childId: string | null, l
 
     return mapDbChildGroupLinkWithChildToChild(childData);
   } catch (error: any) {
-    // console.error('Error updating account balance:', (error as AuthError).message);
     throw error as AuthError;
   }
 };
@@ -177,7 +174,6 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
 
     return childData.map(child => mapDbChildGroupLinkWithChildToChild(child));
   } catch (error: any) {
-    // console.error('Error updating account balance:', (error as AuthError).message);
     throw error as AuthError;
   }
 };

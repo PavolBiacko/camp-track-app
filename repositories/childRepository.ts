@@ -1,6 +1,6 @@
-import { mapChildCreateToDbChild, mapDbChildToChild } from "@/mappers/children";
+import { mapChildCreateToDbChild, mapChildUpdateToDbChild, mapDbChildToChild } from "@/mappers/children";
 import supabase from "@/supabase/client";
-import { Child, ChildCreate } from "@/types/models/children";
+import { Child, ChildCreate, ChildUpdate } from "@/types/models/children";
 import { AuthError } from "@supabase/supabase-js";
 
 const readManyChildren = async (): Promise<Child[]> => {
@@ -50,8 +50,42 @@ const createChild = async (child: ChildCreate): Promise<string> => {
   }
 };
 
+const updateChild = async (id: string, child: ChildUpdate): Promise<Child> => {
+  try {
+    const newMappedChild = mapChildUpdateToDbChild(child);
+    const { data: updatedChildData, error: updateError } = await supabase
+      .from('children')
+      .update(newMappedChild)
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (updateError) throw updateError;
+
+    return mapDbChildToChild(updatedChildData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
+const deleteChild = async (id: string): Promise<void> => {
+  try {
+    const { error: deleteError } = await supabase
+      .from('children')
+      .delete()
+      .eq("id", id);
+
+    if (deleteError) throw deleteError;
+
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
 export const childRepository = {
   readManyChildren,
   readChildById,
   createChild,
+  updateChild,
+  deleteChild
 }

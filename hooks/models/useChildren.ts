@@ -1,5 +1,5 @@
 import { childRepository } from "@/repositories/childRepository";
-import { ChildCreate } from "@/types/models/children";
+import { ChildCreate, ChildUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyChildren = () => {
@@ -30,4 +30,33 @@ export const useCreateChild = () => {
     }
   });
   return { createChild: mutateAsync, isError };
+}
+
+export const useUpdateChild = (id: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (data: ChildUpdate) => {
+      return await childRepository.updateChild(id, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] });
+      queryClient.invalidateQueries({ queryKey: ['children', id] });
+    }
+  });
+  return { updateChild: mutateAsync, isError };
+}
+
+export const useDeleteChild = (id: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError } = useMutation({
+    mutationFn: async () => {
+      return await childRepository.deleteChild(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] });
+    }
+  });
+  return { deleteChild: mutateAsync, isPending, isError };
 }
