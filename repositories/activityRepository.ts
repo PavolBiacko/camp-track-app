@@ -37,7 +37,7 @@ const readActivityById = async (id: number): Promise<Activity> => {
   }
 };
 
-const createActivity = async (activity: ActivityCreate): Promise<number> => {
+const createActivity = async (activity: ActivityCreate): Promise<Activity> => {
   try {
     const newMappedActivity = mapActivityCreateToDbActivity(activity);
     const { data, error } = await supabase
@@ -48,7 +48,7 @@ const createActivity = async (activity: ActivityCreate): Promise<number> => {
 
     if (error) throw error;
 
-    return data.id;
+    return mapDbActivityToActivity(data);
   } catch (error: any) {
     throw error as AuthError;
   }
@@ -72,15 +72,18 @@ const updateActivityById = async (id: number, activity: ActivityUpdate): Promise
   }
 };
 
-const deleteActivityById = async (id: number): Promise<void> => {
+const deleteActivityById = async (id: number): Promise<Activity> => {
   try {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("activities")
       .delete()
       .eq("id", id)
+      .select()
+      .single();
 
     if (error) throw error;
 
+    return mapDbActivityToActivity(data);
   } catch (error: any) {
     throw error as AuthError;
   }

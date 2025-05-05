@@ -7,7 +7,8 @@ const readManyChildren = async (): Promise<Child[]> => {
   try {
     const { data: childrenData, error: childrenError } = await supabase
       .from('children')
-      .select('*');
+      .select('*')
+      .order('last_name,first_name');
 
     if (childrenError) throw childrenError;
 

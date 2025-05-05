@@ -1,18 +1,22 @@
 import CustomButton from '@/components/custom/CustomButton'
+import CustomModal from '@/components/custom/CustomModal'
 import DateTimeButton from '@/components/custom/DateTimeButton'
 import { mapStringToDateTime } from '@/mappers/datetime'
 import { FormProps } from '@/types/custom/form'
 import { CampSessionCreate, CampSessionUpdate } from '@/types/models/campSessions'
 import { getCampSessionFormFields } from '@/utils/camp'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { Path, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props: FormProps<T>) => {
-  const { control, handleSubmit, watch, formState: { isSubmitting } } = useForm<T>({
+  const { control, handleSubmit, watch } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
+  const [modalVisible, setModalVisible] = useState(false);
+
   const { beginDateField, endDateField } = getCampSessionFormFields<T>(props.fields);
 
   return (
@@ -48,9 +52,16 @@ const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props:
       {/* submit the camp session */}
       <CustomButton
         title={props.buttonText || props.title}
-        handlePress={handleSubmit(props.onSubmit)}
+        handlePress={() => setModalVisible(true)}
         containerStyles="h-[4.5rem] rounded-3xl mt-10"
-        isLoading={isSubmitting}
+      />
+      <CustomModal
+        title="Naozaj chceš vykonať akciu?"
+        type="confirmation"
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        handleConfirm={handleSubmit(props.onSubmit)}
+        containerStyles='w-3/4'
       />
     </View>
   )

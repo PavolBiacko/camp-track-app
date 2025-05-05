@@ -187,9 +187,9 @@ export const getProperTextSizeForChildName = (text: string | undefined, offSet: 
     return "";
   }
 
-  if (text.length <= 8 - offSet) {
+  if (text.length <= 7 - offSet) {
     return "text-6xl";
-  } else if (text.length <= 12 - offSet) {
+  } else if (text.length <= 11 - offSet) {
     return "text-5xl";
   } else if (text.length <= 15 - offSet) {
     return "text-4xl";

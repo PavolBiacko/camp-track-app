@@ -1,5 +1,6 @@
 import { useScheduleContext } from '@/components/custom/context/ScheduleContext'
 import CustomButton from '@/components/custom/CustomButton'
+import CustomModal from '@/components/custom/CustomModal'
 import CustomSwitch from '@/components/custom/CustomSwitch'
 import DateTimeButton from '@/components/custom/DateTimeButton'
 import FormField from '@/components/custom/FormField'
@@ -15,7 +16,7 @@ import { Text, View } from 'react-native'
 
 const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProps<T>) => {
 
-  const { control, handleSubmit, register, setValue, formState: { isSubmitting, errors } } = useForm<T>({
+  const { control, handleSubmit, register, setValue, formState: { errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
@@ -23,6 +24,8 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
   const { selectedDate } = useScheduleContext();
   const [isPeriodic, setIsPeriodic] = useState<boolean>(props.initialValues.date === null);
   const { nameField, descriptionField, timeField, dateField } = getScheduleFormFields<T>(props.fields);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // Handle switch toggle and update the date field accordingly
   const handleSwitchChange = (newValue: boolean) => {
@@ -66,6 +69,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
           formDataTypeKey={timeField.formDataTypeKey}
           control={control}
           mode="time"
+          isSpinner={true}
           action='secondary'
           textStyles='text-3xl font-pbold mt-2'
           otherStyles='w-2/5 items-start'
@@ -93,9 +97,16 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
       {/* submit the activity */}
       <CustomButton
         title={props.buttonText || props.title}
-        handlePress={handleSubmit(props.onSubmit)}
+        handlePress={() => setModalVisible(true)}
         containerStyles="mt-5 h-[4.5rem] rounded-3xl"
-        isLoading={isSubmitting}
+      />
+      <CustomModal
+        title="Naozaj chceš vykonať akciu?"
+        type="confirmation"
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        handleConfirm={handleSubmit(props.onSubmit)}
+        containerStyles='w-3/4'
       />
     </View>
   )

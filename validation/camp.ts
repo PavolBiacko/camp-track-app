@@ -15,12 +15,12 @@ export const campChildSchema = z.object({
     .string()
     .min(2, "Meno musí mať viac ako 2 znaky.")
     .max(50, "Meno nesmie byť dlhšie ako 50 znakov.")
-    .regex(/^[\p{Letter}\s]*$/u, "Meno musí začínať veľkým písmenom a obsahovať len písmená."),
+    .regex(/^\p{Lu}\p{Ll}*(\s+\p{Lu}\p{Ll}*)*$/u, "Meno musí začínať veľkým písmenom a obsahovať len písmená."),
   lastName: z
     .string()
     .min(2, "Priezvisko musí mať viac ako 2 znaky.")
     .max(50, "Priezvisko nesmie byť dlhšie ako 50 znakov.")
-    .regex(/^[\p{Letter}\s]*$/u, "Priezvisko musí začínať veľkým písmenom a obsahovať len písmená."),
+    .regex(/^\p{Lu}\p{Ll}*(\s+\p{Lu}\p{Ll}*)*$/u, "Priezvisko musí začínať veľkým písmenom a obsahovať len písmená."),
   birthDate: z
     .string()
     .regex(/^\d{4}-\d{2}-\d{2}$/, "Dátum musí byť vo formáte YYYY.MM.DD (napr. 1970-01-01).")

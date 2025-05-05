@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
+import CustomModal from '@/components/custom/CustomModal'
 import Loading from '@/components/custom/Loading'
 import ScheduleForm from '@/components/custom/schedule/base/ScheduleForm'
 import { useActivity, useDeleteActivity, useUpdateActivity } from '@/hooks/models/useActivities'
@@ -7,6 +8,7 @@ import { ActivityUpdate } from '@/types/models/activities'
 import { ScheduleParams } from '@/types/schedule'
 import { scheduleSchema } from '@/validation/schedule'
 import { router, useLocalSearchParams } from 'expo-router'
+import { useState } from 'react'
 import { Alert, ScrollView } from 'react-native'
 
 const UpdateActivity = () => {
@@ -16,6 +18,8 @@ const UpdateActivity = () => {
   const { updateActivity } = useUpdateActivity(activityId);
   const { deleteActivity, isPending } = useDeleteActivity(activityId);
   const { activity, isLoading, isError } = useActivity(activityId);
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleUpdateActivity = async (data: ActivityUpdate) => {
     // Data are valid, checked with Zod
@@ -69,9 +73,16 @@ const UpdateActivity = () => {
       <CustomButton
         title="Vymaž aktivitu"
         action="error"
-        handlePress={handleDeleteActivity}
+        handlePress={() => setModalVisible(true)}
         containerStyles="my-5 h-[4.5rem] rounded-3xl"
-        isLoading={isPending}
+      />
+      <CustomModal
+        title="Naozaj chceš vykonať akciu?"
+        type="confirmation"
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        handleConfirm={handleDeleteActivity}
+        containerStyles='w-3/4'
       />
     </ScrollView>
   )

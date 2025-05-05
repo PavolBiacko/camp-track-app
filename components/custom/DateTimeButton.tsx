@@ -39,8 +39,8 @@ const DateTimeButton = <T extends FieldValues>(props: DateTimeButtonProps<T>) =>
             isDisabled={props.isDisabled}
           />
           <DateTimePickerModal
-            display={(props.mode === "time" ? "spinner" : "default")}
-            {...(props.mode === "time" && {
+            display={(props.isSpinner ? "spinner" : "default")}
+            {...(props.isSpinner && {
               negativeButton: {
                 label: "Zrušiť",
                 textColor: getRGBColor("error", "500", colorScheme),

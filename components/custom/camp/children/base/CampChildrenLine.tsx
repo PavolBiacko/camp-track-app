@@ -1,14 +1,15 @@
 import { Badge, BadgeText } from '@/components/ui/badge'
 import { CampChildrenLineProps } from '@/types/camp'
 import { Gender } from '@/types/enums/gender'
-import { formatISOLocalToHumanReadable } from '@/utils/dates'
+import { formatISOLocalToHumanReadable, getAgeFormatted } from '@/utils/dates'
 import { getChildBadgeStylesAndText, getProperTextSizeForChildName } from '@/utils/ui'
 import { router } from 'expo-router'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
 const ChildrenLine = ({ child }: CampChildrenLineProps) => {
-  const nameSize = getProperTextSizeForChildName(child.firstName + " " + child.lastName, 5);
+  const nameSize = getProperTextSizeForChildName(child.firstName + " " + child.lastName, 6);
+  const formatedAge = getAgeFormatted(child.birthDate);
   const { text, styles } = getChildBadgeStylesAndText(child.gender)
 
   return (
@@ -17,18 +18,18 @@ const ChildrenLine = ({ child }: CampChildrenLineProps) => {
       onPress={() => router.push({ pathname: '/(main)/(camp)/children/update-child', params: { childId: child.id } })}
       className={
         twMerge(
-          "items-center rounded-3xl w-10/12 h-40",
+          "items-center rounded-3xl w-11/12 h-44",
           `bg-background-400 border-2 border-${(child.gender === Gender.MALE) ? 'secondary' : 'quaternary'}-500`,
         )}>
       <View className='h-full items-center justify-center gap-2 py-2'>
         <View className='w-full'>
           <Text className={`text-typography-950 font-pbold ${nameSize} pt-2`}>
-            {child.firstName} {child.lastName}
+            {child.lastName}, {child.firstName}
           </Text>
         </View>
         <View className='w-full'>
           <Text className='text-outline-600 text-2xl font-plight pb-1'>
-            {formatISOLocalToHumanReadable(child.birthDate)}
+            {formatISOLocalToHumanReadable(child.birthDate)}{child.birthDate && ` (${formatedAge})`}
           </Text>
         </View>
         <View className='flex-row justify-between h-8 gap-5'>

@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton'
+import CustomModal from '@/components/custom/CustomModal'
 import CustomRadioGroup from '@/components/custom/CustomRadioGroup'
 import DateTimeButton from '@/components/custom/DateTimeButton'
 import FormField from '@/components/custom/FormField'
@@ -8,15 +9,17 @@ import { ChildCreate, ChildUpdate } from '@/types/models/children'
 import { getCampChildrenFormFields } from '@/utils/camp'
 import { capitalizeWord } from '@/utils/strings'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 import { FieldError, FieldErrors, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<T>) => {
-  const { control, handleSubmit, register, formState: { isSubmitting, errors } } = useForm<T>({
+  const { control, handleSubmit, register, formState: { errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
   const { firstNameField, lastNameField, birthDateField, genderField } = getCampChildrenFormFields<T>(props.fields);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View className="w-full justify-center">
@@ -50,6 +53,8 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
         formDataTypeKey={birthDateField.formDataTypeKey}
         control={control}
         mode="date"
+        isSpinner={true}
+        maximumDate={new Date()}
         action='tertiary'
         textStyles='text-3xl font-pbold mt-2'
         otherStyles={birthDateField.otherStyles || "mt-4"}
@@ -71,9 +76,16 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
       {/* submit the child */}
       <CustomButton
         title={props.buttonText || props.title}
-        handlePress={handleSubmit(props.onSubmit)}
+        handlePress={() => setModalVisible(true)}
         containerStyles="h-[4.5rem] rounded-3xl mt-10"
-        isLoading={isSubmitting}
+      />
+      <CustomModal
+        title="Naozaj chceš vykonať akciu?"
+        type="confirmation"
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        handleConfirm={handleSubmit(props.onSubmit)}
+        containerStyles='w-3/4'
       />
     </View>
   )

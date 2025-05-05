@@ -28,6 +28,7 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   formDataTypeKey: keyof T,
   control: Control<T, any>,
   mode: DateTimeButtonMode,
+  isSpinner?: boolean,
   minimumDate?: Date,
   maximumDate?: Date,
   action?: ButtonActionType,

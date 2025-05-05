@@ -1,14 +1,20 @@
 import CustomButton from '@/components/custom/CustomButton';
+import CustomModal from '@/components/custom/CustomModal';
 import Loading from '@/components/custom/Loading';
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
-import { useAccountActions } from '@/hooks/useAccountActions';
+import { getAccountActions } from '@/hooks/useAccountActions';
 import { useAuth } from '@/hooks/useAuth';
 import { CustomButtonProps } from '@/types/custom/button';
+import { CustomModalProps } from '@/types/custom/modal';
+import { useState } from 'react';
 import { View } from 'react-native';
 
 const AccountSettings = () => {
   const { user, isLoading, isError } = useAuth();
-  const { logoutLoading, accountDeleteLoading, handleLogout, handleAccountDelete } = useAccountActions();
+  const { handleLogout, handleAccountDelete } = getAccountActions();
+
+  const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
+  const [modalAccountDeleteVisible, setModalAccountDeleteVisible] = useState(false);
 
   const accountSettingsButtons: CustomButtonProps[] = [
     {
@@ -25,21 +31,36 @@ const AccountSettings = () => {
     },
   ];
 
-  const accountActionButtons: CustomButtonProps[] = [
+  const accountActionButtonsWithModals: { button: CustomButtonProps, modal: Omit<CustomModalProps, "type"> }[] = [
     {
-      title: 'Odhlás sa',
-      action: 'primary',
-      handlePress: handleLogout,
-      containerStyles: 'h-16 rounded-3xl',
-      isLoading: logoutLoading,
+      button: {
+        title: 'Odhlás sa',
+        action: 'primary',
+        handlePress: () => setModalLogoutVisible(true),
+        containerStyles: 'h-16 rounded-3xl',
+      },
+      modal: {
+        title: 'Naozaj sa chceš odhlásiť?',
+        modalVisible: modalLogoutVisible,
+        setModalVisible: setModalLogoutVisible,
+        handleConfirm: handleLogout,
+      }
     },
     {
-      title: 'Odstráň účet',
-      action: 'default',
-      handlePress: () => handleAccountDelete(user?.id!),  // button is disabled if user is not loaded
-      containerStyles: 'w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center',
-      textStyles: 'text-indicator-error',
-      isLoading: accountDeleteLoading,
+      button: {
+        title: 'Odstráň účet',
+        action: 'default',
+        handlePress: () => setModalAccountDeleteVisible(true),
+        containerStyles: 'w-48 h-12 rounded-3xl border-2 border-indicator-error bg-background-300 self-center',
+        textStyles: 'text-indicator-error',
+      },
+      modal: {
+        title: 'Naozaj chceš zmazať účet?',
+        subTitle: 'Túto akciu už nie je možné vrátiť.',
+        modalVisible: modalAccountDeleteVisible,
+        setModalVisible: setModalAccountDeleteVisible,
+        handleConfirm: () => handleAccountDelete(user?.id!),
+      }
     },
   ];
 
@@ -63,16 +84,25 @@ const AccountSettings = () => {
             ))}
           </View>
           <View className="p-5 gap-5">
-            {accountActionButtons.map((button, index) => (
-              <CustomButton
-                key={index}
-                title={button.title}
-                action={button.action}
-                handlePress={button.handlePress}
-                containerStyles={button.containerStyles}
-                textStyles={button.textStyles}
-                isLoading={button.isLoading}
-              />
+            {accountActionButtonsWithModals.map((actionObject, index) => (
+              <View key={index}>
+                <CustomButton
+                  title={actionObject.button.title}
+                  action={actionObject.button.action}
+                  handlePress={actionObject.button.handlePress}
+                  containerStyles={actionObject.button.containerStyles}
+                  textStyles={actionObject.button.textStyles}
+                />
+                <CustomModal
+                  title={actionObject.modal.title}
+                  subTitle={actionObject.modal.subTitle}
+                  type="confirmation"
+                  modalVisible={actionObject.modal.modalVisible}
+                  setModalVisible={actionObject.modal.setModalVisible}
+                  handleConfirm={actionObject.modal.handleConfirm}
+                  containerStyles='w-11/12'
+                />
+              </View>
             ))}
           </View>
         </View>

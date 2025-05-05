@@ -1,5 +1,5 @@
 import { activityRepository } from "@/repositories/activityRepository";
-import { ActivityCreate, ActivityUpdate } from "@/types/models/activities";
+import { Activity, ActivityCreate, ActivityUpdate } from "@/types/models/activities";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useActivitiesByDay = (date: Date) => {
@@ -25,7 +25,8 @@ export const useCreateActivity = () => {
     mutationFn: async (data: ActivityCreate) => {
       return await activityRepository.createActivity(data);
     },
-    onSuccess: () => {
+    onSuccess: (activity: Activity) => {
+      queryClient.invalidateQueries({ queryKey: ['activities', activity.date] });
       queryClient.invalidateQueries({ queryKey: ['activities'] });
     }
   });
@@ -39,9 +40,10 @@ export const useUpdateActivity = (id: number) => {
     mutationFn: async (data: ActivityUpdate) => {
       return await activityRepository.updateActivityById(id, data);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['activities'] });
+    onSuccess: (activity: Activity) => {
+      queryClient.invalidateQueries({ queryKey: ['activities', activity.date] });
       queryClient.invalidateQueries({ queryKey: ['activities', id] });
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
     }
   });
   return { updateActivity: mutateAsync, isError };
@@ -54,7 +56,8 @@ export const useDeleteActivity = (id: number) => {
     mutationFn: async () => {
       return await activityRepository.deleteActivityById(id);
     },
-    onSuccess: () => {
+    onSuccess: (activity: Activity) => {
+      queryClient.invalidateQueries({ queryKey: ['activities', activity.date] });
       queryClient.invalidateQueries({ queryKey: ['activities'] });
     }
   });

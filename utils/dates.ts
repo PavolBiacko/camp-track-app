@@ -51,3 +51,28 @@ export const getFirstDayOfYear = (): Date => {
 export const getLastDayOfYear = (): Date => {
   return new Date(new Date().getFullYear(), 11, 31);
 }
+
+export const calculateAge = (birthDate: Date | null): number | null => {
+  if (!birthDate) {
+    return null;
+  }
+  console.log(Date.now());
+  return Math.floor((Date.now() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
+}
+
+export const getAgeFormatted = (birthDate: Date | null): string => {
+  const age = calculateAge(birthDate);
+  if (age === null) {
+    return "";
+  }
+  switch (age) {
+    case 1:
+      return `${age} rok`;
+    case 2:
+    case 3:
+    case 4:
+      return `${age} roky`;
+    default:
+      return `${age} rokov`;
+  }
+}
