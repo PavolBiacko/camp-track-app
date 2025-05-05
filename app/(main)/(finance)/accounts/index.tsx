@@ -1,3 +1,4 @@
+import EmptyScreenMessage from '@/components/custom/EmptyScreenMessage';
 import FinanceAccountLine from '@/components/custom/finance/accounts/base/FinanceAccountLine';
 import Loading from '@/components/custom/Loading';
 import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
@@ -11,6 +12,10 @@ const Accounts = () => {
 
   if (!children || isLoading || isError) {
     return <Loading showText={false} />;
+  }
+
+  if (children.length === 0) {
+    return <EmptyScreenMessage text='V oddieli nie sú zatiaľ priradené žiadne deti.' />;
   }
 
   return (

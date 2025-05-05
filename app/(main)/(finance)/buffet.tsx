@@ -1,22 +1,15 @@
 import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
-import CustomButton from '@/components/custom/CustomButton';
-import FinanceBuffetModal from '@/components/custom/finance/buffet/FinanceBuffetModal';
-import FormField from '@/components/custom/FormField';
+import EmptyScreenMessage from '@/components/custom/EmptyScreenMessage';
 import Loading from '@/components/custom/Loading';
 import { useManyAccountsWithLeader } from '@/hooks/models/useGroupAccounts';
 import { FinanceBuffetData, FinanceBuffetParams } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
-import { getTotalOfChildrenBalances, isAccountActionAvailable } from '@/utils/finance';
-import { getLongerString } from '@/utils/strings';
-import { getProperTextSizeForChildName } from '@/utils/ui';
 import { buffetSchema } from '@/validation/finance';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Alert, ScrollView, Text, View } from 'react-native';
-import { twMerge } from 'tailwind-merge';
 
 const Buffet = () => {
   const navigation = useNavigation();
@@ -42,117 +35,10 @@ const Buffet = () => {
     return <Loading showText={false} />;
   }
 
-  const nameSize = getProperTextSizeForChildName(getLongerString(children[currentIndex].firstName, children[currentIndex].lastName));
-  const textStyles = "text-center font-pextrabold";
+  if (children.length === 0) {
+    return <EmptyScreenMessage text='V oddieli nie sú zatiaľ priradené žiadne deti.' />;
+  }
 
-  const currentChild = children[currentIndex];
-  const actionAmount = actionAmounts[currentChild.id] || 0;
-
-  const handleNext = () => {
-    if (currentIndex < children.length - 1) {
-      setCurrentIndex((currentIndex) => currentIndex + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((currentIndex) => currentIndex - 1);
-    }
-  };
-
-  const saveActionAmountLocally = (data: FinanceBuffetData) => {
-    if (data.actionAmount! > currentChild.accountBalance) {
-      Alert.alert(
-        "Zamietnutá akcia!",
-        `Dieťa má na účte: ${currentChild.accountBalance.toFixed(2)} €.\nZadaná čiastka: ${data.actionAmount!.toFixed(2)} €.`
-      );
-      return;
-    }
-    setActionAmounts({
-      ...actionAmounts,
-      [currentChild.id]: Number(data.actionAmount),
-    });
-    reset();
-  };
-
-  return (
-    <>
-      <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="min-h-48 justify-center items-center border-b border-outline-500">
-          <Text className={twMerge("text-typography-950 pt-7", textStyles, nameSize)}>
-            {currentChild.firstName}
-          </Text>
-          <Text className={twMerge("text-typography-950 pt-7", textStyles, nameSize)}>
-            {currentChild.lastName}
-          </Text>
-        </View>
-
-        <View className="min-h-20 justify-center items-center border-b border-outline-500 py-4">
-          <Text className={twMerge("text-tertiary-500 text-6xl pt-4", textStyles)}>
-            {(currentChild.accountBalance).toFixed(2)} €
-          </Text>
-          <Text className={twMerge("text-error-500 text-2xl pt-2", textStyles)}>
-            (- {actionAmount.toFixed(2)} €)
-          </Text>
-        </View>
-
-        <View className="min-h-20 justify-center items-center mx-10 my-5">
-          <FormField
-            formDataTypeKey='actionAmount'
-            control={control}
-            register={register}
-            error={errors.actionAmount}
-            maxLength={8}
-            otherStyles='w-48'
-          />
-        </View>
-
-        <View className="justify-center items-center border-t border-outline-500 gap-5 px-5 py-6">
-          <View className="flex-row gap-2 h-16">
-            <CustomButton
-              title="Späť"
-              action="background"
-              handlePress={handlePrevious}
-              containerStyles="rounded-3xl w-[50%]"
-              textStyles="text-2xl"
-              isDisabled={currentIndex === 0}
-            />
-            <CustomButton
-              title="Ďalej"
-              action="background"
-              handlePress={handleNext}
-              containerStyles="rounded-3xl w-[50%]"
-              textStyles="text-2xl"
-              isDisabled={currentIndex === children.length - 1}
-            />
-          </View>
-
-          <CustomButton
-            title="Uložiť čiastku"
-            action="secondary"
-            handlePress={handleSubmit(saveActionAmountLocally)}
-            containerStyles="rounded-3xl w-full h-16"
-            textStyles="text-2xl"
-            isDisabled={watch("actionAmount") === null || watch("actionAmount")!.toString().trim().length === 0}
-          />
-
-          <CustomButton
-            title="Dokončiť návštevu bufetu"
-            action="primary"
-            handlePress={() => setModalVisible(true)}
-            containerStyles="rounded-3xl w-full h-16"
-            textStyles="text-2xl"
-            isDisabled={!isAccountActionAvailable("decrement", currentChild.id, totalAmount, getTotalOfChildrenBalances(children))}
-          />
-        </View>
-      </ScrollView>
-      <FinanceBuffetModal
-        children={children}
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
-    </>
-  );
 };
 
 export default Buffet;

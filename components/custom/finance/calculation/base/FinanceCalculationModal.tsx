@@ -44,6 +44,7 @@ const FinanceCalculationModal = ({ leaderId, children, modalVisible, setModalVis
       title="Chceš rozmeniť všetkým peniaze?"
       subTitle="Akcia je nezvrzatná."
       type="confirmation"
+      isSubmitDisabled={children.length === 0}
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       handleConfirm={handleConfirm}

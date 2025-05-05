@@ -62,6 +62,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
                 containerStyles="flex-1 rounded-xl py-3"
                 textStyles="text-2xl"
                 isLoading={isLoading}
+                isDisabled={props.isSubmitDisabled}
               />
             </View>
           ) : (
