@@ -1,6 +1,7 @@
 import { mapCampSessionUpdateToCampSessionCoreWithDates } from "@/mappers/campSessions";
 import { FieldBasics } from "@/types/custom/field";
 import { CampSession, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
+import { ChildCreate, ChildUpdate } from "@/types/models/children";
 
 export const groupCampSessionsByYear = (sessions: CampSession[]): CampSession[][] => {
   const result: CampSession[][] = [];
@@ -33,8 +34,8 @@ export const groupCampSessionsByYear = (sessions: CampSession[]): CampSession[][
 
 export const getCampSessionFormFields = <T extends CampSessionCreate | CampSessionUpdate>(fields: FieldBasics<T>[]) => {
   return {
-    beginDate: fields[0],
-    endDate: fields[1],
+    beginDateField: fields[0],
+    endDateField: fields[1],
   }
 }
 
@@ -48,4 +49,13 @@ export const isCampSessionIntersecting = (
   return otherCampSessions.some(campSession => {
     return newCampSession.endDate! >= campSession.beginDate && newCampSession.beginDate! <= campSession.endDate;
   });
+}
+
+export const getCampChildrenFormFields = <T extends ChildCreate | ChildUpdate>(fields: FieldBasics<T>[]) => {
+  return {
+    firstNameField: fields[0],
+    lastNameField: fields[1],
+    birthDateField: fields[2],
+    genderField: fields[3],
+  }
 }

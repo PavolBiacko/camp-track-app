@@ -24,7 +24,7 @@ const CreateSession = () => {
         return;
       }
       await createCampSession({ ...data });
-      Alert.alert("Hotovo!", "Turnus bol úspešne upravený.");
+      Alert.alert("Hotovo!", "Turnus bol úspešne vytvorený.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

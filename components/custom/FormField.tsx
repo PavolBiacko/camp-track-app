@@ -65,7 +65,8 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
       {props.error && (
         <Text className="text-error-500 text-center font-plight mt-1">
           {props.error?.message as string}
-        </Text>)}
+        </Text>
+      )}
     </View>
   )
 }

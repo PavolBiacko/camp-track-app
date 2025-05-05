@@ -13,16 +13,18 @@ const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props:
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
-  const { beginDate, endDate } = getCampSessionFormFields<T>(props.fields);
+  const { beginDateField, endDateField } = getCampSessionFormFields<T>(props.fields);
 
   return (
     <View className="w-full justify-center">
-      <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
+      <Text className="text-typography-950 text-2xl mt-5 font-pbold">
+        {props.title}
+      </Text>
 
       <View className="w-full justify-between mt-7 gap-7">
         <DateTimeButton
-          title={beginDate.title}
-          formDataTypeKey={beginDate.formDataTypeKey}
+          title={beginDateField.title}
+          formDataTypeKey={beginDateField.formDataTypeKey}
           control={control}
           mode="date"
           maximumDate={mapStringToDateTime(watch("endDate" as Path<T>)!, "date")}
@@ -31,8 +33,8 @@ const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props:
           otherStyles='w-full items-start'
         />
         <DateTimeButton
-          title={endDate.title}
-          formDataTypeKey={endDate.formDataTypeKey}
+          title={endDateField.title}
+          formDataTypeKey={endDateField.formDataTypeKey}
           control={control}
           mode="date"
           minimumDate={mapStringToDateTime(watch('beginDate' as Path<T>)!, "date")}

@@ -33,7 +33,9 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
 
   return (
     <View className="w-full justify-center">
-      <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
+      <Text className="text-typography-950 text-2xl mt-5 font-pbold">
+        {props.title}
+      </Text>
 
       {/* name of the activity */}
       <FormField
