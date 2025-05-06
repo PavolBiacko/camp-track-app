@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyCampSessionsGrouped = () => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['campSessions'],
+    queryKey: ['campSessionsGroupped'],
     queryFn: async () => await campSessionRepository.readAllCampSessionsGrouped(),
   });
   return { campSessionsGrouped: data, isLoading, isError };
@@ -35,6 +35,7 @@ export const useUpdateCampSession = (id: number) => {
       return await campSessionRepository.updateCampSessionById(id, data);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions', id] });
     },
@@ -50,6 +51,7 @@ export const useCreateCampSession = () => {
       return await campSessionRepository.createCampSessionById(data);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
     },
   });
