@@ -56,7 +56,6 @@ export const calculateAge = (birthDate: Date | null): number | null => {
   if (!birthDate) {
     return null;
   }
-  console.log(Date.now());
   return Math.floor((Date.now() - birthDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
 }
 

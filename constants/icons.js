@@ -10,13 +10,8 @@ import eye from "@/assets/icons/eye.png";
 import gallery from "@/assets/icons/gallery.png";
 import group from "@/assets/icons/group.png";
 import home from "@/assets/icons/home.png";
-import leftArrow from "@/assets/icons/left-arrow.png";
 import lightMode from "@/assets/icons/light-mode.png";
-import logout from "@/assets/icons/logout.png";
-import menu from "@/assets/icons/menu.png";
 import message from "@/assets/icons/message.png";
-import rightArrow from "@/assets/icons/right-arrow.png";
-import search from "@/assets/icons/search.png";
 import session from "@/assets/icons/session.png";
 import settings from "@/assets/icons/settings.png";
 
@@ -34,11 +29,6 @@ export default {
   accounts,
   message,
   gallery,
-  leftArrow,
-  menu,
-  search,
-  rightArrow,
-  logout,
   eyeHide,
   eye,
   facebook1,
