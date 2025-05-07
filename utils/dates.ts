@@ -44,6 +44,21 @@ export const compareDates = (date1: Date, date2: Date): number => {
   }
 }
 
+export const parseHumanReadableDate = (dateStr: string): Date => {
+  const [day, month, year] = dateStr.split('.').map(Number);
+  return new Date(year, month - 1, day);
+};
+
+export const parseHumdanReadableDateRange = (dateRange: string): [Date, Date] => {
+  const dateRangePattern = /\((\d{2}\.\d{2}\.\d{4}) - (\d{2}\.\d{2}\.\d{4})\)/;
+  const [, startDateStr, endDateStr] = dateRange.match(dateRangePattern)!;
+
+  const startDate = parseHumanReadableDate(startDateStr);
+  const endDate = parseHumanReadableDate(endDateStr);
+
+  return [startDate, endDate];
+}
+
 export const getFirstDayOfYear = (): Date => {
   return new Date(new Date().getFullYear(), 0, 1);
 }
@@ -75,3 +90,14 @@ export const getAgeFormatted = (birthDate: Date | null): string => {
       return `${age} rokov`;
   }
 }
+
+/**
+* Function to check if a date range is active
+* @param {string} range - The date range in the format "(dd.MM.yyyy - dd.MM.yyyy)"
+* @param {Date} dateToCompare - The date to check against (default is today's date)
+* @returns {boolean} - Returns true if the current date is within the range, false otherwise
+*/
+export const isDateRangeActive = (range: string, dateToCompare: Date = new Date()): boolean => {
+  const [startDate, endDate] = parseHumdanReadableDateRange(range)
+  return dateToCompare >= startDate && dateToCompare <= endDate;
+};

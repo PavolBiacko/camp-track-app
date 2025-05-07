@@ -3,19 +3,19 @@ import { ChildBalanceUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyAccountsWithLeader = (leaderId: string) => {
-  const mutation = useQuery({
+  const query = useQuery({
     queryKey: ['groupAccounts', leaderId],
     queryFn: async () => await groupAccountRepository.readManyAccountsByLeader(leaderId),
   });
-  return { children: mutation.data, ...mutation };
+  return { children: query.data, ...query };
 }
 
 export const useAccountByChildIdWithLeader = (childId: string | null, leaderId: string) => {
-  const mutation = useQuery({
+  const query = useQuery({
     queryKey: ['groupAccounts', leaderId, childId],
     queryFn: async () => await groupAccountRepository.readAccountByChildIdWithLeader(childId, leaderId),
   });
-  return { child: mutation.data, ...mutation };
+  return { child: query.data, ...query };
 }
 
 export const useUpdateAccountBalanceWithLeader = (childId: string | null, leaderId: string) => {

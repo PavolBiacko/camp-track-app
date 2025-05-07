@@ -3,11 +3,11 @@ import { CashRegisterRecord } from "@/types/finance";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useCashRegisterByLeader = (leaderId: string) => {
-  const { data, isLoading, isError } = useQuery({
+  const query = useQuery({
     queryKey: ['cashRegister', leaderId],
     queryFn: async () => await cashRegisterRepository.readCashRegisterByLeader(leaderId),
   });
-  return { cashRegister: data, isLoading, isError };
+  return { cashRegister: query.data, ...query };
 }
 
 export const useUpdateCashRegisterByLeader = (leaderId: string) => {

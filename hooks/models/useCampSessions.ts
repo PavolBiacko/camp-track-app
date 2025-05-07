@@ -3,28 +3,28 @@ import { CampSessionCreate, CampSessionUpdate } from "@/types/models/campSession
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyCampSessionsGrouped = () => {
-  const { data, isLoading, isError } = useQuery({
+  const query = useQuery({
     queryKey: ['campSessionsGroupped'],
     queryFn: async () => await campSessionRepository.readAllCampSessionsGrouped(),
   });
-  return { campSessionsGrouped: data, isLoading, isError };
+  return { campSessionsGrouped: query.data, ...query };
 }
 
 export const useManyCampSessions = () => {
-  const { data, isLoading, isError } = useQuery({
+  const query = useQuery({
     queryKey: ['campSessions'],
     queryFn: async () => await campSessionRepository.readAllCampSessions(),
   });
-  return { campSessions: data, isLoading, isError };
+  return { campSessions: query.data, ...query };
 }
 
 export const useCampSession = (id: number) => {
-  const { data, isLoading, isError } = useQuery({
+  const query = useQuery({
     queryKey: ['campSessions', id],
     queryFn: async () => await campSessionRepository.readCampSessionById(id),
     enabled: !!id,
   });
-  return { campSession: data, isLoading, isError };
+  return { campSession: query.data, ...query };
 }
 
 export const useUpdateCampSession = (id: number) => {

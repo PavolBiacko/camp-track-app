@@ -170,6 +170,35 @@ export type Database = {
           },
         ]
       }
+      group_chats: {
+        Row: {
+          created_at: string
+          id: number
+          name: string | null
+          session_range: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          session_range: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string | null
+          session_range?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_chats_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "camp_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       groups: {
         Row: {
           created_at: string
@@ -208,6 +237,38 @@ export type Database = {
             columns: ["session_id"]
             isOneToOne: false
             referencedRelation: "camp_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          content: string
+          created_at: string
+          group_chat_id: number
+          id: number
+          sender_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          group_chat_id: number
+          id?: number
+          sender_id?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          group_chat_id?: number
+          id?: number
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_group_chat_id_fkey"
+            columns: ["group_chat_id"]
+            isOneToOne: false
+            referencedRelation: "group_chats"
             referencedColumns: ["id"]
           },
         ]

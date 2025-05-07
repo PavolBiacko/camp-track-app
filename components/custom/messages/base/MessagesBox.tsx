@@ -3,7 +3,7 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
-const MessagesBox = ({ groupName }: MessagesBoxProps) => {
+const MessagesBox = ({ name, range }: MessagesBoxProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
@@ -14,9 +14,12 @@ const MessagesBox = ({ groupName }: MessagesBoxProps) => {
           "flex-row justify-center items-center",
           "rounded-xl px-6 my-3 w-11/12 h-28",
         )}>
-      <View className='pt-1'>
-        <Text className="text-2xl font-pbold text-typography-800">
-          {groupName}
+      <View className='items-center gap-1 pt-1'>
+        <Text className="text-2xl font-psemibold text-secondary-500">
+          {name ?? "(Bez názvu)"}
+        </Text>
+        <Text className="text-lg font-plight text-tertiary-500">
+          {range}
         </Text>
       </View>
     </TouchableOpacity>

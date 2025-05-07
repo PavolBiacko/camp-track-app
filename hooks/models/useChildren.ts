@@ -3,19 +3,19 @@ import { ChildCreate, ChildUpdate } from "@/types/models/children";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyChildren = () => {
-  const mutation = useQuery({
+  const query = useQuery({
     queryKey: ['children'],
     queryFn: async () => await childRepository.readManyChildren(),
   });
-  return { children: mutation.data, ...mutation };
+  return { children: query.data, ...query };
 }
 
 export const useChild = (id: string) => {
-  const mutation = useQuery({
+  const query = useQuery({
     queryKey: ['children', id],
     queryFn: async () => await childRepository.readChildById(id),
   });
-  return { child: mutation.data, ...mutation };
+  return { child: query.data, ...query };
 }
 
 export const useCreateChild = () => {

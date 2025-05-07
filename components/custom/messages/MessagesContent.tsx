@@ -1,15 +1,11 @@
 import Loading from '@/components/custom/Loading';
 import MessagesBox from '@/components/custom/messages/base/MessagesBox';
-import { useManyCampSessions } from '@/hooks/models/useCampSessions';
-import { formatISOLocalToHumanReadable } from '@/utils/dates';
+import { useManyGroupChats } from '@/hooks/models/useGroupChats';
+import { isDateRangeActive } from '@/utils/dates';
 import { ScrollView, Text, View } from 'react-native';
 
 const MessagesContent = () => {
-  const { campSessions, isLoading, isError } = useManyCampSessions();
-
-  if (!campSessions || isLoading || isError) {
-    return <Loading showText={false} />
-  }
+  const { groupChats, isLoading, isError } = useManyGroupChats();
 
   return (
     <View className='h-[72%]'>
@@ -18,14 +14,19 @@ const MessagesContent = () => {
           Zvyšné turnusy
         </Text>
       </View>
-      <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 10 }} className='w-full h-full'>
-        {campSessions.map((session) => (
-          <MessagesBox
-            key={session.id}
-            groupName={`(${formatISOLocalToHumanReadable(session.beginDate)} - ${formatISOLocalToHumanReadable(session.endDate)})`}
-          />
-        ))}
-      </ScrollView>
+      {!groupChats || isLoading || isError
+        ? <Loading showText={false} />
+        : <ScrollView contentContainerClassName="justify-center items-center py-3" className='w-full h-full'>
+          {groupChats
+            .filter((groupChat) => !isDateRangeActive(groupChat.sessionRange))
+            .map((groupChat) => (
+              <MessagesBox
+                key={groupChat.id}
+                name={groupChat.name}
+                range={groupChat.sessionRange}
+              />
+            ))}
+        </ScrollView>}
     </View>
   )
 }
