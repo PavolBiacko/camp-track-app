@@ -5,9 +5,7 @@ import { useManyCampSessionsGrouped } from "@/hooks/models/useCampSessions";
 import { ScrollView, View } from "react-native";
 
 const CampSessionContent = () => {
-  console.log('CampSessionContent');
   const { campSessionsGrouped, isLoading, isError } = useManyCampSessionsGrouped();
-  console.log('campSessionsGrouped', campSessionsGrouped);
 
   if (!campSessionsGrouped || isLoading || isError) {
     return <Loading showText={false} />;
