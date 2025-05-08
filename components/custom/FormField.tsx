@@ -1,7 +1,7 @@
 import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors"
 import { icons } from "@/constants"
 import { FormFieldProps } from '@/types/custom/field'
-import { getKeyboardType } from "@/utils/ui"
+import { getFormFieldHeightBasedOnLines, getKeyboardType } from "@/utils/ui"
 import { useColorScheme } from "nativewind"
 import { useState } from 'react'
 import { Controller, FieldValues, Path } from "react-hook-form"
@@ -22,9 +22,11 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
       }
       <View className={
         twMerge(
-          `flex-row bg-background-200 border-2 items-center rounded-2xl`,
+          `flex-row w-full bg-background-200 border-2 items-center rounded-2xl`,
           `${isFocused ? "border-primary-500" : "border-outline-400"}`,
-          `w-full ${props.isMultine ? "h-32 py-1" : "h-16"}`
+          !props.isMultine && !props.isMultineFixed && "h-16",
+          props.isMultineFixed && "h-32 py-3",
+          props.isMultine && `h-${getFormFieldHeightBasedOnLines(props.numberOfLines)} py-3`,
         )}>
         <Controller
           control={props.control}
@@ -40,14 +42,15 @@ const FormField = <T extends FieldValues,>(props: FormFieldProps<T>) => {
               onChangeText={onChange}
               onFocus={() => setIsFocused(true)}
               onEndEditing={() => setIsFocused(false)}
-              multiline={props.isMultine}
-              textAlignVertical={props.isMultine ? "top" : "center"}
+              multiline={props.isMultine || props.isMultineFixed}
+              textAlignVertical={props.isMultineFixed ? "top" : "center"}
               placeholder={props.placeholder}
               placeholderTextColor={getRGBColor("typography", "500", colorScheme)}
               {...props.register(props.formDataTypeKey as Path<T>)}
               secureTextEntry={String(props.formDataTypeKey).includes("password") && !showPassword}
               keyboardType={getKeyboardType(props.formDataTypeKey as string)}
               maxLength={props.maxLength}
+              autoCapitalize={props.autoCapitalize}
             />
           )}
         />

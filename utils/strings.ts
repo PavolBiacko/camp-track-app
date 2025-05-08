@@ -6,3 +6,8 @@ export const capitalizeWord = (text: string | undefined): string | undefined => 
 export const getLongerString = (str1: string, str2: string): string => {
   return str1.length > str2.length ? str1 : str2;
 }
+
+export const getNumberOfLines = (text?: string): number => {
+  const lines = text?.split('\n');
+  return lines?.length || 0;
+}

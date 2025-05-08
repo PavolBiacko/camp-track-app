@@ -22,6 +22,7 @@ const MessagesContent = () => {
             .map((groupChat) => (
               <MessagesBox
                 key={groupChat.id}
+                id={groupChat.id}
                 name={groupChat.name}
                 range={groupChat.sessionRange}
               />

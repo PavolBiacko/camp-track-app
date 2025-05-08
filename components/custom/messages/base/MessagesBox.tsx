@@ -1,13 +1,14 @@
 import { MessagesBoxProps } from '@/types/messages'
+import { router } from 'expo-router'
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
 
-const MessagesBox = ({ name, range }: MessagesBoxProps) => {
+const MessagesBox = ({ id, name, range }: MessagesBoxProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => { }}
+      onPress={() => router.push(`/(main)/(messages)/${id}`)}
       className={
         twMerge(
           "bg-background-300 border-2 border-outline-500",

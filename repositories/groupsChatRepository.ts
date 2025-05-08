@@ -24,6 +24,23 @@ const readManyGroupChats = async (): Promise<GroupChat[]> => {
   }
 }
 
+const readGroupChatById = async (id: number): Promise<GroupChat> => {
+  try {
+    const { data: groupChatData, error: groupChatError } = await supabase
+      .from('group_chats')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (groupChatError) throw groupChatError;
+
+    return mapDbGroupChatToGroupChat(groupChatData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const groupChatRepository = {
   readManyGroupChats,
+  readGroupChatById
 }

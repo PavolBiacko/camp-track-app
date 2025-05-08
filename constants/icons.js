@@ -12,6 +12,7 @@ import group from "@/assets/icons/group.png";
 import home from "@/assets/icons/home.png";
 import lightMode from "@/assets/icons/light-mode.png";
 import message from "@/assets/icons/message.png";
+import sendMessage from "@/assets/icons/send-message.png";
 import session from "@/assets/icons/session.png";
 import settings from "@/assets/icons/settings.png";
 
@@ -45,4 +46,5 @@ export default {
   darkMode,
   connections,
   session,
+  sendMessage,
 };

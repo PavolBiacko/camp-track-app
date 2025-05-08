@@ -226,3 +226,20 @@ export const getTrasactionAlertButtons = (
     },
   ];
 };
+
+export const getFormFieldHeightBasedOnLines = (numberOfLines?: number, offset: number = 0): number => {
+  if (!numberOfLines) {
+    return 16 + offset;
+  }
+
+  switch (numberOfLines) {
+    case 1:
+      return 16 + offset;
+    case 2:
+      return 24 + offset;
+    case 3:
+      return 32 + offset;
+    default:
+      return 40 + offset;
+  }
+}

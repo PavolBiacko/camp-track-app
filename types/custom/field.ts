@@ -13,4 +13,7 @@ export type FormFieldProps<T extends FieldValues> = FieldBasics<T> & {
   error?: FieldError,
   maxLength?: number,
   isMultine?: boolean,
+  numberOfLines?: number,
+  isMultineFixed?: boolean,
+  autoCapitalize?: "none" | "sentences" | "words" | "characters",
 }

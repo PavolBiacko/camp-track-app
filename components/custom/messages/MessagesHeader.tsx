@@ -24,6 +24,7 @@ const MessagesHeader = () => {
             )!;
             return (
               <MessagesBox
+                id={activeGroupChat.id}
                 name={activeGroupChat.name}
                 range={activeGroupChat.sessionRange}
               />

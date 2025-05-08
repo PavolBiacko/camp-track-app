@@ -13,6 +13,8 @@ const AppLayout = () => {
         <Stack.Screen name="(settings)" />
         <Stack.Screen name="(schedule)" />
         <Stack.Screen name="(finance)" />
+        <Stack.Screen name="(camp)" />
+        <Stack.Screen name="(messages)" />
       </Stack>
     </AppProviders>
   )
