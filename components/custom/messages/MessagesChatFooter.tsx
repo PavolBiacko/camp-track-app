@@ -20,7 +20,7 @@ const MessagesChatFooter = () => {
   });
 
   const numberOfLines = getNumberOfLines(watch("message"));
-  const height = getFormFieldHeightBasedOnLines(numberOfLines, 8);
+  const height = getFormFieldHeightBasedOnLines(numberOfLines, 8);  // h-40 and h-48 are problematic sometimes
 
   return (
     <KeyboardAvoidingView className={`flex-row w-full h-${height} items-center justify-center border-t border-outline-500`}>

@@ -8,7 +8,7 @@ const MessagesLayout = () => {
   return (
     <Stack screenOptions={getStackScreenOptions(colorScheme)}>
       <Stack.Screen
-        name="[chatId]"
+        name="index"
         options={{
           headerShown: true,
           title: "...",

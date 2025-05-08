@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const useManyMessages = (chatId: number) => {
   const query = useInfiniteQuery({
-    queryKey: ['messages', chatId],
+    queryKey: ['messagesq', chatId],
     queryFn: async ({ pageParam = 0 }) => {
       return await messagesRepository.readManyMessagesPaginated(chatId, pageParam);
     },

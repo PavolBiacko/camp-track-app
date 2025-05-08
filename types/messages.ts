@@ -1,3 +1,5 @@
+import { User } from "./models/users";
+
 export type MessagesBoxProps = {
   id: number;
   name: string | null;
@@ -10,6 +12,7 @@ export type GroupChatsFilter = {
 
 export type GroupChatParams = {
   chatId: string,
+  chatName?: string,
 }
 
 export type MessagesContextType = {
@@ -19,4 +22,25 @@ export type MessagesContextType = {
 
 export type MessagesChatData = {
   message: string,
+}
+
+export type MessagesChatLineProps = {
+  messageId: number,
+  userId: string,
+  sender: User | null,
+  content: string,
+  createdAt: Date,
+}
+
+export type MessagesAvatarProps = {
+  firstName?: string,
+  lastName?: string,
+}
+
+export type MessagesBubbleProps = {
+  firstName?: string,
+  lastName?: string,
+  isCurrentUser: boolean,
+  content: string,
+  createdAt: Date,
 }

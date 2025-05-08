@@ -31,8 +31,6 @@ const readManyMessagesPaginated = async (chatId: number, page: number): Promise<
 
     if (messagesError) throw messagesError;
 
-    console.log("Messages data:", JSON.stringify(messagesData, null, 2));
-
     return messagesData.map((message) => mapDbMessageToMessageComplex(message));
   } catch (error: any) {
     throw error as AuthError;
