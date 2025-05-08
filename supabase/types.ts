@@ -247,21 +247,21 @@ export type Database = {
           created_at: string
           group_chat_id: number
           id: number
-          sender_id: string
+          sender_id: string | null
         }
         Insert: {
           content: string
           created_at?: string
           group_chat_id: number
           id?: number
-          sender_id?: string
+          sender_id?: string | null
         }
         Update: {
           content?: string
           created_at?: string
           group_chat_id?: number
           id?: number
-          sender_id?: string
+          sender_id?: string | null
         }
         Relationships: [
           {
@@ -269,6 +269,13 @@ export type Database = {
             columns: ["group_chat_id"]
             isOneToOne: false
             referencedRelation: "group_chats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]

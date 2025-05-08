@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton';
+import Loading from '@/components/custom/Loading';
 import MessagesChatContent from '@/components/custom/messages/MessagesChatContent';
 import MessagesChatFooter from '@/components/custom/messages/MessagesChatFooter';
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
@@ -22,7 +23,7 @@ const Messages = () => {
   useEffect(() => {
     if (groupChat) {
       navigation.setOptions({
-        title: groupChat.name ?? "(Bez názvu)",
+        title: String(groupChat.id) ?? "(Bez názvu)",
         headerRight: () => (
           <CustomButton
             icon={icons.settings}
@@ -38,9 +39,13 @@ const Messages = () => {
     }
   }, [groupChat]);
 
+  if (!groupChat || isLoading || isError) {
+    return <Loading showText={true} />;
+  }
+
   return (
     <View className="flex-1">
-      <MessagesChatContent />
+      <MessagesChatContent chatId={chatId} />
       <MessagesChatFooter />
     </View>
   )

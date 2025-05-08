@@ -29,6 +29,7 @@ export type TransactionCreate = {
 
 }
 
+// DB complex type
 export type DbTransactionWithChild = Tables<"transactions"> & {
   children: {
     first_name: string;
