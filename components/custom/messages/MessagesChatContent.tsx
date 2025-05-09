@@ -1,12 +1,15 @@
 import Loading from '@/components/custom/Loading';
 import MessagesChatLine from '@/components/custom/messages/base/MessagesChatLine';
-import { useManyMessages } from '@/hooks/models/useMessages';
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
+import { useFetchMessages } from '@/hooks/models/useMessages';
 import { useAuth } from '@/hooks/useAuth';
-import { FlatList } from 'react-native';
+import { useColorScheme } from 'nativewind';
+import { ActivityIndicator, FlatList } from 'react-native';
 
 const MessagesChatContent = ({ chatId }: { chatId: number }) => {
+  const { colorScheme } = useColorScheme();
   const { user } = useAuth()
-  const { messages, isLoading, isError, fetchNextPage, hasNextPage } = useManyMessages(chatId);
+  const { messages, isLoading, isError, fetchNextPage, hasNextPage } = useFetchMessages(chatId);
 
   if (!messages || isLoading || isError) {
     return <Loading showText={false} />;
@@ -20,6 +23,7 @@ const MessagesChatContent = ({ chatId }: { chatId: number }) => {
       keyExtractor={(item) => item.id.toString()}
       renderItem={({ item }) => (
         <MessagesChatLine
+          key={item.id}
           messageId={item.id}
           userId={user?.id!}  // User known from upper layer, here always defined
           sender={item.sender}
@@ -37,7 +41,7 @@ const MessagesChatContent = ({ chatId }: { chatId: number }) => {
       windowSize={5}
       ListFooterComponent={
         hasNextPage ? (
-          <Loading showText={false} containerStyles="py-4 justify-center" />
+          <ActivityIndicator size="large" color={getRGBColor("primary", "500", colorScheme)} />
         ) : null
       }
       // Optional: Maintain scroll position when new messages arrive

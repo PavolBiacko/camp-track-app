@@ -17,6 +17,12 @@ export type MessageComplex = {
   createdAt: Date,
 }
 
+export type MessageCreate = {
+  groupChatId: number,
+  senderId: string,
+  content: string,
+}
+
 // DB complex type
 export type DbMessageWithSender = Tables<"messages"> & {
   users: Tables<"users"> | null,

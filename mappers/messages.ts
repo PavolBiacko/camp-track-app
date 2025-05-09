@@ -1,5 +1,6 @@
 import { mapDbUserRoleToUserRole } from "@/mappers/roles";
-import { DbMessageWithSender, MessageComplex } from "@/types/models/messages";
+import { TablesInsert } from "@/supabase/types";
+import { DbMessageWithSender, MessageComplex, MessageCreate } from "@/types/models/messages";
 
 export const mapDbMessageToMessageComplex = (dbMessage: DbMessageWithSender): MessageComplex => {
   return {
@@ -17,4 +18,12 @@ export const mapDbMessageToMessageComplex = (dbMessage: DbMessageWithSender): Me
     content: dbMessage.content,
     createdAt: new Date(dbMessage.created_at),
   };
+}
+
+export const mapMessageCreateToDbMessage = (message: MessageCreate): TablesInsert<"messages"> => {
+  return {
+    group_chat_id: message.groupChatId,
+    sender_id: message.senderId,
+    content: message.content,
+  }
 }
