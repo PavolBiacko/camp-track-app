@@ -36,7 +36,7 @@ const Messages = () => {
   return (
     <View className="flex-1">
       <MessagesChatContent chatId={chatId} />
-      <MessagesChatFooter />
+      <MessagesChatFooter chatId={chatId} />
     </View>
   )
 }

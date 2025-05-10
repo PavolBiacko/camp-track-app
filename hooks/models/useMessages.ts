@@ -1,34 +1,41 @@
 import { messagesRepository } from "@/repositories/messagesRepository";
 import { MessageCreate } from "@/types/models/messages";
-import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useFetchMessages = (chatId: number) => {
+  const queryClient = useQueryClient();
+
   const query = useInfiniteQuery({
     queryKey: ['messages', chatId],
-    queryFn: async ({ pageParam = 0 }) => {
-      return await messagesRepository.fetchMessages(chatId, pageParam);
+    queryFn: async ({ pageParam }) => {
+      const messages = await messagesRepository.fetchMessages(chatId, pageParam);
+      return messages;
     },
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < messagesRepository.PAGE_SIZE) return undefined;
-      return allPages.length;
+      if (lastPage.length === 0 || lastPage.length < messagesRepository.PAGE_SIZE) {
+        return undefined;
+      }
+      const nextPage = allPages.length;
+      return nextPage;
     },
     initialPageParam: 0,
+    placeholderData: keepPreviousData,
   });
+
+  // Real-time subscription for new messages
+  messagesRepository.createSubscribtion(queryClient, chatId);
+
   return { messages: query.data, ...query };
-}
+};
 
 export const useSendMessage = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { mutateAsync, isError } = useMutation({
     mutationFn: async (message: MessageCreate) => {
       return await messagesRepository.sendMessage(message);
     },
     onSuccess: (newMessage) => {
-      // Optionally, you can optimistically update the cache here.
-      // However, since we're using real-time subscriptions in useManyMessages,
-      // the new message will be added automatically via the subscription.
-      // If you want to avoid waiting for the subscription, you can uncomment the following:
       /*
       queryClient.setQueryData(['messages', newMessage.groupChatId], (oldData: any) => {
         if (!oldData) return { pages: [[newMessage]], pageParams: [0] };
@@ -43,4 +50,6 @@ export const useSendMessage = () => {
       // Optionally, show a toast or notification to the user
     },
   });
+
+  return { sendMessage: mutateAsync, isError };
 };

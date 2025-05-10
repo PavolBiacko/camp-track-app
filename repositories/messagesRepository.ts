@@ -1,6 +1,6 @@
 import { mapDbMessageToMessageComplex, mapMessageCreateToDbMessage } from "@/mappers/messages";
 import supabase from "@/supabase/client";
-import { MessageComplex, MessageCreate } from "@/types/models/messages";
+import { DbMessageWithSender, MessageComplex, MessageCreate } from "@/types/models/messages";
 import { AuthError } from "@supabase/supabase-js";
 
 const PAGE_SIZE = 20; // Number of messages per page
@@ -69,8 +69,47 @@ const sendMessage = async (message: MessageCreate): Promise<MessageComplex> => {
   }
 };
 
+const createSubscribtion = (queryClient: any, chatId: number) => {
+  supabase
+    .channel(`messages:group_chat_id=${chatId}`)
+    .on('postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'messages', filter: `group_chat_id=eq.${chatId}` },
+      async (payload) => {
+        const newMessage = payload.new as DbMessageWithSender;
+
+        // Fetch the sender's details separately
+        const { data: senderData, error: senderError } = await supabase
+          .from('users')
+          .select('id, email, first_name, last_name, birth_date, role, created_at')
+          .eq('id', newMessage.sender_id!)
+          .single();
+
+        if (senderError) {
+          console.error("Error fetching sender data:", senderError);
+          return;
+        }
+
+        // Combine the message data with the sender data
+        const messageWithSender: DbMessageWithSender = {
+          ...newMessage,
+          users: senderData,
+        };
+
+        const mappedMessage = mapDbMessageToMessageComplex(messageWithSender);
+        queryClient.setQueryData(['messages', chatId], (oldData: any) => {
+          if (!oldData) return { pages: [[mappedMessage]], pageParams: [0] };
+          const updatedPages = [...oldData.pages];
+          updatedPages[0] = [mappedMessage, ...updatedPages[0]];
+          return { ...oldData, pages: updatedPages };
+        });
+      }
+    )
+    .subscribe();
+}
+
 export const messagesRepository = {
   fetchMessages,
   sendMessage,
+  createSubscribtion,
   PAGE_SIZE
 };

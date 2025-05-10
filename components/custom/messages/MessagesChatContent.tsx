@@ -3,13 +3,14 @@ import MessagesChatLine from '@/components/custom/messages/base/MessagesChatLine
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
 import { useFetchMessages } from '@/hooks/models/useMessages';
 import { useAuth } from '@/hooks/useAuth';
+import { MessagesChatContentProps } from '@/types/messages';
 import { useColorScheme } from 'nativewind';
 import { ActivityIndicator, FlatList } from 'react-native';
 
-const MessagesChatContent = ({ chatId }: { chatId: number }) => {
+const MessagesChatContent = (props: MessagesChatContentProps) => {
   const { colorScheme } = useColorScheme();
   const { user } = useAuth()
-  const { messages, isLoading, isError, fetchNextPage, hasNextPage } = useFetchMessages(chatId);
+  const { messages, isLoading, isError, fetchNextPage, hasNextPage } = useFetchMessages(props.chatId);
 
   if (!messages || isLoading || isError) {
     return <Loading showText={false} />;
@@ -37,15 +38,14 @@ const MessagesChatContent = ({ chatId }: { chatId: number }) => {
         if (hasNextPage) fetchNextPage();
       }}
       onEndReachedThreshold={0.1}
-      initialNumToRender={10}
-      windowSize={5}
+      initialNumToRender={5}
+      windowSize={3}
       ListFooterComponent={
         hasNextPage ? (
           <ActivityIndicator size="large" color={getRGBColor("primary", "500", colorScheme)} />
         ) : null
       }
-      // Optional: Maintain scroll position when new messages arrive
-      maintainVisibleContentPosition={{ minIndexForVisible: 0 }}
+      maintainVisibleContentPosition={{ minIndexForVisible: 0, autoscrollToTopThreshold: 0 }}
     />
   )
 }

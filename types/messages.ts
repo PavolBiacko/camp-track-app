@@ -44,3 +44,11 @@ export type MessagesBubbleProps = {
   content: string,
   createdAt: Date,
 }
+
+export type MessagesChatContentProps = {
+  chatId: number,
+}
+
+export type MessagesChatFooterProps = {
+  chatId: number,
+}

@@ -38,6 +38,7 @@ export const useUpdateCampSession = (id: number) => {
       queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions', id] });
+      queryClient.invalidateQueries({ queryKey: ['groupChats'] });
     },
   });
   return { updateCampSession: mutateAsync, isError };
@@ -53,6 +54,7 @@ export const useCreateCampSession = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
+      queryClient.invalidateQueries({ queryKey: ['groupChats'] });
     },
   });
   return { createCampSession: mutateAsync, isError };
