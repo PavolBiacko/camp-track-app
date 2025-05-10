@@ -1,11 +1,11 @@
-import Loading from '@/components/custom/Loading';
+import EmptyScreenMessage from '@/components/custom/EmptyScreenMessage';
 import MessagesBox from '@/components/custom/messages/base/MessagesBox';
-import { useManyGroupChats } from '@/hooks/models/useGroupChats';
+import { MessagesContentProps } from '@/types/messages';
 import { isDateRangeActive } from '@/utils/dates';
 import { ScrollView, Text, View } from 'react-native';
 
-const MessagesContent = () => {
-  const { groupChats, isLoading, isError } = useManyGroupChats();
+const MessagesContent = ({ groupChats }: MessagesContentProps) => {
+  const otherGroupChats = groupChats.filter((groupChat) => !isDateRangeActive(groupChat.sessionRange));
 
   return (
     <View className='h-[72%]'>
@@ -14,20 +14,20 @@ const MessagesContent = () => {
           Zvyšné turnusy
         </Text>
       </View>
-      {!groupChats || isLoading || isError
-        ? <Loading showText={false} />
-        : <ScrollView contentContainerClassName="justify-center items-center py-3" className='w-full h-full'>
-          {groupChats
-            .filter((groupChat) => !isDateRangeActive(groupChat.sessionRange))
-            .map((groupChat) => (
-              <MessagesBox
-                key={groupChat.id}
-                id={groupChat.id}
-                name={groupChat.name}
-                range={groupChat.sessionRange}
-              />
-            ))}
-        </ScrollView>}
+      {otherGroupChats.length === 0 ? (
+        <EmptyScreenMessage text="Žiadne neaktívne turnusy." />
+      ) : (
+        <ScrollView contentContainerClassName="items-center justify-center py-3" className="">
+          {otherGroupChats.map((groupChat) => (
+            <MessagesBox
+              key={groupChat.id.toString()}
+              id={groupChat.id}
+              name={groupChat.name}
+              range={groupChat.sessionRange}
+            />
+          ))}
+        </ScrollView>
+      )}
     </View>
   )
 }

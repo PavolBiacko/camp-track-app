@@ -1,3 +1,4 @@
+import { GroupChat } from "./models/groupChats";
 import { User } from "./models/users";
 
 export type MessagesBoxProps = {
@@ -51,4 +52,12 @@ export type MessagesChatContentProps = {
 
 export type MessagesChatFooterProps = {
   chatId: number,
+}
+
+export type MessagesHeaderProps = {
+  groupChats: GroupChat[]
+}
+
+export type MessagesContentProps = {
+  groupChats: GroupChat[]
 }
