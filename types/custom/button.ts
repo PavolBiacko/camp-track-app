@@ -39,3 +39,19 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   otherStyles?: string,
   isDisabled?: boolean,
 };
+
+// Define the type for the data
+export type PickerItem = {
+  id: string;
+  range: string;
+};
+
+// Define the props for the custom picker button
+export type SelectButtonProps = {
+  title?: string;
+  action?: ButtonActionType;
+  variant?: ButtonVariantType;
+  data: PickerItem[];
+  onSelect: (selectedItem: PickerItem) => void; // Callback to handle selection
+  otherStyles?: string;
+}

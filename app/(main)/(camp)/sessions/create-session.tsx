@@ -46,7 +46,6 @@ const CreateSession = () => {
         }}
         validationSchema={campSessionSchema}
         onSubmit={handleCreateCampSession}
-        buttonText='Pridaj turnus'
       />
     </ScrollView>
   )

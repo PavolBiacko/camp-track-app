@@ -1,4 +1,5 @@
 import CustomButton from '@/components/custom/CustomButton';
+import { router } from 'expo-router';
 import { View } from 'react-native';
 
 const CampGroupsFooter = () => {
@@ -8,7 +9,7 @@ const CampGroupsFooter = () => {
         title="Pridaj nový oddiel"
         action="primary"
         variant="combined"
-        handlePress={() => { }}
+        handlePress={() => router.push('/(main)/(camp)/groups/create-group')}
         textStyles='text-xl font-pbold self-center'
         containerStyles="w-2/3 h-16 rounded-3xl"
       />

@@ -206,7 +206,10 @@ export const getKeyboardType = (formDataTypeKey: string): KeyboardTypeOptions =>
   const formDataTypeLowercase = formDataTypeKey.toLowerCase();
   if (formDataTypeLowercase.includes("email")) {
     return "email-address";
-  } else if (formDataTypeLowercase.includes("amount") || formDataTypeLowercase.includes("phone")) {
+  } else if (
+    formDataTypeLowercase.includes("amount") ||
+    formDataTypeLowercase.includes("phone") ||
+    formDataTypeLowercase.includes("number")) {
     return "number-pad";
   }
   return "default";

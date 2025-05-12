@@ -28,3 +28,39 @@ export const campChildSchema = z.object({
   gender: z
     .enum([Gender.MALE, Gender.FEMALE]),
 });
+
+export const campGroupSchema = z.object({
+  number: z
+    .string({ message: "Číslo musí byť celé číslo." })
+    .nonempty({ message: "Povinné" })
+    .transform((val) => parseInt(val, 10))
+    .refine((val) => !isNaN(val), { message: "Zlý formát" })
+    .pipe(
+      z
+        .number({ message: "Číslo musí byť celé číslo." })
+        .int("Číslo")
+        .min(1, "< 1")
+        .max(100, "> 100")
+    )
+    .transform((val) => val.toString()), // Transform back to string to match GroupFormInputsCore
+  name: z
+    .string()
+    .nullable(),
+  sessionId: z
+    .string()
+    .nonempty({ message: "ID turnusu je povinné" })
+    .transform((val) => parseInt(val, 10)) // Transform to number for validation
+    .refine((val) => !isNaN(val), { message: "Nepovolený formát" })
+    .pipe(
+      z
+        .number()
+        .int("ID turnusu musí byť celé číslo.")
+        .positive("ID turnusu musí byť kladné.")
+        .min(1, "ID turnusu musí byť väčšie ako 0.")
+    )
+    .transform((val) => val.toString()), // Transform back to string to match GroupFormInputsCore
+  leaderId: z
+    .string()
+    .uuid("ID vedúceho musí byť platný UUID.")
+    .nullable(),
+});
