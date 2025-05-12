@@ -10,7 +10,7 @@ const campScreenConfigs: ScreenConfigs[] = [
   { name: 'children/index', title: 'Deti' },
   { name: 'children/update-child', title: 'Editačný formulár dieťata' },
   { name: 'children/create-child', title: 'Vytvárací formulár dieťata' },
-  { name: 'groups', title: 'Oddiely' },
+  { name: 'groups/index', title: 'Oddiely' },
 ];
 
 const CampLayout = () => {

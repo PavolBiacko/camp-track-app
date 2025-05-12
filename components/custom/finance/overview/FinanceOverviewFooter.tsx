@@ -1,8 +1,8 @@
 import CustomButton from '@/components/custom/CustomButton'
+import FinanceAccountActionModal from '@/components/custom/finance/accounts/base/FinanceAccountActionModal'
 import { useAuth } from '@/hooks/useAuth'
 import { useState } from 'react'
 import { View } from 'react-native'
-import FinanceAccountActionModal from '../accounts/base/FinanceAccountActionModal'
 
 const FinanceOverviewFooter = () => {
   const { user } = useAuth();

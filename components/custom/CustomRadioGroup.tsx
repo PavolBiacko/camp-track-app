@@ -1,3 +1,4 @@
+import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors'
 import { CircleIcon } from '@/components/ui/icon'
 import { Radio, RadioGroup, RadioIcon, RadioIndicator, RadioLabel } from '@/components/ui/radio'
 import { CustomRadioGroupProps } from '@/types/custom/radio'
@@ -5,7 +6,6 @@ import { useColorScheme } from 'nativewind'
 import { Controller, FieldValues, Path } from 'react-hook-form'
 import { Text, View } from 'react-native'
 import { twMerge } from 'tailwind-merge'
-import { getRGBColor } from '../ui/gluestack-ui-provider/colors'
 
 const CustomRadioGroup = <T extends FieldValues>({ direction = "row", ...props }: CustomRadioGroupProps<T>) => {
   const { colorScheme } = useColorScheme();

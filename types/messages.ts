@@ -1,5 +1,5 @@
-import { GroupChat } from "./models/groupChats";
-import { User } from "./models/users";
+import { GroupChat } from "@/types/models/groupChats";
+import { User } from "@/types/models/users";
 
 export type MessagesBoxProps = {
   id: number;
