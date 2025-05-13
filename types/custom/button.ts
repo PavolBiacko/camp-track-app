@@ -49,9 +49,10 @@ export type SelectButtonProps<T extends FieldValues> = {
   title?: string;
   formDataTypeKey: keyof T;
   control: Control<T, any>;
-  options: PickerItem[];
+  options?: PickerItem[];
   action?: ButtonActionType;
   variant?: ButtonVariantType;
   error?: FieldError;
+  isLoading?: boolean,
   otherStyles?: string;
 }

@@ -11,11 +11,11 @@ import { Path, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props: FormProps<T>) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const { control, handleSubmit, watch } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
-  const [modalVisible, setModalVisible] = useState(false);
 
   const { beginDateField, endDateField } = getCampSessionFormFields<T>(props.fields);
 

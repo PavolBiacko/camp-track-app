@@ -22,7 +22,7 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
       control={props.control}
       name={props.formDataTypeKey as Path<T>}
       render={({ field: { onChange, value } }) => {
-        const selectedItem = props.options.find(item => item.id === value) || null;
+        const selectedItem = props.options?.find(item => item.id === value) || null;
 
         return (
           <View className={`${props.otherStyles}`}>
@@ -32,10 +32,11 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
               </Text>
             )}
             <CustomButton
-              title={`${selectedItem ? selectedItem.showedText : "Vyber možnosť"}`}
+              title={`${selectedItem ? selectedItem.showedText : "---"}`}
               action={props.action}
               handlePress={() => setModalVisible(true)}
               textStyles="text-typography-950 text-2xl font-psemibold"
+              isLoading={props.isLoading}
               containerStyles="h-20 rounded-2xl"
             />
             <CustomModal
