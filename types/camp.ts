@@ -35,3 +35,7 @@ export type CampGroupsLineTextProps = {
   firstName?: string,
   lastName?: string,
 }
+
+export type CampGroupParams = {
+  groupId: string,
+}

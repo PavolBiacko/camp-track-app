@@ -19,10 +19,6 @@ const UpdateSession = () => {
 
   const allCampSessions = campSessionsGrouped?.flat()!;  // they are loaded one level above
 
-  if (!campSession || isLoading || isError) {
-    return <Loading showText={true} />
-  }
-
   const handleUpdateCampSession = async (data: CampSessionUpdate) => {
     // Data are valid, checked with Zod, just needs to be validated for intersections
     try {
@@ -38,6 +34,10 @@ const UpdateSession = () => {
       return;
     }
   };
+
+  if (!campSession || isLoading || isError) {
+    return <Loading showText={true} />
+  }
 
   return (
     <ScrollView keyboardShouldPersistTaps="handled" className="px-4">

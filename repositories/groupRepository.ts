@@ -1,7 +1,7 @@
-import { mapDbGroupComplexToGroupComplex, mapDbGroupToGroup, mapGroupCreateToDbGroup } from "@/mappers/groups";
+import { mapDbGroupComplexToGroupComplex, mapDbGroupToGroup, mapGroupCreateToDbGroup, mapGroupUpdateToDbGroup } from "@/mappers/groups";
 import { campSessionRepository } from "@/repositories/campSessionRepository";
 import supabase from "@/supabase/client";
-import { Group, GroupBasic, GroupComplex, GroupCreate } from "@/types/models/groups";
+import { Group, GroupBasic, GroupComplex, GroupCreate, GroupUpdate } from "@/types/models/groups";
 import { groupCampGroupsBySession } from "@/utils/camp";
 import { AuthError } from "@supabase/supabase-js";
 
@@ -73,6 +73,22 @@ const readAllGroupsComplexGrouped = async (): Promise<GroupComplex[][]> => {
   }
 }
 
+export const readGroupById = async (groupId: number): Promise<Group> => {
+  try {
+    const { data: groupData, error: groupError } = await supabase
+      .from('groups')
+      .select("*")
+      .eq('id', groupId)
+      .single();
+
+    if (groupError) throw groupError;
+
+    return mapDbGroupToGroup(groupData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 const createGroup = async (group: GroupCreate): Promise<Group> => {
   try {
     const newMappedGroup = mapGroupCreateToDbGroup(group);
@@ -90,9 +106,29 @@ const createGroup = async (group: GroupCreate): Promise<Group> => {
   }
 }
 
+const updateGroup = async (id: number, group: GroupUpdate): Promise<Group> => {
+  try {
+    const newMappedGroup = mapGroupUpdateToDbGroup(group);
+    const { data: groupData, error: groupError } = await supabase
+      .from('groups')
+      .update(newMappedGroup)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (groupError) throw groupError;
+
+    return mapDbGroupToGroup(groupData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const groupRepository = {
   readGroupBasicByLeaderForCurrentCampSession,
-  readAllGroupsComplex,
   readAllGroupsComplexGrouped,
+  readAllGroupsComplex,
+  readGroupById,
   createGroup,
+  updateGroup,
 }

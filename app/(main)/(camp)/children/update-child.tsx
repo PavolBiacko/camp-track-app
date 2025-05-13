@@ -16,7 +16,7 @@ const UpdateChild = () => {
   const { childId } = useLocalSearchParams<CampChildParams>();
 
   const { updateChild } = useUpdateChild(childId);
-  const { deleteChild, isPending } = useDeleteChild(childId);
+  const { deleteChild } = useDeleteChild(childId);
   const { child, isLoading, isError } = useChild(childId);
 
   const [modalVisible, setModalVisible] = useState(false);

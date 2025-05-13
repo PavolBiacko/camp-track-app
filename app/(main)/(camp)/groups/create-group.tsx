@@ -14,7 +14,7 @@ const CreateGroup = () => {
     try {
       const groupData = mapGroupCreateFormInputsToGroupCreate(data);
       await createGroup(groupData);
-      Alert.alert("Hotovo!", "Turnus bol úspešne vytvorený.");
+      Alert.alert("Hotovo!", "Oddiel bol úspešne vytvorený.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

@@ -11,7 +11,7 @@ const CampGroupsLine = (props: CampGroupsLineProps) => {
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      onPress={() => router.push({ pathname: '/(main)/(camp)/groups/update-group' })}
+      onPress={() => router.push({ pathname: '/(main)/(camp)/groups/update-group', params: { groupId: props.group.id } })}
       className={
         twMerge(
           "flex-row items-center",
@@ -27,7 +27,14 @@ const CampGroupsLine = (props: CampGroupsLineProps) => {
         </View>
       </View>
       <View className='w-[65%] h-full items-center justify-center flex-row border-l border-outline-500 gap-3 px-3'>
-        <View className="w-full bg-tertiary-300 border-2 border-tertiary-700 items-center rounded-2xl py-3">
+        <View className={
+          twMerge(
+            "w-full items-center",
+            (firstName && lastName)
+              ? "bg-tertiary-300  border-tertiary-700"
+              : "bg-background-300 border-outline-500",
+            "border-2 rounded-2xl py-3"
+          )}>
           <CampGroupsLineText
             firstName={firstName}
             lastName={lastName}

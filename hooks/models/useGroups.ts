@@ -1,5 +1,5 @@
 import { groupRepository } from "@/repositories/groupRepository";
-import { GroupCreate } from "@/types/models/groups";
+import { GroupCreate, GroupUpdate } from "@/types/models/groups";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGroupBasicByLeader = (leaderId: string) => {
@@ -26,6 +26,14 @@ export const useAllGroups = () => {
   return { groups: query.data, ...query };
 }
 
+export const useGroupById = (id: number) => {
+  const query = useQuery({
+    queryKey: ['groups', id],
+    queryFn: async () => await groupRepository.readGroupById(id)
+  });
+  return { group: query.data, ...query };
+}
+
 export const useCreateGroup = () => {
   const queryClient = useQueryClient();
 
@@ -39,4 +47,20 @@ export const useCreateGroup = () => {
     }
   });
   return { createGroup: mutateAsync, isError };
+}
+
+export const useUpdateGroup = (id: number) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (group: GroupUpdate) => {
+      return await groupRepository.updateGroup(id, group);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['groupsGrouped'] });
+      queryClient.invalidateQueries({ queryKey: ['groups', id] });
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
+    }
+  });
+  return { updateGroup: mutateAsync, isError };
 }
