@@ -22,7 +22,7 @@ export type GroupCore = {
 export type GroupFormInputsCore = {
   number: string;
   name?: string | null;
-  sessionId: string;
+  sessionId: string | null;
   leaderId?: string | null;
 }
 

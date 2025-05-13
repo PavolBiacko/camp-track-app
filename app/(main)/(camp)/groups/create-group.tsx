@@ -28,8 +28,8 @@ const CreateGroup = () => {
         initialValues={{
           number: "",
           name: "",
-          sessionId: "",
-          leaderId: "",
+          sessionId: null,
+          leaderId: null,
         }}
         validationSchema={campGroupSchema}
         onSubmit={handleCreateGroup}

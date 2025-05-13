@@ -31,7 +31,7 @@ export const campChildSchema = z.object({
 
 export const campGroupSchema = z.object({
   number: z
-    .string({ message: "Číslo musí byť celé číslo." })
+    .string()
     .nonempty({ message: "Povinné" })
     .transform((val) => parseInt(val, 10))
     .refine((val) => !isNaN(val), { message: "Zlý formát" })
@@ -47,8 +47,7 @@ export const campGroupSchema = z.object({
     .string()
     .nullable(),
   sessionId: z
-    .string()
-    .nonempty({ message: "ID turnusu je povinné" })
+    .string({ message: "Turnus je povinný." })
     .transform((val) => parseInt(val, 10)) // Transform to number for validation
     .refine((val) => !isNaN(val), { message: "Nepovolený formát" })
     .pipe(

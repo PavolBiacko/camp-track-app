@@ -1,5 +1,5 @@
 import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
-import { Control, FieldValues } from "react-hook-form";
+import { Control, FieldError, FieldValues } from "react-hook-form";
 import { ImageProps } from "react-native";
 
 export type ButtonActionType = ColorStyle | "default";
@@ -40,18 +40,18 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   isDisabled?: boolean,
 };
 
-// Define the type for the data
 export type PickerItem = {
-  id: string;
-  range: string;
+  id: string | null;
+  showedText: string;
 };
 
-// Define the props for the custom picker button
-export type SelectButtonProps = {
+export type SelectButtonProps<T extends FieldValues> = {
   title?: string;
+  formDataTypeKey: keyof T;
+  control: Control<T, any>;
+  options: PickerItem[];
   action?: ButtonActionType;
   variant?: ButtonVariantType;
-  data: PickerItem[];
-  onSelect: (selectedItem: PickerItem) => void; // Callback to handle selection
+  error?: FieldError;
   otherStyles?: string;
 }
