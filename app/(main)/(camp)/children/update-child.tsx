@@ -2,7 +2,7 @@ import CampChildrenForm from '@/components/custom/camp/children/base/CampChildre
 import CustomButton from '@/components/custom/CustomButton'
 import CustomModal from '@/components/custom/CustomModal'
 import Loading from '@/components/custom/Loading'
-import { useChild, useDeleteChild, useUpdateChild } from '@/hooks/models/useChildren'
+import { useChildById, useDeleteChild, useUpdateChild } from '@/hooks/models/useChildren'
 import { mapDateTimeToString } from '@/mappers/datetime'
 import { mapDbGenderToGender } from '@/mappers/gender'
 import { CampChildParams } from '@/types/camp'
@@ -17,11 +17,11 @@ const UpdateChild = () => {
 
   const { updateChild } = useUpdateChild(childId);
   const { deleteChild } = useDeleteChild(childId);
-  const { child, isLoading, isError } = useChild(childId);
+  const { child, isLoading, isError } = useChildById(childId);
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleUpdateActivity = async (data: ChildUpdate) => {
+  const handleUpdateChild = async (data: ChildUpdate) => {
     // Data are valid, checked with Zod
     try {
       await updateChild(data);
@@ -33,7 +33,7 @@ const UpdateChild = () => {
     }
   };
 
-  const handleDeleteActivity = async () => {
+  const handleDeleteChild = async () => {
     // No need to check for validation, we are deleting the activity
     try {
       await deleteChild();
@@ -66,7 +66,7 @@ const UpdateChild = () => {
           gender: mapDbGenderToGender(child.gender),
         }}
         validationSchema={campChildSchema}
-        onSubmit={handleUpdateActivity}
+        onSubmit={handleUpdateChild}
         buttonText="Uprav dieťa"
       />
       {/* delete the child */}
@@ -81,7 +81,7 @@ const UpdateChild = () => {
         type="confirmation"
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        handleConfirm={handleDeleteActivity}
+        handleConfirm={handleDeleteChild}
         containerStyles='w-3/4'
       />
     </ScrollView>

@@ -64,3 +64,18 @@ export const useUpdateGroup = (id: number) => {
   });
   return { updateGroup: mutateAsync, isError };
 }
+
+export const useDeleteGroup = (id: number) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async () => {
+      return await groupRepository.deleteGroup(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['groupsGrouped'] });
+      queryClient.invalidateQueries({ queryKey: ['groups'] });
+    }
+  });
+  return { deleteGroup: mutateAsync, isError };
+}

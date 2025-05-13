@@ -10,7 +10,7 @@ export const useManyChildren = () => {
   return { children: query.data, ...query };
 }
 
-export const useChild = (id: string) => {
+export const useChildById = (id: string) => {
   const query = useQuery({
     queryKey: ['children', id],
     queryFn: async () => await childRepository.readChildById(id),
