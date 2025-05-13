@@ -43,6 +43,7 @@ export type DateTimeButtonProps<T extends FieldValues> = {
 export type PickerItem = {
   id: string | null;
   showedText: string;
+  helperText?: string;
 };
 
 export type SelectButtonProps<T extends FieldValues> = {

@@ -44,9 +44,8 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
               type="custom"
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
-              containerStyles='w-11/12 h-[60%]'
-            >
-              <View className="h-[70%] bg-background-200 border-2 border-outline-500 rounded-xl p-3">
+              containerStyles='w-11/12 h-[70%]'>
+              <View className="h-[75%] bg-background-200 border-2 border-outline-500">
                 <FlatList
                   data={props.options}
                   keyExtractor={(item) => item.id ?? "NULL"}
@@ -56,13 +55,18 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
                       className={twMerge(
                         "border p-4",
                         item.id === value
-                          ? "bg-secondary-300 border-secondary-700"
+                          ? `bg-${props.action}-300 border-${props.action}-700`
                           : "bg-background-300 border-outline-700"
                       )}
                       onPress={() => handleSelect(item, onChange)}>
-                      <Text className="text-typography-950 text-lg text-center font-psemibold">
+                      <Text className="text-typography-950 text-xl text-center font-psemibold pt-1">
                         {item.showedText}
                       </Text>
+                      {item.helperText && (
+                        <Text className="text-typography-700 text-xs text-center font-pregular pt-1">
+                          {item.helperText}
+                        </Text>
+                      )}
                     </TouchableOpacity>
                   )}
                 />
