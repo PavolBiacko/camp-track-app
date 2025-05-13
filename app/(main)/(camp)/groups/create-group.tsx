@@ -1,14 +1,21 @@
 import CampGroupsForm from '@/components/custom/camp/groups/base/CampGroupsForm';
+import { useCreateGroup } from '@/hooks/models/useGroups';
+import { mapGroupCreateFormInputsToGroupCreate } from '@/mappers/groups';
 import { GroupCreateFormInputs } from '@/types/models/groups';
 import { campGroupSchema } from '@/validation/camp';
+import { router } from 'expo-router';
 import { Alert, ScrollView } from 'react-native';
 
 const CreateGroup = () => {
+  const { createGroup } = useCreateGroup();
 
   const handleCreateGroup = async (data: GroupCreateFormInputs) => {
     // Data are valid, checked with Zod, just needs to be validated for intersections
     try {
-      console.log("Creating group with data: ", data);
+      const groupData = mapGroupCreateFormInputsToGroupCreate(data);
+      await createGroup(groupData);
+      Alert.alert("Hotovo!", "Turnus bol úspešne vytvorený.");
+      router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);
       return;

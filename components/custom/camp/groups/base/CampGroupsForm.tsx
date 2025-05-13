@@ -16,7 +16,7 @@ import { Text, View } from 'react-native'
 
 const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>(props: FormProps<T>) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { control, handleSubmit, register, watch, formState: { errors } } = useForm<T>({
+  const { control, handleSubmit, register, formState: { errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
@@ -24,8 +24,6 @@ const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>
   const { users, isLoading: isLoadingUsers, isError: isErrorUsers } = useManyUsers();
 
   const { numberField, nameField, sessionField, leaderField } = getCampGroupFromFields<T>(props.fields);
-
-  console.log("CampGroupForm: ", watch());
 
   return (
     <View className="w-full justify-center">

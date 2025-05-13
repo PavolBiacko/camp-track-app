@@ -1,4 +1,4 @@
-import { groupChatRepository } from "@/repositories/groupsChatRepository";
+import { groupChatRepository } from "@/repositories/groupChatRepository";
 import { useQuery } from "@tanstack/react-query";
 
 export const useManyGroupChats = () => {

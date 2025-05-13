@@ -1,4 +1,4 @@
-import { usersRepository } from "@/repositories/usersRepository";
+import { usersRepository } from "@/repositories/userRepository";
 import { useQuery } from "@tanstack/react-query";
 
 export const useManyUsers = () => {

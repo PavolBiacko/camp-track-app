@@ -6,9 +6,9 @@ export type GroupBasic = {
 export type Group = {
   id: number;
   number: number;
-  name: string;
+  name: string | null;
   sessionId: number;
-  leaderId: string;
+  leaderId: string | null;
   createdAt: Date;
 }
 
