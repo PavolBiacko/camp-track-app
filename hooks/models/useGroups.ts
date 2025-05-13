@@ -10,6 +10,22 @@ export const useGroupBasicByLeader = (leaderId: string) => {
   return { groupBasic: query.data, ...query };
 }
 
+export const useAllGroupsGroupedBySession = () => {
+  const query = useQuery({
+    queryKey: ['groupsGrouped'],
+    queryFn: async () => await groupRepository.readAllGroupsComplexGrouped()
+  });
+  return { groupsGrouped: query.data, ...query };
+}
+
+export const useAllGroups = () => {
+  const query = useQuery({
+    queryKey: ['groups'],
+    queryFn: async () => await groupRepository.readAllGroupsComplex()
+  });
+  return { groups: query.data, ...query };
+}
+
 export const useCreateGroup = () => {
   const queryClient = useQueryClient();
 
@@ -19,6 +35,7 @@ export const useCreateGroup = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups'] });
+      queryClient.invalidateQueries({ queryKey: ['groupsGrouped'] });
     }
   });
   return { createGroup: mutateAsync, isError };

@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 const CampSessionFooter = () => {
   return (
-    <View className='h-[12.5%] border-t border-outline-500 justify-center items-center'>
+    <View className='h-[12.5%] justify-center items-center'>
       <CustomButton
         title="Pridaj nový turnus"
         action="primary"

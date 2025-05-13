@@ -11,7 +11,7 @@ export const mapDbMessageToMessageComplex = (dbMessage: DbMessageWithSender): Me
       email: dbMessage.users.email,
       firstName: dbMessage.users.first_name,
       lastName: dbMessage.users.last_name,
-      birthDate: null,
+      birthDate: dbMessage.users.birth_date ? new Date(dbMessage.users.birth_date) : null,
       role: mapDbUserRoleToUserRole(dbMessage.users.role),
       createdAt: new Date(dbMessage.users.created_at),
     } : null,

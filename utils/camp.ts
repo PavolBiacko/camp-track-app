@@ -2,7 +2,7 @@ import { mapCampSessionUpdateToCampSessionCoreWithDates } from "@/mappers/campSe
 import { FieldBasics } from "@/types/custom/field";
 import { CampSession, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
 import { ChildCreate, ChildUpdate } from "@/types/models/children";
-import { GroupCreateFormInputs, GroupUpdateFormInputs } from "@/types/models/groups";
+import { GroupComplex, GroupCreateFormInputs, GroupUpdateFormInputs } from "@/types/models/groups";
 
 export const groupCampSessionsByYear = (sessions: CampSession[]): CampSession[][] => {
   const result: CampSession[][] = [];
@@ -27,6 +27,37 @@ export const groupCampSessionsByYear = (sessions: CampSession[]): CampSession[][
 
   // Push the last group if it exists
   if (currentGroup.length > 0) {
+    result.push(currentGroup);
+  }
+
+  return result;
+}
+
+export const groupCampGroupsBySession = (groups: GroupComplex[]): GroupComplex[][] => {
+  const result: GroupComplex[][] = [];
+  let currentSessionId: number | null = null;
+  let currentGroup: GroupComplex[] = [];
+
+  groups.forEach(group => {
+    const sessionId = group.sessionId;
+
+    // If the sessionId changes or it's the first group, start a new group
+    if (currentSessionId !== sessionId) {
+      if (currentGroup.length > 0) {
+        currentGroup.sort((a, b) => a.number - b.number);
+        result.push(currentGroup);
+      }
+      currentGroup = [group];
+      currentSessionId = sessionId;
+    } else {
+      // Same sessionId, add to the current group
+      currentGroup.push(group);
+    }
+  });
+
+  // Push the last group if it exists
+  if (currentGroup.length > 0) {
+    currentGroup.sort((a, b) => a.number - b.number);
     result.push(currentGroup);
   }
 

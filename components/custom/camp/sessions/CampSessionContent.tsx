@@ -1,6 +1,6 @@
+import CampSessionBox from "@/components/custom/camp/sessions/base/CampSessionBox";
 import EmptyScreenMessage from "@/components/custom/EmptyScreenMessage";
 import Loading from "@/components/custom/Loading";
-import CampSessionBox from "@/components/custom/camp/sessions/base/CampSessionBox";
 import { useManyCampSessionsGrouped } from "@/hooks/models/useCampSessions";
 import { ScrollView, View } from "react-native";
 
@@ -16,7 +16,7 @@ const CampSessionContent = () => {
   }
 
   return (
-    <View className="h-[87.5%] border-t border-outline-500">
+    <View className="h-[87.5%] border-y border-outline-500">
       <ScrollView contentContainerClassName="items-center gap-5 py-5">
         {campSessionsGrouped.map((year, index) => (
           <CampSessionBox key={index} year={year} />
