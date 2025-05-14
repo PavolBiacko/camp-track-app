@@ -3,9 +3,11 @@ import CustomButton from '@/components/custom/CustomButton';
 import CustomModal from '@/components/custom/CustomModal';
 import Loading from '@/components/custom/Loading';
 import { useCreateManyGroupAccounts, useDeleteManyGroupAccounts, useManyAccountsWithGroup } from '@/hooks/models/useGroupAccounts';
-import { useDeleteGroup, useGroupById, useUpdateGroup } from '@/hooks/models/useGroups';
+import { useAllGroups, useDeleteGroup, useGroupById, useUpdateGroup } from '@/hooks/models/useGroups';
+import { useChangeUserRole } from '@/hooks/models/useUsers';
 import { mapGroupUpdateFormInputsToGroupUpdate } from '@/mappers/groups';
 import { CampGroupParams } from '@/types/camp';
+import { UserRoles } from '@/types/enums/roles';
 import { GroupUpdateFormInputs } from '@/types/models/groups';
 import { getGroupAccountObjects } from '@/utils/camp';
 import { campGroupSchema } from '@/validation/camp';
@@ -21,13 +23,19 @@ const UpdateGroup = () => {
   const { deleteGroup } = useDeleteGroup(groupId);
   const { deleteGroupAccounts } = useDeleteManyGroupAccounts(groupId);
   const { createGroupAccounts } = useCreateManyGroupAccounts();
+  const { changeUserRole } = useChangeUserRole();
 
   const { group, isLoading: isLoadingGroup, isError: isErrorGroup } = useGroupById(groupId);
+  const { groups, isLoading: isLoadingGroups, isError: isErrorGroups } = useAllGroups();
   const { children, isLoading: isLoadingAccounts, isError: isErrorAccounts } = useManyAccountsWithGroup(groupId);
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  if (!group || isLoadingGroup || isErrorGroup || !children || isLoadingAccounts || isErrorAccounts) {
+  if (
+    !group || isLoadingGroup || isErrorGroup ||
+    !children || isLoadingAccounts || isErrorAccounts ||
+    !groups || isLoadingGroups || isErrorGroups
+  ) {
     return <Loading showText={true} />
   }
 
@@ -46,6 +54,23 @@ const UpdateGroup = () => {
       } else if (data.childrenIds.length < children.length) {
         const accountsToDelete = children.filter((account) => !data.childrenIds.includes(account.childId));
         await deleteGroupAccounts(accountsToDelete.map((account) => account.childId));
+      }
+
+
+
+      if (data.leaderId !== group.leaderId) {
+        // Degradácia starého lídra, ak je to potrebné
+        const groupLeadersPrevious = groups.filter((gr) => gr.leaderId === group.leaderId);
+        const groupLeadersNext = groups.filter((gr) => gr.leaderId === data.leaderId);
+
+        if (group.leaderId !== null && groupLeadersPrevious.length === 1) {
+          await changeUserRole({ id: group.leaderId, role: UserRoles.USER });
+        }
+        // Povýšenie nového lídra, ak je to potrebné
+
+        if (data.leaderId !== null && groupLeadersNext.length === 0) {
+          await changeUserRole({ id: data.leaderId!, role: UserRoles.GROUP_LEADER });
+        }
       }
 
       Alert.alert("Hotovo!", "Oddiel bol úspešne upravený.");

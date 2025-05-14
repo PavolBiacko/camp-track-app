@@ -2,7 +2,9 @@ import CampGroupsForm from '@/components/custom/camp/groups/base/CampGroupsForm'
 import { useCreateCashRegister } from '@/hooks/models/useCashRegister';
 import { useCreateManyGroupAccounts } from '@/hooks/models/useGroupAccounts';
 import { useCreateGroup } from '@/hooks/models/useGroups';
+import { useChangeUserRole } from '@/hooks/models/useUsers';
 import { mapGroupCreateFormInputsToGroupCreate } from '@/mappers/groups';
+import { UserRoles } from '@/types/enums/roles';
 import { GroupCreateFormInputs } from '@/types/models/groups';
 import { getGroupAccountObjects } from '@/utils/camp';
 import { campGroupSchema } from '@/validation/camp';
@@ -13,19 +15,22 @@ const CreateGroup = () => {
   const { createGroup } = useCreateGroup();
   const { createGroupAccounts } = useCreateManyGroupAccounts();
   const { createEmptyCashRegisterByGroup } = useCreateCashRegister();
+  const { changeUserRole } = useChangeUserRole();
 
   const handleCreateGroup = async (data: GroupCreateFormInputs) => {
     // Data are valid, checked with Zod, just needs to be validated for intersections
     try {
       const groupData = mapGroupCreateFormInputsToGroupCreate(data);
-      const { id } = await createGroup(groupData);
+      const { id, leaderId } = await createGroup(groupData);
       if (!id) throw new Error("Niečo sa pokazilo pri vytváraní oddielu.");
 
       const groupAccounts = getGroupAccountObjects(id, data.childrenIds);
-      await createGroupAccounts(groupAccounts);
 
-      // Should be as atomic transaction in database, as well as the other two functions
+      // Should be as atomic transaction in database
+      await createGroupAccounts(groupAccounts);
       await createEmptyCashRegisterByGroup(id);
+      await changeUserRole({ id: leaderId, role: UserRoles.GROUP_LEADER });
+
       Alert.alert("Hotovo!", "Oddiel bol úspešne vytvorený.");
       router.back();
     } catch (error: any) {

@@ -1,5 +1,6 @@
 import { usersRepository } from "@/repositories/userRepository";
-import { useQuery } from "@tanstack/react-query";
+import { UserIdWithRole } from "@/types/models/users";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyUsers = (sessionId: number | null) => {
   const query = useQuery({
@@ -15,4 +16,19 @@ export const useUserById = (leaderId: string | null) => {
     queryFn: async () => await usersRepository.readUserById(leaderId),
   });
   return { user: query.data, ...query };
+}
+
+export const useChangeUserRole = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (user: UserIdWithRole) => {
+      await usersRepository.changeUserRole(user.id, user.role)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+  return { changeUserRole: mutateAsync, isError };
 }

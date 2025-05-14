@@ -15,3 +15,18 @@ export const mapDbUserRoleToUserRole = (dbRole: Enums<"camp_roles">): UserRoles 
       throw new Error(`Unknown role: ${dbRole}`);
   }
 };
+
+export const mapUserRoleToDbUserRole = (role: UserRoles): Enums<"camp_roles"> => {
+  switch (role) {
+    case UserRoles.CAMP_LEADER:
+      return "CAMP_LEADER";
+    case UserRoles.GROUP_LEADER:
+      return "GROUP_LEADER";
+    case UserRoles.PARENT:
+      return "PARENT";
+    case UserRoles.USER:
+      return "USER";
+    default:
+      throw new Error(`Unknown role: ${role}`);
+  }
+};

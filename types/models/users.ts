@@ -9,3 +9,8 @@ export type User = {
   role: UserRoles,
   createdAt: Date,
 }
+
+export type UserIdWithRole = {
+  id: string | null,
+  role: UserRoles,
+}

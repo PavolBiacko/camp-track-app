@@ -30,8 +30,6 @@ const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>
     return watch("leaderId" as Path<T>) as string | null;
   }, [])
 
-  console.log("leaderId", leaderId);
-
   // Hook calls
   const { campSessions, isLoading: isLoadingCampSessions, isError: isErrorCampSessions } = useManyCampSessions();
   const { users, isLoading: isLoadingUsers, isError: isErrorUsers } = useManyUsers(sessionId);
@@ -43,8 +41,6 @@ const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>
       setValue("leaderId" as Path<T>, null as any);
     }
   }
-
-  console.log("pickedUser", pickedUser);
 
   const { numberField, nameField, sessionField, leaderField, childrenField } = getCampGroupFromFields<T>(props.fields);
 

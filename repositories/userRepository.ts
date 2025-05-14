@@ -1,5 +1,7 @@
+import { mapUserRoleToDbUserRole } from "@/mappers/roles";
 import { mapDbUserToUser } from "@/mappers/users";
 import supabase from "@/supabase/client";
+import { UserRoles } from "@/types/enums/roles";
 import { User } from "@/types/models/users";
 import { AuthError } from "@supabase/supabase-js";
 
@@ -60,7 +62,28 @@ export const readUserById = async (id: string | null): Promise<User | null> => {
   }
 }
 
+const changeUserRole = async (id: string | null, role: UserRoles): Promise<User | null> => {
+  try {
+    if (id === null) {
+      return null;
+    }
+    const { data: userData, error: userError } = await supabase
+      .from('users')
+      .update({ role: mapUserRoleToDbUserRole(role) })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (userError) throw userError;
+
+    return mapDbUserToUser(userData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const usersRepository = {
   readManyUsers,
   readUserById,
+  changeUserRole,
 };
