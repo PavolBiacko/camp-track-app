@@ -1,5 +1,6 @@
 import { groupAccountRepository } from "@/repositories/groupAccountRepository";
 import { ChildBalanceUpdate } from "@/types/models/children";
+import { GroupAccountCreate } from "@/types/models/groupAccounts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useManyAccountsWithLeader = (leaderId: string) => {
@@ -56,4 +57,20 @@ export const useUpdateManyAccountBalancesWithLeader = (leaderId: string) => {
     }
   });
   return { updateManyAccountBalances: mutation.mutateAsync, ...mutation };
+}
+
+export const useCreateManyGroupAccounts = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (groupAccounts: GroupAccountCreate[]) => {
+      return await groupAccountRepository.createManyAccounts(groupAccounts);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['groupAccounts']
+      });
+    }
+  });
+  return { createGroupAccounts: mutation.mutateAsync, ...mutation };
 }

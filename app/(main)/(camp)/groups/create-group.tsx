@@ -1,19 +1,25 @@
 import CampGroupsForm from '@/components/custom/camp/groups/base/CampGroupsForm';
+import { useCreateManyGroupAccounts } from '@/hooks/models/useGroupAccounts';
 import { useCreateGroup } from '@/hooks/models/useGroups';
 import { mapGroupCreateFormInputsToGroupCreate } from '@/mappers/groups';
 import { GroupCreateFormInputs } from '@/types/models/groups';
+import { getGroupAccountObjects } from '@/utils/camp';
 import { campGroupSchema } from '@/validation/camp';
 import { router } from 'expo-router';
 import { Alert, ScrollView } from 'react-native';
 
 const CreateGroup = () => {
   const { createGroup } = useCreateGroup();
+  const { createGroupAccounts } = useCreateManyGroupAccounts();
 
   const handleCreateGroup = async (data: GroupCreateFormInputs) => {
     // Data are valid, checked with Zod, just needs to be validated for intersections
     try {
       const groupData = mapGroupCreateFormInputsToGroupCreate(data);
-      await createGroup(groupData);
+      const { id } = await createGroup(groupData);
+      if (!id) throw new Error("Niečo sa pokazilo pri vytváraní oddielu.");
+      const groupAccounts = getGroupAccountObjects(id, data.childrenIds);
+      await createGroupAccounts(groupAccounts);
       Alert.alert("Hotovo!", "Oddiel bol úspešne vytvorený.");
       router.back();
     } catch (error: any) {

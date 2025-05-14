@@ -1,7 +1,8 @@
-import { mapDbChildGroupLinkWithChildToChild } from "@/mappers/groupAccounts";
+import { mapDbChildGroupLinkWithChildToChild, mapDbGroupAccountToGroupAccount, mapGroupAccountCreateToDbGroupAccount } from "@/mappers/groupAccounts";
 import { groupRepository } from "@/repositories/groupRepository";
 import supabase from "@/supabase/client";
 import { ChildBalanceUpdate, ChildWithBalance } from "@/types/models/children";
+import { GroupAccount, GroupAccountCreate } from "@/types/models/groupAccounts";
 import { AuthError } from "@supabase/supabase-js";
 
 const readManyAccountsByLeader = async (leaderId: string): Promise<ChildWithBalance[] | null> => {
@@ -178,9 +179,26 @@ const updateManyAccountBalancesWithLeader = async (leaderId: string, accountUpda
   }
 };
 
+const createManyAccounts = async (groupAccounts: GroupAccountCreate[]): Promise<GroupAccount[]> => {
+  try {
+    const newMappedGroupedAccounts = groupAccounts.map(acc => mapGroupAccountCreateToDbGroupAccount(acc));
+    const { data: groupAccountsData, error: groupAccountsError } = await supabase
+      .from('group_accounts')
+      .insert(newMappedGroupedAccounts)
+      .select();
+
+    if (groupAccountsError) throw groupAccountsError;
+
+    return groupAccountsData.map((groupAccount) => mapDbGroupAccountToGroupAccount(groupAccount));
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const groupAccountRepository = {
   readManyAccountsByLeader,
   readAccountByChildIdWithLeader,
   updateAccountBalanceByChildIdWithLeader,
   updateManyAccountBalancesWithLeader,
+  createManyAccounts
 }

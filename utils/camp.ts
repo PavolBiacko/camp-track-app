@@ -2,6 +2,7 @@ import { mapCampSessionUpdateToCampSessionCoreWithDates } from "@/mappers/campSe
 import { FieldBasics } from "@/types/custom/field";
 import { CampSession, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
 import { ChildCreate, ChildUpdate } from "@/types/models/children";
+import { GroupAccountCreate } from "@/types/models/groupAccounts";
 import { GroupComplex, GroupCreateFormInputs, GroupUpdateFormInputs } from "@/types/models/groups";
 
 export const groupCampSessionsByYear = (sessions: CampSession[]): CampSession[][] => {
@@ -115,4 +116,14 @@ export const getChildrenButtonTextFormated = (count: number): string => {
     default:
       return `${count} vybraných detí`;
   }
+}
+
+export const getGroupAccountObjects = (
+  groupId: number,
+  childrenIds: string[],
+): GroupAccountCreate[] => {
+  return childrenIds.map((childId) => ({
+    groupId: Number(groupId),
+    childId,
+  }));
 }

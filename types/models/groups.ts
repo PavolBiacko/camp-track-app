@@ -32,7 +32,6 @@ export type GroupCore = {
   name?: string | null;
   sessionId: number;
   leaderId?: string | null;
-  childrenIds: string[];
 }
 
 export type GroupFormInputsCore = {
