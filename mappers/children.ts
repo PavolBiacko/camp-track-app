@@ -1,6 +1,10 @@
 import { mapDbGenderToGender, mapGenderToDbGender } from "@/mappers/gender";
 import { Tables, TablesInsert, TablesUpdate } from "@/supabase/types";
+import { PickerItemWithoutNull } from "@/types/base";
 import { Child, ChildCreate, ChildUpdate } from "@/types/models/children";
+import { formatISOLocalToHumanReadable } from "@/utils/dates";
+
+const BASE_PICKER_DATA = [{ id: null, showedText: '-' }];
 
 export const mapDbChildToChild = (child: Tables<"children">): Child => {
   return {
@@ -31,4 +35,22 @@ export const mapChildUpdateToDbChild = (child: ChildUpdate): TablesUpdate<"child
     birth_date: child.birthDate,
     gender: mapGenderToDbGender(child.gender!),
   }
+}
+
+const mapChildToPickerItem = (child: Child): PickerItemWithoutNull => {
+  return {
+    id: child.id,
+    showedText: `${child.lastName}, ${child.firstName}`,
+    helperText: formatISOLocalToHumanReadable(child.birthDate),
+  };
+}
+
+export const mapManyChilrenToPickerItems = (children: Child[] | undefined): PickerItemWithoutNull[] => {
+  if (children === undefined || children.length === 0) {
+    return [];
+  }
+
+  return [
+    ...children.map((child) => mapChildToPickerItem(child))
+  ];
 }

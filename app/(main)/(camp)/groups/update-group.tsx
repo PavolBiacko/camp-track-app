@@ -59,12 +59,14 @@ const UpdateGroup = () => {
           { title: "Názov", formDataTypeKey: "name" },
           { title: "Turnus", formDataTypeKey: "sessionId" },
           { title: "Vedúci", formDataTypeKey: "leaderId" },
+          { title: "Deti", formDataTypeKey: "childrenIds" },
         ]}
         initialValues={{
           number: String(group.number),
           name: group.name ?? "",
           sessionId: String(group.sessionId),
           leaderId: group.leaderId,
+          childrenIds: [],
         }}
         validationSchema={campGroupSchema}
         onSubmit={handleUpdateGroup}
@@ -75,6 +77,7 @@ const UpdateGroup = () => {
         title="Vymaž oddiel"
         action="error"
         handlePress={() => setModalVisible(true)}
+        textStyles='text-2xl'
         containerStyles="my-5 h-[4.5rem] rounded-3xl"
       />
       <CustomModal

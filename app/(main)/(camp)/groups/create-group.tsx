@@ -31,12 +31,14 @@ const CreateGroup = () => {
           { title: "Názov", formDataTypeKey: "name" },
           { title: "Turnus", formDataTypeKey: "sessionId" },
           { title: "Vedúci", formDataTypeKey: "leaderId" },
+          { title: "Deti", formDataTypeKey: "childrenIds" },
         ]}
         initialValues={{
           number: "",
           name: "",
           sessionId: null,
           leaderId: null,
+          childrenIds: [],
         }}
         validationSchema={campGroupSchema}
         onSubmit={handleCreateGroup}

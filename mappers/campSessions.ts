@@ -1,5 +1,5 @@
 import { Tables, TablesInsert, TablesUpdate } from "@/supabase/types";
-import { PickerItem } from "@/types/custom/button";
+import { PickerItem } from "@/types/base";
 import { CampSession, CampSessionCoreWithDates, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
 import { formatISOLocalToHumanReadable } from "@/utils/dates";
 

@@ -20,7 +20,7 @@ const CampGroupsLine = (props: CampGroupsLineProps) => {
         )
       }>
       <View className='w-[35%] h-full items-center justify-center flex-row'>
-        <View className="h-16 justify-center items-center bg-secondary-300 border-2 border-secondary-700 rounded-2xl px-2">
+        <View className="h-24 justify-center items-center bg-secondary-300 border-2 border-secondary-700 rounded-2xl px-2">
           <Text className="text-typography-800 font-pbold text-2xl pt-1">
             {props.group.number}. ODD
           </Text>

@@ -32,6 +32,7 @@ export type GroupCore = {
   name?: string | null;
   sessionId: number;
   leaderId?: string | null;
+  childrenIds: string[];
 }
 
 export type GroupFormInputsCore = {
@@ -39,6 +40,7 @@ export type GroupFormInputsCore = {
   name?: string | null;
   sessionId: string | null;
   leaderId?: string | null;
+  childrenIds: string[];
 }
 
 export type GroupCreate = GroupCore;

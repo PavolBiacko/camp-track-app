@@ -1,4 +1,5 @@
 import { ColorStyle } from "@/components/ui/gluestack-ui-provider/types";
+import { PickerItem, PickerItemWithoutNull } from "@/types/base";
 import { Control, FieldError, FieldValues } from "react-hook-form";
 import { ImageProps } from "react-native";
 
@@ -6,12 +7,23 @@ export type ButtonActionType = ColorStyle | "default";
 
 export type ButtonVariantType = "solid" | "outline" | "combined" | "ghost";
 
-export type CustomButtonProps = {
-  title?: string,
+export type DateTimeButtonMode = "time" | "date" | "datetime";
+
+type BaseButtonProps = {
+  title?: string;
+  action?: ButtonActionType;
+  variant?: ButtonVariantType;
+}
+
+type ControllableButtonProps<T extends FieldValues> = {
+  formDataTypeKey: keyof T;
+  control: Control<T, any>;
+  error?: FieldError;
+}
+
+export type CustomButtonProps = BaseButtonProps & {
   icon?: ImageProps,
   iconPosition?: "left" | "right",
-  action?: ButtonActionType,
-  variant?: ButtonVariantType,
   handlePress: () => void,
   containerStyles?: string,
   textStyles?: string,
@@ -21,18 +33,11 @@ export type CustomButtonProps = {
   isDisabled?: boolean,
 };
 
-export type DateTimeButtonMode = "time" | "date" | "datetime";
-
-export type DateTimeButtonProps<T extends FieldValues> = {
-  title?: string,
-  formDataTypeKey: keyof T,
-  control: Control<T, any>,
+export type DateTimeButtonProps<T extends FieldValues> = BaseButtonProps & ControllableButtonProps<T> & {
   mode: DateTimeButtonMode,
   isSpinner?: boolean,
   minimumDate?: Date,
   maximumDate?: Date,
-  action?: ButtonActionType,
-  variant?: ButtonVariantType,
   handleSubmit?: () => void,
   titleStyles?: string,
   textStyles?: string,
@@ -40,20 +45,21 @@ export type DateTimeButtonProps<T extends FieldValues> = {
   isDisabled?: boolean,
 };
 
-export type PickerItem = {
-  id: string | null;
-  showedText: string;
-  helperText?: string;
-};
-
-export type SelectButtonProps<T extends FieldValues> = {
-  title?: string;
-  formDataTypeKey: keyof T;
-  control: Control<T, any>;
+export type SelectButtonProps<T extends FieldValues> = BaseButtonProps & ControllableButtonProps<T> & {
   options?: PickerItem[];
-  action?: ButtonActionType;
-  variant?: ButtonVariantType;
-  error?: FieldError;
   isLoading?: boolean,
   otherStyles?: string;
+};
+
+export type MultiSelectButtonProps<T extends FieldValues> = BaseButtonProps & ControllableButtonProps<T> & {
+  options?: PickerItemWithoutNull[];
+  isLoading?: boolean,
+  otherStyles?: string;
+};
+
+export type SwitchableButtonProps = {
+  item: PickerItem | PickerItemWithoutNull;
+  action?: ButtonActionType;
+  isSelected: boolean;
+  handleAction: () => void;
 }

@@ -36,6 +36,7 @@ const CustomForm = <T extends FieldValues>(props: FormProps<T>) => {
         <CustomButton
           title={props.title}
           handlePress={handleSubmit(props.onSubmit)}
+          textStyles='text-2xl'
           containerStyles="mt-7 h-[4.5rem] rounded-3xl"
           isLoading={isSubmitting}
         />

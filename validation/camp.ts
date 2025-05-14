@@ -62,4 +62,6 @@ export const campGroupSchema = z.object({
     .string()
     .uuid("ID vedúceho musí byť platný UUID.")
     .nullable(),
+  childrenIds: z
+    .array(z.string().uuid("ID dieťaťa musí byť platný UUID.")),
 });

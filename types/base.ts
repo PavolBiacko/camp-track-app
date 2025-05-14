@@ -28,3 +28,15 @@ export type ScreenConfigs = {
   name: string;
   title: string;
 }
+
+export type PickerItem = {
+  id: string | null;
+  showedText: string;
+  helperText?: string;
+};
+
+export type PickerItemWithoutNull = {
+  id: string;
+  showedText: string;
+  helperText?: string;
+}

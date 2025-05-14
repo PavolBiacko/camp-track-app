@@ -1,6 +1,6 @@
 import { mapDbUserRoleToUserRole } from "@/mappers/roles";
 import { Tables } from "@/supabase/types";
-import { PickerItem } from "@/types/custom/button";
+import { PickerItem } from "@/types/base";
 import { User } from "@/types/models/users";
 
 const BASE_PICKER_DATA = [{ id: null, showedText: '-' }];

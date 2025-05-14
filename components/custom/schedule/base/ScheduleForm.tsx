@@ -98,6 +98,7 @@ const ScheduleForm = <T extends ActivityCreate | ActivityUpdate>(props: FormProp
       <CustomButton
         title={props.buttonText || props.title}
         handlePress={() => setModalVisible(true)}
+        textStyles='text-2xl'
         containerStyles="mt-5 h-[4.5rem] rounded-3xl"
       />
       <CustomModal

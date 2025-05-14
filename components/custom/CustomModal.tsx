@@ -46,7 +46,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
           {props.type === "confirmation" ? (
             <View className="flex-row justify-between gap-4 mt-4 h-20">
               <CustomButton
-                title="Zrušiť"
+                title={props.baseButtonText || "Zrušiť"}
                 action="error"
                 variant="combined"
                 handlePress={handleCloseModal}
@@ -55,7 +55,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
                 isDisabled={isLoading}
               />
               <CustomButton
-                title="Potvrdiť"
+                title={props.confirmButtonText || "Potvrdiť"}
                 action="success"
                 variant="combined"
                 handlePress={handleSubmitModal}
@@ -67,7 +67,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
             </View>
           ) : (
             <CustomButton
-              title="Zrušiť"
+              title={props.baseButtonText || "Zrušiť"}
               action="background"
               variant="combined"
               handlePress={handleCloseModal}

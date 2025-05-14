@@ -74,6 +74,7 @@ const UpdateActivity = () => {
         title="Vymaž aktivitu"
         action="error"
         handlePress={() => setModalVisible(true)}
+        textStyles='text-2xl'
         containerStyles="my-5 h-[4.5rem] rounded-3xl"
       />
       <CustomModal

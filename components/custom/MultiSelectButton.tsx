@@ -1,5 +1,6 @@
-import { PickerItem } from '@/types/base';
-import { SelectButtonProps } from '@/types/custom/button';
+import { PickerItemWithoutNull } from '@/types/base';
+import { MultiSelectButtonProps } from '@/types/custom/button';
+import { getChildrenButtonTextFormated } from '@/utils/camp';
 import { useCallback, useState } from 'react';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 import { FlatList, Text, View } from 'react-native';
@@ -7,13 +8,17 @@ import CustomButton from './CustomButton';
 import CustomModal from './CustomModal';
 import SwitchableButton from './SwitchableButton';
 
-const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
+const MultiSelectButton = <T extends FieldValues>(props: MultiSelectButtonProps<T>) => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Define handleSelect outside of render, using useCallback to memoize it
-  const handleSelect = useCallback(
-    (item: PickerItem, onChange: (value: string | null) => void) => {
-      onChange(item.id);
+  // Define handleMultiSelect outside of render, using useCallback to memoize it
+  const handleMultiSelect = useCallback(
+    (item: PickerItemWithoutNull, value: string[], onChange: (value: string[]) => void) => {
+      const isSelected = value?.includes(item.id!);
+      const newValue = isSelected
+        ? value.filter((id: string) => id !== item.id!)
+        : [...(value || []), item.id!];
+      onChange(newValue);
     }, []
   );
 
@@ -22,18 +27,16 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
       control={props.control}
       name={props.formDataTypeKey as Path<T>}
       render={({ field: { onChange, value } }) => {
-        const selectedItem = props.options?.find(item => item.id === value) || null;
-
         return (
-          <View className={`${props.otherStyles}`}>
+          <View className={`w-full ${props.otherStyles}`}>
             {props.title && (
               <Text className="text-typography-950 text-base font-psemibold pb-1">
                 {props.title}
               </Text>
             )}
             <CustomButton
-              title={`${selectedItem ? selectedItem.showedText : "---"}`}
-              action={props.action}
+              title={getChildrenButtonTextFormated(value.length)}
+              action={"quaternary"}
               handlePress={() => setModalVisible(true)}
               textStyles="text-typography-950 text-2xl font-psemibold"
               isLoading={props.isLoading}
@@ -51,15 +54,15 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
                   data={props.options}
                   keyExtractor={(item) => item.id ?? "NULL"}
                   renderItem={({ item }) => {
-                    const isSelected = value === item.id;
+                    const isSelected: boolean = value.includes(item.id);
                     return (
                       <SwitchableButton
                         item={item}
                         action={props.action}
                         isSelected={isSelected}
-                        handleAction={() => handleSelect(item, onChange)}
+                        handleAction={() => handleMultiSelect(item, value, onChange)}
                       />
-                    )
+                    );
                   }}
                 />
               </View>
@@ -76,4 +79,4 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
   );
 };
 
-export default SelectButton;
+export default MultiSelectButton;

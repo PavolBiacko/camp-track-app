@@ -77,6 +77,7 @@ const CampChildrenForm = <T extends ChildCreate | ChildUpdate>(props: FormProps<
       <CustomButton
         title={props.buttonText || props.title}
         handlePress={() => setModalVisible(true)}
+        textStyles='text-2xl'
         containerStyles="h-[4.5rem] rounded-3xl mt-10"
       />
       <CustomModal

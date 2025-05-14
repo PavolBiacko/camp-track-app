@@ -98,5 +98,21 @@ export const getCampGroupFromFields = <T extends GroupCreateFormInputs | GroupUp
     nameField: fields[1],
     sessionField: fields[2],
     leaderField: fields[3],
+    childrenField: fields[4],
+  }
+}
+
+export const getChildrenButtonTextFormated = (count: number): string => {
+  switch (count) {
+    case 0:
+      return "-";
+    case 1:
+      return `${count} vybrané dieťa`;
+    case 2:
+    case 3:
+    case 4:
+      return `${count} vybrané deti`;
+    default:
+      return `${count} vybraných detí`;
   }
 }

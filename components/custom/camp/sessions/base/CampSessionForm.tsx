@@ -53,6 +53,7 @@ const CampSessionForm = <T extends CampSessionCreate | CampSessionUpdate>(props:
       <CustomButton
         title={props.buttonText || props.title}
         handlePress={() => setModalVisible(true)}
+        textStyles='text-2xl'
         containerStyles="h-[4.5rem] rounded-3xl mt-10"
       />
       <CustomModal

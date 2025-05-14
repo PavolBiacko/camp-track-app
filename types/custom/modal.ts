@@ -4,6 +4,8 @@ export type CustomModalProps = ModalBasicProps & {
   type: "confirmation" | "custom",
   isSubmitDisabled?: boolean,
   handleConfirm?: () => void | Promise<void>,
+  baseButtonText?: string,
+  confirmButtonText?: string,
   containerStyles?: string,
 }
 
