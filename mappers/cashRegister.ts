@@ -1,5 +1,5 @@
 import { mapDbDenominationsToDenominations, mapDenominationsToDbDenominations } from "@/mappers/denominations";
-import { Tables, TablesUpdate } from "@/supabase/types";
+import { Tables, TablesInsert, TablesUpdate } from "@/supabase/types";
 import { Denominations } from "@/types/enums/finance";
 import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
@@ -42,6 +42,17 @@ export const mapCashRegisterDataToCashRegisterRecord = (cashRegister?: CashRegis
 
 export const mapCashRegisterRecordToDbCashRegister = (cashRegister: CashRegisterRecord): TablesUpdate<"cash_register">[] => {
   return Object.entries(cashRegister).map(([denomination, quantity]) => ({
+    denomination: mapDenominationsToDbDenominations(parseFloat(denomination) as unknown as Denominations),
+    quantity,
+  }));
+};
+
+export const mapCashRegisterRecordToDbCashRegisterWithGroup = (
+  groupId: number,
+  cashRegister: CashRegisterRecord
+): TablesInsert<"cash_register">[] => {
+  return Object.entries(cashRegister).map(([denomination, quantity]) => ({
+    group_id: groupId,
     denomination: mapDenominationsToDbDenominations(parseFloat(denomination) as unknown as Denominations),
     quantity,
   }));

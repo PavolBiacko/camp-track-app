@@ -1,17 +1,18 @@
-import { mapCashRegisterRecordToDbCashRegister, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
+import { mapCashRegisterRecordToDbCashRegister, mapCashRegisterRecordToDbCashRegisterWithGroup, mapDbCashRegisterToCashRegister } from "@/mappers/cashRegister";
 import { groupRepository } from "@/repositories/groupRepository";
 import supabase from "@/supabase/client";
 import { Tables } from "@/supabase/types";
 import { CashRegisterRecord } from "@/types/finance";
 import { CashRegister } from "@/types/models/cashRegister";
+import { getEmptyCashRegister } from "@/utils/finance";
 import { AuthError } from "@supabase/supabase-js";
 
-const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[] | null> => {
+const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[]> => {
   try {
 
     // Step 1: Find group by leader_id for current camp session
     const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
-    if (!group) return null; // No group found for this leader
+    if (!group) throw new Error("No group found for the leader");
 
     const groupId = group.id;
 
@@ -30,11 +31,11 @@ const readCashRegisterByLeader = async (leaderId: string): Promise<CashRegister[
   }
 };
 
-const updateCashRegisterByLeader = async (leaderId: string, counts: CashRegisterRecord): Promise<CashRegister[] | null> => {
+const updateCashRegisterByLeader = async (leaderId: string, counts: CashRegisterRecord): Promise<CashRegister[]> => {
   try {
     // Step 1: Find group by leader_id for current camp session
     const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
-    if (!group) return null; // No group found for this leader
+    if (!group) throw new Error("No group found for the leader");
 
     const groupId = group.id;
     const cashRegisterRecords = mapCashRegisterRecordToDbCashRegister(counts);
@@ -71,7 +72,24 @@ const updateCashRegisterByLeader = async (leaderId: string, counts: CashRegister
   }
 }
 
+const createEmptyCashRegisterRecordsForGroup = async (groupId: number): Promise<CashRegister[]> => {
+  try {
+    const cashRegisterRecords = mapCashRegisterRecordToDbCashRegisterWithGroup(groupId, getEmptyCashRegister());
+    const { data, error } = await supabase
+      .from('cash_register')
+      .insert(cashRegisterRecords)
+      .select();
+
+    if (error) throw error;
+
+    return data.map((record) => mapDbCashRegisterToCashRegister(record));
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const cashRegisterRepository = {
   readCashRegisterByLeader,
   updateCashRegisterByLeader,
+  createEmptyCashRegisterRecordsForGroup,
 }

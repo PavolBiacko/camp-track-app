@@ -18,8 +18,22 @@ export const useUpdateCashRegisterByLeader = (leaderId: string) => {
       return await cashRegisterRepository.updateCashRegisterByLeader(leaderId, counts);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['cashRegister'] });
+      queryClient.invalidateQueries({ queryKey: ['cashRegister', leaderId] });
     }
   });
   return { updateCashRegister: mutateAsync, isError };
+}
+
+export const useCreateCashRegister = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (groupId: number) => {
+      return await cashRegisterRepository.createEmptyCashRegisterRecordsForGroup(groupId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cashRegister'] });  // maybe here should retrieve leaderId from groupId
+    }
+  });
+  return { createEmptyCashRegisterByGroup: mutateAsync, isError };
 }

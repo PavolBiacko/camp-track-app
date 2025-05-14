@@ -1,4 +1,5 @@
 import CampGroupsForm from '@/components/custom/camp/groups/base/CampGroupsForm';
+import { useCreateCashRegister } from '@/hooks/models/useCashRegister';
 import { useCreateManyGroupAccounts } from '@/hooks/models/useGroupAccounts';
 import { useCreateGroup } from '@/hooks/models/useGroups';
 import { mapGroupCreateFormInputsToGroupCreate } from '@/mappers/groups';
@@ -11,6 +12,7 @@ import { Alert, ScrollView } from 'react-native';
 const CreateGroup = () => {
   const { createGroup } = useCreateGroup();
   const { createGroupAccounts } = useCreateManyGroupAccounts();
+  const { createEmptyCashRegisterByGroup } = useCreateCashRegister();
 
   const handleCreateGroup = async (data: GroupCreateFormInputs) => {
     // Data are valid, checked with Zod, just needs to be validated for intersections
@@ -18,8 +20,12 @@ const CreateGroup = () => {
       const groupData = mapGroupCreateFormInputsToGroupCreate(data);
       const { id } = await createGroup(groupData);
       if (!id) throw new Error("Niečo sa pokazilo pri vytváraní oddielu.");
+
       const groupAccounts = getGroupAccountObjects(id, data.childrenIds);
       await createGroupAccounts(groupAccounts);
+
+      // Should be as atomic transaction in database, as well as the other two functions
+      await createEmptyCashRegisterByGroup(id);
       Alert.alert("Hotovo!", "Oddiel bol úspešne vytvorený.");
       router.back();
     } catch (error: any) {
