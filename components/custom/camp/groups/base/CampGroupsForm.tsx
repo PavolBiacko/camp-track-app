@@ -19,7 +19,7 @@ import { Text, View } from 'react-native'
 
 const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>(props: FormProps<T>) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { control, handleSubmit, register, watch, formState: { errors } } = useForm<T>({
+  const { control, handleSubmit, register, formState: { errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })

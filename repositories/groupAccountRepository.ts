@@ -5,6 +5,20 @@ import { ChildBalanceUpdate, ChildWithBalance } from "@/types/models/children";
 import { GroupAccount, GroupAccountCreate } from "@/types/models/groupAccounts";
 import { AuthError } from "@supabase/supabase-js";
 
+const readManyAccountsByGroup = async (groupId: number): Promise<GroupAccount[]> => {
+  try {
+    const { data: groupAccountsData, error: groupAccountsError } = await supabase
+      .from('group_accounts')
+      .select("*")
+      .eq('group_id', groupId);
+    if (groupAccountsError) throw groupAccountsError;
+
+    return groupAccountsData.map((groupAccount) => mapDbGroupAccountToGroupAccount(groupAccount));
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 const readManyAccountsByLeader = async (leaderId: string): Promise<ChildWithBalance[] | null> => {
   try {
     // Step 1: Find group by leader_id for current camp session
@@ -195,10 +209,26 @@ const createManyAccounts = async (groupAccounts: GroupAccountCreate[]): Promise<
   }
 }
 
+const deleteManyAccounts = async (groupId: number, childIds: string[]): Promise<void> => {
+  try {
+    const { error: deleteError } = await supabase
+      .from('group_accounts')
+      .delete()
+      .eq('group_id', groupId)
+      .in('child_id', childIds);
+
+    if (deleteError) throw deleteError;
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+}
+
 export const groupAccountRepository = {
+  readManyAccountsByGroup,
   readManyAccountsByLeader,
   readAccountByChildIdWithLeader,
   updateAccountBalanceByChildIdWithLeader,
   updateManyAccountBalancesWithLeader,
-  createManyAccounts
+  createManyAccounts,
+  deleteManyAccounts,
 }

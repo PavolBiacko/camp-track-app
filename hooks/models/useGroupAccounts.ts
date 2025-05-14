@@ -3,6 +3,14 @@ import { ChildBalanceUpdate } from "@/types/models/children";
 import { GroupAccountCreate } from "@/types/models/groupAccounts";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+export const useManyAccountsWithGroup = (groupId: number) => {
+  const query = useQuery({
+    queryKey: ['groupAccounts', groupId],
+    queryFn: async () => await groupAccountRepository.readManyAccountsByGroup(groupId),
+  });
+  return { children: query.data, ...query };
+}
+
 export const useManyAccountsWithLeader = (leaderId: string) => {
   const query = useQuery({
     queryKey: ['groupAccounts', leaderId],
@@ -73,4 +81,20 @@ export const useCreateManyGroupAccounts = () => {
     }
   });
   return { createGroupAccounts: mutation.mutateAsync, ...mutation };
+}
+
+export const useDeleteManyGroupAccounts = (groupId: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async (ids: string[]) => {
+      return await groupAccountRepository.deleteManyAccounts(groupId, ids);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['groupAccounts']
+      });
+    }
+  });
+  return { deleteGroupAccounts: mutation.mutateAsync, ...mutation };
 }

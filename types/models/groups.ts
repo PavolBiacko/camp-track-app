@@ -48,7 +48,7 @@ export type GroupUpdate = Partial<GroupCore>;
 
 export type GroupCreateFormInputs = GroupFormInputsCore;
 
-export type GroupUpdateFormInputs = Partial<GroupFormInputsCore>;
+export type GroupUpdateFormInputs = GroupFormInputsCore;
 
 // DB complex type
 export type DbGroupComlex = Tables<"groups"> & {
