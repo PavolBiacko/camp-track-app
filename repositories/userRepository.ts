@@ -32,6 +32,8 @@ const readManyUsers = async (sessionId: number | null): Promise<User[]> => {
     const { data: usersData, error: usersError } = await supabase
       .from('users')
       .select('*')
+      .neq('role', 'CAMP_LEADER')
+      .neq('role', 'PARENT')
       .not('id', 'in', `(${groupsData.map((group) => group.leader_id).join(',')})`);
 
     if (usersError) throw usersError;
