@@ -34,7 +34,7 @@ const UpdateChild = () => {
   };
 
   const handleDeleteChild = async () => {
-    // No need to check for validation, we are deleting the activity
+    // No need to check for validation, we are deleting the child
     try {
       await deleteChild();
       Alert.alert("Hotovo!", "Dieťa bola úspešne odstránené.");

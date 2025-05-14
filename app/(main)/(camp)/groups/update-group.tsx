@@ -22,7 +22,7 @@ const UpdateGroup = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleUpdateGroup = async (data: GroupUpdateFormInputs) => {
-    // Data are valid, checked with Zod, just needs to be validated for intersections
+    // Data are valid, checked with Zod
     try {
       const groupData = mapGroupUpdateFormInputsToGroupUpdate(data);
       await updateGroup(groupData);
@@ -35,7 +35,7 @@ const UpdateGroup = () => {
   };
 
   const handleDeleteGroup = async () => {
-    // No need to check for validation, we are deleting the activity
+    // No need to check for validation, we are deleting the group
     try {
       await deleteGroup();
       Alert.alert("Hotovo!", "Dieťa bola úspešne odstránené.");
