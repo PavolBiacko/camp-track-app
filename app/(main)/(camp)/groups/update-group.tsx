@@ -60,7 +60,7 @@ const UpdateGroup = () => {
     // No need to check for validation, we are deleting the group
     try {
       await deleteGroup();
-      Alert.alert("Hotovo!", "Dieťa bola úspešne odstránené.");
+      Alert.alert("Hotovo!", "Oddiel bol úspešne odstránený.");
       router.back();
     } catch (error: any) {
       Alert.alert("Pozor!", error.message);

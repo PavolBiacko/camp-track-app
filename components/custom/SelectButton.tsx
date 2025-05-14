@@ -14,6 +14,8 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
   const handleSelect = useCallback(
     (item: PickerItem, onChange: (value: string | null) => void) => {
       onChange(item.id);
+      (props.handleChange) && props.handleChange(item.id);
+      setModalVisible(false);
     }, []
   );
 
@@ -37,6 +39,7 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
               handlePress={() => setModalVisible(true)}
               textStyles="text-typography-950 text-2xl font-psemibold"
               isLoading={props.isLoading}
+              isDisabled={props.isDisabled}
               containerStyles="h-20 rounded-2xl"
             />
             <CustomModal
@@ -44,7 +47,7 @@ const SelectButton = <T extends FieldValues>(props: SelectButtonProps<T>) => {
               type="custom"
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
-              baseButtonText='OK'
+              baseButtonText='Zavrieť'
               containerStyles='w-11/12 h-[70%]'>
               <View className="h-[75%] bg-background-200 border-2 border-outline-500">
                 <FlatList

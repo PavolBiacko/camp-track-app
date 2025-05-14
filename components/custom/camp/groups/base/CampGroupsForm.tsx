@@ -5,7 +5,7 @@ import MultiSelectButton from '@/components/custom/MultiSelectButton'
 import SelectButton from '@/components/custom/SelectButton'
 import { useManyCampSessions } from '@/hooks/models/useCampSessions'
 import { useManyChildren } from '@/hooks/models/useChildren'
-import { useManyUsers } from '@/hooks/models/useUsers'
+import { useManyUsers, useUserById } from '@/hooks/models/useUsers'
 import { mapManyCampSessionsToPickerItems } from '@/mappers/campSessions'
 import { mapManyChilrenToPickerItems } from '@/mappers/children'
 import { mapManyUsersToPickerItems } from '@/mappers/users'
@@ -13,25 +13,46 @@ import { FormProps } from '@/types/custom/form'
 import { GroupCreateFormInputs, GroupUpdateFormInputs } from '@/types/models/groups'
 import { getCampGroupFromFields } from '@/utils/camp'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { FieldError, FieldErrors, useForm } from 'react-hook-form'
+import { useMemo, useState } from 'react'
+import { FieldError, FieldErrors, Path, useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
 
 const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>(props: FormProps<T>) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const { control, handleSubmit, register, formState: { errors } } = useForm<T>({
+  const { control, handleSubmit, register, watch, setValue, formState: { errors } } = useForm<T>({
     defaultValues: props.initialValues,
     resolver: zodResolver(props.validationSchema)
   })
+
+  // Current field values
+  const sessionId = watch("sessionId" as Path<T>) as number | null;
+  const leaderId = useMemo(() => {
+    return watch("leaderId" as Path<T>) as string | null;
+  }, [])
+
+  console.log("leaderId", leaderId);
+
+  // Hook calls
   const { campSessions, isLoading: isLoadingCampSessions, isError: isErrorCampSessions } = useManyCampSessions();
-  const { users, isLoading: isLoadingUsers, isError: isErrorUsers } = useManyUsers();
+  const { users, isLoading: isLoadingUsers, isError: isErrorUsers } = useManyUsers(sessionId);
+  const { user: pickedUser, isLoading: isLoadingUser, isError: isErrorUser } = useUserById(leaderId);
   const { children, isLoading: isLoadingChildren, isError: isErrorChildren } = useManyChildren();
+
+  const handleSessionChange = (newSessionId: string | null) => {
+    if (!newSessionId) {
+      setValue("leaderId" as Path<T>, null as any);
+    }
+  }
+
+  console.log("pickedUser", pickedUser);
 
   const { numberField, nameField, sessionField, leaderField, childrenField } = getCampGroupFromFields<T>(props.fields);
 
   return (
     <View className="w-full justify-center">
-      <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>
+      <Text className="text-typography-950 text-2xl mt-5 font-pbold">
+        {props.title}
+      </Text>
 
       <View className='flex-row items-center justify-between w-full mt-4'>
         {/* number of the group */}
@@ -64,6 +85,7 @@ const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>
         control={control}
         error={errors[sessionField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
         action="secondary"
+        handleChange={handleSessionChange}
         options={mapManyCampSessionsToPickerItems(campSessions)}
         isLoading={!campSessions || isLoadingCampSessions || isErrorCampSessions}
         otherStyles={sessionField.otherStyles || "mt-4"}
@@ -76,8 +98,9 @@ const CampGroupsForm = <T extends GroupCreateFormInputs | GroupUpdateFormInputs>
         control={control}
         error={errors[leaderField.formDataTypeKey as keyof FieldErrors<T>] as FieldError | undefined}
         action="tertiary"
-        options={mapManyUsersToPickerItems(users)}
-        isLoading={!users || isLoadingUsers || isErrorUsers}
+        options={mapManyUsersToPickerItems(users, pickedUser ? pickedUser : undefined)}
+        isLoading={!users || pickedUser === undefined || isLoadingUsers || isLoadingUser || isErrorUsers || isErrorUser}
+        isDisabled={!sessionId}
         otherStyles={leaderField.otherStyles || "mt-4"}
       />
 

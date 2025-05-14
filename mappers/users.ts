@@ -25,13 +25,16 @@ const mapUserToPickerItem = (user: User): PickerItem => {
   };
 }
 
-export const mapManyUsersToPickerItems = (users: User[] | undefined): PickerItem[] => {
-  if (users === undefined || users.length === 0) {
+export const mapManyUsersToPickerItems = (users: User[] | undefined, additional?: User | []): PickerItem[] => {
+  if (!users || users.length === 0) {
     return BASE_PICKER_DATA;
   }
 
-  return [
+  const result = [
     ...BASE_PICKER_DATA,
-    ...users.map((user) => mapUserToPickerItem(user))
+    ...users.map((user) => mapUserToPickerItem(user)),
+    ...(additional && !Array.isArray(additional) ? [mapUserToPickerItem(additional)] : []),
   ];
+
+  return result.sort((a, b) => (a.showedText > b.showedText ? 1 : -1));;
 }

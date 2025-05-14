@@ -47,8 +47,10 @@ export type DateTimeButtonProps<T extends FieldValues> = BaseButtonProps & Contr
 
 export type SelectButtonProps<T extends FieldValues> = BaseButtonProps & ControllableButtonProps<T> & {
   options?: PickerItem[];
-  isLoading?: boolean,
+  handleChange?: (newSessionId: string | null) => void,
   otherStyles?: string;
+  isLoading?: boolean,
+  isDisabled?: boolean,
 };
 
 export type MultiSelectButtonProps<T extends FieldValues> = BaseButtonProps & ControllableButtonProps<T> & {
