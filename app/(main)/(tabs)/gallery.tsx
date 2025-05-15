@@ -1,3 +1,4 @@
+import { GalleryProvider } from '@/components/custom/context/GalleryContext';
 import GalleryContent from '@/components/custom/gallery/GalleryContent';
 import GalleryHeader from '@/components/custom/gallery/GalleryHeader';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -5,8 +6,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Gallery = () => {
   return (
     <SafeAreaView className='justify-center h-full'>
-      <GalleryHeader />
-      <GalleryContent />
+      <GalleryProvider>
+        <GalleryHeader />
+        <GalleryContent />
+      </GalleryProvider>
     </SafeAreaView>
   )
 }

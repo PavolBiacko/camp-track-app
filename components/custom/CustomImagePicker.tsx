@@ -1,16 +1,16 @@
+import CustomButton from '@/components/custom/CustomButton';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useState } from 'react';
-import { Button, Image, StyleSheet, View } from 'react-native';
+import { Image, View } from 'react-native';
 
-export default function ImagePickerExample() {
+const ImagePickerButton = () => {
   const [image, setImage] = useState<string | null>(null);
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
+  const handlePickImages = async () => {
     let result = await launchImageLibraryAsync({
-      mediaTypes: ['images', 'videos'],
-      allowsEditing: true,
-      aspect: [4, 3],
+      mediaTypes: ['images'],
+      allowsEditing: false,
+      allowsMultipleSelection: true,
       quality: 1,
     });
 
@@ -18,25 +18,22 @@ export default function ImagePickerExample() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+    } else {
+      setImage(null);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+    <View className='w-full items-center'>
+      <CustomButton
+        title="Pridaj fotky"
+        handlePress={handlePickImages}
+        textStyles="text-2xl"
+        containerStyles="w-2/3 h-16 rounded-3xl"
+      />
+      {image && <Image source={{ uri: image }} />}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-});
+export default ImagePickerButton;

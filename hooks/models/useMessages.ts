@@ -8,8 +8,7 @@ export const useFetchMessages = (chatId: number) => {
   const query = useInfiniteQuery({
     queryKey: ['messages', chatId],
     queryFn: async ({ pageParam }) => {
-      const messages = await messagesRepository.fetchMessages(chatId, pageParam);
-      return messages;
+      return await messagesRepository.fetchMessages(chatId, pageParam);
     },
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length === 0 || lastPage.length < messagesRepository.PAGE_SIZE) {

@@ -1,7 +1,7 @@
+import MessagesAvatar from '@/components/custom/messages/base/MessagesAvatar'
+import MessageBubble from '@/components/custom/messages/base/MessagesBubble'
 import { MessagesChatLineProps } from '@/types/messages'
 import { View } from 'react-native'
-import MessagesAvatar from './MessagesAvatar'
-import MessageBubble from './MessagesBubble'
 
 const MessagsChatLine = (props: MessagesChatLineProps) => {
   const { id: senderId, firstName, lastName } = props.sender || {}

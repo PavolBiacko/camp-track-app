@@ -1,8 +1,8 @@
 import { mapDbTransactionToTransactionComplex, mapTransactionCreateToDbTransaction } from "@/mappers/transactions";
+import { groupRepository } from "@/repositories/groupRepository";
 import supabase from "@/supabase/client";
 import { TransactionComplex, TransactionCreate } from "@/types/models/transactions";
 import { AuthError } from "@supabase/supabase-js";
-import { groupRepository } from "./groupRepository";
 
 const createTransaction = async (transaction: TransactionCreate): Promise<number> => {
   try {

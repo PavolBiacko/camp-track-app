@@ -1,9 +1,9 @@
 import { ModalBasicProps } from "@/types/custom/modal";
 import { Denominations, TransactionType } from "@/types/enums/finance";
+import { CampSession } from "@/types/models/campSessions";
 import { CashRegister } from "@/types/models/cashRegister";
 import { ChildName, ChildWithBalance } from "@/types/models/children";
 import { TransactionComplex } from "@/types/models/transactions";
-import { CampSession } from "./models/campSessions";
 
 export type MoneyType = 'coin' | 'bill';
 
