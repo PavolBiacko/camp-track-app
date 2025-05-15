@@ -7,7 +7,7 @@ import { Text, View } from 'react-native';
 const MessagesHeader = ({ groupChats }: MessagesHeaderProps) => {
   return (
     <View className='h-[28%]'>
-      <View className='flex-row justify-center items-center bg-background-300 border-y border-outline-500 gap-5 py-2'>
+      <View className='justify-center items-center bg-background-300 border-y border-outline-500 gap-5 py-2'>
         <Text className='text-typography-950 text-2xl text-center font-pbold'>
           Prebiehajúci turnus
         </Text>

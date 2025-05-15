@@ -1,11 +1,12 @@
-import { SafeAreaView, Text } from 'react-native';
+import GalleryContent from '@/components/custom/gallery/GalleryContent';
+import GalleryHeader from '@/components/custom/gallery/GalleryHeader';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Gallery = () => {
   return (
     <SafeAreaView className='justify-center h-full'>
-      <Text className='text-typography-950 text-center text-2xl font-pbold'>
-        Gallery
-      </Text>
+      <GalleryHeader />
+      <GalleryContent />
     </SafeAreaView>
   )
 }
