@@ -2,6 +2,7 @@ import CustomButton from '@/components/custom/CustomButton';
 import { CustomModalProps } from '@/types/custom/modal';
 import { PropsWithChildren, useState } from 'react';
 import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import Loading from './Loading';
 
 const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
       onRequestClose={handleCloseModal}>
       <TouchableOpacity
         activeOpacity={1}
-        disabled={props.type === "confirmation"}
+        disabled={props.type === "confirmation" || props.type === "loading"}
         onPress={handleCloseModal}
         className="flex-1 justify-center items-center bg-background-0/50">
         <TouchableOpacity
@@ -43,7 +44,7 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
               {props.subTitle}
             </Text>)}
           {props.children}
-          {props.type === "confirmation" ? (
+          {props.type === "confirmation" && (
             <View className="flex-row justify-between gap-4 mt-4 h-20">
               <CustomButton
                 title={props.baseButtonText || "Zrušiť"}
@@ -65,7 +66,8 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
                 isDisabled={props.isSubmitDisabled}
               />
             </View>
-          ) : (
+          )}
+          {props.type === "custom" && (
             <CustomButton
               title={props.baseButtonText || "Zrušiť"}
               action="background"
@@ -74,6 +76,9 @@ const CustomModal = (props: PropsWithChildren<CustomModalProps>) => {
               containerStyles="rounded-xl py-3 w-full mt-4"
               textStyles="text-2xl"
             />
+          )}
+          {props.type === "loading" && (
+            <Loading showText={false} />
           )}
         </TouchableOpacity>
       </TouchableOpacity>

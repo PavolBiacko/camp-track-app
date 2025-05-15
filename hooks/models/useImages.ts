@@ -1,5 +1,6 @@
 import { galleryRepository } from "@/repositories/galleryRepository";
-import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
+import { GalleryImage } from "@/types/gallery";
+import { keepPreviousData, useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useGalleryImagesPaginated = () => {
   const query = useInfiniteQuery({
@@ -20,3 +21,31 @@ export const useGalleryImagesPaginated = () => {
 
   return { images: query.data, ...query };
 };
+
+export const useAddImage = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (galleryImage: GalleryImage) => {
+      return await galleryRepository.addOneImage(galleryImage);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['gallery'] });
+    },
+  });
+  return { addImage: mutateAsync, isError };
+}
+
+export const useAddManyImages = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (galleryImages: GalleryImage[]) => {
+      return await galleryRepository.addManyImages(galleryImages);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['gallery'] });
+    },
+  });
+  return { addManyImages: mutateAsync, isError };
+}

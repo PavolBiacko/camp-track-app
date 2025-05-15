@@ -1,5 +1,9 @@
+export type GalleryImage = {
+  fileName: string;
+  buffer: Uint8Array;
+}
+
 export type GalleryContextType = {
-  photos: string[];
-  setPhotos: (photos: string[]) => void;
-  groupedPhotos: string[][];
+  photosUpdating: boolean;
+  setPhotosUpdating: (updating: boolean) => void;
 }

@@ -1,21 +1,13 @@
 import { GalleryContextType } from '@/types/gallery';
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const GalleryContext = createContext<GalleryContextType | undefined>(undefined);
 
 export const GalleryProvider = (props: PropsWithChildren) => {
-  const [photos, setPhotos] = useState<string[]>([]);
-
-  const groupedPhotos = useMemo(() => {
-    const groups = [];
-    for (let i = 0; i < photos.length; i += 3) {
-      groups.push(photos.slice(i, i + 3));
-    }
-    return groups;
-  }, [photos]); // Only recompute when photos changes
+  const [photosUpdating, setPhotosUpdating] = useState(false);
 
   return (
-    <GalleryContext.Provider value={{ photos, setPhotos, groupedPhotos }}>
+    <GalleryContext.Provider value={{ photosUpdating, setPhotosUpdating }}>
       {props.children}
     </GalleryContext.Provider>
   );

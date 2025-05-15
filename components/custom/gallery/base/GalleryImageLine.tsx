@@ -10,7 +10,7 @@ const GalleryImageLine = ({ item }: { item: string[] }) => (
         <Image
           source={{ uri, cache: 'force-cache' }}
           className="w-full h-full"
-          resizeMode="contain"
+          resizeMode="cover"
         />
       </TouchableOpacity>
     ))}
