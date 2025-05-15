@@ -2,6 +2,7 @@ import { mapDbTransactionToTransactionComplex, mapTransactionCreateToDbTransacti
 import supabase from "@/supabase/client";
 import { TransactionComplex, TransactionCreate } from "@/types/models/transactions";
 import { AuthError } from "@supabase/supabase-js";
+import { groupRepository } from "./groupRepository";
 
 const createTransaction = async (transaction: TransactionCreate): Promise<number> => {
   try {
@@ -36,8 +37,13 @@ const createManyTransactions = async (transactions: TransactionCreate[]): Promis
   }
 }
 
-const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promise<TransactionComplex[]> => {
+const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date, leaderId: string): Promise<TransactionComplex[]> => {
   try {
+    const group = await groupRepository.readGroupBasicByLeaderForCurrentCampSession(leaderId);
+    if (!group) throw new Error("No group found for the leader");
+
+    const groupId = group.id;
+
     const { data: transactionData, error: transactionError } = await supabase
       .from('transactions')
       .select(`
@@ -52,6 +58,7 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date): Promis
           last_name
         )
       `)
+      .eq('group_id', groupId) // Filter: group_id = groupId
       .gte('created_at', dateFrom.toISOString()) // Filter: created_at >= dateFrom
       .lte('created_at', dateTo.toISOString()) // Filter: created_at <= dateTo
       .order('created_at')

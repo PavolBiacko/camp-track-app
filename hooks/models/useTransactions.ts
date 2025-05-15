@@ -2,10 +2,10 @@ import { transactionRepository } from "@/repositories/transactionRepository";
 import { TransactionCreate } from "@/types/models/transactions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useTransactionsInDateRange = (dateFrom: Date, dateTo: Date) => {
+export const useTransactionsInDateRange = (dateFrom: Date, dateTo: Date, leaderId: string) => {
   const query = useQuery({
-    queryKey: ['transactions', dateFrom, dateTo],
-    queryFn: async () => await transactionRepository.readTransactionsInDateRange(dateFrom, dateTo),
+    queryKey: ['transactions', dateFrom, dateTo, leaderId],
+    queryFn: async () => await transactionRepository.readTransactionsInDateRange(dateFrom, dateTo, leaderId),
   });
   return { transactions: query.data, ...query };
 }

@@ -19,16 +19,6 @@ const readManyUsers = async (sessionId: number | null): Promise<User[]> => {
 
     if (groupsError) throw groupsError;
 
-    if (groupsData.length === 0) {
-      const { data: usersData, error: usersError } = await supabase
-        .from('users')
-        .select('*');
-
-      if (usersError) throw usersError;
-
-      return usersData.map((user) => mapDbUserToUser(user));
-    }
-
     const { data: usersData, error: usersError } = await supabase
       .from('users')
       .select('*')
