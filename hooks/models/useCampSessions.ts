@@ -2,6 +2,14 @@ import { campSessionRepository } from "@/repositories/campSessionRepository";
 import { CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+export const useCurrentCampSession = () => {
+  const query = useQuery({
+    queryKey: ['currentCampSession'],
+    queryFn: async () => await campSessionRepository.readCurrentCampSession(),
+  });
+  return { currentCampSession: query.data, ...query };
+}
+
 export const useManyCampSessionsGrouped = () => {
   const query = useQuery({
     queryKey: ['campSessionsGroupped'],
@@ -35,6 +43,7 @@ export const useUpdateCampSession = (id: number) => {
       return await campSessionRepository.updateCampSessionById(id, data);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['currentCampSession'] });
       queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions', id] });
@@ -52,6 +61,7 @@ export const useCreateCampSession = () => {
       return await campSessionRepository.createCampSessionById(data);
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['currentCampSession'] });
       queryClient.invalidateQueries({ queryKey: ['campSessionsGroupped'] });
       queryClient.invalidateQueries({ queryKey: ['campSessions'] });
       queryClient.invalidateQueries({ queryKey: ['groupChats'] });

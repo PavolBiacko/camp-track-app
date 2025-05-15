@@ -1,23 +1,23 @@
 import { mapCampSessionCreateToDbCampSession, mapCampSessionUpdateToDbCampSession, mapDbCampSessionToCampSession } from "@/mappers/campSessions";
 import supabase from "@/supabase/client";
-import { CampSession, CampSessionBasic, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
+import { CampSession, CampSessionCreate, CampSessionUpdate } from "@/types/models/campSessions";
 import { groupCampSessionsByYear } from "@/utils/camp";
 import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
-const readCurrentCampSessionId = async (): Promise<CampSessionBasic> => {
+const readCurrentCampSession = async (): Promise<CampSession> => {
   try {
     // Find current camp session by date
     const { data: currentSession, error: currentSessionError } = await supabase
       .from('camp_sessions')
-      .select('id')
+      .select('*')
       .lte('begin_date', formatDateToISOLocal(new Date()))
       .gte('end_date', formatDateToISOLocal(new Date()))
       .single();
 
     if (currentSessionError) throw currentSessionError;
 
-    return currentSession;
+    return mapDbCampSessionToCampSession(currentSession);
   } catch (error: any) {
     throw error as AuthError;
   }
@@ -100,7 +100,7 @@ const createCampSessionById = async (campSession: CampSessionCreate): Promise<nu
 }
 
 export const campSessionRepository = {
-  readCurrentCampSessionId,
+  readCurrentCampSession,
   readAllCampSessions,
   readAllCampSessionsGrouped,
   readCampSessionById,

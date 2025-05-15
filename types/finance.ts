@@ -3,6 +3,7 @@ import { Denominations, TransactionType } from "@/types/enums/finance";
 import { CashRegister } from "@/types/models/cashRegister";
 import { ChildName, ChildWithBalance } from "@/types/models/children";
 import { TransactionComplex } from "@/types/models/transactions";
+import { CampSession } from "./models/campSessions";
 
 export type MoneyType = 'coin' | 'bill';
 
@@ -75,6 +76,10 @@ export type FinanceAccountSummaryModalProps = ModalBasicProps & {
 export type FinanceTransactionHeaderData = {
   dateFrom: string;
   dateTo: string;
+}
+
+export type FinanceTransactionProviderProps = {
+  currentCampSession: CampSession;
 }
 
 export type FinanceTransactionContextType = {

@@ -1,16 +1,16 @@
 import { mapDateToDayEnd, mapDateToDayStart } from '@/mappers/datetime';
-import { FinanceTransactionContextType } from '@/types/finance';
+import { FinanceTransactionContextType, FinanceTransactionProviderProps } from '@/types/finance';
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 const FinanceTransactionContext = createContext<FinanceTransactionContextType | undefined>(undefined);
 
-export const FinanceTransactionProvider = (props: PropsWithChildren) => {
-  const [dateFrom, setDateFrom] = useState(mapDateToDayStart(new Date()));
-  const [dateTo, setDateTo] = useState(mapDateToDayEnd(new Date()));
+export const FinanceTransactionProvider = ({ currentCampSession, children }: PropsWithChildren<FinanceTransactionProviderProps>) => {
+  const [dateFrom, setDateFrom] = useState(mapDateToDayStart(currentCampSession.beginDate));
+  const [dateTo, setDateTo] = useState(mapDateToDayEnd(currentCampSession.endDate));
 
   return (
     <FinanceTransactionContext.Provider value={{ dateFrom, dateTo, setDateFrom, setDateTo }}>
-      {props.children}
+      {children}
     </FinanceTransactionContext.Provider>
   );
 };

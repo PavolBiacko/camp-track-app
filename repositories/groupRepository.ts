@@ -7,7 +7,7 @@ import { AuthError } from "@supabase/supabase-js";
 
 const readGroupBasicByLeaderForCurrentCampSession = async (leaderId: string): Promise<GroupBasic | null> => {
   try {
-    const currentSession = await campSessionRepository.readCurrentCampSessionId();
+    const currentSession = await campSessionRepository.readCurrentCampSession();
 
     // Find the group with leader_id for current camp session
     const { data: groupData, error: groupError } = await supabase
