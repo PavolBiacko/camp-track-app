@@ -41,7 +41,6 @@ const TabsLayout = () => {
             options={{
               headerShown: false,
               animation: 'shift',
-              lazy: false,
               href: tab.roles.includes(user.role) ? undefined : null,
               tabBarIcon: ({ color, focused }) => (
                 <TabIcon
