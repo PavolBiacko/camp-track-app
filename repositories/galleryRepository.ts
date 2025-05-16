@@ -66,10 +66,26 @@ const addManyImages = async (galleryImages: GalleryImage[]): Promise<void> => {
   }
 };
 
+const deleteImage = async (fileName: string): Promise<void> => {
+  try {
+    const cleanFileName = fileName.split('/').pop() || fileName;
+    const { error } = await supabase
+      .storage
+      .from('gallery')
+      .remove([cleanFileName]);
+
+    if (error) throw error;
+
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
 export const galleryRepository = {
   getImageUrl,
   getPaginatedImages,
   addOneImage,
   addManyImages,
+  deleteImage,
   PAGE_SIZE,
 };

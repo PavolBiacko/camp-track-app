@@ -7,3 +7,7 @@ export type GalleryContextType = {
   photosUpdating: boolean;
   setPhotosUpdating: (updating: boolean) => void;
 }
+
+export type GalleryImageLineProps = {
+  item: string[];
+}

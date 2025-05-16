@@ -49,3 +49,18 @@ export const useAddManyImages = () => {
   });
   return { addManyImages: mutateAsync, isError };
 }
+
+export const useDeleteImage = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (fileName: string) => {
+      console.log('Deleting image:', fileName);
+      return await galleryRepository.deleteImage(fileName);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['gallery'] });
+    },
+  });
+  return { deleteImage: mutateAsync, isError };
+}
