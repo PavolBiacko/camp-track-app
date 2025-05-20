@@ -1,34 +1,61 @@
+import { useScheduleContext } from "@/components/custom/context/ScheduleContext";
 import Loading from "@/components/custom/Loading";
 import BaseLayout from "@/components/layouts/BaseLayout";
-import CampLeaderLayout from "@/components/layouts/home/CampLeaderLayout";
-import GroupLeaderLayout from "@/components/layouts/home/GroupLeaderLayout";
-import ParentLayout from "@/components/layouts/home/ParentLayout";
-import UserLayout from "@/components/layouts/home/UserLayout";
-import { useAuth } from "@/hooks/useAuth";
-import { UserRoles } from "@/types/enums/roles";
-import { useMemo } from "react";
+import { useActivitiesByDay } from "@/hooks/models/useActivities";
+import { useCurrentCampSession } from "@/hooks/models/useCampSessions";
+import { useCurrentTime } from "@/hooks/useCurrentTime";
+import { formatISOLocalToHumanReadable } from "@/utils/dates";
+import { getActiveActivityIndex } from "@/utils/schedule";
+import { router } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const Home = () => {
-  const { user } = useAuth()
+  const currentTime = useCurrentTime();
+  const { selectedDate } = useScheduleContext();
+  const { activities, isLoading: isLoadingActivities, isError: isErrorActivities } = useActivitiesByDay(selectedDate);
+  const { currentCampSession, isLoading: isLoadingSession, isError: isErrorSession } = useCurrentCampSession();
 
-  const activeLayout = useMemo(() => {
-    switch (user?.role) {
-      case UserRoles.CAMP_LEADER:
-        return <CampLeaderLayout />;
-      case UserRoles.GROUP_LEADER:
-        return <GroupLeaderLayout />;
-      case UserRoles.PARENT:
-        return <ParentLayout />;
-      case UserRoles.USER:
-        return <UserLayout />;
-      default:
-        return <Loading showText={true} />;
-    }
-  }, [user])
+  if (
+    !activities || isLoadingActivities || isErrorActivities ||
+    !currentCampSession || isLoadingSession || isErrorSession
+  ) {
+    return <Loading showText={false} />
+  }
+
+  const activeIndex = getActiveActivityIndex(activities, currentTime);
+  const beginDate = formatISOLocalToHumanReadable(currentCampSession.beginDate);
+  const endDate = formatISOLocalToHumanReadable(currentCampSession.endDate);
 
   return (
     <BaseLayout>
-      {activeLayout}
+      <View className='w-full flex-1 items-center justify-center gap-16'>
+        <View className="w-full h-[20%] p-5">
+          <Text className="text-typography-950 text-xl text-center font-pblack">
+            Aktuálne prebiehajúci turnus
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => { }}
+            className="rounded-3xl justify-center items-center bg-tertiary-300 h-full border-2 border-tertiary-700">
+            <Text className="text-typography-950 text-2xl text-center font-pbold mt-1">
+              {beginDate} - {endDate}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View className="w-full h-[30%] p-5">
+          <Text className="text-typography-950 text-xl text-center font-pblack">
+            Aktuálne prebiehajúca aktivita
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => router.push("/(main)/(tabs)/schedule")}
+            className="rounded-3xl justify-center items-center bg-secondary-300 h-full border-2 border-secondary-700">
+            <Text className="text-typography-950 text-3xl text-center font-pbold mt-2">
+              {activities[activeIndex].name} (od {activities[activeIndex].time.hours}:{activities[activeIndex].time.minutes})
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </BaseLayout>
   );
 }
