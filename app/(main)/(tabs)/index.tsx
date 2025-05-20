@@ -30,7 +30,6 @@ const Home = () => {
   return (
     <BaseLayout>
       <View className="flex-1 w-full px-7 py-10">
-        {/* Horná časť - 30% výšky */}
         <View className="h-[40%] items-center justify-center border-2 border-primary-500 rounded-3xl">
           <View className="flex-row gap-2">
             <Text className="text-typography-950 text-6xl text-center font-pblack pt-3">
@@ -42,7 +41,6 @@ const Home = () => {
             Vitaj späť!
           </Text>
         </View>
-        {/* Spodná časť - 70% výšky */}
         <View className="h-[60%] items-center justify-center gap-5">
           <View className="w-full h-[40%]">
             <Text className="text-typography-950 text-xl text-center font-pblack">
