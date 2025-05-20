@@ -3,8 +3,8 @@ import { Text, View } from 'react-native'
 
 const PrivacyPolicy = () => {
   return (
-    <View>
-      <Text className='text-typography-950 font-pblack'>Privacy Policy - TODO</Text>
+    <View className='h-full items-center justify-center'>
+      <Text className='text-typography-950 font-pblack'>Ochrana súkromia</Text>
     </View>
   )
 }

@@ -3,6 +3,7 @@ import { getRGBColor } from "@/components/ui/gluestack-ui-provider/colors";
 import { ModeType } from "@/components/ui/gluestack-ui-provider/types";
 import { useAppFonts } from '@/hooks/useAppFonts';
 import { useSession } from "@/hooks/useSession";
+import { registerForPushNotificationsAsync } from "@/utils/notifiations";
 import { getStackScreenOptions } from "@/utils/ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -39,6 +40,10 @@ export default function RootLayout() {
       }
     };
     loadTheme();
+  }, []);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
   }, []);
 
   if (!fontsLoaded && !error) return null;
