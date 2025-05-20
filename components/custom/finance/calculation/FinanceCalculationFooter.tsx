@@ -19,11 +19,11 @@ const FinanceCalculationFooter = (props: FinanceCalculationFooterProps) => {
         <View className="w-full h-1/6 bg-background-300 border-y-2 border-outline-500" />
         <View className="w-full h-5/6 justify-center items-center">
           <CustomButton
-            title="Výber akcie"
+            title="Vyplatenie peňazí deťom"
             action="primary"
             handlePress={() => setModalVisible(true)}
             textStyles="text-2xl text-center"
-            containerStyles="w-2/3 h-16 rounded-3xl px-5"
+            containerStyles="w-11/12 h-16 rounded-3xl px-5"
           />
         </View>
       </View>
