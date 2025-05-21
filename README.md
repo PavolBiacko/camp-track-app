@@ -1,50 +1,37 @@
-# Welcome to your Expo app 👋
+Postup spustenia (Je potrebné mať nainštalovaný node package manager - npm):
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+1. Nainštalovanie dependencií:
 
-## Get started
+   - npm install
 
-1. Install dependencies
+2. Spustenie aplikácie: 
 
-   ```bash
-   npm install
-   ```
+   - npm start
 
-2. Start the app
+===================================================================================================================
 
-   ```bash
-    npx expo start
-   ```
+Týmto sa spustí server vo vývojovom móde. Aplikáciu je potom možné spustiť pomocou Android Emulátora:
 
-In the output, you'll find options to open the app in a
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+
+Alebo cez development build:
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+
+
+Ja osobne odporúčam cez ten development build, funguje iba na Android bohužiaľ, je potrebné si stiahnuť APK:
+
+- APK: https://expo.dev/accounts/pavolbiacko2002/projects/camp-track-app/builds/c6f44a95-7003-4fd1-9d4d-b445d6f30005
+
+Prihlasovacie údaje:
+
+email: palko.biacko@gmail.com / username: pavolbiacko2002
+heslo: Pavol1101
+
+Server aj aplikáciu v mobile je potrebné otvoriť v približne v rovnakom čase, APK môže byť o niečo neskôr. Maximálne tak do pol minúty, potom už nevie z nejakého dôvodu zachytiť server a je potrebné ho reštartovať.
+
+===================================================================================================================
+
+Pomocou aplikácie Expo Go to už momentálne nejde, pretože sa upgradovalo Expo SDK a najnovšia verzia aplikácie nie je kompatibilná s mojou aplikáciou.
+
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
