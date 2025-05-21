@@ -66,8 +66,10 @@ const Home = () => {
               className="rounded-3xl justify-center items-center bg-secondary-300 h-[80%] border-2 border-secondary-700 mt-2"
             >
               <Text className="text-typography-950 text-3xl text-center font-pbold pt-2">
-                {activities[activeIndex].name} (od {activities[activeIndex].time.hours}:
-                {activities[activeIndex].time.minutes})
+                {activeIndex !== -1
+                  ? `${activities[activeIndex].name} (od ${activities[activeIndex].time.hours}:${activities[activeIndex].time.minutes})`
+                  : "Zatiaľ žiadna"
+                }
               </Text>
             </TouchableOpacity>
           </View>
