@@ -55,7 +55,6 @@ export const useDeleteImage = () => {
 
   const { mutateAsync, isError } = useMutation({
     mutationFn: async (fileName: string) => {
-      console.log('Deleting image:', fileName);
       return await galleryRepository.deleteImage(fileName);
     },
     onSuccess: () => {

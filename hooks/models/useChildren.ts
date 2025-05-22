@@ -60,3 +60,22 @@ export const useDeleteChild = (id: string) => {
   });
   return { deleteChild: mutateAsync, isPending, isError };
 }
+
+export const useConnectChildToParent = (parentId: string) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (accessCode: string) => {
+      return await childRepository.connectChildToParent(accessCode, parentId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['groupAccounts', parentId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['auth'],
+      });
+    }
+  });
+  return { connectChildToParent: mutateAsync, isError };
+}

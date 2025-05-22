@@ -4,6 +4,7 @@ import FormField from '@/components/custom/FormField';
 import SettingsBox from '@/components/custom/settings/base/SettingsBox';
 import { getRGBColor } from '@/components/ui/gluestack-ui-provider/colors';
 import { icons } from '@/constants';
+import { useConnectChildToParent } from '@/hooks/models/useChildren';
 import { useAuth } from '@/hooks/useAuth';
 import { UserRoles } from '@/types/enums/roles';
 import { ChildConnectData } from '@/types/settings';
@@ -12,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useColorScheme } from 'nativewind';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 
 const ChildConnectionSettings = () => {
   const { user } = useAuth();
@@ -23,13 +24,21 @@ const ChildConnectionSettings = () => {
   });
 
   const [modalVisible, setModalVisible] = useState(false);
+  const { connectChildToParent } = useConnectChildToParent(user?.id!)
 
   if (!user) {
     return null;  // should not happen, but just in case
   }
 
-  const onChildAdd = (data: ChildConnectData) => {
-    reset();
+  const onChildConnect = async (data: ChildConnectData) => {
+    try {
+      console.log("Connecting child with access code:", data.accessCode);
+      await connectChildToParent(data.accessCode.toUpperCase());
+      Alert.alert("Hotovo!", "Dieťa bolo úspešne nalinkované.");
+      reset();
+    } catch (error: any) {
+      Alert.alert("Chyba!", error.message);
+    }
   };
 
   return (
@@ -61,7 +70,7 @@ const ChildConnectionSettings = () => {
         type='confirmation'
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        handleConfirm={handleSubmit(onChildAdd)}
+        handleConfirm={handleSubmit(onChildConnect)}
         containerStyles='w-3/4'
       />
     </SettingsBox>

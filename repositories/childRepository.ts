@@ -83,10 +83,59 @@ const deleteChild = async (id: string): Promise<void> => {
   }
 };
 
+const connectChildToParent = async (accessCode: string, parentId: string): Promise<void> => {
+  try {
+
+    const { data: childData, error: childError } = await supabase
+      .from('children')
+      .select('*')
+      .eq("access_code", accessCode)
+      .maybeSingle();
+
+    if (childError) throw childError;
+
+    const childId = childData?.id;
+
+    if (!childId) {
+      throw new Error("Dieťa s daným prístupovým kódom nebolo nájdené!");
+    }
+
+    const { data: existingLink, error: existingLinkError } = await supabase
+      .from('child_parent_link')
+      .select('*')
+      .eq("child_id", childId)
+      .eq("parent_id", parentId)
+      .maybeSingle();
+
+    if (existingLinkError) throw existingLinkError;
+
+    if (existingLink) {
+      throw new Error("Dieťa s daným prístupovým kódom už je nalinkované!");
+    }
+
+    const { error: insertLinkError } = await supabase
+      .from('child_parent_link')
+      .insert({ child_id: childId, parent_id: parentId })
+
+    if (insertLinkError) throw insertLinkError;
+
+    const { error: updateUserError } = await supabase
+      .from('users')
+      .update({ role: "PARENT" })
+      .eq("id", parentId);
+
+    if (updateUserError) throw updateUserError;
+
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
 export const childRepository = {
   readManyChildren,
   readChildById,
   createChild,
   updateChild,
-  deleteChild
+  deleteChild,
+  connectChildToParent,
 }
