@@ -12,13 +12,14 @@ const socialButtons = [
   { icon: icons.apple2, action: () => null },
 ];
 
+
 export default function Welcome() {
   const { colorScheme } = useColorScheme();
 
   return (
     <SafeAreaView className="h-full">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="w-full h-full justify-center items-center px-4">
+        <View className="w-full h-full justify-center items-center px-4 gap-10">
           <Image
             source={images.logo}
             className="w-full h-[300px]"
@@ -26,24 +27,6 @@ export default function Welcome() {
           />
           <Text className="text-typography-950 text-2xl font-pbold text-center">
             Ahoj! Vitaj v mobilnej aplikácii Mr. Oazas. pre vedúcich a rodičov.
-          </Text>
-          <Text className="text-typography-950 text-xl font-pregular mt-5 text-center">
-            Môžeš pokračovať cez tieto služby
-          </Text>
-          <View className="w-full flex-row justify-evenly items-center mt-5">
-            {socialButtons.map((btn, index) => (
-              <CustomButton
-                key={index}
-                icon={btn.icon}
-                action="background"
-                handlePress={btn.action}
-                iconStyles="w-11 h-11"
-                containerStyles="w-[4.5rem] h-[4.5rem] rounded-full bg-background-500"
-              />
-            ))}
-          </View>
-          <Text className="text-typography-950 text-xl font-pregular mt-5 text-center">
-            alebo
           </Text>
           <CustomButton
             title="Pokračuj cez Email"

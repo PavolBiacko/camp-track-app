@@ -32,6 +32,6 @@ Server aj aplikáciu v mobile je potrebné otvoriť v približne v rovnakom čas
 
 ===================================================================================================================
 
-Pomocou aplikácie Expo Go to už momentálne nejde, pretože sa upgradovalo Expo SDK a najnovšia verzia aplikácie nie je kompatibilná s mojou aplikáciou.
+Pomocou aplikácie Expo Go to už momentálne nejde, pretože sa povýšili Expo SDK na novšiu verziu a verzia aplikácie Expo GO teraz nie je kompatibilná s mojou aplikáciou.
 
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo

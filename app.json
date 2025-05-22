@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/setup-icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.pavolbiacko2002.camptrackapp"
+      "package": "com.pavolbiacko2002.camptrackapp",
+      "googleServicesFile": "./credentials.json"
     },
     "web": {
       "bundler": "metro",
