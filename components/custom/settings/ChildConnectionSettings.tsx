@@ -32,7 +32,6 @@ const ChildConnectionSettings = () => {
 
   const onChildConnect = async (data: ChildConnectData) => {
     try {
-      console.log("Connecting child with access code:", data.accessCode);
       await connectChildToParent(data.accessCode.toUpperCase());
       Alert.alert("Hotovo!", "Dieťa bolo úspešne nalinkované.");
       reset();
