@@ -16,21 +16,6 @@ const AccountSettings = () => {
   const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
   const [modalAccountDeleteVisible, setModalAccountDeleteVisible] = useState(false);
 
-  const accountSettingsButtons: CustomButtonProps[] = [
-    {
-      title: 'Zmena emailu',
-      action: 'secondary',
-      handlePress: () => { },
-      containerStyles: 'h-16 rounded-3xl',
-    },
-    {
-      title: 'Zmena hesla',
-      action: 'tertiary',
-      handlePress: () => { },
-      containerStyles: 'h-16 rounded-3xl',
-    },
-  ];
-
   const accountActionButtonsWithModals: { button: CustomButtonProps, modal: Omit<CustomModalProps, "type"> }[] = [
     {
       button: {
@@ -69,42 +54,27 @@ const AccountSettings = () => {
       {!user || isLoading || isError ? (
         <Loading showText={false} containerStyles='p-5' />
       ) : (
-        <View>
-          <View className="border-b border-outline-500 p-5 gap-5">
-            {accountSettingsButtons.map((button, index) => (
+        <View className="p-5 gap-5">
+          {accountActionButtonsWithModals.map((actionObject, index) => (
+            <View key={index}>
               <CustomButton
-                key={index}
-                title={button.title}
-                action={button.action}
-                handlePress={button.handlePress}
-                containerStyles={button.containerStyles}
-                textStyles={button.textStyles}
-                isLoading={button.isLoading}
+                title={actionObject.button.title}
+                action={actionObject.button.action}
+                handlePress={actionObject.button.handlePress}
+                containerStyles={actionObject.button.containerStyles}
+                textStyles={actionObject.button.textStyles}
               />
-            ))}
-          </View>
-          <View className="p-5 gap-5">
-            {accountActionButtonsWithModals.map((actionObject, index) => (
-              <View key={index}>
-                <CustomButton
-                  title={actionObject.button.title}
-                  action={actionObject.button.action}
-                  handlePress={actionObject.button.handlePress}
-                  containerStyles={actionObject.button.containerStyles}
-                  textStyles={actionObject.button.textStyles}
-                />
-                <CustomModal
-                  title={actionObject.modal.title}
-                  subTitle={actionObject.modal.subTitle}
-                  type="confirmation"
-                  modalVisible={actionObject.modal.modalVisible}
-                  setModalVisible={actionObject.modal.setModalVisible}
-                  handleConfirm={actionObject.modal.handleConfirm}
-                  containerStyles='w-11/12'
-                />
-              </View>
-            ))}
-          </View>
+              <CustomModal
+                title={actionObject.modal.title}
+                subTitle={actionObject.modal.subTitle}
+                type="confirmation"
+                modalVisible={actionObject.modal.modalVisible}
+                setModalVisible={actionObject.modal.setModalVisible}
+                handleConfirm={actionObject.modal.handleConfirm}
+                containerStyles='w-11/12'
+              />
+            </View>
+          ))}
         </View>
       )}
     </SettingsBox>

@@ -26,8 +26,12 @@ export const useCreateActivity = () => {
       return await activityRepository.createActivity(data);
     },
     onSuccess: (activity: Activity) => {
-      queryClient.invalidateQueries({ queryKey: ['activities', activity.date] });
-      queryClient.invalidateQueries({ queryKey: ['activities'] });
+      queryClient.invalidateQueries({
+        queryKey: ['activities', activity.date]
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['activities']
+      });
     }
   });
   return { createActivity: mutateAsync, isError };
