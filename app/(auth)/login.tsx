@@ -3,6 +3,7 @@ import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
 import { LoginFormData } from '@/types/auth';
 import { loginSchema } from '@/validation/auth';
+import { AuthError } from '@supabase/supabase-js';
 import { router } from 'expo-router';
 import { FC } from 'react';
 import { Alert } from 'react-native';
@@ -16,8 +17,11 @@ const Login: FC = () => {
       await authRepository.login({ email: data.email, password: data.password });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {
-      Alert.alert("Pozor!", error.message);
-      return;
+      if (error instanceof AuthError && error.code === "invalid_credentials") {
+        Alert.alert("Pozor!", "Zadané údaje sú nesprávne");
+        return;
+      }
+      Alert.alert("Pozor!", "Neznáma chyba pri prihlásení.");
     }
   };
 

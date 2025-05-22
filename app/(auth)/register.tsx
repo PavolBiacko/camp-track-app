@@ -3,6 +3,7 @@ import { images } from '@/constants';
 import { authRepository } from '@/repositories/authRepository';
 import { RegisterFormData } from '@/types/auth';
 import { registerSchema } from '@/validation/auth';
+import { AuthError } from '@supabase/supabase-js';
 import { router } from 'expo-router';
 import { FC } from 'react';
 import { Alert } from 'react-native';
@@ -21,8 +22,11 @@ const Register: FC = () => {
       });
       router.replace("/(main)/(tabs)");
     } catch (error: any) {
-      Alert.alert("Pozor!", error.message);
-      return;
+      if (error instanceof AuthError && error.code === "user_already_exists") {
+        Alert.alert("Pozor!", "Účet s týmto emailom už existuje.");
+        return;
+      }
+      Alert.alert("Pozor!", "Neznáma chyba pri registrácii.");
     }
   };
 
