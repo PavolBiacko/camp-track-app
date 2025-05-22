@@ -101,6 +101,42 @@ export type Database = {
           },
         ]
       }
+      child_parent_link: {
+        Row: {
+          child_id: string
+          created_at: string
+          id: number
+          parent_id: string
+        }
+        Insert: {
+          child_id: string
+          created_at?: string
+          id?: number
+          parent_id: string
+        }
+        Update: {
+          child_id?: string
+          created_at?: string
+          id?: number
+          parent_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "child_parent_link_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "children"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "child_parent_link_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       children: {
         Row: {
           access_code: string

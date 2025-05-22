@@ -1,5 +1,6 @@
 // basics
 import accounts from "@/assets/icons/accounts.png";
+import addChild from "@/assets/icons/add-child.png";
 import calendar from "@/assets/icons/calendar.png";
 import children from "@/assets/icons/children.png";
 import connections from "@/assets/icons/connections.png";
@@ -47,4 +48,5 @@ export default {
   connections,
   session,
   sendMessage,
+  addChild
 };

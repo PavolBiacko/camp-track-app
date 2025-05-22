@@ -23,3 +23,7 @@ export type SettingsSwitchLineProps = {
 export type ProfileBadgeProps = {
   user: User;
 };
+
+export type ChildConnectData = {
+  accessCode: string;
+}

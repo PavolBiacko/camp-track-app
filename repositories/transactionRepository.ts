@@ -73,8 +73,38 @@ const readTransactionsInDateRange = async (dateFrom: Date, dateTo: Date, leaderI
   }
 };
 
+const readTransactionsByAccount = async (groupId: number, childId: string): Promise<TransactionComplex[]> => {
+  try {
+    const { data: transactionData, error: transactionError } = await supabase
+      .from('transactions')
+      .select(`
+        id,
+        group_id,
+        amount,
+        type,
+        created_at,
+        child_id,
+        children (
+          first_name,
+          last_name
+        )
+      `)
+      .eq('group_id', groupId)
+      .eq('child_id', childId)
+      .order('created_at')
+
+    if (transactionError) throw transactionError;
+
+    return transactionData.map((dbTransaction) => mapDbTransactionToTransactionComplex(dbTransaction));
+
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
 export const transactionRepository = {
   createTransaction,
   createManyTransactions,
-  readTransactionsInDateRange
+  readTransactionsInDateRange,
+  readTransactionsByAccount,
 }

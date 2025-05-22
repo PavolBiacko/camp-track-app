@@ -15,7 +15,7 @@ const CustomForm = <T extends FieldValues>(props: FormProps<T>) => {
   })
 
   return (
-    <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}>
       <View className="w-full justify-center px-4 my-6">
         {props.image && <Image source={props.image} resizeMode="contain" className="self-center w-[300px] h-[100px]" />}
         <Text className="text-typography-950 text-2xl mt-5 font-pbold">{props.title}</Text>

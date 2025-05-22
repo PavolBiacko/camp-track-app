@@ -10,6 +10,14 @@ export const useTransactionsInDateRange = (dateFrom: Date, dateTo: Date, leaderI
   return { transactions: query.data, ...query };
 }
 
+export const useTransactionsByAccount = (groupId: number, childId: string) => {
+  const query = useQuery({
+    queryKey: ['transactions', groupId, childId],
+    queryFn: async () => await transactionRepository.readTransactionsByAccount(groupId, childId),
+  });
+  return { transactions: query.data, ...query };
+}
+
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
 

@@ -59,6 +59,51 @@ const readManyAccountsByLeader = async (leaderId: string): Promise<ChildWithBala
   }
 };
 
+const readManyAccountsByParent = async (parentId: string): Promise<ChildWithBalance[] | null> => {
+  try {
+    // Step 1: Find children connected to the parent
+    const { data: linkData, error: linkError } = await supabase
+      .from("child_parent_link")
+      .select("child_id")
+      .eq("parent_id", parentId);
+
+    if (linkError) throw linkError;
+
+    // Extract child IDs
+    const childIds = linkData.map((link) => link.child_id);
+
+    // Step 2: Fetch all children by with that parent
+    const { data: childrenData, error: childrenError } = await supabase
+      .from('group_accounts')
+      .select(`
+        id,
+        group_id,
+        child_id,
+        children (
+          id,
+          first_name,
+          last_name,
+          birth_date,
+          gender
+        ),
+        account_balance,
+        created_at
+      `)
+      .in('child_id', childIds);
+
+    if (childrenError) throw childrenError;
+
+    // Sort by last_name in memory
+    const sortedChildrenData = childrenData.sort((a, b) =>
+      a.children.last_name.localeCompare(b.children.last_name)
+    );
+
+    return sortedChildrenData.map((child) => mapDbChildGroupLinkWithChildToChild(child));
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
 const readAccountByChildIdWithLeader = async (childId: string | null, leaderId: string): Promise<ChildWithBalance | null> => {
   try {
     // Step 0: If childId is null, then it is buffet payment, no child balance to update.
@@ -209,15 +254,18 @@ const createManyAccounts = async (groupAccounts: GroupAccountCreate[]): Promise<
   }
 }
 
-const deleteManyAccounts = async (groupId: number, childIds: string[]): Promise<void> => {
+const deleteManyAccounts = async (groupId: number, childIds: string[]): Promise<GroupAccount[]> => {
   try {
-    const { error: deleteError } = await supabase
+    const { data: groupAccountsData, error: groupAccountsError } = await supabase
       .from('group_accounts')
       .delete()
       .eq('group_id', groupId)
-      .in('child_id', childIds);
+      .in('child_id', childIds)
+      .select();
 
-    if (deleteError) throw deleteError;
+    if (groupAccountsError) throw groupAccountsError;
+
+    return groupAccountsData.map((groupAccount) => mapDbGroupAccountToGroupAccount(groupAccount));
   } catch (error: any) {
     throw error as AuthError;
   }
@@ -226,6 +274,7 @@ const deleteManyAccounts = async (groupId: number, childIds: string[]): Promise<
 export const groupAccountRepository = {
   readManyAccountsByGroup,
   readManyAccountsByLeader,
+  readManyAccountsByParent,
   readAccountByChildIdWithLeader,
   updateAccountBalanceByChildIdWithLeader,
   updateManyAccountBalancesWithLeader,

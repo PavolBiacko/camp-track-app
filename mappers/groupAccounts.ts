@@ -10,6 +10,7 @@ export const mapDbChildGroupLinkWithChildToChild = (dbChildGroup: DbChildGroupLi
     lastName: dbChildGroup.children.last_name,
     birthDate: dbChildGroup.children.birth_date ? new Date(dbChildGroup.children.birth_date) : null,
     gender: mapDbGenderToGender(dbChildGroup.children.gender), // Map to Gender enum (assumes DB values match enum)
+    groupId: dbChildGroup.group_id,
     accountBalance: dbChildGroup.account_balance,
     createdAt: new Date(dbChildGroup.created_at) // Assuming created_at is in the group_accounts table (not whole child creaeted_at)
   };

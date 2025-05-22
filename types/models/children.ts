@@ -30,6 +30,7 @@ export type ChildCreate = ChildFormCore;
 export type ChildUpdate = Partial<ChildFormCore>;
 
 export type ChildWithBalance = ChildInfo & {  // accessCode was added later
+  groupId: number;
   accountBalance: number;
 }
 

@@ -11,6 +11,14 @@ export const useManyAccountsWithGroup = (groupId: number) => {
   return { children: query.data, ...query };
 }
 
+export const useManyAccountsWithParent = (parentId: string) => {
+  const query = useQuery({
+    queryKey: ['groupAccounts', parentId],
+    queryFn: async () => await groupAccountRepository.readManyAccountsByParent(parentId),
+  });
+  return { children: query.data, ...query };
+}
+
 export const useManyAccountsWithLeader = (leaderId: string) => {
   const query = useQuery({
     queryKey: ['groupAccounts', leaderId],
@@ -39,6 +47,9 @@ export const useUpdateAccountBalanceWithLeader = (childId: string | null, leader
         queryKey: ['groupAccounts', leaderId]
       });
       queryClient.invalidateQueries({
+        queryKey: ['groupAccounts', childId]
+      });
+      queryClient.invalidateQueries({
         queryKey: ['groupAccounts', leaderId, childId]
       });
     }
@@ -59,6 +70,9 @@ export const useUpdateManyAccountBalancesWithLeader = (leaderId: string) => {
       });
       accountUpdates.forEach((accountUpdate) => {
         queryClient.invalidateQueries({
+          queryKey: ['groupAccounts', accountUpdate.childId],
+        });
+        queryClient.invalidateQueries({
           queryKey: ['groupAccounts', leaderId, accountUpdate.childId],
         });
       });
@@ -74,9 +88,14 @@ export const useCreateManyGroupAccounts = () => {
     mutationFn: async (groupAccounts: GroupAccountCreate[]) => {
       return await groupAccountRepository.createManyAccounts(groupAccounts);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['groupAccounts']
+    onSuccess: (_data, groupAccounts) => {
+      groupAccounts.forEach((groupAccount) => {
+        queryClient.invalidateQueries({
+          queryKey: ['groupAccounts', groupAccount.groupId],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['groupAccounts', groupAccount.childId],
+        });
       });
     }
   });
@@ -90,9 +109,14 @@ export const useDeleteManyGroupAccounts = (groupId: number) => {
     mutationFn: async (ids: string[]) => {
       return await groupAccountRepository.deleteManyAccounts(groupId, ids);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['groupAccounts']
+    onSuccess: (data) => {
+      data.forEach((groupAccount) => {
+        queryClient.invalidateQueries({
+          queryKey: ['groupAccounts', groupAccount.groupId],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ['groupAccounts', groupAccount.childId],
+        });
       });
     }
   });
