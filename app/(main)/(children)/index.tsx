@@ -5,7 +5,6 @@ import { useTransactionsByAccount } from '@/hooks/models/useTransactions';
 import { ChildAccountTransactionParams } from '@/types/children';
 import { useLocalSearchParams } from 'expo-router';
 import { ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ChildAccountTransactionContent = () => {
   const { groupId, childId } = useLocalSearchParams<ChildAccountTransactionParams>();
@@ -21,16 +20,14 @@ const ChildAccountTransactionContent = () => {
   }
 
   return (
-    <SafeAreaView className='justify-center h-full'>
-      <ScrollView contentContainerClassName="items-center gap-5 py-5">
-        {transactions.map((transaction, index) => (
-          <FinanceTransactionLine
-            key={index}
-            transaction={transaction}
-          />
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView contentContainerClassName="items-center gap-5 py-5">
+      {transactions.map((transaction, index) => (
+        <FinanceTransactionLine
+          key={index}
+          transaction={transaction}
+        />
+      ))}
+    </ScrollView>
   )
 }
 

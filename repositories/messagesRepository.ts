@@ -80,7 +80,7 @@ const createSubscribtion = (queryClient: any, chatId: number) => {
         // Fetch the sender's details separately
         const { data: senderData, error: senderError } = await supabase
           .from('users')
-          .select('id, email, first_name, last_name, birth_date, role, created_at')
+          .select('*')
           .eq('id', newMessage.sender_id!)
           .single();
 
