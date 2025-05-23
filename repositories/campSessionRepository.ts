@@ -5,7 +5,7 @@ import { groupCampSessionsByYear } from "@/utils/camp";
 import { formatDateToISOLocal } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
-const readCurrentCampSession = async (): Promise<CampSession> => {
+const readCurrentCampSession = async (): Promise<CampSession | null> => {
   try {
     // Find current camp session by date
     const { data: currentSession, error: currentSessionError } = await supabase
@@ -13,9 +13,10 @@ const readCurrentCampSession = async (): Promise<CampSession> => {
       .select('*')
       .lte('begin_date', formatDateToISOLocal(new Date()))
       .gte('end_date', formatDateToISOLocal(new Date()))
-      .single();
+      .maybeSingle();
 
     if (currentSessionError) throw currentSessionError;
+    if (!currentSession) return null;
 
     return mapDbCampSessionToCampSession(currentSession);
   } catch (error: any) {

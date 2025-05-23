@@ -18,14 +18,19 @@ const Home = () => {
 
   if (
     !activities || isLoadingActivities || isErrorActivities ||
-    !currentCampSession || isLoadingSession || isErrorSession
+    currentCampSession === undefined || isLoadingSession || isErrorSession
   ) {
     return <Loading showText={false} />;
   }
 
   const activeIndex = getActiveActivityIndex(activities, currentTime);
-  const beginDate = formatISOLocalToHumanReadable(currentCampSession.beginDate);
-  const endDate = formatISOLocalToHumanReadable(currentCampSession.endDate);
+
+  let currentCampSessionDateRange = "Neprebieha žiadny turnus";
+  if (currentCampSession) {
+    const beginDate = formatISOLocalToHumanReadable(currentCampSession.beginDate);
+    const endDate = formatISOLocalToHumanReadable(currentCampSession.endDate);
+    currentCampSessionDateRange = `${beginDate} - ${endDate}`;
+  }
 
   return (
     <BaseLayout>
@@ -52,7 +57,7 @@ const Home = () => {
               className="rounded-3xl justify-center items-center bg-tertiary-300 h-[80%] border-2 border-tertiary-700 mt-2"
             >
               <Text className="text-typography-950 text-2xl text-center font-pbold pt-1">
-                {beginDate} - {endDate}
+                {currentCampSessionDateRange}
               </Text>
             </TouchableOpacity>
           </View>

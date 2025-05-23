@@ -20,8 +20,7 @@
         "foregroundImage": "./assets/setup-icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.pavolbiacko2002.camptrackapp",
-      "googleServicesFile": "./credentials.json"
+      "package": "com.pavolbiacko2002.camptrackapp"
     },
     "web": {
       "bundler": "metro",
@@ -44,8 +43,7 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ],
-      "expo-notifications"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
