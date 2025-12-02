@@ -3,4 +3,8 @@ export type GroupChat = {
   name: string | null;
   sessionRange: string;
   createdAt: Date;
-}
+};
+
+export type GroupChatUpdate = {
+  name?: string | null;
+};

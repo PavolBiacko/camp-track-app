@@ -1,35 +1,37 @@
 import { mapDbGroupChatToGroupChat } from "@/mappers/groupChats";
 import supabase from "@/supabase/client";
-import { GroupChat } from "@/types/models/groupChats";
+import { GroupChat, GroupChatUpdate } from "@/types/models/groupChats";
 import { parseHumdanReadableDateRange } from "@/utils/dates";
 import { AuthError } from "@supabase/supabase-js";
 
 const readManyGroupChats = async (): Promise<GroupChat[]> => {
   try {
     const { data: groupChatsData, error: groupChatsError } = await supabase
-      .from('group_chats')
-      .select('*');
+      .from("group_chats")
+      .select("*");
 
     if (groupChatsError) throw groupChatsError;
 
     const sortedChatData = groupChatsData.sort((a, b) => {
-      const [startA, _endA] = parseHumdanReadableDateRange(a.session_range)
-      const [startB, _endB] = parseHumdanReadableDateRange(b.session_range)
+      const [startA, _endA] = parseHumdanReadableDateRange(a.session_range);
+      const [startB, _endB] = parseHumdanReadableDateRange(b.session_range);
       return startA.getTime() - startB.getTime();
     });
 
-    return sortedChatData.map((groupChat) => mapDbGroupChatToGroupChat(groupChat));
+    return sortedChatData.map((groupChat) =>
+      mapDbGroupChatToGroupChat(groupChat)
+    );
   } catch (error: any) {
     throw error as AuthError;
   }
-}
+};
 
 const readGroupChatById = async (id: number): Promise<GroupChat> => {
   try {
     const { data: groupChatData, error: groupChatError } = await supabase
-      .from('group_chats')
-      .select('*')
-      .eq('id', id)
+      .from("group_chats")
+      .select("*")
+      .eq("id", id)
       .single();
 
     if (groupChatError) throw groupChatError;
@@ -38,9 +40,32 @@ const readGroupChatById = async (id: number): Promise<GroupChat> => {
   } catch (error: any) {
     throw error as AuthError;
   }
-}
+};
+
+const updateGroupChat = async (
+  id: number,
+  data: GroupChatUpdate
+): Promise<GroupChat> => {
+  try {
+    const { data: groupChatData, error: updateError } = await supabase
+      .from("group_chats")
+      .update({
+        name: data.name,
+      })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (updateError) throw updateError;
+
+    return mapDbGroupChatToGroupChat(groupChatData);
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
 
 export const groupChatRepository = {
   readManyGroupChats,
-  readGroupChatById
-}
+  readGroupChatById,
+  updateGroupChat,
+};

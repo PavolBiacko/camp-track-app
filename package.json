@@ -13,7 +13,10 @@
     "lint": "expo lint",
     "check": "npx expo-doctor --verbose",
     "fix": "npx expo install --check",
-    "types:gen": "./scripts/generate-supabase-types.sh"
+    "types:gen": "./scripts/generate-supabase-types.sh",
+    "docker:build": "docker build -t camp-track-app .",
+    "docker:run": "npm run docker:rm && docker run -it -p 8081:8081 -p 19000:19000 -p 19001:19001 -p 19002:19002 -v /dev/urandom:/dev/random --name camp-track-app camp-track-app",
+    "docker:rm": "docker rm -f camp-track-app"
   },
   "jest": {
     "preset": "jest-expo"
