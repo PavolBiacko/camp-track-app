@@ -48,15 +48,14 @@ const UpdateGroup = () => {
       // Check if the number of children is the same
       // - If the number of children is the same, we can just update the group accounts (do nothing else)
       // - If the number of children is different, we need to create or delete group accounts
-      if (data.childrenIds.length > children.length) {
-        const groupAccounts = getGroupAccountObjects(groupId, data.childrenIds);
-        await createGroupAccounts(groupAccounts);
-      } else if (data.childrenIds.length < children.length) {
+      if (data.childrenIds.length != children.length) {
+        const childrenIdsToAdd = data.childrenIds.filter((childId) => !children.some((account) => account.childId === childId));
         const accountsToDelete = children.filter((account) => !data.childrenIds.includes(account.childId));
+        const groupAccounts = getGroupAccountObjects(groupId, childrenIdsToAdd);
+
+        await createGroupAccounts(groupAccounts);
         await deleteGroupAccounts(accountsToDelete.map((account) => account.childId));
       }
-
-
 
       if (data.leaderId !== group.leaderId) {
         // Degradácia starého lídra, ak je to potrebné
@@ -66,8 +65,8 @@ const UpdateGroup = () => {
         if (group.leaderId !== null && groupLeadersPrevious.length === 1) {
           await changeUserRole({ id: group.leaderId, role: UserRoles.USER });
         }
-        // Povýšenie nového lídra, ak je to potrebné
 
+        // Povýšenie nového lídra, ak je to potrebné
         if (data.leaderId !== null && groupLeadersNext.length === 0) {
           await changeUserRole({ id: data.leaderId!, role: UserRoles.GROUP_LEADER });
         }
@@ -115,7 +114,7 @@ const UpdateGroup = () => {
         onSubmit={handleUpdateGroup}
         buttonText="Uprav oddiel"
       />
-      {/* delete the child */}
+      {/* delete the group */}
       <CustomButton
         title="Vymaž oddiel"
         action="error"
