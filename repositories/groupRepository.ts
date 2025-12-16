@@ -9,6 +9,10 @@ const readGroupBasicByLeaderForCurrentCampSession = async (leaderId: string): Pr
   try {
     const currentSession = await campSessionRepository.readCurrentCampSession();
 
+    if(!currentSession) {
+      return null; // No current camp session
+    }
+
     // Find the group with leader_id for current camp session
     const { data: groupData, error: groupError } = await supabase
       .from('groups')

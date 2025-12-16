@@ -26,7 +26,6 @@ const CreateGroup = () => {
 
       const groupAccounts = getGroupAccountObjects(id, data.childrenIds);
 
-      // Should be as atomic transaction in database
       await createGroupAccounts(groupAccounts);
       await createEmptyCashRegisterByGroup(id);
       await changeUserRole({ id: leaderId, role: UserRoles.GROUP_LEADER });

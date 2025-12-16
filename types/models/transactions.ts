@@ -26,7 +26,6 @@ export type TransactionCreate = {
   childId: string | null
   amount: number
   type: TransactionType
-
 }
 
 // DB complex type

@@ -45,17 +45,12 @@ const UpdateGroup = () => {
       const groupData = mapGroupUpdateFormInputsToGroupUpdate(data);
       await updateGroup(groupData);
 
-      // Check if the number of children is the same
-      // - If the number of children is the same, we can just update the group accounts (do nothing else)
-      // - If the number of children is different, we need to create or delete group accounts
-      if (data.childrenIds.length != children.length) {
-        const childrenIdsToAdd = data.childrenIds.filter((childId) => !children.some((account) => account.childId === childId));
-        const accountsToDelete = children.filter((account) => !data.childrenIds.includes(account.childId));
-        const groupAccounts = getGroupAccountObjects(groupId, childrenIdsToAdd);
+      const childrenIdsToAdd = data.childrenIds.filter((childId) => !children.some((account) => account.childId === childId));
+      const accountsToDelete = children.filter((account) => !data.childrenIds.includes(account.childId));
+      const groupAccounts = getGroupAccountObjects(groupId, childrenIdsToAdd);
 
-        await createGroupAccounts(groupAccounts);
-        await deleteGroupAccounts(accountsToDelete.map((account) => account.childId));
-      }
+      await createGroupAccounts(groupAccounts);
+      await deleteGroupAccounts(accountsToDelete.map((account) => account.childId));
 
       if (data.leaderId !== group.leaderId) {
         // Degradácia starého lídra, ak je to potrebné
