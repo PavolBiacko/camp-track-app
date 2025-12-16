@@ -49,9 +49,13 @@ const readManyAccountsByLeader = async (leaderId: string): Promise<ChildWithBala
     if (childrenError) throw childrenError;
 
     // Sort by last_name in memory
-    const sortedChildrenData = childrenData.sort((a, b) =>
-      a.children.last_name.localeCompare(b.children.last_name)
-    );
+    const sortedChildrenData = childrenData.sort((a, b) => {
+      const lastNameComparison = a.children.last_name.localeCompare(b.children.last_name);
+      if (lastNameComparison !== 0) {
+        return lastNameComparison;
+      }
+      return a.children.first_name.localeCompare(b.children.first_name);
+});
 
     return sortedChildrenData.map((child) => mapDbChildGroupLinkWithChildToChild(child));
   } catch (error: any) {
