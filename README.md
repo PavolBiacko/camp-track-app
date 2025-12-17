@@ -1,4 +1,4 @@
-**⚠️ Upozornenie:** Tento súbor `README.md` bol automaticky vygenerovaný umelou inteligenciou na základe postupu z bakalárskej práce.
+**⚠️ Upozornenie:** Tento súbor `README.md` bol automaticky vygenerovaný umelou inteligenciou na základe postupu priloženej bakalárskej práce.
 
 ---
 
