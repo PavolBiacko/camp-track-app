@@ -13,12 +13,6 @@ import { Alert } from 'react-native';
 const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalVisible }: FinanceAccountSummaryModalProps) => {
   const { quantities } = useFinanceOverviewContext();
   const { childAccountBalance, actionAmount, counts, resetDenominations, transactionType } = useFinanceAccountContext();
-
-  // const { groupBasic } = useGroupBasicByLeader(leaderId);
-  // const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
-  // const { createTransaction } = useCreateTransaction();
-  // const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
-
   const { singleCashAction } = useSingleCashAction();
 
   const handleConfirmPaybackAlert = () => {
@@ -40,9 +34,6 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
         transactionType,
         denominationsUpdates: updatedCounts,
       });
-      // await createTransaction(transactionData);
-      // await updateCashRegister(updatedCounts);
-      // await updateAccountBalance(newBalance);
 
       Alert.alert(
         "Hotovo!",
