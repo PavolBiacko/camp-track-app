@@ -1,5 +1,5 @@
 import { financeRepository } from "@/repositories/financeRepository";
-import { BuffetPurchaseInput, SingleCashActionInput } from "@/types/finance";
+import { BuffetPurchaseInput, SingleCashActionInput, WithdrawalActionInput } from "@/types/finance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useSingleCashAction = () => {
@@ -32,3 +32,19 @@ export const useBuffetPurchase = () => {
   });
   return { buffetPurchase: mutateAsync, isError };
 };
+
+export const useWithdrawalAction = () => {
+  const queryClient = useQueryClient();
+  
+  const { mutateAsync, isError } = useMutation({
+    mutationFn: async (data: WithdrawalActionInput) => {
+      return await financeRepository.processWithdrawalAction(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["cashRegister"] });
+      queryClient.invalidateQueries({ queryKey: ["groupAccounts"] });
+    },
+  });
+  return { withdrawalAction: mutateAsync, isError };
+}

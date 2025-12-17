@@ -415,6 +415,12 @@ export type Database = {
         }
         Returns: Json
       }
+      process_withdrawal_action: {
+        Args: {
+          input: Database["public"]["CompositeTypes"]["final_payout_input"]
+        }
+        Returns: Json
+      }
     }
     Enums: {
       camp_roles: "CAMP_LEADER" | "GROUP_LEADER" | "PARENT" | "USER"
@@ -456,6 +462,10 @@ export type Database = {
       cash_register_record: {
         denomination: Database["public"]["Enums"]["euro_denominations"] | null
         quantity: number | null
+      }
+      final_payout_input: {
+        leader_id: string | null
+        total_amount: number | null
       }
       single_cash_action_input: {
         leader_id: string | null

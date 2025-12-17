@@ -196,3 +196,8 @@ export type BuffetPurchaseInput = {
   leaderId: string;
   buffetAccounts: BuffetAccountDetails[];
 }
+
+export type WithdrawalActionInput = {
+  leaderId: string;
+  totalAmount: number;
+}
