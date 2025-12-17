@@ -2,13 +2,10 @@ import { useFinanceAccountContext } from '@/components/custom/context/FinanceAcc
 import { useFinanceOverviewContext } from '@/components/custom/context/FinanceOverviewContext';
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceAccountActionSummary from '@/components/custom/finance/accounts/base/FinanceAccountActionSummary';
-import { useUpdateCashRegisterByLeader } from '@/hooks/models/useCashRegister';
-import { useUpdateAccountBalanceWithLeader } from '@/hooks/models/useGroupAccounts';
-import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
-import { useCreateTransaction } from '@/hooks/models/useTransactions';
+import { useSingleCashAction } from '@/hooks/models/useFinance';
 import { FinanceAccountSummaryModalProps } from '@/types/finance';
 import { addDecimals, multiplyDecimals } from '@/utils/decimal';
-import { getTransactionDirection, getTransactionObject, getTransactionSuccessMessage, processCountsWithQuantities } from '@/utils/finance';
+import { getTransactionDirection, getTransactionSuccessMessage, processCountsWithQuantities } from '@/utils/finance';
 import { getTrasactionAlertButtons } from '@/utils/ui';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
@@ -17,10 +14,12 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
   const { quantities } = useFinanceOverviewContext();
   const { childAccountBalance, actionAmount, counts, resetDenominations, transactionType } = useFinanceAccountContext();
 
-  const { groupBasic } = useGroupBasicByLeader(leaderId);
-  const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
-  const { createTransaction } = useCreateTransaction();
-  const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
+  // const { groupBasic } = useGroupBasicByLeader(leaderId);
+  // const { updateCashRegister } = useUpdateCashRegisterByLeader(leaderId);
+  // const { createTransaction } = useCreateTransaction();
+  // const { updateAccountBalance } = useUpdateAccountBalanceWithLeader(childId, leaderId);
+
+  const { singleCashAction } = useSingleCashAction();
 
   const handleConfirmPaybackAlert = () => {
     // After buffet payout, there needs to be payback
@@ -29,14 +28,21 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
 
   const handleConfirm = async () => {
     try {
-      const newBalance = addDecimals(childAccountBalance, multiplyDecimals(actionAmount, getTransactionDirection(transactionType)))
+      const transactionAmount = multiplyDecimals(actionAmount, getTransactionDirection(transactionType))
+      const newBalance = addDecimals(childAccountBalance, transactionAmount)
       const updatedCounts = processCountsWithQuantities(quantities, counts, transactionType);
-      const transactionData = getTransactionObject(groupBasic?.id!, childId, actionAmount, transactionType);
 
       // Should be as atomic transaction in database
-      await createTransaction(transactionData);
-      await updateCashRegister(updatedCounts);
-      await updateAccountBalance(newBalance);
+      await singleCashAction({
+        leaderId,
+        childId,
+        transactionAmount,
+        transactionType,
+        denominationsUpdates: updatedCounts,
+      });
+      // await createTransaction(transactionData);
+      // await updateCashRegister(updatedCounts);
+      // await updateAccountBalance(newBalance);
 
       Alert.alert(
         "Hotovo!",

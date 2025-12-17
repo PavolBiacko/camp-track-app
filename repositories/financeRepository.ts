@@ -1,0 +1,40 @@
+import { mapDenominationsToDbDenominations } from "@/mappers/denominations";
+import supabase from "@/supabase/client";
+import { Json } from "@/supabase/types";
+import { Denominations } from "@/types/enums/finance";
+import { SingleCashActionInput } from "@/types/finance";
+import { AuthError } from "@supabase/supabase-js";
+
+const processSingleCashAction = async (
+  input: SingleCashActionInput
+): Promise<Json> => {
+  try {
+    const { data, error } = await supabase.rpc("process_single_cash_action", {
+      input: {
+        leader_id: input.leaderId,
+        child_id: input.childId,
+        transaction_amount: input.transactionAmount,
+        transaction_type: input.transactionType,
+        denominations_updates: Object.entries(input.denominationsUpdates).map(
+          ([denomination, quantity]) => ({
+            denomination: mapDenominationsToDbDenominations(
+              parseFloat(denomination) as unknown as Denominations
+            ),
+            quantity,
+          })
+        ),
+      },
+    });
+
+    if (error) {
+      throw new Error(error.message || "Finančná operácia zlyhala.");
+    }
+    return data;
+  } catch (error: any) {
+    throw error as AuthError;
+  }
+};
+
+export const financeRepository = {
+  processSingleCashAction,
+};
