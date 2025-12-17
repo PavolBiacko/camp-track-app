@@ -1,32 +1,26 @@
 import { useFinanceBuffetContext } from '@/components/custom/context/FinanceBuffetContext';
 import CustomModal from '@/components/custom/CustomModal';
 import FinanceBuffetSummary from '@/components/custom/finance/buffet/FinanceBuffetSummary';
-import { useUpdateManyAccountBalancesWithLeader } from '@/hooks/models/useGroupAccounts';
-import { useGroupBasicByLeader } from '@/hooks/models/useGroups';
-import { useCreateManyTransactions } from '@/hooks/models/useTransactions';
+import { useBuffetPurchase } from '@/hooks/models/useFinance';
 import { useAuth } from '@/hooks/useAuth';
 import { TransactionType } from '@/types/enums/finance';
 import { FinanceBuffetModalProps } from '@/types/finance';
 import { formatISOLocalToHumanReadable } from '@/utils/dates';
-import { getManyChildBalanceObjects, getManyTransactionObjectsOfType, getTotalAmount, getTransactionSuccessMessage } from '@/utils/finance';
+import { getBuffetPaymentDetails, getManyChildBalanceObjects, getManyTransactionObjectsOfType, getTotalAmount, getTransactionSuccessMessage } from '@/utils/finance';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
 
 const FinanceBuffetModal = ({ children, modalVisible, setModalVisible }: FinanceBuffetModalProps) => {
   const { user } = useAuth();
-  const { actionAmounts, resetsActionAmounts } = useFinanceBuffetContext()
-  const { createManyTransactions } = useCreateManyTransactions();
-  const { updateManyAccountBalances } = useUpdateManyAccountBalancesWithLeader(user?.id!)  // id loaded in tabs layout
-  const { groupBasic } = useGroupBasicByLeader(user?.id!)  // id loaded in tabs layout
+  const { actionAmounts, resetsActionAmounts } = useFinanceBuffetContext();
+  const { buffetPurchase } = useBuffetPurchase();
 
   const handleConfirm = async () => {
     try {
-      const buffetTransactions = getManyTransactionObjectsOfType(groupBasic?.id!, children, actionAmounts, TransactionType.PURCHASE);
-      const accountBalances = getManyChildBalanceObjects(children, actionAmounts);
-
-      // Should be as atomic transaction in database
-      await createManyTransactions(buffetTransactions);
-      await updateManyAccountBalances(accountBalances);
+      await buffetPurchase({
+        leaderId: user?.id!,
+        buffetAccounts: getBuffetPaymentDetails(children, actionAmounts),
+      });
 
       Alert.alert(
         "Návšteva bufetu úspešná!",

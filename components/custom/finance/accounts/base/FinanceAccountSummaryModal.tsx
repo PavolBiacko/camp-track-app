@@ -26,7 +26,6 @@ const FinanceAccountSummaryModal = ({ childId, leaderId, modalVisible, setModalV
       const newBalance = addDecimals(childAccountBalance, transactionAmount)
       const updatedCounts = processCountsWithQuantities(quantities, counts, transactionType);
 
-      // Should be as atomic transaction in database
       await singleCashAction({
         leaderId,
         childId,

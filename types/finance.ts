@@ -178,11 +178,21 @@ export type FinanceCalculationModalProps = ModalBasicProps & {
   children: ChildWithBalance[]
 }
 
-// Added type for atomic transaction
+// Added types for atomic transaction
 export type SingleCashActionInput = {
   leaderId: string;
   childId: string | null;
   transactionAmount: number; // Positive for "increment", negative for "decrement"
   transactionType: TransactionType;
   denominationsUpdates: CashRegisterRecord;
+}
+
+export type BuffetAccountDetails = {
+  childId: string | null;
+  amountToPay: number;
+}
+
+export type BuffetPurchaseInput = {
+  leaderId: string;
+  buffetAccounts: BuffetAccountDetails[];
 }

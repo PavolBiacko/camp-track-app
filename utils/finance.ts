@@ -1,6 +1,6 @@
 import { images } from "@/constants";
 import { Denominations, TransactionType } from "@/types/enums/finance";
-import { AccountActionType, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
+import { AccountActionType, BuffetAccountDetails, CashRegisterRecord, LocalBuffetActionAmounts, MoneyType } from "@/types/finance";
 import { ChildBalanceUpdate, ChildWithBalance } from "@/types/models/children";
 import { TransactionCreate } from "@/types/models/transactions";
 import { addDecimals, multiplyDecimals, subtractDecimals } from "@/utils/decimal";
@@ -203,6 +203,16 @@ export const getTransactionDirection = (transactionType: TransactionType): numbe
     default:
       throw new Error("Invalid transaction type");
   }
+}
+
+export const getBuffetPaymentDetails = (children: ChildWithBalance[], actionAmounts: LocalBuffetActionAmounts): BuffetAccountDetails[] => {
+  return children
+    .map(child => {
+      return {
+        childId: child.id,
+        amountToPay: actionAmounts[child.id] ?? 0,
+      };
+    });
 }
 
 export const getManyChildBalanceObjects = (children: ChildWithBalance[], actionAmounts: LocalBuffetActionAmounts): ChildBalanceUpdate[] => {

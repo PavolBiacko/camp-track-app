@@ -403,17 +403,15 @@ export type Database = {
         Args: { p_leader_id: string }
         Returns: number
       }
-      process_single_cash_action: {
+      process_buffet_purchase: {
         Args: {
-          input: Database["public"]["CompositeTypes"]["single_cash_action_input"]
+          input: Database["public"]["CompositeTypes"]["buffet_purchase_input"]
         }
         Returns: Json
       }
-      process_transaction: {
+      process_single_cash_action: {
         Args: {
-          cash_register_records: Database["public"]["CompositeTypes"]["cash_register_record"][]
-          child_id: string
-          new_balance: number
+          input: Database["public"]["CompositeTypes"]["single_cash_action_input"]
         }
         Returns: Json
       }
@@ -445,6 +443,16 @@ export type Database = {
         | "PAYBACK"
     }
     CompositeTypes: {
+      buffet_payment_detail: {
+        child_id: string | null
+        amount: number | null
+      }
+      buffet_purchase_input: {
+        leader_id: string | null
+        payments_list:
+          | Database["public"]["CompositeTypes"]["buffet_payment_detail"][]
+          | null
+      }
       cash_register_record: {
         denomination: Database["public"]["Enums"]["euro_denominations"] | null
         quantity: number | null
