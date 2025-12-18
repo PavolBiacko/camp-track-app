@@ -1,7 +1,7 @@
-import { Database } from '@/supabase/types'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { createClient } from '@supabase/supabase-js'
-import { AppState, Platform } from 'react-native'
+import { Database } from "@/supabase/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createClient } from "@supabase/supabase-js";
+import { AppState, Platform } from "react-native";
 
 const supabase = createClient<Database>(
   process.env.EXPO_PUBLIC_SUPABASE_URL || "",
@@ -10,18 +10,22 @@ const supabase = createClient<Database>(
     auth: {
       storage: AsyncStorage,
       autoRefreshToken: true,
-      persistSession: Platform.OS !== 'web',
+      persistSession: Platform.OS !== "web",
       detectSessionInUrl: false,
     },
+    realtime: {
+      // @ts-ignore: Supabase Realtime typing issue in React Native
+      websocket: WebSocket,
+    },
   }
-)
+);
 
-AppState.addEventListener('change', (state) => {
-  if (state === 'active') {
-    supabase.auth.startAutoRefresh()
+AppState.addEventListener("change", (state) => {
+  if (state === "active") {
+    supabase.auth.startAutoRefresh();
   } else {
-    supabase.auth.stopAutoRefresh()
+    supabase.auth.stopAutoRefresh();
   }
-})
+});
 
-export default supabase
+export default supabase;
